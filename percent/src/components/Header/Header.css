@@ -1,0 +1,57 @@
+.header {
+  background-color: var(--background-color);
+  padding: 0.5rem 1rem; /* Adjusted padding */
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 800;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  height: 60px; /* Control logo size */
+  margin-right: 0.5rem;
+}
+
+.header-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+/* Add a simple nav for potential future use */
+.header-nav a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  margin-left: 1.5rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.header-nav a:hover {
+  color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+  }
+
+  .header-brand {
+    margin-bottom: 1rem;
+  }
+
+  .header-nav a {
+    margin: 0 0.75rem;
+  }
+}
+
