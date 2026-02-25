@@ -9,6 +9,7 @@ A web-app aimed to make designing typefaces more approachable and streamlined wh
 - **Framework**: React
 - **Build Tool**: Vite
 - **Language**: JavaScript
+- **Font Parser**: Opentype.js
 - **Styling**: CSS / Tailwind
 - **Backend**: (To be finalized)
 - **Database**: (To be finalized)
