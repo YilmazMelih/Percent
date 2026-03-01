@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { TypeAnimation } from 'react-type-animation';
 import './Home.css';
-import Button from '../Button/Button';
-import adjustVideo from '../../assets/video/adjust/adjust.mp4';
-import contrastVideo from '../../assets/video/contrast/contrast.mp4';
+import Button from '../../Button/Button';
+import adjustVideo from '../../../assets/video/adjust/adjust.mp4';
+import contrastVideo from '../../../assets/video/contrast/contrast.mp4';
 
 const Home = () => {
   const [activeAnimation, setActiveAnimation] = useState(0);
