@@ -37,8 +37,9 @@ function SliderPanel({ values, setValues }) {
 
 export default function Testing() {
     const [myChar, setMyChar] = useState(null);
-    const [values, setValues] = useState([0.8, 0.8, 0.8, 0.8]);
+    const [values, setValues] = useState([0.75, 0.75, 0.4, 0.4]);
     const [charInput, setCharInput] = useState("a");
+    const [seeNodes, setSeeNodes] = useState(false);
 
     useEffect(() => {
         async function fetchGlyph() {
@@ -112,11 +113,24 @@ export default function Testing() {
                             className="fill-gray-200 stroke-black stroke-1"
                             d={parameterizedPrototype(values)}
                         ></path>
-                        <circle r={values[0] * 5.75} cx="-18.75" cy="0" fill="green" />
-                        <circle r={values[1] * 5.75} cx="18.75" cy="0" fill="green" />
-                        <circle r={values[2] * 5.75} cx="0" cy="-18.75" fill="green" />
-                        <circle r={values[3] * 5.75} cx="0" cy="18.75" fill="green" />
+                        {seeNodes && (
+                            <>
+                                <circle r={values[0] * 5.75} cx="-18.75" cy="0" fill="green" />
+                                <circle r={values[1] * 5.75} cx="18.75" cy="0" fill="green" />
+                                <circle r={values[2] * 5.75} cx="0" cy="-18.75" fill="green" />
+                                <circle r={values[3] * 5.75} cx="0" cy="18.75" fill="green" />
+                            </>
+                        )}
                     </svg>
+                    <label className="flex items-center gap-2 text-sm text-gray-600">
+                        <input
+                            type="checkbox"
+                            checked={seeNodes}
+                            onChange={(e) => setSeeNodes(e.target.checked)}
+                            className="rounded border-gray-300"
+                        />
+                        See Nodes
+                    </label>
                     <SliderPanel values={values} setValues={setValues} />
                 </div>
                 <div className="flex flex-col items-center justify-center gap-4 p-4 border border-gray-200 rounded-lg bg-white shadow-sm min-h-[250px] min-w-[250px]">
