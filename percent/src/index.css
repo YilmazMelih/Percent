@@ -52,14 +52,16 @@ body {
     min-height: 100vh;
 }
 
-a {
-    font-weight: 500;
-    color: var(--primary-color);
-    text-decoration: none;
-}
+@layer base {
+    a {
+        font-weight: 500;
+        color: var(--primary-color);
+        text-decoration: none;
+    }
 
-a:hover {
-    text-decoration: underline;
+    a:hover {
+        text-decoration: underline;
+    }
 }
 
 h1,
