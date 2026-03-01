@@ -1,71 +1,141 @@
 import opentype from "opentype.js";
-import { openFont, getCharToSVGPathEl } from "../../../engine/fonts/default/generateGlyphs";
+import {
+    openFont,
+    getCharBB,
+    getCharD,
+    getCharSVGPathEl,
+} from "../../../engine/fonts/default/generateGlyphs";
 import { useState, useEffect } from "react";
+
+function SliderPanel({ values, setValues }) {
+    const handleChange = (index, newValue) => {
+        const updated = [...values];
+        updated[index] = parseFloat(newValue);
+        setValues(updated);
+    };
+
+    return (
+        <div className="flex flex-col gap-4 p-4 bg-gray-100 rounded-lg w-64">
+            {values.map((val, i) => (
+                <div key={i} className="flex items-center gap-2">
+                    <span className="w-14">{["left", "right", "top", "bottom"][i]}</span>
+                    <input
+                        type="range"
+                        min={0}
+                        max={1}
+                        step={0.01}
+                        value={val}
+                        onChange={(e) => handleChange(i, e.target.value)}
+                        className="w-full"
+                    />
+                    <span className="w-10 text-right">{val.toFixed(2)}</span>
+                </div>
+            ))}
+        </div>
+    );
+}
 
 export default function Testing() {
     const [myChar, setMyChar] = useState(null);
+    const [values, setValues] = useState([0.8, 0.8, 0.8, 0.8]);
+    const [charInput, setCharInput] = useState("a");
 
     useEffect(() => {
         async function fetchGlyph() {
-            const charEl = await getCharToSVGPathEl("a");
+            const charEl = await getCharSVGPathEl("a");
             setMyChar(charEl);
         }
+
+        async function otherCalls() {
+            const bb = await getCharBB("x");
+            console.log(bb);
+        }
+        otherCalls();
         fetchGlyph();
     }, []);
 
-    return (
-        <>
-            <h1>Hello World</h1>
-            <svg
-                height="100"
-                width="100"
-                viewBox="-2.4799999999999995 -42.87200000000001 47.728 49.02400000000001"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    style={{ fill: "lightgray", stroke: "black", strokeWidth: "1" }}
-                    d={`
+    function parameterizedPrototype([l, r, t, b]) {
+        const [lox, rox, toy, boy] = [
+            -18.75 - 6.25 * l,
+            18.75 + 6.25 * r,
+            -18.75 - 6.25 * t,
+            18.75 + 6.25 * b,
+        ];
+        const [lix, rix, tiy, biy] = [
+            -18.75 + 6.25 * l,
+            18.75 - 6.25 * r,
+            -18.75 + 6.25 * t,
+            18.75 - 6.25 * b,
+        ];
+
+        return `
                     ${/*Outer Circle*/ ""}
-                    M 21.38 1.15
-                    L 21.38 1.15
-                    Q 15.84 1.15 11.59-1.44
-                    Q 7.34-4.03 4.93-8.46
-                    Q 2.52-12.89 2.52-18.36
-                    L 2.52-18.36
-                    Q 2.52-23.83 4.93-28.26
-                    Q 7.34-32.69 11.59-35.28
-                    Q 15.84-37.87 21.38-37.87
-                    L 21.38-37.87
-                    Q 26.93-37.87 31.18-35.24
-                    Q 35.42-32.62 37.84-28.19
-                    Q 40.25-23.76 40.25-18.36
-                    L 40.25-18.36
-                    Q 40.25-12.89 37.84-8.46
-                    Q 35.42-4.03 31.18-1.44
-                    Q 26.93 1.15 21.38 1.15
+                    M 0 ${toy}
+                    Q ${lox} ${toy} ${lox} 0
+                    Q ${lox} ${boy} 0 ${boy}
+                    Q ${rox} ${boy} ${rox} 0
+                    Q ${rox} ${toy} 0 ${toy}
                     Z 
                     ${/*Inner Circle*/ ""}
-                    M 21.38-4.39
-                    L 21.38-4.39
-                    Q 24.70-4.39 27.61-6.05
-                    Q 30.53-7.70 32.33-10.84
-                    Q 34.13-13.97 34.13-18.36
-                    L 34.13-18.36
-                    Q 34.13-22.75 32.33-25.88
-                    Q 30.53-29.02 27.61-30.67
-                    Q 24.70-32.33 21.38-32.33
-                    L 21.38-32.33
-                    Q 18.07-32.33 15.12-30.67
-                    Q 12.17-29.02 10.37-25.88
-                    Q 8.57-22.75 8.57-18.36
-                    L 8.57-18.36
-                    Q 8.57-13.97 10.37-10.84
-                    Q 12.17-7.70 15.12-6.05
-                    Q 18.07-4.39 21.38-4.39
-                    Z`}
-                ></path>
-            </svg>
-            {myChar || <p>Loading...</p>}
+                    M 0 ${tiy}
+                    Q ${rix} ${tiy} ${rix} 0
+                    Q ${rix} ${biy} 0 ${biy}
+                    Q ${lix} ${biy} ${lix} 0
+                    Q ${lix} ${tiy} 0 ${tiy}
+                    Z `;
+    }
+
+    function handleCharSubmit(e) {
+        e.preventDefault();
+        if (!charInput) return;
+
+        async function fetchGlyphForChar(ch) {
+            const charEl = await getCharSVGPathEl(ch);
+            setMyChar(charEl);
+        }
+
+        fetchGlyphForChar(charInput[0]);
+    }
+
+    return (
+        <>
+            <div className="flex gap-4 items-start justify-center">
+                <div className="flex flex-col items-center gap-4 p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
+                    <h2 className="text-sm text-gray-500 font-medium">Prototype "O" Glyph</h2>
+                    <svg
+                        height="250"
+                        width="250"
+                        viewBox="-30 -30 60 60"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            className="fill-gray-200 stroke-black stroke-1"
+                            d={parameterizedPrototype(values)}
+                        ></path>
+                        <circle r={values[0] * 5.75} cx="-18.75" cy="0" fill="green" />
+                        <circle r={values[1] * 5.75} cx="18.75" cy="0" fill="green" />
+                        <circle r={values[2] * 5.75} cx="0" cy="-18.75" fill="green" />
+                        <circle r={values[3] * 5.75} cx="0" cy="18.75" fill="green" />
+                    </svg>
+                    <SliderPanel values={values} setValues={setValues} />
+                </div>
+                <div className="flex flex-col items-center justify-center gap-4 p-4 border border-gray-200 rounded-lg bg-white shadow-sm min-h-[250px] min-w-[250px]">
+                    <h2 className="text-sm text-gray-500 font-medium">
+                        Google Sans Char to SVG Path Explorer
+                    </h2>
+                    {myChar || <p>Loading...</p>}
+                    <form onSubmit={handleCharSubmit} className="w-full flex justify-center">
+                        <input
+                            type="text"
+                            value={charInput}
+                            onChange={(e) => setCharInput(e.target.value.slice(0, 1))}
+                            maxLength={1}
+                            className="border border-gray-300 rounded px-2 py-1 text-sm w-16 text-center"
+                            placeholder="a"
+                        />
+                    </form>
+                </div>
+            </div>
         </>
     );
 }
