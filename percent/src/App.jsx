@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./components/Pages/Home/Home";
@@ -6,6 +6,8 @@ import Testing from "./components/Pages/TestWorkplace/Testing";
 import "./App.css";
 
 function App() {
+    const location = useLocation();
+    const isHomePage = location.pathname === '/';
     return (
         <div className="app-container">
             <Header />
@@ -15,7 +17,7 @@ function App() {
                     <Route path="/playground" element={<Testing />} />
                 </Routes>
             </main>
-            <Footer />
+            {isHomePage && <Footer />}
         </div>
     );
 }
