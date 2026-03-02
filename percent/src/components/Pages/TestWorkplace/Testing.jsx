@@ -4,6 +4,7 @@ import {
     getCharBB,
     getCharD,
     getCharSVGPathEl,
+    extractPathPoints,
 } from "../../../engine/fonts/default/generateGlyphs";
 import { useState, useEffect } from "react";
 import { useModal } from "../../../contexts/ModalContext";
@@ -51,7 +52,7 @@ export default function Testing() {
         }
 
         async function otherCalls() {
-            const bb = await getCharBB("x");
+            const bb = await getCharBB("T");
             console.log(bb);
         }
         otherCalls();
@@ -125,6 +126,33 @@ export default function Testing() {
                                 <circle r={values[3] * 5.75} cx="0" cy="18.75" fill="green" />
                             </>
                         )}
+                        {(() => {
+                            const { controlPoints, endpoints } = extractPathPoints(
+                                parameterizedPrototype(values),
+                            );
+                            return (
+                                <>
+                                    {controlPoints.map((point, i) => (
+                                        <circle
+                                            key={`${i}_controlP`}
+                                            r={0.5}
+                                            cx={point.x}
+                                            cy={point.y}
+                                            fill="red"
+                                        />
+                                    ))}
+                                    {endpoints.map((point, i) => (
+                                        <circle
+                                            key={`${i}_endpoint`}
+                                            r={1}
+                                            cx={point.x}
+                                            cy={point.y}
+                                            fill="blue"
+                                        />
+                                    ))}
+                                </>
+                            );
+                        })()}
                     </svg>
                     <label className="flex items-center gap-2 text-sm text-gray-600">
                         <input
@@ -137,6 +165,7 @@ export default function Testing() {
                     </label>
                     <SliderPanel values={values} setValues={setValues} />
                 </div>
+
                 <div className="flex flex-col items-center justify-center gap-4 p-4 border border-gray-200 rounded-lg bg-white shadow-sm min-h-[250px] min-w-[250px]">
                     <h2 className="text-sm text-gray-500 font-medium">
                         Google Sans Char to SVG Path Explorer
