@@ -14,8 +14,6 @@ function Header() {
             </div>
             <nav className="header-nav">
                 <Link to="/playground">Playground</Link>
-                <Link to="/#">About</Link>
-                <Link to="/#">Contact</Link>
             </nav>
         </header>
     );

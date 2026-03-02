@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { TypeAnimation } from 'react-type-animation';
 import './Home.css';
 import Button from '../../Button/Button';
+import Carousel from '../../Carousel/Carousel';
 import adjustVideo from '../../../assets/video/adjust/adjust.mp4';
 import contrastVideo from '../../../assets/video/contrast/contrast.mp4';
 
@@ -88,14 +89,12 @@ const Home = () => {
             />
           )}
         </div>
-        <div className="button-container">
-          <Button onClick={() => alert('Get Started Clicked!')}>Get Started</Button>
-        </div>
+
       </section>
 
       {/* Video Demo Section */}
       <section className="video-demo-section">
-        <h2>See It in Action</h2>
+        <p className="video-demo-title">Percent helps graphic designers to explore and learn typefaces and font creation. By allowing circle manipulation, the user is able to update glyph forms. Percent makes it less intimidating to try font design for designers and encourages creative exploration as well as learning.</p>
         <div className="video-container">
           <div className="video-item">
             <div className="video-wrapper">
@@ -124,6 +123,8 @@ const Home = () => {
         </div>
       </section>
 
+      <Carousel />
+
       {/* Intro Section */}
       <section className="intro-section">
         <h2>The Problem with Font Tools</h2>
@@ -135,6 +136,10 @@ const Home = () => {
         <h2>Our Innovative Approach</h2>
         <p>We are making Percent to make it easier to begin designing fonts. Instead of drawing each glyph from scratch, users manipulate circles to change the letterform. This helps you understand the system of typography, not just individual shapes.</p>
       </section>
+
+      <div className="button-container">
+        <Button onClick={() => alert('Get Started Clicked!')}>Lunch percent</Button>
+      </div>
 
     </div>
   );
