@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TypeAnimation } from 'react-type-animation';
 import './Home.css';
 import Button from '../../Button/Button';
@@ -7,6 +8,7 @@ import adjustVideo from '../../../assets/video/adjust/adjust.mp4';
 import contrastVideo from '../../../assets/video/contrast/contrast.mp4';
 
 const Home = () => {
+  const navigate = useNavigate();
   const [activeAnimation, setActiveAnimation] = useState(0);
   const [style, setStyle] = useState({});
   const [showScroll, setShowScroll] = useState(true);
@@ -152,7 +154,7 @@ const Home = () => {
 
 
       <div className="button-container">
-        <Button onClick={() => alert('Get Started Clicked!')}>Lunch percent</Button>
+        <Button onClick={() => navigate('/boarding')}>Lunch percent</Button>
       </div>
 
     </div>

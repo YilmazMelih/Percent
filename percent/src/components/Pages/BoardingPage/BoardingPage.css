@@ -1,0 +1,92 @@
+.boarding-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.font-sidebar {
+  width: 250px;
+  padding: 2rem;
+  border-right: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+}
+
+.sidebar-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.font-search-input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.font-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.font-list-item {
+  padding: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.font-list-item:hover {
+  background-color: #e0e0e0;
+}
+
+.font-list-item.active {
+  background-color: #08a05e;
+  color: white;
+}
+
+.glyph-preview {
+  flex-grow: 1;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.glyph-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  min-height: 100px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  padding: 0.5rem;
+}
+
+.glyph-char {
+  font-size: 2.5rem;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glyph-name {
+  font-size: 0.8rem;
+  font-family: sans-serif;
+  color: #666;
+  background-color: #f0f0f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
