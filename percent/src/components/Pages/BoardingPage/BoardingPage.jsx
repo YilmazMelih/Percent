@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '../../Button/Button';
 import './BoardingPage.css';
 
 const fonts = [
@@ -19,6 +21,7 @@ const glyphs = [
 ];
 
 const BoardingPage = () => {
+  const navigate = useNavigate();
   const [selectedFont, setSelectedFont] = useState(fonts[0].key);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -53,6 +56,7 @@ const BoardingPage = () => {
             </li>
           ))}
         </ul>
+        <Button onClick={() => navigate('/playground')}>Start editing</Button>
       </aside>
       <main className="glyph-preview" style={{ fontFamily: selectedFont }}>
         {glyphs.map((glyph, index) => (

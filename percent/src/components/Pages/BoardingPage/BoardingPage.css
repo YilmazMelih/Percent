@@ -52,6 +52,11 @@
   color: white;
 }
 
+.font-sidebar .custom-button {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
 .glyph-preview {
   flex-grow: 1;
   padding: 2rem;
