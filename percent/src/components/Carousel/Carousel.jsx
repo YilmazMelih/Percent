@@ -24,11 +24,15 @@ const Carousel = () => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const nextStep = () => {
-    setCurrentStep((prevStep) => (prevStep === steps.length - 1 ? 0 : prevStep + 1));
+    setCurrentStep((prevStep) => (prevStep === steps.length - 1 ? prevStep : prevStep + 1));
   };
 
   const prevStep = () => {
-    setCurrentStep((prevStep) => (prevStep === 0 ? steps.length - 1 : prevStep - 1));
+    setCurrentStep((prevStep) => (prevStep === 0 ? prevStep : prevStep - 1));
+  };
+
+  const goToStep = (stepIndex) => {
+    setCurrentStep(stepIndex);
   };
 
   return (
@@ -41,8 +45,17 @@ const Carousel = () => {
           </div>
         ))}
       </div>
-      <button className="carousel-button prev" onClick={prevStep}>&#10094;</button>
-      <button className="carousel-button next" onClick={nextStep}>&#10095;</button>
+      {currentStep > 0 && <button className="carousel-button prev" onClick={prevStep}>&#10094;</button>}
+      {currentStep < steps.length - 1 && <button className="carousel-button next" onClick={nextStep}>&#10095;</button>}
+      <div className="carousel-dots">
+        {steps.map((_, index) => (
+          <button
+            key={index}
+            className={`carousel-dot ${currentStep === index ? 'active' : ''}`}
+            onClick={() => goToStep(index)}
+          ></button>
+        ))}
+      </div>
     </div>
   );
 };

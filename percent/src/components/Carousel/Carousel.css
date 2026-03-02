@@ -5,7 +5,7 @@
   margin: 2rem auto;
   overflow: hidden;
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
 }
 
 .carousel-track {
@@ -18,7 +18,7 @@
   padding: 2rem;
   box-sizing: border-box;
   text-align: center;
-  background-color: #f9f9f9;
+
 }
 
 .carousel-card h2 {
@@ -43,9 +43,9 @@
   cursor: pointer;
   z-index: 10;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,4 +57,25 @@
 
 .carousel-button.next {
   right: 10px;
+}
+
+.carousel-dots {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.carousel-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin: 0 5px;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.carousel-dot.active {
+  background-color: #333;
 }

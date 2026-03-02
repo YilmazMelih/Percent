@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { TypeAnimation } from 'react-type-animation';
 import './Home.css';
 import Button from '../../Button/Button';
@@ -9,9 +9,25 @@ import contrastVideo from '../../../assets/video/contrast/contrast.mp4';
 const Home = () => {
   const [activeAnimation, setActiveAnimation] = useState(0);
   const [style, setStyle] = useState({});
+  const [showScroll, setShowScroll] = useState(true);
   const heroRef = useRef(null);
+  const videoSectionRef = useRef(null);
 
   const fonts = ['FZHANWZKJW', 'HYQiHeiX4-35W', 'Sen-Regular'];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScroll(false);
+      } else {
+        setShowScroll(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleMouseMove = (e) => {
     if (!heroRef.current) return;
@@ -38,6 +54,10 @@ const Home = () => {
     repeat: 0, // We handle the loop manually
   };
 
+  const handleScrollDown = () => {
+    videoSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="home">
       {/* Hero Section */}
@@ -54,6 +74,8 @@ const Home = () => {
           <div className="line baseline"><span>Baseline</span></div>
           <div className="line descender"><span>Descender</span></div>
         </div>
+
+                {showScroll && <button className="scroll-down-arrow" onClick={handleScrollDown}>&#x2B07;</button>}
         <div className="hero-content" style={style}>
           {activeAnimation === 0 && (
             <TypeAnimation
@@ -93,7 +115,7 @@ const Home = () => {
       </section>
 
       {/* Video Demo Section */}
-      <section className="video-demo-section">
+      <section className="video-demo-section" ref={videoSectionRef}>
         <p className="video-demo-title">Percent helps graphic designers to explore and learn typefaces and font creation. By allowing circle manipulation, the user is able to update glyph forms. Percent makes it less intimidating to try font design for designers and encourages creative exploration as well as learning.</p>
         <div className="video-container">
           <div className="video-item">
@@ -125,17 +147,9 @@ const Home = () => {
 
       <Carousel />
 
-      {/* Intro Section */}
-      <section className="intro-section">
-        <h2>The Problem with Font Tools</h2>
-        <p>Most professional type creation tools require deep knowledge of typefaces, Bezier curves, and complex workflows. This steep learning curve can stifle creativity before it even begins.</p>
-      </section>
 
-      {/* Solution Section */}
-      <section className="solution-section">
-        <h2>Our Innovative Approach</h2>
-        <p>We are making Percent to make it easier to begin designing fonts. Instead of drawing each glyph from scratch, users manipulate circles to change the letterform. This helps you understand the system of typography, not just individual shapes.</p>
-      </section>
+
+
 
       <div className="button-container">
         <Button onClick={() => alert('Get Started Clicked!')}>Lunch percent</Button>
