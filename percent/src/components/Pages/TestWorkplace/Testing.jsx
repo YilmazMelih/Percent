@@ -6,6 +6,8 @@ import {
     getCharSVGPathEl,
 } from "../../../engine/fonts/default/generateGlyphs";
 import { useState, useEffect } from "react";
+import { useModal } from "../../../contexts/ModalContext";
+import ExportModal from "../../ExportModal/ExportModal";
 
 function SliderPanel({ values, setValues }) {
     const handleChange = (index, newValue) => {
@@ -36,6 +38,7 @@ function SliderPanel({ values, setValues }) {
 }
 
 export default function Testing() {
+    const { showExportModal, closeExportModal } = useModal();
     const [myChar, setMyChar] = useState(null);
     const [values, setValues] = useState([0.75, 0.75, 0.4, 0.4]);
     const [charInput, setCharInput] = useState("a");
@@ -100,6 +103,7 @@ export default function Testing() {
 
     return (
         <>
+            <ExportModal show={showExportModal} onClose={closeExportModal} />
             <div className="flex gap-4 items-start justify-center">
                 <div className="flex flex-col items-center gap-4 p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
                     <h2 className="text-sm text-gray-500 font-medium">Prototype "O" Glyph</h2>

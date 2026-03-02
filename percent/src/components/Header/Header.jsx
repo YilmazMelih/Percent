@@ -1,9 +1,13 @@
-import { Link } from "react-router-dom";
-import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import React, { useState } from "react";
 import "./Header.css";
 import logoGif from "../../assets/images/Logo_fina.gif";
+import { useModal } from "../../contexts/ModalContext";
 
 function Header() {
+    const location = useLocation();
+    const { openExportModal } = useModal();
+    const isPlayground = location.pathname === '/playground';
     return (
         <header className="header">
             <div className="header-brand">
@@ -13,7 +17,11 @@ function Header() {
                 </Link>
             </div>
             <nav className="header-nav">
-                <Link to="/playground">Playground</Link>
+                {isPlayground ? (
+                    <button onClick={openExportModal} className="header-link">Export</button>
+                ) : (
+                    <Link to="/playground" className="header-link">Playground</Link>
+                )}
             </nav>
         </header>
     );
