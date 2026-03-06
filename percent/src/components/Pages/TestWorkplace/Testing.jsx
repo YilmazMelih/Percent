@@ -9,39 +9,14 @@ import {
 import { useState, useEffect } from "react";
 import { useModal } from "../../../contexts/ModalContext";
 import ExportModal from "../../ExportModal/ExportModal";
-
-function SliderPanel({ values, setValues }) {
-    const handleChange = (index, newValue) => {
-        const updated = [...values];
-        updated[index] = parseFloat(newValue);
-        setValues(updated);
-    };
-
-    return (
-        <div className="flex flex-col gap-4 p-4 bg-gray-100 rounded-lg w-64">
-            {values.map((val, i) => (
-                <div key={i} className="flex items-center gap-2">
-                    <span className="w-14">{["left", "right", "top", "bottom"][i]}</span>
-                    <input
-                        type="range"
-                        min={0}
-                        max={1}
-                        step={0.01}
-                        value={val}
-                        onChange={(e) => handleChange(i, e.target.value)}
-                        className="w-full"
-                    />
-                    <span className="w-10 text-right">{val.toFixed(2)}</span>
-                </div>
-            ))}
-        </div>
-    );
-}
+import Node from "../../../engine/Node";
+import SliderPanel from "../../../engine/NodeSliders";
+import { GetOPrototype } from "../../../engine/fonts/default/o";
 
 export default function Testing() {
     const { showExportModal, closeExportModal } = useModal();
     const [myChar, setMyChar] = useState(null);
-    const [values, setValues] = useState([0.75, 0.75, 0.4, 0.4]);
+    const [nodeSizeOProt, setNodeSizeOProt] = useState([0.75, 0.75, 0.4, 0.4]);
     const [charInput, setCharInput] = useState("a");
     const [seeNodes, setSeeNodes] = useState(false);
 
@@ -52,8 +27,8 @@ export default function Testing() {
         }
 
         async function otherCalls() {
-            const bb = await getCharBB("T");
-            console.log(bb);
+            const bb = await getCharD("a");
+            // console.log(bb);
         }
         otherCalls();
         fetchGlyph();
@@ -108,52 +83,11 @@ export default function Testing() {
             <div className="flex gap-4 items-start justify-center">
                 <div className="flex flex-col items-center gap-4 p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
                     <h2 className="text-sm text-gray-500 font-medium">Prototype "O" Glyph</h2>
-                    <svg
-                        height="250"
-                        width="250"
-                        viewBox="-30 -30 60 60"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            className="fill-gray-200 stroke-black stroke-1"
-                            d={parameterizedPrototype(values)}
-                        ></path>
-                        {seeNodes && (
-                            <>
-                                <circle r={values[0] * 5.75} cx="-18.75" cy="0" fill="green" />
-                                <circle r={values[1] * 5.75} cx="18.75" cy="0" fill="green" />
-                                <circle r={values[2] * 5.75} cx="0" cy="-18.75" fill="green" />
-                                <circle r={values[3] * 5.75} cx="0" cy="18.75" fill="green" />
-                            </>
-                        )}
-                        {(() => {
-                            const { controlPoints, endpoints } = extractPathPoints(
-                                parameterizedPrototype(values),
-                            );
-                            return (
-                                <>
-                                    {controlPoints.map((point, i) => (
-                                        <circle
-                                            key={`${i}_controlP`}
-                                            r={0.5}
-                                            cx={point.x}
-                                            cy={point.y}
-                                            fill="red"
-                                        />
-                                    ))}
-                                    {endpoints.map((point, i) => (
-                                        <circle
-                                            key={`${i}_endpoint`}
-                                            r={1}
-                                            cx={point.x}
-                                            cy={point.y}
-                                            fill="blue"
-                                        />
-                                    ))}
-                                </>
-                            );
-                        })()}
-                    </svg>
+                    <GetOPrototype
+                        nodeSizeOProt={nodeSizeOProt}
+                        seeNodes={seeNodes}
+                        parameterizedPrototype={parameterizedPrototype}
+                    />
                     <label className="flex items-center gap-2 text-sm text-gray-600">
                         <input
                             type="checkbox"
@@ -163,7 +97,10 @@ export default function Testing() {
                         />
                         See Nodes
                     </label>
-                    <SliderPanel values={values} setValues={setValues} />
+                    <SliderPanel
+                        nodeSizeOProt={nodeSizeOProt}
+                        setNodeSizeOProt={setNodeSizeOProt}
+                    />
                 </div>
 
                 <div className="flex flex-col items-center justify-center gap-4 p-4 border border-gray-200 rounded-lg bg-white shadow-sm min-h-[250px] min-w-[250px]">
