@@ -4,7 +4,6 @@ import {
     getCharBB,
     getCharD,
     getCharSVGPathEl,
-    extractPathPoints,
 } from "../../../engine/fonts/default/generateGlyphs";
 import { useState, useEffect } from "react";
 import { useModal } from "../../../contexts/ModalContext";
@@ -83,11 +82,7 @@ export default function Testing() {
             <div className="flex gap-4 items-start justify-center">
                 <div className="flex flex-col items-center gap-4 p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
                     <h2 className="text-sm text-gray-500 font-medium">Prototype "O" Glyph</h2>
-                    <GetOPrototype
-                        nodeSizeOProt={nodeSizeOProt}
-                        seeNodes={seeNodes}
-                        parameterizedPrototype={parameterizedPrototype}
-                    />
+                    <GetOPrototype nodeSizeOProt={nodeSizeOProt} seeNodes={seeNodes} />
                     <label className="flex items-center gap-2 text-sm text-gray-600">
                         <input
                             type="checkbox"
