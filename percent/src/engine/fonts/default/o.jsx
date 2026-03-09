@@ -1,8 +1,4 @@
-import { extractPathPoints } from "../../project";
-import { buildPath, buildNodes } from "../../project";
-import Node from "../../Node";
-
-const oPrototypeConfig = {
+export const oConfig = {
     basePath: [
         { cmd: "M", points: ["topOuter"] },
         { cmd: "Q", points: ["topLeftOCP", "leftOuter"] },
@@ -44,7 +40,7 @@ const oPrototypeConfig = {
         {
             id: "0",
             name: "left",
-            default: 1,
+            default: 0.7,
             pos: { x: -18.75, y: 0 },
             affects: [
                 {
@@ -88,7 +84,7 @@ const oPrototypeConfig = {
         {
             id: "1",
             name: "right",
-            default: 1,
+            default: 0.7,
             pos: { x: 18.75, y: 0 },
             affects: [
                 {
@@ -132,7 +128,7 @@ const oPrototypeConfig = {
         {
             id: "2",
             name: "top",
-            default: 1,
+            default: 0.4,
             pos: { x: 0, y: -18.75 },
             affects: [
                 {
@@ -176,7 +172,7 @@ const oPrototypeConfig = {
         {
             id: "3",
             name: "bottom",
-            default: 1,
+            default: 0.4,
             pos: { x: 0, y: 18.75 },
             affects: [
                 {
@@ -219,21 +215,3 @@ const oPrototypeConfig = {
         },
     ],
 };
-
-export function GetOPrototype({ nodeSizeOProt, seeNodes }) {
-    const d = buildPath(oPrototypeConfig, nodeSizeOProt);
-    const { controlPoints, endpoints } = extractPathPoints(d);
-
-    return (
-        <svg height="250" width="250" viewBox="-30 -30 60 60" xmlns="http://www.w3.org/2000/svg">
-            <path className="fill-gray-200 stroke-black stroke-1" d={d}></path>
-            {seeNodes && buildNodes(oPrototypeConfig, nodeSizeOProt)}
-            {controlPoints.map((point, i) => (
-                <circle key={`${i}_controlP`} r={0.5} cx={point.x} cy={point.y} fill="red" />
-            ))}
-            {endpoints.map((point, i) => (
-                <circle key={`${i}_endpoint`} r={1} cx={point.x} cy={point.y} fill="blue" />
-            ))}
-        </svg>
-    );
-}
