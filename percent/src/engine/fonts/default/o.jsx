@@ -41,6 +41,7 @@ export const oConfig = {
             id: "0",
             name: "left",
             default: 0.7,
+            r: 6.25,
             pos: { x: -18.75, y: 0 },
             affects: [
                 {
@@ -85,6 +86,7 @@ export const oConfig = {
             id: "1",
             name: "right",
             default: 0.7,
+            r: 6.25,
             pos: { x: 18.75, y: 0 },
             affects: [
                 {
@@ -129,6 +131,7 @@ export const oConfig = {
             id: "2",
             name: "top",
             default: 0.4,
+            r: 6.25,
             pos: { x: 0, y: -18.75 },
             affects: [
                 {
@@ -173,6 +176,7 @@ export const oConfig = {
             id: "3",
             name: "bottom",
             default: 0.4,
+            r: 6.25,
             pos: { x: 0, y: 18.75 },
             affects: [
                 {

@@ -19,12 +19,20 @@ export default function CharFromConfig({ config }) {
             >
                 <path className="fill-gray-200 stroke-black stroke-1" d={d}></path>
                 {seeNodes && buildNodes(config, nodeSize)}
-                {controlPoints.map((point, i) => (
-                    <circle key={`${i}_controlP`} r={0.5} cx={point.x} cy={point.y} fill="red" />
-                ))}
-                {endpoints.map((point, i) => (
-                    <circle key={`${i}_endpoint`} r={1} cx={point.x} cy={point.y} fill="blue" />
-                ))}
+                {seeNodes &&
+                    controlPoints.map((point, i) => (
+                        <circle
+                            key={`${i}_controlP`}
+                            r={0.5}
+                            cx={point.x}
+                            cy={point.y}
+                            fill="red"
+                        />
+                    ))}
+                {seeNodes &&
+                    endpoints.map((point, i) => (
+                        <circle key={`${i}_endpoint`} r={1} cx={point.x} cy={point.y} fill="blue" />
+                    ))}
             </svg>
             <SliderPanel
                 names={config.nodes.map((node) => node.name)}

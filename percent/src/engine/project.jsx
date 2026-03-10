@@ -132,6 +132,13 @@ export function buildPath(config, nodeVals) {
 
 export function buildNodes(config, nodeVals) {
     return config.nodes.map((node) => {
-        return <Node key={node.id} x={node.pos.x} y={node.pos.y} size={nodeVals[node.id] * 5.75} />;
+        return (
+            <Node
+                key={node.id}
+                x={node.pos.x}
+                y={node.pos.y}
+                size={nodeVals[node.id] * (node.r - 0.5)}
+            />
+        );
     });
 }
