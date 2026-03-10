@@ -15,6 +15,7 @@ export default function CharFromConfig({ config }) {
                 width="250"
                 viewBox="-30 -30 60 60"
                 xmlns="http://www.w3.org/2000/svg"
+                className="border border-gray-400 rounded-lg"
             >
                 <path className="fill-gray-200 stroke-black stroke-1" d={d}></path>
                 {seeNodes && buildNodes(config, nodeSize)}

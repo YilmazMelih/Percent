@@ -11,6 +11,7 @@ import ExportModal from "../../ExportModal/ExportModal";
 import Node from "../../../engine/Node";
 import SliderPanel from "../../../engine/NodeSliders";
 import { oConfig } from "../../../engine/fonts/default/o";
+import { nConfig } from "../../../engine/fonts/default/n";
 import CharFromConfig from "../../../engine/CharFromConfig";
 
 export default function Testing() {
@@ -51,7 +52,10 @@ export default function Testing() {
                     <h2 className="text-sm text-gray-500 font-medium">Prototype "o" Glyph</h2>
                     <CharFromConfig config={oConfig} />
                 </div>
-
+                <div className="flex flex-col items-center gap-4 p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
+                    <h2 className="text-sm text-gray-500 font-medium">Prototype "n" Glyph</h2>
+                    <CharFromConfig config={nConfig} />
+                </div>
                 <div className="flex flex-col items-center justify-center gap-4 p-4 border border-gray-200 rounded-lg bg-white shadow-sm min-h-[250px] min-w-[250px]">
                     <h2 className="text-sm text-gray-500 font-medium">
                         Google Sans Char to SVG Path Explorer
