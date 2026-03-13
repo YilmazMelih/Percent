@@ -137,7 +137,8 @@ export function buildNodes(config, nodeVals) {
                 key={node.id}
                 x={node.pos.x}
                 y={node.pos.y}
-                size={nodeVals[node.id] * (node.r - 0.5)}
+                nodeVal={nodeVals[node.id]}
+                r={node.r}
             />
         );
     });

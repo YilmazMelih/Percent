@@ -14,11 +14,11 @@ function clientToSvgPoint(e) {
 export default function Node({
     x,
     y,
-    size,
+    nodeVal,
+    r,
     ringPadding = 2,
     ringHitSlop = 5,
     ringVisiblePercent = 0.85,
-    ringLabel = "10%",
     onDrag,
     onSelectChange,
 }) {
@@ -26,8 +26,10 @@ export default function Node({
     const [isRingHovered, setIsRingHovered] = useState(false);
     const [isSelected, setIsSelected] = useState(false);
     const [dragMode, setDragMode] = useState(null); // null | "ring"
+    const [tempVal, setTempVal] = useState(nodeVal);
+    const size = tempVal * (r - 0.5);
 
-    const dragRef = useRef(null); // { pointerId, originX, originY, startX, startY }
+    const dragRef = useRef(null); // { pointerId }
 
     const ringR = size + ringPadding;
     const ringCirc = 2 * Math.PI * ringR;
@@ -35,26 +37,14 @@ export default function Node({
     const ringGapLen = Math.max(0, ringCirc - ringVisibleLen);
 
     useEffect(() => {
-        console.log({
-            isHovered,
-            isRingHovered,
-            isSelected,
-            dragMode,
-        });
-    }, [isHovered, isRingHovered, isSelected, dragMode]);
+        console.log({ isHovered, isRingHovered, isSelected, dragMode, tempVal });
+    }, [isHovered, isRingHovered, isSelected, dragMode, tempVal]);
 
     function beginDrag(e) {
         e.preventDefault();
         e.stopPropagation();
 
-        const start = clientToSvgPoint(e);
-        dragRef.current = {
-            pointerId: e.pointerId,
-            originX: x,
-            originY: y,
-            startX: start.x,
-            startY: start.y,
-        };
+        dragRef.current = { pointerId: e.pointerId };
         setDragMode("ring");
         e.currentTarget.setPointerCapture(e.pointerId);
     }
@@ -64,10 +54,15 @@ export default function Node({
         if (dragRef.current.pointerId !== e.pointerId) return;
 
         const pt = clientToSvgPoint(e);
-        const dx = pt.x - dragRef.current.startX;
-        const dy = pt.y - dragRef.current.startY;
+        const currentRadius = Math.hypot(pt.x - x, pt.y - y);
+        // Map radius to [0, 1] so that:
+        // - at the center (radius ≈ 0) -> 0
+        // - at the idle ring radius (size + ringPadding) -> 1
+        const raw = (currentRadius - ringPadding) / (r - 0.5);
+        const snapped = Math.round(raw * 100) / 100; // steps of 0.01
+        const clamped = Math.max(0, Math.min(1, snapped));
 
-        onDrag?.(dragRef.current.originX + dx, dragRef.current.originY + dy, dragMode);
+        setTempVal(clamped);
     }
 
     function endDrag(e) {
@@ -123,11 +118,11 @@ export default function Node({
                         x={Number(x) + ringR + 1}
                         y={y}
                         fontSize="4"
-                        fill="#6B7280"
+                        fill="black"
                         dominantBaseline="middle"
                         textAnchor="middle"
                     >
-                        {ringLabel}
+                        {Math.round(nodeVal * 100)}%
                     </text>
                 </>
             )}
@@ -136,7 +131,7 @@ export default function Node({
                 cx={x}
                 cy={y}
                 r={size}
-                style={{ fill: "#1FA961", transition: "200ms" }}
+                style={{ fill: "#1FA961" }}
                 onPointerEnter={() => setIsHovered(true)}
                 onPointerLeave={() => setIsHovered(false)}
                 onPointerDown={(e) => {
