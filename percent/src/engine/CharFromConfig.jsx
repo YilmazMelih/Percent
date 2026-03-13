@@ -5,6 +5,7 @@ import SliderPanel from "./NodeSliders";
 export default function CharFromConfig({ config }) {
     const [nodeSize, setNodeSize] = useState(config.nodes.map((node) => node.default));
     const [seeNodes, setSeeNodes] = useState(true);
+    const [active, setActive] = useState(null);
     const d = buildPath(config, nodeSize);
     const { controlPoints, endpoints } = extractPathPoints(d);
 
@@ -18,7 +19,7 @@ export default function CharFromConfig({ config }) {
                 className="border border-gray-400 rounded-lg"
             >
                 <path className="fill-gray-200 stroke-black stroke-1" d={d}></path>
-                {seeNodes && buildNodes(config, nodeSize)}
+                {seeNodes && buildNodes(config, nodeSize, setNodeSize, active, setActive)}
                 {seeNodes &&
                     controlPoints.map((point, i) => (
                         <circle

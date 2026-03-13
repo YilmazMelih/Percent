@@ -130,15 +130,19 @@ export function buildPath(config, nodeVals) {
         .join(" ");
 }
 
-export function buildNodes(config, nodeVals) {
+export function buildNodes(config, nodeVals, setNodeSize, active, setActive) {
     return config.nodes.map((node) => {
         return (
             <Node
                 key={node.id}
                 x={node.pos.x}
                 y={node.pos.y}
-                nodeVal={nodeVals[node.id]}
+                nodeVals={nodeVals}
                 r={node.r}
+                active={active}
+                setActive={setActive}
+                id={node.id}
+                setNodeSize={setNodeSize}
             />
         );
     });

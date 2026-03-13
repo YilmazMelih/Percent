@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 function clientToSvgPoint(e) {
     const svg = e.currentTarget.ownerSVGElement;
@@ -14,20 +14,20 @@ function clientToSvgPoint(e) {
 export default function Node({
     x,
     y,
-    nodeVal,
+    nodeVals,
     r,
+    active,
+    setActive,
     ringPadding = 2,
     ringHitSlop = 5,
     ringVisiblePercent = 0.85,
-    onDrag,
-    onSelectChange,
+    id,
+    setNodeSize,
 }) {
     const [isHovered, setIsHovered] = useState(false);
     const [isRingHovered, setIsRingHovered] = useState(false);
-    const [isSelected, setIsSelected] = useState(false);
     const [dragMode, setDragMode] = useState(null); // null | "ring"
-    const [tempVal, setTempVal] = useState(nodeVal);
-    const size = tempVal * (r - 0.5);
+    const size = nodeVals[id] * (r - 0.5);
 
     const dragRef = useRef(null); // { pointerId }
 
@@ -36,9 +36,7 @@ export default function Node({
     const ringVisibleLen = Math.max(0, Math.min(1, ringVisiblePercent)) * ringCirc;
     const ringGapLen = Math.max(0, ringCirc - ringVisibleLen);
 
-    useEffect(() => {
-        console.log({ isHovered, isRingHovered, isSelected, dragMode, tempVal });
-    }, [isHovered, isRingHovered, isSelected, dragMode, tempVal]);
+    const isSelected = active === id;
 
     function beginDrag(e) {
         e.preventDefault();
@@ -62,7 +60,11 @@ export default function Node({
         const snapped = Math.round(raw * 100) / 100; // steps of 0.01
         const clamped = Math.max(0, Math.min(1, snapped));
 
-        setTempVal(clamped);
+        setNodeSize((prev) => {
+            const newVals = [...prev];
+            newVals[id] = clamped;
+            return newVals;
+        });
     }
 
     function endDrag(e) {
@@ -115,14 +117,14 @@ export default function Node({
                         pointerEvents="none"
                     />
                     <text
-                        x={Number(x) + ringR + 1}
+                        x={Number(x) + ringR + 3}
                         y={y}
                         fontSize="4"
                         fill="black"
                         dominantBaseline="middle"
                         textAnchor="middle"
                     >
-                        {Math.round(nodeVal * 100)}%
+                        {Math.round(nodeVals[id] * 100)}%
                     </text>
                 </>
             )}
@@ -137,8 +139,11 @@ export default function Node({
                 onPointerDown={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    setIsSelected(true);
-                    onSelectChange?.(true);
+                    if (active === id) {
+                        setActive(null);
+                    } else {
+                        setActive(id);
+                    }
                 }}
             />
         </g>
