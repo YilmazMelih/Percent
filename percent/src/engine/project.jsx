@@ -130,7 +130,15 @@ export function buildPath(config, nodeVals) {
         .join(" ");
 }
 
-export function buildNodes(config, nodeVals, setNodeSize, active, setActive) {
+export function buildNodes(
+    config,
+    nodeVals,
+    setNodeSize,
+    active,
+    setActive,
+    isDragging,
+    setIsDragging,
+) {
     return config.nodes.map((node) => {
         return (
             <Node
@@ -141,6 +149,8 @@ export function buildNodes(config, nodeVals, setNodeSize, active, setActive) {
                 r={node.r}
                 active={active}
                 setActive={setActive}
+                isDragging={isDragging}
+                setIsDragging={setIsDragging}
                 id={node.id}
                 setNodeSize={setNodeSize}
             />

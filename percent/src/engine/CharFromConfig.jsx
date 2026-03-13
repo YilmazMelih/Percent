@@ -5,6 +5,8 @@ import SliderPanel from "./NodeSliders";
 export default function CharFromConfig({ config }) {
     const [nodeSize, setNodeSize] = useState(config.nodes.map((node) => node.default));
     const [seeNodes, setSeeNodes] = useState(true);
+    const [seePathPoints, setSeePathPoints] = useState(false);
+    const [isDragging, setIsDragging] = useState(false);
     const [active, setActive] = useState(null);
     const d = buildPath(config, nodeSize);
     const { controlPoints, endpoints } = extractPathPoints(d);
@@ -19,8 +21,17 @@ export default function CharFromConfig({ config }) {
                 className="border border-gray-400 rounded-lg"
             >
                 <path className="fill-gray-200 stroke-black stroke-1" d={d}></path>
-                {seeNodes && buildNodes(config, nodeSize, setNodeSize, active, setActive)}
                 {seeNodes &&
+                    buildNodes(
+                        config,
+                        nodeSize,
+                        setNodeSize,
+                        active,
+                        setActive,
+                        isDragging,
+                        setIsDragging,
+                    )}
+                {seePathPoints &&
                     controlPoints.map((point, i) => (
                         <circle
                             key={`${i}_controlP`}
@@ -30,7 +41,7 @@ export default function CharFromConfig({ config }) {
                             fill="red"
                         />
                     ))}
-                {seeNodes &&
+                {seePathPoints &&
                     endpoints.map((point, i) => (
                         <circle key={`${i}_endpoint`} r={1} cx={point.x} cy={point.y} fill="blue" />
                     ))}
@@ -41,6 +52,8 @@ export default function CharFromConfig({ config }) {
                 setNodeSize={setNodeSize}
                 seeNodes={seeNodes}
                 setSeeNodes={setSeeNodes}
+                seePathPoints={seePathPoints}
+                setSeePathPoints={setSeePathPoints}
             />
         </>
     );

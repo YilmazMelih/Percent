@@ -16,6 +16,8 @@ export default function Node({
     y,
     nodeVals,
     r,
+    isDragging,
+    setIsDragging,
     active,
     setActive,
     ringPadding = 2,
@@ -44,6 +46,7 @@ export default function Node({
 
         dragRef.current = { pointerId: e.pointerId };
         setDragMode("ring");
+        setIsDragging(true);
         e.currentTarget.setPointerCapture(e.pointerId);
     }
 
@@ -72,6 +75,7 @@ export default function Node({
             dragRef.current = null;
         }
         setDragMode(null);
+        setIsDragging(false);
         try {
             e.currentTarget.releasePointerCapture(e.pointerId);
         } catch {
@@ -109,7 +113,7 @@ export default function Node({
                         r={ringR}
                         className="node-ring"
                         stroke={isRingHovered ? "#0c532e" : "#167d48"}
-                        strokeOpacity={dragMode === "ring" ? 0.5 : 1}
+                        strokeOpacity={isDragging ? 0.5 : 1}
                         strokeDasharray={`${ringVisibleLen} ${ringGapLen}`}
                         strokeDashoffset={-ringVisibleLen}
                         transform={`rotate(80 ${x} ${y})`}
@@ -133,7 +137,7 @@ export default function Node({
                 cy={y}
                 r={size}
                 className="node-circle"
-                fillOpacity={dragMode === "ring" ? 0.3 : 1}
+                fillOpacity={isDragging ? 0.3 : 1}
                 onPointerEnter={() => setIsHovered(true)}
                 onPointerLeave={() => setIsHovered(false)}
                 onPointerDown={(e) => {
