@@ -94,3 +94,27 @@ button:focus,
 button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
 }
+
+.node-circle {
+    fill: #1fa961;
+    transition:
+        fill 0.2s ease,
+        fill-opacity 0.4s ease;
+}
+
+.node-circle:hover {
+    fill: #2dbe73;
+}
+
+.node-ring {
+    fill: none;
+    stroke-width: 1;
+    stroke-linecap: round;
+    transition:
+        stroke 0.2s ease,
+        stroke-opacity 0.4s ease;
+}
+
+.node-ring:hover {
+    stroke: #0e0e0e;
+}

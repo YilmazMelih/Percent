@@ -107,10 +107,9 @@ export default function Node({
                         cx={x}
                         cy={y}
                         r={ringR}
-                        fill="transparent"
-                        stroke={isRingHovered ? "#111827" : "#9CA3AF"}
-                        strokeWidth="1"
-                        strokeLinecap="round"
+                        className="node-ring"
+                        stroke={isRingHovered ? "#0c532e" : "#167d48"}
+                        strokeOpacity={dragMode === "ring" ? 0.5 : 1}
                         strokeDasharray={`${ringVisibleLen} ${ringGapLen}`}
                         strokeDashoffset={-ringVisibleLen}
                         transform={`rotate(80 ${x} ${y})`}
@@ -133,7 +132,8 @@ export default function Node({
                 cx={x}
                 cy={y}
                 r={size}
-                style={{ fill: "#1FA961" }}
+                className="node-circle"
+                fillOpacity={dragMode === "ring" ? 0.3 : 1}
                 onPointerEnter={() => setIsHovered(true)}
                 onPointerLeave={() => setIsHovered(false)}
                 onPointerDown={(e) => {
