@@ -140,14 +140,10 @@ export default function Node({
                 fillOpacity={isDragging ? 0.3 : 1}
                 onPointerEnter={() => setIsHovered(true)}
                 onPointerLeave={() => setIsHovered(false)}
-                onPointerDown={(e) => {
+                onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    if (active === id) {
-                        setActive(null);
-                    } else {
-                        setActive(id);
-                    }
+                    setActive(active === id ? null : id);
                 }}
             />
         </g>

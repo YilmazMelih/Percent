@@ -106,6 +106,10 @@ button:focus-visible {
     fill: #2dbe73;
 }
 
+.node-circle:active {
+    fill: #30ae6d;
+}
+
 .node-ring {
     fill: none;
     stroke-width: 1;
