@@ -16,7 +16,7 @@ export default function CharFromConfig({ config }) {
             <svg
                 height="250"
                 width="250"
-                viewBox="-30 -30 60 60"
+                viewBox="-140 -140 280 280"
                 xmlns="http://www.w3.org/2000/svg"
                 className="border border-gray-400 rounded-lg"
             >
@@ -33,17 +33,11 @@ export default function CharFromConfig({ config }) {
                     )}
                 {seePathPoints &&
                     controlPoints.map((point, i) => (
-                        <circle
-                            key={`${i}_controlP`}
-                            r={0.5}
-                            cx={point.x}
-                            cy={point.y}
-                            fill="red"
-                        />
+                        <circle key={`${i}_controlP`} r={2} cx={point.x} cy={point.y} fill="red" />
                     ))}
                 {seePathPoints &&
                     endpoints.map((point, i) => (
-                        <circle key={`${i}_endpoint`} r={1} cx={point.x} cy={point.y} fill="blue" />
+                        <circle key={`${i}_endpoint`} r={3} cx={point.x} cy={point.y} fill="blue" />
                     ))}
             </svg>
             <SliderPanel

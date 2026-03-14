@@ -112,7 +112,7 @@ button:focus-visible {
 
 .node-ring {
     fill: none;
-    stroke-width: 1;
+    stroke-width: 4;
     stroke-linecap: round;
     transition:
         stroke 0.2s ease,

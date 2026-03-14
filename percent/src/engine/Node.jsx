@@ -20,7 +20,7 @@ export default function Node({
     setIsDragging,
     active,
     setActive,
-    ringPadding = 2,
+    ringPadding = 6,
     ringHitSlop = 5,
     ringVisiblePercent = 0.85,
     id,
@@ -120,9 +120,9 @@ export default function Node({
                         pointerEvents="none"
                     />
                     <text
-                        x={Number(x) + ringR + 3}
+                        x={Number(x) + ringR + 20}
                         y={y}
-                        fontSize="4"
+                        fontSize="16"
                         fill="black"
                         dominantBaseline="middle"
                         textAnchor="middle"
