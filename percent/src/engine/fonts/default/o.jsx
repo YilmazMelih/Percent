@@ -19,65 +19,65 @@ export const oConfig = {
     // since it'll make it easier to write the function.
     // Should try and find a way to assume 1 though.
     points: {
-        leftOuter: { x: -18.75, y: 0 },
-        rightOuter: { x: 18.75, y: 0 },
-        topOuter: { x: 0, y: -18.75 },
-        bottomOuter: { x: 0, y: 18.75 },
-        leftInner: { x: -18.75, y: 0 },
-        rightInner: { x: 18.75, y: 0 },
-        topInner: { x: 0, y: -18.75 },
-        bottomInner: { x: 0, y: 18.75 },
-        bottomLeftOCP: { x: -18.75, y: 18.75 },
-        bottomRightOCP: { x: 18.75, y: 18.75 },
-        topLeftOCP: { x: -18.75, y: -18.75 },
-        topRightOCP: { x: 18.75, y: -18.75 },
-        bottomLeftICP: { x: -18.75, y: 18.75 },
-        bottomRightICP: { x: 18.75, y: 18.75 },
-        topLeftICP: { x: -18.75, y: -18.75 },
-        topRightICP: { x: 18.75, y: -18.75 },
+        leftOuter: { x: -101.25, y: 0 },
+        rightOuter: { x: 101.25, y: 0 },
+        topOuter: { x: 0, y: -101.25 },
+        bottomOuter: { x: 0, y: 101.25 },
+        leftInner: { x: -101.25, y: 0 },
+        rightInner: { x: 101.25, y: 0 },
+        topInner: { x: 0, y: -101.25 },
+        bottomInner: { x: 0, y: 101.25 },
+        bottomLeftOCP: { x: -101.25, y: 101.25 },
+        bottomRightOCP: { x: 101.25, y: 101.25 },
+        topLeftOCP: { x: -101.25, y: -101.25 },
+        topRightOCP: { x: 101.25, y: -101.25 },
+        bottomLeftICP: { x: -101.25, y: 101.25 },
+        bottomRightICP: { x: 101.25, y: 101.25 },
+        topLeftICP: { x: -101.25, y: -101.25 },
+        topRightICP: { x: 101.25, y: -101.25 },
     },
     nodes: [
         {
             id: "0",
             name: "left",
             default: 0.7,
-            r: 6.25,
-            pos: { x: -18.75, y: 0 },
+            r: 33.75,
+            pos: { x: -101.25, y: 0 },
             affects: [
                 {
                     point: "leftOuter",
                     formula: (base, val) => {
-                        return { x: base.x - 6.25 * val, y: base.y };
+                        return { x: base.x - 33.75 * val, y: base.y };
                     },
                 },
                 {
                     point: "leftInner",
                     formula: (base, val) => {
-                        return { x: base.x + 6.25 * val, y: base.y };
+                        return { x: base.x + 33.75 * val, y: base.y };
                     },
                 },
                 {
                     point: "topLeftOCP",
                     formula: (base, val) => {
-                        return { x: base.x - 6.25 * val, y: base.y };
+                        return { x: base.x - 33.75 * val, y: base.y };
                     },
                 },
                 {
                     point: "bottomLeftOCP",
                     formula: (base, val) => {
-                        return { x: base.x - 6.25 * val, y: base.y };
+                        return { x: base.x - 33.75 * val, y: base.y };
                     },
                 },
                 {
                     point: "topLeftICP",
                     formula: (base, val) => {
-                        return { x: base.x + 6.25 * val, y: base.y };
+                        return { x: base.x + 33.75 * val, y: base.y };
                     },
                 },
                 {
                     point: "bottomLeftICP",
                     formula: (base, val) => {
-                        return { x: base.x + 6.25 * val, y: base.y };
+                        return { x: base.x + 33.75 * val, y: base.y };
                     },
                 },
             ],
@@ -86,43 +86,43 @@ export const oConfig = {
             id: "1",
             name: "right",
             default: 0.7,
-            r: 6.25,
-            pos: { x: 18.75, y: 0 },
+            r: 33.75,
+            pos: { x: 101.25, y: 0 },
             affects: [
                 {
                     point: "rightOuter",
                     formula: (base, val) => {
-                        return { x: base.x + 6.25 * val, y: base.y };
+                        return { x: base.x + 33.75 * val, y: base.y };
                     },
                 },
                 {
                     point: "rightInner",
                     formula: (base, val) => {
-                        return { x: base.x - 6.25 * val, y: base.y };
+                        return { x: base.x - 33.75 * val, y: base.y };
                     },
                 },
                 {
                     point: "topRightOCP",
                     formula: (base, val) => {
-                        return { x: base.x + 6.25 * val, y: base.y };
+                        return { x: base.x + 33.75 * val, y: base.y };
                     },
                 },
                 {
                     point: "bottomRightOCP",
                     formula: (base, val) => {
-                        return { x: base.x + 6.25 * val, y: base.y };
+                        return { x: base.x + 33.75 * val, y: base.y };
                     },
                 },
                 {
                     point: "topRightICP",
                     formula: (base, val) => {
-                        return { x: base.x - 6.25 * val, y: base.y };
+                        return { x: base.x - 33.75 * val, y: base.y };
                     },
                 },
                 {
                     point: "bottomRightICP",
                     formula: (base, val) => {
-                        return { x: base.x - 6.25 * val, y: base.y };
+                        return { x: base.x - 33.75 * val, y: base.y };
                     },
                 },
             ],
@@ -131,43 +131,43 @@ export const oConfig = {
             id: "2",
             name: "top",
             default: 0.4,
-            r: 6.25,
-            pos: { x: 0, y: -18.75 },
+            r: 33.75,
+            pos: { x: 0, y: -101.25 },
             affects: [
                 {
                     point: "topOuter",
                     formula: (base, val) => {
-                        return { x: base.x, y: base.y - 6.25 * val };
+                        return { x: base.x, y: base.y - 33.75 * val };
                     },
                 },
                 {
                     point: "topInner",
                     formula: (base, val) => {
-                        return { x: base.x, y: base.y + 6.25 * val };
+                        return { x: base.x, y: base.y + 33.75 * val };
                     },
                 },
                 {
                     point: "topRightOCP",
                     formula: (base, val) => {
-                        return { x: base.x, y: base.y - 6.25 * val };
+                        return { x: base.x, y: base.y - 33.75 * val };
                     },
                 },
                 {
                     point: "topLeftOCP",
                     formula: (base, val) => {
-                        return { x: base.x, y: base.y - 6.25 * val };
+                        return { x: base.x, y: base.y - 33.75 * val };
                     },
                 },
                 {
                     point: "topRightICP",
                     formula: (base, val) => {
-                        return { x: base.x, y: base.y + 6.25 * val };
+                        return { x: base.x, y: base.y + 33.75 * val };
                     },
                 },
                 {
                     point: "topLeftICP",
                     formula: (base, val) => {
-                        return { x: base.x, y: base.y + 6.25 * val };
+                        return { x: base.x, y: base.y + 33.75 * val };
                     },
                 },
             ],
@@ -176,43 +176,43 @@ export const oConfig = {
             id: "3",
             name: "bottom",
             default: 0.4,
-            r: 6.25,
-            pos: { x: 0, y: 18.75 },
+            r: 33.75,
+            pos: { x: 0, y: 101.25 },
             affects: [
                 {
                     point: "bottomOuter",
                     formula: (base, val) => {
-                        return { x: base.x, y: base.y + 6.25 * val };
+                        return { x: base.x, y: base.y + 33.75 * val };
                     },
                 },
                 {
                     point: "bottomInner",
                     formula: (base, val) => {
-                        return { x: base.x, y: base.y - 6.25 * val };
+                        return { x: base.x, y: base.y - 33.75 * val };
                     },
                 },
                 {
                     point: "bottomRightOCP",
                     formula: (base, val) => {
-                        return { x: base.x, y: base.y + 6.25 * val };
+                        return { x: base.x, y: base.y + 33.75 * val };
                     },
                 },
                 {
                     point: "bottomLeftOCP",
                     formula: (base, val) => {
-                        return { x: base.x, y: base.y + 6.25 * val };
+                        return { x: base.x, y: base.y + 33.75 * val };
                     },
                 },
                 {
                     point: "bottomRightICP",
                     formula: (base, val) => {
-                        return { x: base.x, y: base.y - 6.25 * val };
+                        return { x: base.x, y: base.y - 33.75 * val };
                     },
                 },
                 {
                     point: "bottomLeftICP",
                     formula: (base, val) => {
-                        return { x: base.x, y: base.y - 6.25 * val };
+                        return { x: base.x, y: base.y - 33.75 * val };
                     },
                 },
             ],

@@ -1,6 +1,15 @@
 import { SidePanelTab } from "./SidePanelGroup";
+import SliderPanel from "../../../engine/NodeSliders";
 
-export default function SettingsPanel() {
+export default function SettingsPanel({
+    config,
+    nodeSize,
+    setNodeSize,
+    seeNodes,
+    setSeeNodes,
+    seePathPoints,
+    setSeePathPoints,
+}) {
     return (
         <SidePanelTab
             tabLabel="settings"
@@ -11,7 +20,15 @@ export default function SettingsPanel() {
             tabTextColor="#ffffff"
             tabBorderColor="#1fa961"
         >
-            <p className="text-sm text-gray-500">Settings panel content.</p>
+            <SliderPanel
+                names={config.nodes.map((node) => node.name)}
+                nodeSize={nodeSize}
+                setNodeSize={setNodeSize}
+                seeNodes={seeNodes}
+                setSeeNodes={setSeeNodes}
+                seePathPoints={seePathPoints}
+                setSeePathPoints={setSeePathPoints}
+            />
         </SidePanelTab>
     );
 }

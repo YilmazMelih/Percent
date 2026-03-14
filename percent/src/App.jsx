@@ -20,6 +20,7 @@ function App() {
                         <Route path="/playground" element={<Testing />} />
                         <Route path="/boarding" element={<BoardingPage />} />
                         <Route path="/editor" element={<Editor />} />
+                        <Route path="/*" element={<Home />} />
                     </Routes>
                 </main>
                 {isHomePage && <Footer />}
