@@ -5,10 +5,11 @@ import Home from "./components/Pages/Home/Home";
 import Testing from "./components/Pages/TestWorkplace/Testing";
 import BoardingPage from "./components/Pages/BoardingPage/BoardingPage";
 import { ModalProvider } from "./contexts/ModalContext";
+import Editor from "./components/Pages/EditorPage/Editor";
 
 function App() {
     const location = useLocation();
-    const isHomePage = location.pathname === '/';
+    const isHomePage = location.pathname === "/";
     return (
         <ModalProvider>
             <div className="app-container">
@@ -18,6 +19,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/playground" element={<Testing />} />
                         <Route path="/boarding" element={<BoardingPage />} />
+                        <Route path="/editor" element={<Editor />} />
                     </Routes>
                 </main>
                 {isHomePage && <Footer />}
