@@ -7,7 +7,7 @@ import { useModal } from "../../contexts/ModalContext";
 function Header() {
     const location = useLocation();
     const { openExportModal } = useModal();
-    const isPlayground = location.pathname === '/playground';
+    const isPlayground = location.pathname === "/playground";
     return (
         <header className="header">
             <div className="header-brand">
@@ -18,10 +18,17 @@ function Header() {
             </div>
             <nav className="header-nav">
                 {isPlayground ? (
-                    <button onClick={openExportModal} className="header-link">Export</button>
+                    <button onClick={openExportModal} className="header-link">
+                        Export
+                    </button>
                 ) : (
-                    <Link to="/playground" className="header-link">Playground</Link>
+                    <Link to="/playground" className="header-link">
+                        Playground
+                    </Link>
                 )}
+                <Link to="/editor" className="header-link">
+                    Editor
+                </Link>
             </nav>
         </header>
     );
