@@ -5,6 +5,17 @@ const TAB_HEIGHT = "150px";
 const PANEL_WIDTH = "18rem";
 const DEFAULT_TAB_COLOR = "#d1d5db";
 const DEFAULT_TAB_HOVER_COLOR = "#9ca3af";
+const DEFAULT_TAB_TEXT_COLOR = "#1f2937";
+const DEFAULT_TAB_BORDER_COLOR = "#9ca3af";
+const DEFAULT_PANEL_BORDER_COLOR = "#e5e7eb";
+
+function toHexColor(value) {
+    if (value == null || typeof value !== "string") return value;
+    const s = value.trim();
+    if (s.startsWith("#")) return s;
+    if (/^[0-9A-Fa-f]{3}$/.test(s) || /^[0-9A-Fa-f]{6}$/.test(s)) return `#${s}`;
+    return s;
+}
 
 export function SidePanelTab({ children, ...props }) {
     return null;
@@ -25,7 +36,7 @@ export default function SidePanelGroup({ side = "right", children }) {
         ? "fixed right-0 z-[700] flex flex-row-reverse items-stretch"
         : "fixed left-0 z-[700] flex flex-row items-stretch";
 
-    const panelBorderClass = isRight ? "border-l border-gray-200" : "border-r border-gray-200";
+    const panelBorderClass = isRight ? "border-l" : "border-r";
 
     const openArrow = isRight ? "▶" : "◀";
     const closedArrow = isRight ? "◀" : "▶";
@@ -38,20 +49,19 @@ export default function SidePanelGroup({ side = "right", children }) {
     const activeTab = panelOpen ? tabs[activeIndex] : null;
 
     return (
-        <div
-            className={containerClass}
-            style={{ top: HEADER_OFFSET, bottom: 0 }}
-        >
+        <div className={containerClass} style={{ top: HEADER_OFFSET, bottom: 0 }}>
             <div
                 className={`bg-white shadow-lg overflow-hidden transition-[width] duration-200 ease-out ${panelBorderClass} ${
                     panelOpen ? "w-72" : "w-0"
                 }`}
+                style={{
+                    borderColor: activeTab
+                        ? (toHexColor(activeTab.panelBorderColor) ?? DEFAULT_PANEL_BORDER_COLOR)
+                        : DEFAULT_PANEL_BORDER_COLOR,
+                }}
             >
                 {activeTab && (
-                    <div
-                        className="p-4 overflow-auto h-full"
-                        style={{ width: PANEL_WIDTH }}
-                    >
+                    <div className="p-4 overflow-auto h-full" style={{ width: PANEL_WIDTH }}>
                         {activeTab.title && (
                             <h2 className="text-sm font-medium text-gray-700 mb-3">
                                 {activeTab.title}
@@ -65,8 +75,11 @@ export default function SidePanelGroup({ side = "right", children }) {
             <div className="relative flex-shrink-0 w-10" style={{ minHeight: "100%" }}>
                 {tabs.map((tab, i) => {
                     const isActive = activeIndex === i;
-                    const tabColor = tab.tabColor ?? DEFAULT_TAB_COLOR;
-                    const tabHoverColor = tab.tabHoverColor ?? DEFAULT_TAB_HOVER_COLOR;
+                    const tabColor = toHexColor(tab.tabColor) ?? DEFAULT_TAB_COLOR;
+                    const tabHoverColor = toHexColor(tab.tabHoverColor) ?? DEFAULT_TAB_HOVER_COLOR;
+                    const tabTextColor = toHexColor(tab.tabTextColor) ?? DEFAULT_TAB_TEXT_COLOR;
+                    const tabBorderColor =
+                        toHexColor(tab.tabBorderColor) ?? DEFAULT_TAB_BORDER_COLOR;
                     const isHovered = hoveredIndex === i;
                     const tabTopOffset = tab.tabTopOffset ?? 0;
 
@@ -76,17 +89,44 @@ export default function SidePanelGroup({ side = "right", children }) {
                             style={{
                                 transform: "rotate(-90deg)",
                                 display: "inline-block",
+                                color: tabTextColor,
                             }}
                         >
                             {tab.tabText}
                         </span>
                     ) : (
-                        isActive ? openArrow : closedArrow
+                        <span style={{ color: tabTextColor }}>
+                            {isActive ? openArrow : closedArrow}
+                        </span>
                     );
 
-                    const tabButtonClass = isRight
-                        ? "absolute left-0 w-10 flex items-center justify-center border border-gray-400 border-r-0 shadow-md text-gray-800 text-sm font-medium transition-colors rounded-l-lg"
-                        : "absolute left-0 w-10 flex items-center justify-center border border-gray-400 border-l-0 shadow-md text-gray-800 text-sm font-medium transition-colors rounded-r-lg";
+                    const tabButtonClass =
+                        "absolute left-0 w-10 flex items-center justify-center text-sm font-medium transition-colors";
+
+                    const tabRadius = "0.5rem";
+                    const tabFillStyle = isRight
+                        ? {
+                              backgroundColor: isHovered ? tabHoverColor : tabColor,
+                              borderLeft: `1px solid ${tabBorderColor}`,
+                              borderTop: `1px solid ${tabBorderColor}`,
+                              borderBottom: `1px solid ${tabBorderColor}`,
+                              borderRight: "none",
+                              borderTopLeftRadius: tabRadius,
+                              borderBottomLeftRadius: tabRadius,
+                              borderTopRightRadius: 0,
+                              borderBottomRightRadius: 0,
+                          }
+                        : {
+                              backgroundColor: isHovered ? tabHoverColor : tabColor,
+                              borderRight: `1px solid ${tabBorderColor}`,
+                              borderTop: `1px solid ${tabBorderColor}`,
+                              borderBottom: `1px solid ${tabBorderColor}`,
+                              borderLeft: "none",
+                              borderTopRightRadius: tabRadius,
+                              borderBottomRightRadius: tabRadius,
+                              borderTopLeftRadius: 0,
+                              borderBottomLeftRadius: 0,
+                          };
 
                     return (
                         <button
@@ -99,7 +139,10 @@ export default function SidePanelGroup({ side = "right", children }) {
                             style={{
                                 height: TAB_HEIGHT,
                                 top: tabTopOffset,
-                                backgroundColor: isHovered ? tabHoverColor : tabColor,
+                                padding: 0,
+                                background: "none",
+                                border: "none",
+                                outline: "none",
                             }}
                             aria-label={
                                 isActive
@@ -107,7 +150,12 @@ export default function SidePanelGroup({ side = "right", children }) {
                                     : `Open ${tab.tabLabel ?? "panel"}`
                             }
                         >
-                            {tabContent}
+                            <span
+                                className="w-full h-full flex items-center justify-center"
+                                style={tabFillStyle}
+                            >
+                                {tabContent}
+                            </span>
                         </button>
                     );
                 })}
