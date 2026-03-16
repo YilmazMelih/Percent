@@ -16,7 +16,7 @@ export default function CharFromConfig({ config }) {
             <svg
                 height="250"
                 width="250"
-                viewBox="-140 -140 280 280"
+                viewBox="-160 -160 320 320"
                 xmlns="http://www.w3.org/2000/svg"
                 className="border border-gray-400 rounded-lg"
             >

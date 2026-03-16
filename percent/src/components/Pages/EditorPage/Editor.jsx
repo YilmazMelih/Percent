@@ -10,7 +10,7 @@ export default function Editor() {
     const [config, setConfig] = useState(AConfig);
     const [nodeSize, setNodeSize] = useState(config.nodes.map((node) => node.default));
     const [seeNodes, setSeeNodes] = useState(true);
-    const [seePathPoints, setSeePathPoints] = useState(true);
+    const [seePathPoints, setSeePathPoints] = useState(false);
 
     return (
         <div className="relative min-h-[60vh]">
