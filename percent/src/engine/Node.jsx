@@ -29,7 +29,7 @@ export default function Node({
     const [isHovered, setIsHovered] = useState(false);
     const [isRingHovered, setIsRingHovered] = useState(false);
     const [dragMode, setDragMode] = useState(null); // null | "ring"
-    const size = nodeVals[id] * (r - 0.5);
+    const size = nodeVals[id] * r;
 
     const dragRef = useRef(null); // { pointerId }
 

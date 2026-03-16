@@ -2,11 +2,12 @@ import SidePanelGroup from "./SidePanelGroup";
 import SettingsPanel from "./SettingsPanel";
 import Workspace from "./Workspace";
 import { useState } from "react";
+import { AConfig } from "../../../engine/fonts/default/A";
 import { oConfig } from "../../../engine/fonts/default/o";
 import { nConfig } from "../../../engine/fonts/default/n";
 
 export default function Editor() {
-    const [config, setConfig] = useState(nConfig);
+    const [config, setConfig] = useState(AConfig);
     const [nodeSize, setNodeSize] = useState(config.nodes.map((node) => node.default));
     const [seeNodes, setSeeNodes] = useState(true);
     const [seePathPoints, setSeePathPoints] = useState(true);
