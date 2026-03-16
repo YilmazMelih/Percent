@@ -96,6 +96,7 @@ export default function Node({
                         cx={x}
                         cy={y}
                         r={ringR}
+                        className={isDragging ? "cursor-grabbing" : "cursor-grab"}
                         fill="none"
                         stroke="transparent"
                         strokeWidth={ringHitSlop}
@@ -111,7 +112,7 @@ export default function Node({
                         cx={x}
                         cy={y}
                         r={ringR}
-                        className="node-ring"
+                        className="node-ring cursor-pointer"
                         stroke={isRingHovered ? "#0c532e" : "#167d48"}
                         strokeOpacity={isDragging ? 0.5 : 1}
                         strokeDasharray={`${ringVisibleLen} ${ringGapLen}`}

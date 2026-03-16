@@ -90,10 +90,10 @@ export const AConfig = {
             id: "1",
             name: "left",
             default: 1,
-            r: 30.315,
+            r: 31.1,
             pos: {
-                x: -35.505,
-                y: 149.765,
+                x: -39.12,
+                y: 163.84,
             },
             affects: [
                 {
@@ -144,10 +144,10 @@ export const AConfig = {
             id: "2",
             name: "right",
             default: 1,
-            r: 30.75,
+            r: 31.1,
             pos: {
-                x: 34.31,
-                y: 150.05,
+                x: 38.15,
+                y: 163.84,
             },
             affects: [
                 {
@@ -190,6 +190,46 @@ export const AConfig = {
                     formula: (base, val) => {
                         const sec = { x: -13.25, y: 80.5 };
                         return { ...interpolateFromBase(val, base, sec, -1), y: base.y };
+                    },
+                },
+            ],
+        },
+        {
+            id: "3",
+            name: "top",
+            default: 1,
+            r: 30.75,
+            pos: {
+                x: 0,
+                y: 108.375,
+            },
+            affects: [
+                {
+                    point: "leftTop",
+                    formula: (base, val) => {
+                        const sec = { x: -44.79, y: 108.375 };
+                        return { ...interpolateFromBase(val, base, sec, 0), x: base.x };
+                    },
+                },
+                {
+                    point: "rightTop",
+                    formula: (base, val) => {
+                        const sec = { x: 43.71, y: 108.375 };
+                        return { ...interpolateFromBase(val, base, sec, 0), x: base.x };
+                    },
+                },
+                {
+                    point: "centTopRight",
+                    formula: (base, val) => {
+                        const sec = { x: -0.41, y: 108.375 };
+                        return { ...interpolateFromBase(val, base, sec, 0), x: base.x };
+                    },
+                },
+                {
+                    point: "centTopLeft",
+                    formula: (base, val) => {
+                        const sec = { x: -1.76, y: 108.375 };
+                        return { ...interpolateFromBase(val, base, sec, 0), x: base.x };
                     },
                 },
             ],
