@@ -117,8 +117,10 @@ export async function getCharSVGPathEl(ch) {
 
 export function generateCharFromConfig({ config }) {
     const [nodeSize, setNodeSize] = useState(config.nodes.map((node) => node.default));
+    const [nodeX, setNodeX] = useState(config.nodes.map(() => 0));
+    const [nodeY, setNodeY] = useState(config.nodes.map(() => 0));
     const [seeNodes, setSeeNodes] = useState(true);
-    const d = buildPath(config, nodeSize);
+    const d = buildPath(config, nodeSize, nodeX, nodeY);
     const { controlPoints, endpoints } = extractPathPoints(d);
 
     return (
@@ -130,7 +132,7 @@ export function generateCharFromConfig({ config }) {
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <path className="fill-gray-200 stroke-black stroke-1" d={d}></path>
-                {seeNodes && buildNodes(config, nodeSize)}
+                {seeNodes && buildNodes(config, nodeSize, nodeX, nodeY)}
                 {controlPoints.map((point, i) => (
                     <circle key={`${i}_controlP`} r={0.5} cx={point.x} cy={point.y} fill="red" />
                 ))}
@@ -142,6 +144,10 @@ export function generateCharFromConfig({ config }) {
                 names={config.nodes.map((node) => node.name)}
                 nodeSize={nodeSize}
                 setNodeSize={setNodeSize}
+                nodeX={nodeX}
+                setNodeX={setNodeX}
+                nodeY={nodeY}
+                setNodeY={setNodeY}
                 seeNodes={seeNodes}
                 setSeeNodes={setSeeNodes}
             />

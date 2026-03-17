@@ -15,224 +15,317 @@ function pointBetween(p1, p2, t) {
     };
 }
 
-export const AConfig = {
+export const aConfig = {
     basePath: [
-        { cmd: "M", points: ["rightBottomRight"] },
-        { cmd: "L", points: ["rightBottomLeft"] },
-        { cmd: "L", points: ["midBottomRight"] },
-        { cmd: "L", points: ["midBottomLeft"] },
-        { cmd: "L", points: ["leftBottomRight"] },
-        { cmd: "L", points: ["leftBottomLeft"] },
-        { cmd: "L", points: ["leftTop"] },
-        { cmd: "L", points: ["rightTop"] },
-        { cmd: "L", points: ["rightBottomRight"] },
-        { cmd: "Z" },
-        { cmd: "M", points: ["centBottomRight"] },
-        { cmd: "L", points: ["centTopRight"] },
-        { cmd: "L", points: ["centTopLeft"] },
-        { cmd: "L", points: ["centBottomLeft"] },
-        { cmd: "L", points: ["centBottomRight"] },
-        { cmd: "Z" },
+        { cmd: "M", points: ["point1"] },
+        {
+            cmd: "L",
+            points: ["point2"],
+        },
+        {
+            cmd: "L",
+            points: ["point3"],
+        },
+        {
+            cmd: "C",
+            points: ["point3", "point4", "point5"],
+        },
+        {
+            cmd: "C",
+            points: ["point6", "point7", "point8"],
+        },
+        {
+            cmd: "C",
+            points: ["point9", "point10", "point11"],
+        },
+        {
+            cmd: "C",
+            points: ["point12", "point13", "point14"],
+        },
+        {
+            cmd: "C",
+            points: ["point15", "point16", "point17"],
+        },
+        {
+            cmd: "C",
+            points: ["point18", "point19", "point20"],
+        },
+        {
+            cmd: "L",
+            points: ["point21"],
+        },
+        {
+            cmd: "C",
+            points: ["point22", "point23", "point24"],
+        },
+        {
+            cmd: "C",
+            points: ["point25", "point26", "point27"],
+        },
+        {
+            cmd: "C",
+            points: ["point28", "point29", "point30"],
+        },
+        {
+            cmd: "C",
+            points: ["point30", "point31", "point32"],
+        },
+        {
+            cmd: "L",
+            points: ["point33"],
+        },
+        {
+            cmd: "Z",
+        },
+        {
+            cmd: "M",
+            points: ["point34"],
+        },
+        {
+            cmd: "C",
+            points: ["point35", "point36", "point37"],
+        },
+        {
+            cmd: "C",
+            points: ["point38", "point39", "point40"],
+        },
+        {
+            cmd: "C",
+            points: ["point41", "point42", "point43"],
+        },
+        {
+            cmd: "Z",
+        },
     ],
     points: {
-        rightBottomRight: { x: 105.14, y: 267.76 },
-        rightBottomLeft: { x: 29.1, y: 267.76 },
-        midBottomRight: { x: 21.52, y: 237.18 },
-        midBottomLeft: { x: -22.06, y: 237.45 },
-        leftBottomRight: { x: -29.64, y: 267.76 },
-        leftBottomLeft: { x: -105.14, y: 267.22 },
-        leftTop: { x: -44.79, y: 80.5 },
-        rightTop: { x: 43.71, y: 80.5 },
-        centBottomRight: { x: 12.86, y: 193.89 },
-        centTopRight: { x: -0.41, y: 136.25 },
-        centTopLeft: { x: -1.76, y: 136.25 },
-        centBottomLeft: { x: -13.67, y: 193.89 },
+        point1: {
+            x: 87.57,
+            y: 267.76,
+        },
+        point2: {
+            x: 19.1,
+            y: 267.76,
+        },
+        point3: {
+            x: 16.94,
+            y: 248.82,
+        },
+        point4: {
+            x: 6.94,
+            y: 264.79,
+        },
+        point5: {
+            x: -24.19,
+            y: 269.93,
+        },
+        point6: {
+            x: -39.34,
+            y: 272.64,
+        },
+        point7: {
+            x: -86.36,
+            y: 270.68,
+        },
+        point8: {
+            x: -86.97,
+            y: 236.37,
+        },
+        point9: {
+            x: -87.58,
+            y: 202.13,
+        },
+        point10: {
+            x: -57.3,
+            y: 190.37,
+        },
+        point11: {
+            x: -27.71,
+            y: 190.37,
+        },
+        point12: {
+            x: -1.93,
+            y: 190.37,
+        },
+        point13: {
+            x: 8.28,
+            y: 188.48,
+        },
+        point14: {
+            x: 12.88,
+            y: 180.63,
+        },
+        point15: {
+            x: 14.77,
+            y: 177.38,
+        },
+        point16: {
+            x: 13.96,
+            y: 171.43,
+        },
+        point17: {
+            x: 10.71,
+            y: 167.64,
+        },
+        point18: {
+            x: 4.22,
+            y: 160.06,
+        },
+        point19: {
+            x: -15.54,
+            y: 159.52,
+        },
+        point20: {
+            x: -17.43,
+            y: 178.46,
+        },
+        point21: {
+            x: -78.86,
+            y: 170.07,
+        },
+        point22: {
+            x: -77.24,
+            y: 154.92,
+        },
+        point23: {
+            x: -68.31,
+            y: 144.63,
+        },
+        point24: {
+            x: -56.94,
+            y: 138.41,
+        },
+        point25: {
+            x: -19.05,
+            y: 118.11,
+        },
+        point26: {
+            x: 43.19,
+            y: 127.59,
+        },
+        point27: {
+            x: 56.72,
+            y: 136.52,
+        },
+        point28: {
+            x: 80.53,
+            y: 152.76,
+        },
+        point29: {
+            x: 80.8,
+            y: 175.22,
+        },
+        point30: {
+            x: 80.8,
+            y: 207.69,
+        },
+        point31: {
+            x: 79.72,
+            y: 246.39,
+        },
+        point32: {
+            x: 82.42,
+            y: 252.61,
+        },
+        point33: {
+            x: 87.56,
+            y: 267.76,
+        },
+        point34: {
+            x: 14.51,
+            y: 205.79,
+        },
+        point35: {
+            x: 4.5,
+            y: 212.56,
+        },
+        point36: {
+            x: -14.99,
+            y: 209.58,
+        },
+        point37: {
+            x: -20.13,
+            y: 218.51,
+        },
+        point38: {
+            x: -27.44,
+            y: 232.04,
+        },
+        point39: {
+            x: -11.74,
+            y: 243.68,
+        },
+        point40: {
+            x: 5.58,
+            y: 234.21,
+        },
+        point41: {
+            x: 16.13,
+            y: 228.26,
+        },
+        point42: {
+            x: 14.51,
+            y: 211.21,
+        },
+        point43: {
+            x: 14.51,
+            y: 205.8,
+        },
     },
     nodes: [
         {
             id: "0",
-            name: "middle",
+            name: "left",
             default: 1,
-            r: 21.645,
-            pos: { x: 0, y: 215.535 },
-            affects: [
-                {
-                    point: "midBottomLeft",
-                    formula: (base, val) => {
-                        const sec = { x: -22.06, y: 215.535 };
-                        return interpolateFromBase(val, base, sec, 0);
-                    },
-                },
-                {
-                    point: "midBottomRight",
-                    formula: (base, val) => {
-                        const sec = { x: 21.52, y: 215.535 };
-                        return interpolateFromBase(val, base, sec, 0);
-                    },
-                },
-                {
-                    point: "centBottomRight",
-                    formula: (base, val) => {
-                        const sec = { x: 12.86, y: 215.535 };
-                        return interpolateFromBase(val, base, sec, 0);
-                    },
-                },
-                {
-                    point: "centBottomLeft",
-                    formula: (base, val) => {
-                        const sec = { x: -13.67, y: 215.535 };
-                        return interpolateFromBase(val, base, sec, 0);
-                    },
-                },
-            ],
+            r: 32.9,
+            pos: {
+                x: -54.08,
+                y: 234.5,
+            },
+            affects: [],
         },
         {
             id: "1",
-            name: "left",
+            name: "top",
             default: 1,
-            r: 31.1,
+            r: 18.26,
             pos: {
-                x: -39.12,
-                y: 163.84,
+                x: 2.04,
+                y: 144.58,
             },
-            affects: [
-                {
-                    point: "leftBottomLeft",
-                    formula: (base, val) => {
-                        const sec = { x: -29.64, y: 267.22 };
-                        return { ...interpolateFromBase(val, base, sec, -1), y: base.y };
-                    },
-                },
-                {
-                    point: "leftBottomRight",
-                    formula: (base, val) => {
-                        const sec = { x: -105.14, y: 267.76 };
-                        return { ...interpolateFromBase(val, base, sec, -1), y: base.y };
-                    },
-                },
-                {
-                    point: "midBottomLeft",
-                    formula: (base, val) => {
-                        const sec = { x: -95.37, y: 237.45 };
-                        return { ...interpolateFromBase(val, base, sec, -1), y: base.y };
-                    },
-                },
-                {
-                    point: "centTopLeft",
-                    formula: (base, val) => {
-                        const sec = { x: -62.99, y: 136.25 };
-                        return { ...interpolateFromBase(val, base, sec, -1), y: base.y };
-                    },
-                },
-                {
-                    point: "centBottomLeft",
-                    formula: (base, val) => {
-                        const sec = { x: -81.62, y: 193.89 };
-                        return { ...interpolateFromBase(val, base, sec, -1), y: base.y };
-                    },
-                },
-                {
-                    point: "leftTop",
-                    formula: (base, val) => {
-                        const sec = { x: 9.76, y: 80.5 };
-                        return { ...interpolateFromBase(val, base, sec, -1), y: base.y };
-                    },
-                },
-            ],
+            affects: [],
         },
         {
             id: "2",
             name: "right",
             default: 1,
-            r: 31.1,
+            r: 33.14,
             pos: {
-                x: 38.15,
-                y: 163.84,
+                x: 47.74,
+                y: 213.81,
             },
-            affects: [
-                {
-                    point: "rightBottomLeft",
-                    formula: (base, val) => {
-                        const sec = { x: 105.14, y: 267.76 };
-                        return { ...interpolateFromBase(val, base, sec, -1), y: base.y };
-                    },
-                },
-                {
-                    point: "rightBottomRight",
-                    formula: (base, val) => {
-                        const sec = { x: 29.1, y: 267.76 };
-                        return { ...interpolateFromBase(val, base, sec, -1), y: base.y };
-                    },
-                },
-                {
-                    point: "midBottomRight",
-                    formula: (base, val) => {
-                        const sec = { x: 95.11, y: 237.18 };
-                        return { ...interpolateFromBase(val, base, sec, -1), y: base.y };
-                    },
-                },
-                {
-                    point: "centTopRight",
-                    formula: (base, val) => {
-                        const sec = { x: 61.99, y: 136.25 };
-                        return { ...interpolateFromBase(val, base, sec, -1), y: base.y };
-                    },
-                },
-                {
-                    point: "centBottomRight",
-                    formula: (base, val) => {
-                        const sec = { x: 80.9, y: 193.89 };
-                        return { ...interpolateFromBase(val, base, sec, -1), y: base.y };
-                    },
-                },
-                {
-                    point: "rightTop",
-                    formula: (base, val) => {
-                        const sec = { x: -13.25, y: 80.5 };
-                        return { ...interpolateFromBase(val, base, sec, -1), y: base.y };
-                    },
-                },
-            ],
+            affects: [],
         },
         {
             id: "3",
-            name: "top",
+            name: "middle",
             default: 1,
-            r: 30.75,
+            r: 10.86,
             pos: {
-                x: 0,
-                y: 108.375,
+                x: -4.37,
+                y: 200.25,
             },
-            affects: [
-                {
-                    point: "leftTop",
-                    formula: (base, val) => {
-                        const sec = { x: -44.79, y: 108.375 };
-                        return { ...interpolateFromBase(val, base, sec, 0), x: base.x };
-                    },
-                },
-                {
-                    point: "rightTop",
-                    formula: (base, val) => {
-                        const sec = { x: 43.71, y: 108.375 };
-                        return { ...interpolateFromBase(val, base, sec, 0), x: base.x };
-                    },
-                },
-                {
-                    point: "centTopRight",
-                    formula: (base, val) => {
-                        const sec = { x: -0.41, y: 108.375 };
-                        return { ...interpolateFromBase(val, base, sec, 0), x: base.x };
-                    },
-                },
-                {
-                    point: "centTopLeft",
-                    formula: (base, val) => {
-                        const sec = { x: -1.76, y: 108.375 };
-                        return { ...interpolateFromBase(val, base, sec, 0), x: base.x };
-                    },
-                },
-            ],
+            affects: [],
+        },
+        {
+            id: "4",
+            name: "bottom",
+            default: 1,
+            r: 12.52,
+            pos: {
+                x: -3.69,
+                y: 250.17,
+            },
+            affects: [],
         },
     ],
 };

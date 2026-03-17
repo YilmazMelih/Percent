@@ -5,6 +5,10 @@ export default function SettingsPanel({
     config,
     nodeSize,
     setNodeSize,
+    nodeX,
+    setNodeX,
+    nodeY,
+    setNodeY,
     seeNodes,
     setSeeNodes,
     seePathPoints,
@@ -24,6 +28,10 @@ export default function SettingsPanel({
                 names={config.nodes.map((node) => node.name)}
                 nodeSize={nodeSize}
                 setNodeSize={setNodeSize}
+                nodeX={nodeX}
+                setNodeX={setNodeX}
+                nodeY={nodeY}
+                setNodeY={setNodeY}
                 seeNodes={seeNodes}
                 setSeeNodes={setSeeNodes}
                 seePathPoints={seePathPoints}

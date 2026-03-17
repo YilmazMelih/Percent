@@ -105,15 +105,19 @@ export function extractPathPoints(d) {
     return { endpoints, controlPoints };
 }
 
-export function buildPath(config, nodeVals) {
+export function buildPath(config, nodeVals, nodeX, nodeY) {
     const computedPoints = { ...config.points };
 
     config.nodes.forEach((node) => {
         node.affects.forEach((affect) => {
-            computedPoints[affect.point] = affect.formula(
-                computedPoints[affect.point],
-                nodeVals[node.id],
-            );
+            const basePoint = computedPoints[affect.point];
+            const sizedPoint = affect.formula(computedPoints[affect.point], nodeVals[node.id]);
+            const dx = nodeX?.[node.id] ?? 0;
+            const dy = nodeY?.[node.id] ?? 0;
+            computedPoints[affect.point] = {
+                x: sizedPoint.x + dx,
+                y: sizedPoint.y + dy,
+            };
         });
     });
 
@@ -133,6 +137,8 @@ export function buildPath(config, nodeVals) {
 export function buildNodes(
     config,
     nodeVals,
+    nodeX,
+    nodeY,
     setNodeSize,
     active,
     setActive,
@@ -140,11 +146,13 @@ export function buildNodes(
     setIsDragging,
 ) {
     return config.nodes.map((node) => {
+        const tx = nodeX?.[node.id] ?? 0;
+        const ty = nodeY?.[node.id] ?? 0;
         return (
             <Node
                 key={node.id}
-                x={node.pos.x}
-                y={node.pos.y}
+                x={node.pos.x + tx}
+                y={node.pos.y + ty}
                 nodeVals={nodeVals}
                 r={node.r}
                 active={active}

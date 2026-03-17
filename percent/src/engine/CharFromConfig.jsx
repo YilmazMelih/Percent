@@ -4,11 +4,13 @@ import SliderPanel from "./NodeSliders";
 
 export default function CharFromConfig({ config }) {
     const [nodeSize, setNodeSize] = useState(config.nodes.map((node) => node.default));
+    const [nodeX, setNodeX] = useState(config.nodes.map(() => 0));
+    const [nodeY, setNodeY] = useState(config.nodes.map(() => 0));
     const [seeNodes, setSeeNodes] = useState(true);
     const [seePathPoints, setSeePathPoints] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const [active, setActive] = useState(null);
-    const d = buildPath(config, nodeSize);
+    const d = buildPath(config, nodeSize, nodeX, nodeY);
     const { controlPoints, endpoints } = extractPathPoints(d);
 
     return (
@@ -25,6 +27,8 @@ export default function CharFromConfig({ config }) {
                     buildNodes(
                         config,
                         nodeSize,
+                        nodeX,
+                        nodeY,
                         setNodeSize,
                         active,
                         setActive,
@@ -44,6 +48,10 @@ export default function CharFromConfig({ config }) {
                 names={config.nodes.map((node) => node.name)}
                 nodeSize={nodeSize}
                 setNodeSize={setNodeSize}
+                nodeX={nodeX}
+                setNodeX={setNodeX}
+                nodeY={nodeY}
+                setNodeY={setNodeY}
                 seeNodes={seeNodes}
                 setSeeNodes={setSeeNodes}
                 seePathPoints={seePathPoints}

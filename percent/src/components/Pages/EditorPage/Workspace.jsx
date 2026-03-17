@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { buildPath, extractPathPoints, buildNodes } from "../../../engine/project";
 
-export default function Workspace({ config, nodeSize, setNodeSize, seeNodes, seePathPoints }) {
+export default function Workspace({
+    config,
+    nodeSize,
+    setNodeSize,
+    nodeX,
+    nodeY,
+    seeNodes,
+    seePathPoints,
+}) {
     const [ascender, setAscender] = useState(30.5);
     const [cap_height, setCapHeight] = useState(80.5);
     const [x_height, setXHeight] = useState(136.25);
@@ -10,7 +18,7 @@ export default function Workspace({ config, nodeSize, setNodeSize, seeNodes, see
 
     const [isDragging, setIsDragging] = useState(false);
     const [active, setActive] = useState(null);
-    const d = buildPath(config, nodeSize);
+    const d = buildPath(config, nodeSize, nodeX, nodeY);
     const { controlPoints, endpoints } = extractPathPoints(d);
 
     return (
@@ -44,6 +52,8 @@ export default function Workspace({ config, nodeSize, setNodeSize, seeNodes, see
                     buildNodes(
                         config,
                         nodeSize,
+                        nodeX,
+                        nodeY,
                         setNodeSize,
                         active,
                         setActive,
