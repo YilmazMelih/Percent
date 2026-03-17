@@ -1,0 +1,130 @@
+.all-glyphs-container {
+  background-color: #f7f7f7;
+  border-left: 1px solid #e0e0e0;
+  padding: 1rem;
+  font-family: sans-serif; /* Use a standard web font */
+  color: #333;
+  width: 100%; /* Let the container fill the pane */
+  height: 100%;
+  overflow-y: auto;
+}
+
+.all-glyphs-title {
+  font-size: 1rem; /* Smaller font size */
+  font-weight: 600;
+  margin: 0; /* Remove margin to align with slider */
+}
+
+.glyphs-grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.grid-size-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80px;
+  height: 5px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.grid-size-slider:hover {
+  opacity: 1;
+}
+
+.grid-size-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #167d48;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.grid-size-slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background: #167d48;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.size-indicator-small,
+.size-indicator-large {
+  border-radius: 50%;
+  background-color: #ccc;
+}
+
+.size-indicator-small.active,
+.size-indicator-large.active {
+    background-color: #167d48;
+}
+
+.size-indicator-small {
+  width: 8px;
+  height: 8px;
+}
+
+.size-indicator-large {
+  width: 14px;
+  height: 14px;
+}
+
+.all-glyphs-grid {
+  display: grid;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+}
+
+.glyph-item {
+  display: flex;
+  flex-direction: column; /* Stack preview and label vertically */
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  font-size: 1.5rem;
+  padding: 4px;
+}
+
+.glyph-preview-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.glyph-name-label {
+  color: #666;
+  margin-top: 4px;
+}
+
+.glyph-item.available {
+  cursor: pointer;
+}
+
+.glyph-item.unavailable {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.glyph-item.selected {
+  font-weight: bold;
+  outline: 2px solid #167d48; /* Green outline for selected item */
+  outline-offset: -2px; /* Place outline inside the border */
+}

@@ -2,16 +2,24 @@ import { Link, useLocation } from "react-router-dom";
 import React, { useState } from "react";
 import "./Header.css";
 import logoGif from "../../assets/images/Logo_fina.gif";
+import staticLogo from "../../assets/images/icon.png";
 import { useModal } from "../../contexts/ModalContext";
 
 function Header() {
     const location = useLocation();
     const { openExportModal } = useModal();
+    const [isLogoHovered, setIsLogoHovered] = useState(false);
     const isPlayground = location.pathname === "/playground";
     return (
         <header className="header">
             <div className="header-brand">
-                <img src={logoGif} alt="Percent Logo" className="header-logo" />
+                <img
+                    src={isLogoHovered ? logoGif : staticLogo}
+                    alt="Percent Logo"
+                    className="header-logo"
+                    onMouseEnter={() => setIsLogoHovered(true)}
+                    onMouseLeave={() => setIsLogoHovered(false)}
+                />
                 <Link to="/" className="header-title">
                     Percent
                 </Link>

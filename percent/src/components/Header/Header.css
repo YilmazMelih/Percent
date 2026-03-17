@@ -18,7 +18,7 @@
 }
 
 .header-logo {
-  height: 60px; /* Control logo size */
+  height: 60px; 
   margin-right: 0.5rem;
 }
 
@@ -28,7 +28,7 @@
   color: var(--text-color);
 }
 
-/* Add a simple nav for potential future use */
+
 .header-nav a {
   color: var(--secondary-color);
   text-decoration: none;
