@@ -4,7 +4,7 @@ import SidePanelGroup from "./SidePanelGroup";
 import SettingsPanel from "./SettingsPanel";
 import Workspace from "./Workspace";
 import AllGlyphs from "./AllGlyphs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AConfig } from "../../../engine/fonts/default/A";
 import { oConfig } from "../../../engine/fonts/default/o";
 import { nConfig } from "../../../engine/fonts/default/n";
@@ -33,6 +33,19 @@ export default function Editor() {
     const [selectedGlyph, setSelectedGlyph] = useState("A");
     const [seeNodes, setSeeNodes] = useState(true);
     const [seePathPoints, setSeePathPoints] = useState(false);
+    const [maxPaneSize, setMaxPaneSize] = useState(window.innerWidth * 2 / 3);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setMaxPaneSize(window.innerWidth * 2 / 3);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const handleNodeSizeChange = (value) => {
         setGlyphData(prevData => {
@@ -53,7 +66,7 @@ export default function Editor() {
     return (
         <div style={{ height: "calc(100vh - 60px)" }}>
             <Allotment>
-                <Allotment.Pane minSize={200} preferredSize="280px">
+                <Allotment.Pane minSize={200} preferredSize="280px" maxSize={maxPaneSize}>
                     <AllGlyphs
                         glyphData={glyphData}
                         selectedGlyph={selectedGlyph}
