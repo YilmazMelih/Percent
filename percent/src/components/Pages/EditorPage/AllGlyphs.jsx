@@ -63,6 +63,8 @@ const AllGlyphs = ({ glyphData, selectedGlyph, onGlyphSelect, availableGlyphs })
                   <GlyphPreview
                     config={glyph.config}
                     nodeSize={glyph.nodeSize}
+                    nodeX={glyph.nodeX}
+                    nodeY={glyph.nodeY}
                     showNodes={hoveredGlyph === letter}
                   />
                 ) : (

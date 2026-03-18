@@ -24,6 +24,8 @@ const initializeGlyphData = (configs) => {
         data[key] = {
             config: config,
             nodeSize: config.nodes.map((node) => node.default),
+            nodeX: config.nodes.map(() => 0),
+            nodeY: config.nodes.map(() => 0),
         };
     }
     return data;
@@ -38,8 +40,6 @@ const initialConfigs = {
 export default function Editor() {
     const [glyphData, setGlyphData] = useState(() => initializeGlyphData(initialConfigs));
     const [selectedGlyph, setSelectedGlyph] = useState("A");
-    const [nodeX, setNodeX] = useState(glyphData[selectedGlyph].config.nodes.map(() => 0));
-    const [nodeY, setNodeY] = useState(glyphData[selectedGlyph].config.nodes.map(() => 0));
     const [seeNodes, setSeeNodes] = useState(true);
     const [seePathPoints, setSeePathPoints] = useState(false);
     const [maxPaneSize, setMaxPaneSize] = useState((window.innerWidth * 2) / 3);
@@ -70,6 +70,34 @@ export default function Editor() {
         });
     };
 
+    const handleNodeXChange = (value) => {
+        setGlyphData((prevData) => {
+            const old = prevData[selectedGlyph].nodeX;
+            const next = typeof value === "function" ? value(old) : value;
+            return {
+                ...prevData,
+                [selectedGlyph]: {
+                    ...prevData[selectedGlyph],
+                    nodeX: next,
+                },
+            };
+        });
+    };
+
+    const handleNodeYChange = (value) => {
+        setGlyphData((prevData) => {
+            const old = prevData[selectedGlyph].nodeY;
+            const next = typeof value === "function" ? value(old) : value;
+            return {
+                ...prevData,
+                [selectedGlyph]: {
+                    ...prevData[selectedGlyph],
+                    nodeY: next,
+                },
+            };
+        });
+    };
+
     const currentGlyph = glyphData[selectedGlyph];
 
     return (
@@ -90,8 +118,8 @@ export default function Editor() {
                                 config={currentGlyph.config}
                                 nodeSize={currentGlyph.nodeSize}
                                 setNodeSize={handleNodeSizeChange}
-                                nodeX={nodeX}
-                                nodeY={nodeY}
+                                nodeX={currentGlyph.nodeX}
+                                nodeY={currentGlyph.nodeY}
                                 seeNodes={seeNodes}
                                 seePathPoints={seePathPoints}
                             />
@@ -102,10 +130,10 @@ export default function Editor() {
                                     config: currentGlyph.config,
                                     nodeSize: currentGlyph.nodeSize,
                                     setNodeSize: handleNodeSizeChange,
-                                    nodeX,
-                                    nodeY,
-                                    setNodeX,
-                                    setNodeY,
+                                    nodeX: currentGlyph.nodeX,
+                                    nodeY: currentGlyph.nodeY,
+                                    setNodeX: handleNodeXChange,
+                                    setNodeY: handleNodeYChange,
                                     seeNodes,
                                     setSeeNodes,
                                     seePathPoints,

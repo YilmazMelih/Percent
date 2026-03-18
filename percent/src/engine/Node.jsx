@@ -146,13 +146,6 @@ export default function Node({
                     e.stopPropagation();
                     setActive(active === id ? null : id);
                 }}
-                onMouseDown={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    if (e.detail === 2) {
-                        console.log("drag");
-                    }
-                }}
             />
         </g>
     );
