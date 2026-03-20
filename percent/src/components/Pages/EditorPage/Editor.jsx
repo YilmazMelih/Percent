@@ -16,6 +16,7 @@ import { GCapConfig } from "../../../engine/fonts/default/G_cap";
 import { HCapConfig } from "../../../engine/fonts/default/H_cap";
 import { ICapConfig } from "../../../engine/fonts/default/I_cap";
 import { JCapConfig } from "../../../engine/fonts/default/J_cap";
+import { lConfig } from "../../../engine/fonts/default/l";
 import { oConfig } from "../../../engine/fonts/default/o";
 import { nConfig } from "../../../engine/fonts/default/n";
 import {
@@ -72,6 +73,7 @@ const initialConfigs = {
     H: HCapConfig,
     I: ICapConfig,
     J: JCapConfig,
+    l: lConfig,
     n: nConfig,
     o: oConfig,
 };

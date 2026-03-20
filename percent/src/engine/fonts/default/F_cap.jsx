@@ -106,7 +106,43 @@ export const FCapConfig = {
                 x: -50.29,
                 y: 229.26,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point1",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                },
+                {
+                    point: "point2",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                },
+                {
+                    point: "point5",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                },
+                {
+                    point: "point6",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                },
+                {
+                    point: "point9",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                },
+                {
+                    point: "point10",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                },
+                {
+                    point: "point11",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                },
+            ],
         },
         {
             id: "1",
@@ -117,7 +153,28 @@ export const FCapConfig = {
                 x: 15.26,
                 y: 172.69,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point6",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: base.x, y: 172.69 }, 0),
+                },
+                {
+                    point: "point7",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: base.x, y: 172.69 }, 0),
+                },
+                {
+                    point: "point8",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: base.x, y: 172.69 }, 0),
+                },
+                {
+                    point: "point9",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: base.x, y: 172.69 }, 0),
+                },
+            ],
         },
         {
             id: "2",
@@ -128,7 +185,28 @@ export const FCapConfig = {
                 x: 35.49,
                 y: 103.7,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point2",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: base.x, y: 103.7 }, 0),
+                },
+                {
+                    point: "point3",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: base.x, y: 103.7 }, 0),
+                },
+                {
+                    point: "point4",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: base.x, y: 103.7 }, 0),
+                },
+                {
+                    point: "point5",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: base.x, y: 103.7 }, 0),
+                },
+            ],
         },
     ],
 };

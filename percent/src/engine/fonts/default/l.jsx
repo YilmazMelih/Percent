@@ -1,6 +1,6 @@
 import { interpolateFromBase } from "../../project";
 
-export const ICapConfig = {
+export const lConfig = {
     basePath: [
         {
             cmd: "M",
