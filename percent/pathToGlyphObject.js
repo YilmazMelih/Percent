@@ -197,13 +197,14 @@ export function shiftPointsToBaseline(pointsObj, baselineY) {
     return out;
 }
 
-export function shiftPointsToAnchorY(pointsObj, pointName, targetY) {
+export function shiftPointsToAnchor(pointsObj, pointName, targetX = null, targetY = null) {
     const anchor = pointsObj?.[pointName];
     if (!anchor) return pointsObj;
-    const dy = targetY - anchor.y;
+    const dx = targetX === null ? 0 : targetX - anchor.x;
+    const dy = targetY === null ? 0 : targetY - anchor.y;
     const out = {};
     for (const [name, p] of Object.entries(pointsObj)) {
-        out[name] = { x: p.x, y: +(p.y + dy).toFixed(2) };
+        out[name] = { x: +(p.x + dx).toFixed(2), y: +(p.y + dy).toFixed(2) };
     }
     return out;
 }

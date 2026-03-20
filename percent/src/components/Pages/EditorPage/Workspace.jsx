@@ -20,6 +20,13 @@ export default function Workspace({
     const [active, setActive] = useState(null);
     const d = buildPath(config, nodeSize, nodeX, nodeY);
     const { controlPoints, endpoints } = extractPathPoints(d);
+    const logPointName = (point) => {
+        const name = Object.keys(config.points ?? {}).find((key) => {
+            const p = config.points[key];
+            return p?.x === point.x && p?.y === point.y;
+        });
+        console.log(`${name ?? "unknown-point"} (${point.x}, ${point.y})`);
+    };
 
     return (
         <div className="aspect-[5/3] w-[min(90vw,1000px)] mx-auto mt-10">
@@ -62,11 +69,25 @@ export default function Workspace({
                     )}
                 {seePathPoints &&
                     controlPoints.map((point, i) => (
-                        <circle key={`${i}_controlP`} r={3} cx={point.x} cy={point.y} fill="red" />
+                        <circle
+                            key={`${i}_controlP`}
+                            r={3}
+                            cx={point.x}
+                            cy={point.y}
+                            fill="red"
+                            onMouseEnter={() => logPointName(point)}
+                        />
                     ))}
                 {seePathPoints &&
                     endpoints.map((point, i) => (
-                        <circle key={`${i}_endpoint`} r={4} cx={point.x} cy={point.y} fill="blue" />
+                        <circle
+                            key={`${i}_endpoint`}
+                            r={4}
+                            cx={point.x}
+                            cy={point.y}
+                            fill="blue"
+                            onMouseEnter={() => logPointName(point)}
+                        />
                     ))}
             </svg>
         </div>
