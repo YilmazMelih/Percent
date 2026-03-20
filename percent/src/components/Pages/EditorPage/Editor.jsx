@@ -7,7 +7,15 @@ import AllGlyphs from "./AllGlyphs";
 import { useState, useEffect } from "react";
 import { ACapConfig } from "../../../engine/fonts/default/A_cap";
 import { aConfig } from "../../../engine/fonts/default/a";
+import { BCapConfig } from "../../../engine/fonts/default/B_cap";
+import { CCapConfig } from "../../../engine/fonts/default/C_cap";
+import { DCapConfig } from "../../../engine/fonts/default/D_cap";
+import { ECapConfig } from "../../../engine/fonts/default/E_cap";
+import { FCapConfig } from "../../../engine/fonts/default/F_cap";
+import { GCapConfig } from "../../../engine/fonts/default/G_cap";
 import { HCapConfig } from "../../../engine/fonts/default/H_cap";
+import { ICapConfig } from "../../../engine/fonts/default/I_cap";
+import { JCapConfig } from "../../../engine/fonts/default/J_cap";
 import { oConfig } from "../../../engine/fonts/default/o";
 import { nConfig } from "../../../engine/fonts/default/n";
 import {
@@ -32,16 +40,17 @@ const initializeGlyphData = (configs) => {
     return data;
 };
 const testD = `
-M265.95,80.77v186.72h-76.04v-71.44h-47.36v71.44h-76.04V80.77h76.04l.27,71.98h47.36l-.27-71.98h76.04Z`;
-const testSVGStr = `
-<circle xmlns="http://www.w3.org/2000/svg" class="cls-1" cx="104.5" cy="229.49" r="38"/>
-<circle xmlns="http://www.w3.org/2000/svg" class="cls-1" cx="166.22" cy="174.42" r="21.64"/>
-<circle xmlns="http://www.w3.org/2000/svg" class="cls-1" cx="227.94" cy="229.49" r="38"/>
+M269.87,199.11s-.54,8.39-5.68,21.11c-7.31,19.49-32.2,47.9-94.44,50.06-60.08,1.89-107.16-23.52-107.16-96.07s51.15-96.34,107.16-96.34c37.34,0,63.05,10.01,78.48,28.69,15.7,18.67,20.84,40.05,20.84,40.05l-68.74,10.01c-2.71-18.67-12.72-30.31-31.12-31.66-12.99-.81-25.98,5.95-33.02,20.3-3.65,7.41-5.29,16.87-5.12,26.52.28,16.08,5.56,32.68,14.87,41.13,10.28,9.2,30.85,9.2,39.78,3.79,13.8-8.66,15.15-25.44,15.15-25.44l69.01,7.85Z
 `;
-const testFromPoint = { x: 265.95, y: 80.77 };
+const testSVGStr = `
+<circle xmlns="http://www.w3.org/2000/svg" class="cls-1" cx="96.82" cy="174.13" r="34.25"/>
+<circle xmlns="http://www.w3.org/2000/svg" class="cls-1" cx="166.22" cy="101.39" r="23.51"/>
+<circle xmlns="http://www.w3.org/2000/svg" class="cls-1" cx="166.22" cy="245.45" r="24.94"/>
+`;
+const testFromPoint = { x: 269.87, y: 199.11 };
 const testP = convertPathToGlyphObject(testD);
-const testPoints = shiftPointsToAnchor(testP.points, "point2", null, 267.76);
-const testToPoint = testP.points.point1;
+const testPoints = shiftPointsToAnchor(testP.points, "point6", null, 273.72);
+const testToPoint = testPoints.point1;
 const testNodes = generateNodesFromCircles(testFromPoint, testToPoint, testSVGStr);
 const testConfig = {
     basePath: testP.basePath,
@@ -54,9 +63,17 @@ const testConfig = {
 const initialConfigs = {
     A: ACapConfig,
     a: aConfig,
+    B: BCapConfig,
+    C: CCapConfig,
+    D: DCapConfig,
+    E: ECapConfig,
+    F: FCapConfig,
+    G: GCapConfig,
     H: HCapConfig,
-    n: nConfig, // Corrected from N
-    o: oConfig, // Corrected from O
+    I: ICapConfig,
+    J: JCapConfig,
+    n: nConfig,
+    o: oConfig,
 };
 
 const GLYPH_STATE_STORAGE_KEY = "editor:glyphData:v1";
