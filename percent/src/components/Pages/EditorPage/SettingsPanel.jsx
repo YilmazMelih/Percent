@@ -13,6 +13,8 @@ export default function SettingsPanel({
     setSeeNodes,
     seePathPoints,
     setSeePathPoints,
+    isBottomPanelVisible,
+    setBottomPanelVisible,
 }) {
     return (
         <SidePanelTab
@@ -37,6 +39,15 @@ export default function SettingsPanel({
                 seePathPoints={seePathPoints}
                 setSeePathPoints={setSeePathPoints}
             />
+            <div className="control-group" style={{ marginTop: '1rem', borderTop: '1px solid #e0e0e0', paddingTop: '1rem' }}>
+                <label htmlFor="display-toggle">Display</label>
+                <input
+                    id="display-toggle"
+                    type="checkbox"
+                    checked={isBottomPanelVisible}
+                    onChange={(e) => setBottomPanelVisible(e.target.checked)}
+                />
+            </div>
         </SidePanelTab>
     );
 }
