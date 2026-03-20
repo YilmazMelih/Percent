@@ -1,0 +1,121 @@
+.bottom-panel-container {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  background-color: #fdfdfd;
+  border-top: 1px solid #e0e0e0;
+  box-sizing: border-box;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.timeline-header h3 {
+    margin: 0;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.font-size-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  position: relative;
+  cursor: col-resize;
+}
+
+.font-size-input,
+.font-size-display {
+  width: 4em;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-align: right;
+  background-color: #fff;
+  user-select: none; /* Prevent text selection during drag */
+}
+
+.font-size-input::-webkit-outer-spin-button,
+.font-size-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.font-size-input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.font-size-wrapper span {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+}
+
+.preview-text-input {
+  flex-grow: 1;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  font-size: 0.9rem;
+  border-right: none;
+}
+
+.dropdown-toggle {
+  padding: 0 0.75rem;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.6rem;
+  line-height: 1;
+}
+
+.dropdown-toggle:hover {
+  background-color: #e0e0e0;
+}
+
+.options-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.options-dropdown li {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+.options-dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+.preview-area {
+  flex-grow: 1;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-y: auto;
+}

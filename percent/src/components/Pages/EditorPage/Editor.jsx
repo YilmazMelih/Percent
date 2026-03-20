@@ -4,6 +4,7 @@ import SidePanelGroup from "./SidePanelGroup";
 import SettingsPanel from "./SettingsPanel";
 import Workspace from "./Workspace";
 import AllGlyphs from "./AllGlyphs";
+import BottomPanel from "./BottomPanel";
 import { useState, useEffect } from "react";
 import { ACapConfig } from "../../../engine/fonts/default/A_cap";
 import { aConfig } from "../../../engine/fonts/default/a";
@@ -133,6 +134,7 @@ export default function Editor() {
         const saved = window.localStorage.getItem(SEE_PATH_POINTS_STORAGE_KEY);
         return saved === null ? false : saved === "true";
     });
+    const [isBottomPanelVisible, setBottomPanelVisible] = useState(false);
     const [maxPaneSize, setMaxPaneSize] = useState((window.innerWidth * 2) / 3);
 
     useEffect(() => {
@@ -219,35 +221,44 @@ export default function Editor() {
                     />
                 </Allotment.Pane>
                 <Allotment.Pane>
-                    <div className="relative min-h-full flex">
-                        {currentGlyph && (
-                            <Workspace
-                                config={currentGlyph.config}
-                                nodeSize={currentGlyph.nodeSize}
-                                setNodeSize={handleNodeSizeChange}
-                                nodeX={currentGlyph.nodeX}
-                                nodeY={currentGlyph.nodeY}
-                                seeNodes={seeNodes}
-                                seePathPoints={seePathPoints}
-                            />
-                        )}
-                        <SidePanelGroup side="right">
-                            {currentGlyph &&
-                                SettingsPanel({
-                                    config: currentGlyph.config,
-                                    nodeSize: currentGlyph.nodeSize,
-                                    setNodeSize: handleNodeSizeChange,
-                                    nodeX: currentGlyph.nodeX,
-                                    nodeY: currentGlyph.nodeY,
-                                    setNodeX: handleNodeXChange,
-                                    setNodeY: handleNodeYChange,
-                                    seeNodes,
-                                    setSeeNodes,
-                                    seePathPoints,
-                                    setSeePathPoints,
-                                })}
-                        </SidePanelGroup>
-                    </div>
+                    <Allotment vertical={true}>
+                        <Allotment.Pane>
+                            <div className="relative min-h-full flex">
+                                {currentGlyph && (
+                                    <Workspace
+                                        config={currentGlyph.config}
+                                        nodeSize={currentGlyph.nodeSize}
+                                        setNodeSize={handleNodeSizeChange}
+                                        nodeX={currentGlyph.nodeX}
+                                        nodeY={currentGlyph.nodeY}
+                                        seeNodes={seeNodes}
+                                        seePathPoints={seePathPoints}
+                                    />
+                                )}
+                                <SidePanelGroup side="right">
+                                    {currentGlyph &&
+                                        SettingsPanel({
+                                            config: currentGlyph.config,
+                                            nodeSize: currentGlyph.nodeSize,
+                                            setNodeSize: handleNodeSizeChange,
+                                            nodeX: currentGlyph.nodeX,
+                                            nodeY: currentGlyph.nodeY,
+                                            setNodeX: handleNodeXChange,
+                                            setNodeY: handleNodeYChange,
+                                            seeNodes,
+                                            setSeeNodes,
+                                            seePathPoints,
+                                            setSeePathPoints,
+                                            isBottomPanelVisible,
+                                            setBottomPanelVisible,
+                                        })}
+                                </SidePanelGroup>
+                            </div>
+                        </Allotment.Pane>
+                        <Allotment.Pane visible={isBottomPanelVisible} minSize={40} preferredSize="33%">
+                            <BottomPanel glyphData={glyphData} />
+                        </Allotment.Pane>
+                    </Allotment>
                 </Allotment.Pane>
             </Allotment>
         </div>
