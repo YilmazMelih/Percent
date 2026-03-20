@@ -114,7 +114,48 @@ export const JCapConfig = {
                 x: 51.56,
                 y: 161.45,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point12",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 22.7, y: 226.09 }, 0),
+                },
+                {
+                    point: "point13",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 26.69, y: 212.7 }, 0),
+                },
+                {
+                    point: "point14",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 26.69, y: 189.56 }, 0),
+                },
+                {
+                    point: "point15",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 26.69, y: 80.81 }, 0),
+                },
+                {
+                    point: "point1",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 49.72, y: 80.81 }, 0),
+                },
+                {
+                    point: "point2",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 49.73, y: 218.41 }, 0),
+                },
+                {
+                    point: "point3",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 49.73, y: 246.3 }, 0),
+                },
+                {
+                    point: "point4",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 40.13, y: 273.46 }, 0),
+                },
+            ],
         },
         {
             id: "1",
@@ -125,7 +166,43 @@ export const JCapConfig = {
                 x: -34.23,
                 y: 241.13,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point6",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -36.18, y: 273.49 }, 0),
+                },
+                {
+                    point: "point7",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -45.19, y: 252.74 }, 0),
+                },
+                {
+                    point: "point8",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -49.73, y: 242.59 }, 0),
+                },
+                {
+                    point: "point9",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -26.42, y: 233.92 }, 0),
+                },
+                {
+                    point: "point10",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -22.09, y: 251.69 }, 0),
+                },
+                {
+                    point: "point11",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -2.35, y: 251.69 }, 0),
+                },
+                {
+                    point: "point12",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 15.79, y: 251.69 }, 0),
+                },
+            ],
         },
     ],
 };
