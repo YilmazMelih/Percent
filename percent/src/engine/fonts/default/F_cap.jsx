@@ -186,16 +186,16 @@ export const FCapConfig = {
                 y: 103.7,
             },
             affects: [
-                {
-                    point: "point2",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 103.7 }, 0),
-                },
-                {
-                    point: "point3",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 103.7 }, 0),
-                },
+                // {
+                //     point: "point2",
+                //     formula: (base, val) =>
+                //         interpolateFromBase(val, base, { x: base.x, y: 103.7 }, 0),
+                // },
+                // {
+                //     point: "point3",
+                //     formula: (base, val) =>
+                //         interpolateFromBase(val, base, { x: base.x, y: 103.7 }, 0),
+                // },
                 {
                     point: "point4",
                     formula: (base, val) =>

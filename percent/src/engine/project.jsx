@@ -183,3 +183,12 @@ export function pointBetween(p1, p2, t) {
         y: p1.y + (p2.y - p1.y) * t,
     };
 }
+
+export function makeCopyDeltaFromInterpolation(sourceBase, sourceSec, ratio = 0) {
+    return (baseOther, val) => {
+        const movedSource = interpolateFromBase(val, sourceBase, sourceSec, ratio);
+        const dx = movedSource.x - sourceBase.x;
+        const dy = movedSource.y - sourceBase.y;
+        return { x: baseOther.x + dx, y: baseOther.y + dy };
+    };
+}

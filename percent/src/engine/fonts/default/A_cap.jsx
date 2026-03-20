@@ -189,20 +189,20 @@ export const ACapConfig = {
                 y: 108.375,
             },
             affects: [
-                {
-                    point: "leftTop",
-                    formula: (base, val) => {
-                        const sec = { x: -44.79, y: 108.375 };
-                        return { ...interpolateFromBase(val, base, sec, 0), x: base.x };
-                    },
-                },
-                {
-                    point: "rightTop",
-                    formula: (base, val) => {
-                        const sec = { x: 43.71, y: 108.375 };
-                        return { ...interpolateFromBase(val, base, sec, 0), x: base.x };
-                    },
-                },
+                // {
+                //     point: "leftTop",
+                //     formula: (base, val) => {
+                //         const sec = { x: -44.79, y: 108.375 };
+                //         return { ...interpolateFromBase(val, base, sec, 0), x: base.x };
+                //     },
+                // },
+                // {
+                //     point: "rightTop",
+                //     formula: (base, val) => {
+                //         const sec = { x: 43.71, y: 108.375 };
+                //         return { ...interpolateFromBase(val, base, sec, 0), x: base.x };
+                //     },
+                // },
                 {
                     point: "centTopRight",
                     formula: (base, val) => {

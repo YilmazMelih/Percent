@@ -123,16 +123,16 @@ export const ECapConfig = {
                 y: 103.37,
             },
             affects: [
-                {
-                    point: "point4",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 103.37 }, 0),
-                },
-                {
-                    point: "point5",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 103.37 }, 0),
-                },
+                // {
+                //     point: "point4",
+                //     formula: (base, val) =>
+                //         interpolateFromBase(val, base, { x: base.x, y: 103.37 }, 0),
+                // },
+                // {
+                //     point: "point5",
+                //     formula: (base, val) =>
+                //         interpolateFromBase(val, base, { x: base.x, y: 103.37 }, 0),
+                // },
                 {
                     point: "point6",
                     formula: (base, val) =>
@@ -187,16 +187,16 @@ export const ECapConfig = {
                 y: 244.01,
             },
             affects: [
-                {
-                    point: "point2",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 244.01 }, 0),
-                },
-                {
-                    point: "point3",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 244.01 }, 0),
-                },
+                // {
+                //     point: "point2",
+                //     formula: (base, val) =>
+                //         interpolateFromBase(val, base, { x: base.x, y: 244.01 }, 0),
+                // },
+                // {
+                //     point: "point3",
+                //     formula: (base, val) =>
+                //         interpolateFromBase(val, base, { x: base.x, y: 244.01 }, 0),
+                // },
                 {
                     point: "point12",
                     formula: (base, val) =>
