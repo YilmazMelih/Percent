@@ -7,6 +7,7 @@ import AllGlyphs from "./AllGlyphs";
 import { useState, useEffect } from "react";
 import { ACapConfig } from "../../../engine/fonts/default/A_cap";
 import { aConfig } from "../../../engine/fonts/default/a";
+import { HCapConfig } from "../../../engine/fonts/default/H_cap";
 import { oConfig } from "../../../engine/fonts/default/o";
 import { nConfig } from "../../../engine/fonts/default/n";
 import {
@@ -31,19 +32,29 @@ const initializeGlyphData = (configs) => {
     return data;
 };
 const testD = `
-M253.5,243.34h-68.47l-2.16-18.94s-3.62,16.2-23.09,20.65c-15.01,3.43-80.22,1.21-80.83-33.1-.61-34.24,29.71-44.57,59.26-46,20.47-.99,36.18-5.37,40.59-6.34,1.89-3.25,1.08-12.6-2.16-16.39-6.49-7.58-26.25-8.12-28.14,10.82l-61.43-8.39c1.62-15.15,10.55-25.44,21.92-31.66,37.89-20.3,100.13-10.82,113.66-1.89,23.81,16.24,24.08,38.7,24.08,71.17,0,0-1.08,38.7,1.62,44.92l5.14,15.15ZM180.53,179.55c-15.52,3.19-26.24-1.01-34.73,14.55-7.31,13.53,7.22,38.49,27.59,29.64,10.55-5.95,7.13-38.77,7.13-44.19Z`;
+M265.95,80.77v186.72h-76.04v-71.44h-47.36v71.44h-76.04V80.77h76.04l.27,71.98h47.36l-.27-71.98h76.04Z`;
+const testSVGStr = `
+<circle xmlns="http://www.w3.org/2000/svg" class="cls-1" cx="104.5" cy="229.49" r="38"/>
+<circle xmlns="http://www.w3.org/2000/svg" class="cls-1" cx="166.22" cy="174.42" r="21.64"/>
+<circle xmlns="http://www.w3.org/2000/svg" class="cls-1" cx="227.94" cy="229.49" r="38"/>
+`;
+const testFromPoint = { x: 265.95, y: 80.77 };
 const testP = convertPathToGlyphObject(testD);
-const testPoints = shiftPointsToAnchor(testP.points, "point8", -86.97, 236.37);
+const testPoints = shiftPointsToAnchor(testP.points, "point2", null, 267.76);
+const testToPoint = testP.points.point1;
+const testNodes = generateNodesFromCircles(testFromPoint, testToPoint, testSVGStr);
 const testConfig = {
     basePath: testP.basePath,
     points: testPoints,
-    nodes: [],
+    nodes: testNodes,
 };
+
+// console.log(testConfig);
 
 const initialConfigs = {
     A: ACapConfig,
     a: aConfig,
-    // b: testConfig,
+    H: HCapConfig,
     n: nConfig, // Corrected from N
     o: oConfig, // Corrected from O
 };
