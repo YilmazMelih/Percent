@@ -42,7 +42,7 @@ export const oConfig = {
             name: "left",
             default: 0.7,
             r: 33.75,
-            pos: { x: -101.25, y: 0 },
+            pos: { x: -101.25, y: 136.76 },
             affects: [
                 {
                     point: "leftOuter",
@@ -87,7 +87,7 @@ export const oConfig = {
             name: "right",
             default: 0.7,
             r: 33.75,
-            pos: { x: 101.25, y: 0 },
+            pos: { x: 101.25, y: 136.76 },
             affects: [
                 {
                     point: "rightOuter",
@@ -132,7 +132,7 @@ export const oConfig = {
             name: "top",
             default: 0.4,
             r: 33.75,
-            pos: { x: 0, y: -101.25 },
+            pos: { x: 0, y: -101.25 + 136.76 },
             affects: [
                 {
                     point: "topOuter",
@@ -177,7 +177,7 @@ export const oConfig = {
             name: "bottom",
             default: 0.4,
             r: 33.75,
-            pos: { x: 0, y: 101.25 },
+            pos: { x: 0, y: 101.25 + 136.76 },
             affects: [
                 {
                     point: "bottomOuter",

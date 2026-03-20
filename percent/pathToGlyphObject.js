@@ -1,134 +1,217 @@
 export function parsePath(d) {
     const tokens = [];
-    const re = /([a-zA-Z])|(-?\d*\.?\d+)/g;
+    const re = /([AaCcHhLlMmQqSsTtVvZz])|([+-]?(?:\d*\.\d+|\d+)(?:[eE][+-]?\d+)?)/g;
     let m;
     while ((m = re.exec(d)) !== null) tokens.push(m[0]);
 
     let i = 0;
-    const next = () => tokens[i++];
-
-    let cx = 0,
-        cy = 0;
-    let subx = 0,
-        suby = 0;
-    let lastC2x = null,
-        lastC2y = null;
-    let prevCmd = null;
-
+    let currentCmd = null;
+    let cx = 0;
+    let cy = 0;
+    let subx = 0;
+    let suby = 0;
+    let lastC2x = null;
+    let lastC2y = null;
+    let lastQ1x = null;
+    let lastQ1y = null;
+    let prevCmdUpper = null;
     const out = [];
 
-    function readNumber() {
-        return parseFloat(next());
-    }
+    const isCommand = (t) => /^[A-Za-z]$/.test(t);
+    const hasNumber = () => i < tokens.length && !isCommand(tokens[i]);
+    const readNumber = () => parseFloat(tokens[i++]);
 
     while (i < tokens.length) {
-        let cmd = next();
-        let isRel = cmd === cmd.toLowerCase();
-        switch (cmd.toLowerCase()) {
-            case "m": {
-                const x = readNumber();
-                const y = readNumber();
-                cx = isRel ? cx + x : x;
-                cy = isRel ? cy + y : y;
-                subx = cx;
-                suby = cy;
-                out.push({ cmd: "M", points: [{ x: cx, y: cy }] });
-                lastC2x = lastC2y = null;
-                prevCmd = "M";
-                break;
+        if (isCommand(tokens[i])) currentCmd = tokens[i++];
+        if (!currentCmd) break;
+
+        const isRel = currentCmd === currentCmd.toLowerCase();
+        const cmd = currentCmd.toUpperCase();
+
+        if (cmd === "Z") {
+            cx = subx;
+            cy = suby;
+            out.push({ cmd: "Z", points: [] });
+            lastC2x = lastC2y = lastQ1x = lastQ1y = null;
+            prevCmdUpper = "Z";
+            continue;
+        }
+
+        if (cmd === "M") {
+            if (!hasNumber()) continue;
+            let x = readNumber();
+            let y = readNumber();
+            x = isRel ? cx + x : x;
+            y = isRel ? cy + y : y;
+            cx = x;
+            cy = y;
+            subx = x;
+            suby = y;
+            out.push({ cmd: "M", points: [{ x, y }] });
+            lastC2x = lastC2y = lastQ1x = lastQ1y = null;
+            prevCmdUpper = "M";
+            while (hasNumber()) {
+                let lx = readNumber();
+                let ly = readNumber();
+                lx = isRel ? cx + lx : lx;
+                ly = isRel ? cy + ly : ly;
+                cx = lx;
+                cy = ly;
+                out.push({ cmd: "L", points: [{ x: lx, y: ly }] });
+                prevCmdUpper = "L";
             }
-            case "h": {
-                const dx = readNumber();
-                const x = isRel ? cx + dx : dx;
+            continue;
+        }
+
+        if (cmd === "L") {
+            while (hasNumber()) {
+                let x = readNumber();
+                let y = readNumber();
+                x = isRel ? cx + x : x;
+                y = isRel ? cy + y : y;
+                cx = x;
+                cy = y;
+                out.push({ cmd: "L", points: [{ x, y }] });
+                prevCmdUpper = "L";
+            }
+            lastC2x = lastC2y = lastQ1x = lastQ1y = null;
+            continue;
+        }
+
+        if (cmd === "H") {
+            while (hasNumber()) {
+                let x = readNumber();
+                x = isRel ? cx + x : x;
                 cx = x;
                 out.push({ cmd: "L", points: [{ x: cx, y: cy }] });
-                lastC2x = lastC2y = null;
-                prevCmd = "L";
-                break;
+                prevCmdUpper = "L";
             }
-            case "l": {
-                const x = readNumber();
-                const y = readNumber();
-                cx = isRel ? cx + x : x;
-                cy = isRel ? cy + y : y;
+            lastC2x = lastC2y = lastQ1x = lastQ1y = null;
+            continue;
+        }
+
+        if (cmd === "V") {
+            while (hasNumber()) {
+                let y = readNumber();
+                y = isRel ? cy + y : y;
+                cy = y;
                 out.push({ cmd: "L", points: [{ x: cx, y: cy }] });
+                prevCmdUpper = "L";
+            }
+            lastC2x = lastC2y = lastQ1x = lastQ1y = null;
+            continue;
+        }
+
+        if (cmd === "C") {
+            while (hasNumber()) {
+                let x1 = readNumber();
+                let y1 = readNumber();
+                let x2 = readNumber();
+                let y2 = readNumber();
+                let x = readNumber();
+                let y = readNumber();
+                x1 = isRel ? cx + x1 : x1;
+                y1 = isRel ? cy + y1 : y1;
+                x2 = isRel ? cx + x2 : x2;
+                y2 = isRel ? cy + y2 : y2;
+                x = isRel ? cx + x : x;
+                y = isRel ? cy + y : y;
+                out.push({ cmd: "C", points: [{ x: x1, y: y1 }, { x: x2, y: y2 }, { x, y }] });
+                cx = x;
+                cy = y;
+                lastC2x = x2;
+                lastC2y = y2;
+                lastQ1x = lastQ1y = null;
+                prevCmdUpper = "C";
+            }
+            continue;
+        }
+
+        if (cmd === "S") {
+            while (hasNumber()) {
+                const rx1 = prevCmdUpper === "C" || prevCmdUpper === "S" ? 2 * cx - lastC2x : cx;
+                const ry1 = prevCmdUpper === "C" || prevCmdUpper === "S" ? 2 * cy - lastC2y : cy;
+                let x2 = readNumber();
+                let y2 = readNumber();
+                let x = readNumber();
+                let y = readNumber();
+                x2 = isRel ? cx + x2 : x2;
+                y2 = isRel ? cy + y2 : y2;
+                x = isRel ? cx + x : x;
+                y = isRel ? cy + y : y;
+                out.push({ cmd: "C", points: [{ x: rx1, y: ry1 }, { x: x2, y: y2 }, { x, y }] });
+                cx = x;
+                cy = y;
+                lastC2x = x2;
+                lastC2y = y2;
+                lastQ1x = lastQ1y = null;
+                prevCmdUpper = "S";
+            }
+            continue;
+        }
+
+        if (cmd === "Q") {
+            while (hasNumber()) {
+                let x1 = readNumber();
+                let y1 = readNumber();
+                let x = readNumber();
+                let y = readNumber();
+                x1 = isRel ? cx + x1 : x1;
+                y1 = isRel ? cy + y1 : y1;
+                x = isRel ? cx + x : x;
+                y = isRel ? cy + y : y;
+                out.push({ cmd: "Q", points: [{ x: x1, y: y1 }, { x, y }] });
+                cx = x;
+                cy = y;
+                lastQ1x = x1;
+                lastQ1y = y1;
                 lastC2x = lastC2y = null;
-                prevCmd = "L";
-                break;
+                prevCmdUpper = "Q";
             }
-            case "c": {
-                while (i < tokens.length && !/[a-zA-Z]/.test(tokens[i])) {
-                    const x1 = readNumber();
-                    const y1 = readNumber();
-                    const x2 = readNumber();
-                    const y2 = readNumber();
-                    const x = readNumber();
-                    const y = readNumber();
-                    const ax1 = isRel ? cx + x1 : x1;
-                    const ay1 = isRel ? cy + y1 : y1;
-                    const ax2 = isRel ? cx + x2 : x2;
-                    const ay2 = isRel ? cy + y2 : y2;
-                    const ax = isRel ? cx + x : x;
-                    const ay = isRel ? cy + y : y;
-                    out.push({
-                        cmd: "C",
-                        points: [
-                            { x: ax1, y: ay1 },
-                            { x: ax2, y: ay2 },
-                            { x: ax, y: ay },
-                        ],
-                    });
-                    cx = ax;
-                    cy = ay;
-                    lastC2x = ax2;
-                    lastC2y = ay2;
-                }
-                prevCmd = "C";
-                break;
+            continue;
+        }
+
+        if (cmd === "T") {
+            while (hasNumber()) {
+                const rx1 = prevCmdUpper === "Q" || prevCmdUpper === "T" ? 2 * cx - lastQ1x : cx;
+                const ry1 = prevCmdUpper === "Q" || prevCmdUpper === "T" ? 2 * cy - lastQ1y : cy;
+                let x = readNumber();
+                let y = readNumber();
+                x = isRel ? cx + x : x;
+                y = isRel ? cy + y : y;
+                out.push({ cmd: "Q", points: [{ x: rx1, y: ry1 }, { x, y }] });
+                cx = x;
+                cy = y;
+                lastQ1x = rx1;
+                lastQ1y = ry1;
+                lastC2x = lastC2y = null;
+                prevCmdUpper = "T";
             }
-            case "s": {
-                const x2 = readNumber();
-                const y2 = readNumber();
-                const x = readNumber();
-                const y = readNumber();
-                let ax1, ay1;
-                if (prevCmd === "C" || prevCmd === "S") {
-                    ax1 = 2 * cx - lastC2x;
-                    ay1 = 2 * cy - lastC2y;
-                } else {
-                    ax1 = cx;
-                    ay1 = cy;
-                }
-                const ax2 = isRel ? cx + x2 : x2;
-                const ay2 = isRel ? cy + y2 : y2;
-                const ax = isRel ? cx + x : x;
-                const ay = isRel ? cy + y : y;
+            continue;
+        }
+
+        if (cmd === "A") {
+            while (hasNumber()) {
+                const rx = readNumber();
+                const ry = readNumber();
+                const angle = readNumber();
+                const largeArcFlag = readNumber();
+                const sweepFlag = readNumber();
+                let x = readNumber();
+                let y = readNumber();
+                x = isRel ? cx + x : x;
+                y = isRel ? cy + y : y;
                 out.push({
-                    cmd: "C",
-                    points: [
-                        { x: ax1, y: ay1 },
-                        { x: ax2, y: ay2 },
-                        { x: ax, y: ay },
-                    ],
+                    cmd: "A",
+                    args: [rx, ry, angle, largeArcFlag, sweepFlag],
+                    points: [{ x, y }],
                 });
-                cx = ax;
-                cy = ay;
-                lastC2x = ax2;
-                lastC2y = ay2;
-                prevCmd = "S";
-                break;
+                cx = x;
+                cy = y;
+                lastC2x = lastC2y = lastQ1x = lastQ1y = null;
+                prevCmdUpper = "A";
             }
-            case "z": {
-                cx = subx;
-                cy = suby;
-                out.push({ cmd: "Z", points: [] });
-                lastC2x = lastC2y = null;
-                prevCmd = "Z";
-                break;
-            }
-            default:
-                // ignore unsupported for now
-                prevCmd = cmd;
+            continue;
         }
     }
 
@@ -153,7 +236,9 @@ export function buildBasePathAndPoints(segments) {
             basePath.push({ cmd: "Z" });
         } else {
             const pointNames = seg.points.map((p) => getPointName(p));
-            basePath.push({ cmd: seg.cmd, points: pointNames });
+            const nextSeg = { cmd: seg.cmd, points: pointNames };
+            if (Array.isArray(seg.args)) nextSeg.args = [...seg.args];
+            basePath.push(nextSeg);
         }
     });
 
@@ -240,7 +325,8 @@ export function formatGlyphObjectJS({ basePath, points }) {
     const baseLines = basePath.map((seg) => {
         if (seg.cmd === "Z") return `        { cmd: "Z" },`;
         const pts = seg.points.map((p) => `"${p}"`).join(", ");
-        return `        { cmd: "${seg.cmd}", points: [${pts}] },`;
+        const args = Array.isArray(seg.args) ? `, args: [${seg.args.join(", ")}]` : "";
+        return `        { cmd: "${seg.cmd}"${args}, points: [${pts}] },`;
     });
 
     const pointNames = Object.keys(points).sort((a, b) => pointSortKey(a) - pointSortKey(b));

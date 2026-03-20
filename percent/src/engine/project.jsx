@@ -124,12 +124,13 @@ export function buildPath(config, nodeVals, nodeX, nodeY) {
     return config.basePath
         .map((seg) => {
             if (seg.cmd === "Z") return "Z";
+            const args = Array.isArray(seg.args) ? seg.args.join(" ") : "";
             const coords = seg.points
                 .map((p) => {
                     return `${computedPoints[p].x} ${computedPoints[p].y}`;
                 })
                 .join(" ");
-            return `${seg.cmd} ${coords}`;
+            return `${seg.cmd} ${args ? `${args} ` : ""}${coords}`;
         })
         .join(" ");
 }
@@ -164,4 +165,21 @@ export function buildNodes(
             />
         );
     });
+}
+
+export function interpolateFromBase(val, base, sec, ratio) {
+    // f(1) = base, f(ratio) = sec, interpolate linearly
+    const s = (val - 1) / (ratio - 1);
+
+    return {
+        x: base.x + s * (sec.x - base.x),
+        y: base.y + s * (sec.y - base.y),
+    };
+}
+
+export function pointBetween(p1, p2, t) {
+    return {
+        x: p1.x + (p2.x - p1.x) * t,
+        y: p1.y + (p2.y - p1.y) * t,
+    };
 }

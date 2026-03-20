@@ -1,19 +1,4 @@
-function interpolateFromBase(val, base, sec, ratio) {
-    // f(1) = base, f(ratio) = sec, interpolate linearly
-    const s = (val - 1) / (ratio - 1);
-
-    return {
-        x: base.x + s * (sec.x - base.x),
-        y: base.y + s * (sec.y - base.y),
-    };
-}
-
-function pointBetween(p1, p2, t) {
-    return {
-        x: p1.x + (p2.x - p1.x) * t,
-        y: p1.y + (p2.y - p1.y) * t,
-    };
-}
+import { interpolateFromBase } from "../../project";
 
 export const aConfig = {
     basePath: [
