@@ -222,7 +222,68 @@ export const CCapConfig = {
                 x: -69.42,
                 y: 173.77,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point31",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -35.91, y: 232.78 }, 0),
+                },
+                {
+                    point: "point30",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -48.97, y: 209.74 }, 0),
+                },
+                {
+                    point: "point29",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -51.82, y: 204.28 }, 0),
+                },
+                {
+                    point: "point28",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -54.32, y: 184.33 }, 0),
+                },
+                {
+                    point: "point27",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -54.48, y: 171.46 }, 0),
+                },
+                {
+                    point: "point26",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -54.6, y: 161.47 }, 0),
+                },
+                {
+                    point: "point25",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -53.18, y: 146.02 }, 0),
+                },
+                {
+                    point: "point24",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -49.52, y: 138.61 }, 0),
+                },
+                {
+                    point: "point23",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -42.48, y: 124.27 }, 0),
+                },
+                {
+                    point: "point10",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -80.22, y: 119.73 }, 0),
+                },
+                {
+                    point: "point9",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -80.22, y: 171.19 }, 0),
+                },
+                {
+                    point: "point8",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -80.22, y: 222.65 }, 0),
+                },
+            ],
         },
         {
             id: "1",
@@ -233,7 +294,73 @@ export const CCapConfig = {
                 x: -0.02,
                 y: 101.03,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point13",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 21.84, y: 76.62 }, 0),
+                },
+                {
+                    point: "point14",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 46.55, y: 81.19 }, 0),
+                },
+                {
+                    point: "point15",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 62.04, y: 96.68 }, 0),
+                },
+                {
+                    point: "point16",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 76.03, y: 110.67 }, 0),
+                },
+                {
+                    point: "point17",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 78.31, y: 124.58 }, 0),
+                },
+                {
+                    point: "point18",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 55.28, y: 128.1 }, 0),
+                },
+                {
+                    point: "point19",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 49.26, y: 107.19 }, 0),
+                },
+                {
+                    point: "point20",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 25.98, y: 96.88 }, 0),
+                },
+                {
+                    point: "point21",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 16.45, y: 96.88 }, 0),
+                },
+                {
+                    point: "point22",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -5.37, y: 96.88 }, 0),
+                },
+                {
+                    point: "point23",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -24.07, y: 124.88 }, 0),
+                },
+                {
+                    point: "point24",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -29.21, y: 138.66 }, 0),
+                },
+                {
+                    point: "point25",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -32.1, y: 146.4 }, 0),
+                },
+            ],
         },
         {
             id: "2",
@@ -244,7 +371,73 @@ export const CCapConfig = {
                 x: -0.02,
                 y: 245.09,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point5",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 30.59, y: 270.17 }, 0),
+                },
+                {
+                    point: "point4",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 48.76, y: 264.73 }, 0),
+                },
+                {
+                    point: "point3",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 64.43, y: 251.04 }, 0),
+                },
+                {
+                    point: "point2",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 75.96, y: 240.97 }, 0),
+                },
+                {
+                    point: "point1",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 80.2, y: 225.39 }, 0),
+                },
+                {
+                    point: "point36",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 80.2, y: 225.39 }, 0),
+                },
+                {
+                    point: "point35",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 57.44, y: 219.43 }, 0),
+                },
+                {
+                    point: "point34",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 54.65, y: 233.4 }, 0),
+                },
+                {
+                    point: "point33",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 38.84, y: 242.76 }, 0),
+                },
+                {
+                    point: "point32",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 27.24, y: 249.67 }, 0),
+                },
+                {
+                    point: "point31",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: 4.11, y: 252.66 }, 0),
+                },
+                {
+                    point: "point30",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -7.88, y: 248.93 }, 0),
+                },
+                {
+                    point: "point29",
+                    formula: (base, val) =>
+                        interpolateFromBase(val, base, { x: -34.43, y: 239.82 }, 0),
+                },
+            ],
         },
     ],
 };

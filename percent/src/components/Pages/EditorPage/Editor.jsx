@@ -17,6 +17,7 @@ import { GCapConfig } from "../../../engine/fonts/default/G_cap";
 import { HCapConfig } from "../../../engine/fonts/default/H_cap";
 import { ICapConfig } from "../../../engine/fonts/default/I_cap";
 import { JCapConfig } from "../../../engine/fonts/default/J_cap";
+import { eConfig } from "../../../engine/fonts/default/e";
 import { lConfig } from "../../../engine/fonts/default/l";
 import { oConfig } from "../../../engine/fonts/default/o";
 import { nConfig } from "../../../engine/fonts/default/n";
@@ -42,16 +43,14 @@ const initializeGlyphData = (configs) => {
     return data;
 };
 const testD = `
-M269.87,199.11s-.54,8.39-5.68,21.11c-7.31,19.49-32.2,47.9-94.44,50.06-60.08,1.89-107.16-23.52-107.16-96.07s51.15-96.34,107.16-96.34c37.34,0,63.05,10.01,78.48,28.69,15.7,18.67,20.84,40.05,20.84,40.05l-68.74,10.01c-2.71-18.67-12.72-30.31-31.12-31.66-12.99-.81-25.98,5.95-33.02,20.3-3.65,7.41-5.29,16.87-5.12,26.52.28,16.08,5.56,32.68,14.87,41.13,10.28,9.2,30.85,9.2,39.78,3.79,13.8-8.66,15.15-25.44,15.15-25.44l69.01,7.85Z
+M245.63,176.3c0,72.8-23.38,91.33-87.52,91.33l-87.68-.27V80.63h84.43c56.29,0,90.77,14.48,90.77,95.67ZM220.97,173.05c0-51.89-45.54-53.44-66.65-53.44-7.31,0-15.7.27-15.7.27v108.79h13.8c22.46,0,68.54,4.68,68.54-55.61Z
 `;
 const testSVGStr = `
-<circle xmlns="http://www.w3.org/2000/svg" class="cls-1" cx="96.82" cy="174.13" r="34.25"/>
-<circle xmlns="http://www.w3.org/2000/svg" class="cls-1" cx="166.22" cy="101.39" r="23.51"/>
-<circle xmlns="http://www.w3.org/2000/svg" class="cls-1" cx="166.22" cy="245.45" r="24.94"/>
+
 `;
 const testFromPoint = { x: 269.87, y: 199.11 };
 const testP = convertPathToGlyphObject(testD);
-const testPoints = shiftPointsToAnchor(testP.points, "point6", null, 273.72);
+const testPoints = shiftPointsToAnchor(testP.points, "point6", -95.8, 80.76);
 const testToPoint = testPoints.point1;
 const testNodes = generateNodesFromCircles(testFromPoint, testToPoint, testSVGStr);
 const testConfig = {
@@ -74,6 +73,7 @@ const initialConfigs = {
     H: HCapConfig,
     I: ICapConfig,
     J: JCapConfig,
+    e: eConfig,
     l: lConfig,
     n: nConfig,
     o: oConfig,
@@ -255,7 +255,11 @@ export default function Editor() {
                                 </SidePanelGroup>
                             </div>
                         </Allotment.Pane>
-                        <Allotment.Pane visible={isBottomPanelVisible} minSize={40} preferredSize="33%">
+                        <Allotment.Pane
+                            visible={isBottomPanelVisible}
+                            minSize={40}
+                            preferredSize="33%"
+                        >
                             <BottomPanel glyphData={glyphData} />
                         </Allotment.Pane>
                     </Allotment>
