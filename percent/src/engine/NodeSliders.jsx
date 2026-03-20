@@ -14,6 +14,7 @@ export default function SliderPanel({
     setSeePathPoints,
 }) {
     const [showAdvanced, setShowAdvanced] = useState(false);
+    const [drafts, setDrafts] = useState({});
     const handleSizeChange = (index, newValue) => {
         const updated = [...nodeSize];
         updated[index] = parseFloat(newValue);
@@ -33,6 +34,32 @@ export default function SliderPanel({
         // Flip sign so positive in UI means negative in internal coords
         updated[index] = Number.isNaN(parsed) ? 0 : -parsed;
         setNodeY(updated);
+    };
+
+    const isInterimNumber = (v) => v === "" || v === "-" || v === "." || v === "-.";
+    const isValidNumber = (v) => /^-?\d*\.?\d+$/.test(v);
+    const draftKey = (axis, index) => `${axis}-${index}`;
+
+    const handleInputChange = (axis, index, value) => {
+        const key = draftKey(axis, index);
+        setDrafts((prev) => ({ ...prev, [key]: value }));
+        if (!isValidNumber(value)) return;
+        if (axis === "x") handleXChange(index, value);
+        else handleYChange(index, value);
+    };
+
+    const clearDraft = (axis, index) => {
+        const key = draftKey(axis, index);
+        setDrafts((prev) => {
+            const next = { ...prev };
+            const val = next[key];
+            if (val !== undefined && (isInterimNumber(val) || !isValidNumber(val))) {
+                delete next[key];
+                return next;
+            }
+            delete next[key];
+            return next;
+        });
     };
 
     const handleReset = (index) => {
@@ -96,16 +123,18 @@ export default function SliderPanel({
                                 <span className="w-6 text-right">X</span>
                                 <input
                                     type="number"
-                                    value={nodeX[i]}
-                                    onChange={(e) => handleXChange(i, e.target.value)}
-                                    className="w-20 px-1 py-0.5 border border-gray-300 rounded text-xs"
+                                    value={drafts[draftKey("x", i)] ?? nodeX[i]}
+                                    onChange={(e) => handleInputChange("x", i, e.target.value)}
+                                    onBlur={() => clearDraft("x", i)}
+                                    className="w-20 pl-1 pr-0 py-0.5 border border-gray-300 rounded text-xs"
                                 />
                                 <span className="w-6 text-right">Y</span>
                                 <input
                                     type="number"
-                                    value={-nodeY[i]}
-                                    onChange={(e) => handleYChange(i, e.target.value)}
-                                    className="w-20 px-1 py-0.5 border border-gray-300 rounded text-xs"
+                                    value={drafts[draftKey("y", i)] ?? -nodeY[i]}
+                                    onChange={(e) => handleInputChange("y", i, e.target.value)}
+                                    onBlur={() => clearDraft("y", i)}
+                                    className="w-20 pl-1 pr-0 py-0.5 border border-gray-300 rounded text-xs"
                                 />
                                 <button
                                     type="button"

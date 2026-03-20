@@ -9,12 +9,6 @@ import { ACapConfig } from "../../../engine/fonts/default/A_cap";
 import { aConfig } from "../../../engine/fonts/default/a";
 import { oConfig } from "../../../engine/fonts/default/o";
 import { nConfig } from "../../../engine/fonts/default/n";
-import {
-    convertPathToGlyphObject,
-    applyInferredTransformToPoint,
-    shiftPointsToAnchorY,
-    generateNodesFromCircles,
-} from "../../../../pathToGlyphObject";
 
 // Helper to initialize the full glyph data structure
 const initializeGlyphData = (configs) => {
@@ -33,13 +27,54 @@ const initializeGlyphData = (configs) => {
 
 const initialConfigs = {
     A: ACapConfig,
+    a: aConfig,
     n: nConfig, // Corrected from N
     o: oConfig, // Corrected from O
 };
 
+const GLYPH_STATE_STORAGE_KEY = "editor:glyphData:v1";
+const SELECTED_GLYPH_STORAGE_KEY = "editor:selectedGlyph:v1";
+
+const hydrateGlyphData = (configs) => {
+    const baseData = initializeGlyphData(configs);
+    if (typeof window === "undefined") return baseData;
+
+    try {
+        const raw = window.localStorage.getItem(GLYPH_STATE_STORAGE_KEY);
+        if (!raw) return baseData;
+        const saved = JSON.parse(raw);
+
+        if (!saved || typeof saved !== "object") return baseData;
+
+        for (const key of Object.keys(baseData)) {
+            const savedGlyph = saved[key];
+            if (!savedGlyph || typeof savedGlyph !== "object") continue;
+
+            const nodeCount = baseData[key].config.nodes.length;
+            if (Array.isArray(savedGlyph.nodeSize) && savedGlyph.nodeSize.length === nodeCount) {
+                baseData[key].nodeSize = savedGlyph.nodeSize;
+            }
+            if (Array.isArray(savedGlyph.nodeX) && savedGlyph.nodeX.length === nodeCount) {
+                baseData[key].nodeX = savedGlyph.nodeX;
+            }
+            if (Array.isArray(savedGlyph.nodeY) && savedGlyph.nodeY.length === nodeCount) {
+                baseData[key].nodeY = savedGlyph.nodeY;
+            }
+        }
+    } catch {
+        // Ignore invalid persisted state and use defaults.
+    }
+
+    return baseData;
+};
+
 export default function Editor() {
-    const [glyphData, setGlyphData] = useState(() => initializeGlyphData(initialConfigs));
-    const [selectedGlyph, setSelectedGlyph] = useState("A");
+    const [glyphData, setGlyphData] = useState(() => hydrateGlyphData(initialConfigs));
+    const [selectedGlyph, setSelectedGlyph] = useState(() => {
+        if (typeof window === "undefined") return "A";
+        const savedGlyph = window.localStorage.getItem(SELECTED_GLYPH_STORAGE_KEY);
+        return savedGlyph && initialConfigs[savedGlyph] ? savedGlyph : "A";
+    });
     const [seeNodes, setSeeNodes] = useState(true);
     const [seePathPoints, setSeePathPoints] = useState(false);
     const [maxPaneSize, setMaxPaneSize] = useState((window.innerWidth * 2) / 3);
@@ -55,6 +90,14 @@ export default function Editor() {
             window.removeEventListener("resize", handleResize);
         };
     }, []);
+
+    useEffect(() => {
+        window.localStorage.setItem(GLYPH_STATE_STORAGE_KEY, JSON.stringify(glyphData));
+    }, [glyphData]);
+
+    useEffect(() => {
+        window.localStorage.setItem(SELECTED_GLYPH_STORAGE_KEY, selectedGlyph);
+    }, [selectedGlyph]);
 
     const handleNodeSizeChange = (value) => {
         setGlyphData((prevData) => {
