@@ -1,4 +1,4 @@
-import { interpolateFromBase } from "../../project";
+import { makeCopyDeltaFromInterpolation } from "../../project";
 
 export const BCapConfig = {
     basePath: [
@@ -240,37 +240,61 @@ export const BCapConfig = {
                 {
                     point: "point2",
                     formula: (base, val) => {
-                        return interpolateFromBase(val, base, { x: -58.06, y: base.y }, 0);
+                        return makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point2,
+                            { x: -58.06, y: BCapConfig.points.point2.y },
+                            0,
+                        )(base, val);
                     },
                 },
                 {
                     point: "point3",
                     formula: (base, val) => {
-                        return interpolateFromBase(val, base, { x: -58.06, y: base.y }, 0);
+                        return makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point3,
+                            { x: -58.06, y: BCapConfig.points.point3.y },
+                            0,
+                        )(base, val);
                     },
                 },
                 {
                     point: "point15",
                     formula: (base, val) => {
-                        return interpolateFromBase(val, base, { x: -58.06, y: base.y }, 0);
+                        return makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point15,
+                            { x: -58.06, y: BCapConfig.points.point15.y },
+                            0,
+                        )(base, val);
                     },
                 },
                 {
                     point: "point16",
                     formula: (base, val) => {
-                        return interpolateFromBase(val, base, { x: -58.06, y: base.y }, 0);
+                        return makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point16,
+                            { x: -58.06, y: BCapConfig.points.point16.y },
+                            0,
+                        )(base, val);
                     },
                 },
                 {
                     point: "point31",
                     formula: (base, val) => {
-                        return interpolateFromBase(val, base, { x: -58.06, y: base.y }, 0);
+                        return makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point31,
+                            { x: -58.06, y: BCapConfig.points.point31.y },
+                            0,
+                        )(base, val);
                     },
                 },
                 {
                     point: "point32",
                     formula: (base, val) => {
-                        return interpolateFromBase(val, base, { x: -58.06, y: base.y }, 0);
+                        return makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point32,
+                            { x: -58.06, y: BCapConfig.points.point32.y },
+                            0,
+                        )(base, val);
                     },
                 },
             ],
@@ -288,41 +312,74 @@ export const BCapConfig = {
                 {
                     point: "point5",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 30.62, y: 80.51 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point5,
+                            { x: 30.62, y: 80.51 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point6",
-                    formula: (base, val) => interpolateFromBase(val, base, { x: 58.9, y: 92.1 }, 0),
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point6,
+                            { x: 58.9, y: 92.1 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point7",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 58.9, y: 126.32 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point7,
+                            { x: 58.9, y: 126.32 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point8",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 58.9, y: 160.54 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point8,
+                            { x: 58.9, y: 160.54 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point9",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 30.17, y: 167.51 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point9,
+                            { x: 30.17, y: 167.51 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point19",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 32.52, y: 153.41 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point19,
+                            { x: 32.52, y: 153.41 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point20",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 34.74, y: 134.94 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point20,
+                            { x: 34.74, y: 134.94 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point21",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 37.21, y: 114.38 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point21,
+                            { x: 37.21, y: 114.38 },
+                            0,
+                        )(base, val),
                 },
             ],
         },
@@ -339,47 +396,83 @@ export const BCapConfig = {
                 {
                     point: "point9",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 30.18, y: 167.51 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point9,
+                            { x: 30.18, y: 167.51 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point10",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 71.72, y: 175.16 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point10,
+                            { x: 71.72, y: 175.16 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point11",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 71.72, y: 215.9 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point11,
+                            { x: 71.72, y: 215.9 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point12",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 71.72, y: 256.64 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point12,
+                            { x: 71.72, y: 256.64 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point13",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 40.91, y: 268.36 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point13,
+                            { x: 40.91, y: 268.36 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point14",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 7.53, y: 268.36 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point14,
+                            { x: 7.53, y: 268.36 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point26",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 51.93, y: 227.93 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point26,
+                            { x: 51.93, y: 227.93 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point27",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 46.23, y: 206.2 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point27,
+                            { x: 46.23, y: 206.2 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point28",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 39.84, y: 181.87 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            BCapConfig.points.point28,
+                            { x: 39.84, y: 181.87 },
+                            0,
+                        )(base, val),
                 },
             ],
         },

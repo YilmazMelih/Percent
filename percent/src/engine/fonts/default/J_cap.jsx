@@ -1,4 +1,4 @@
-import { interpolateFromBase } from "../../project";
+import { makeCopyDeltaFromInterpolation } from "../../project";
 
 export const JCapConfig = {
     basePath: [
@@ -118,42 +118,74 @@ export const JCapConfig = {
                 {
                     point: "point12",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 22.7, y: 226.09 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point12,
+                            { x: 22.7, y: 226.09 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point13",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 26.69, y: 212.7 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point13,
+                            { x: 26.69, y: 212.7 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point14",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 26.69, y: 189.56 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point14,
+                            { x: 26.69, y: 189.56 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point15",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 26.69, y: 80.81 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point15,
+                            { x: 26.69, y: 80.81 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point1",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 49.72, y: 80.81 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point1,
+                            { x: 49.72, y: 80.81 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point2",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 49.73, y: 218.41 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point2,
+                            { x: 49.73, y: 218.41 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point3",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 49.73, y: 246.3 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point3,
+                            { x: 49.73, y: 246.3 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point4",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 40.13, y: 273.46 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point4,
+                            { x: 40.13, y: 273.46 },
+                            0,
+                        )(base, val),
                 },
             ],
         },
@@ -170,37 +202,65 @@ export const JCapConfig = {
                 {
                     point: "point6",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -36.18, y: 273.49 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point6,
+                            { x: -36.18, y: 273.49 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point7",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -45.19, y: 252.74 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point7,
+                            { x: -45.19, y: 252.74 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point8",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -49.73, y: 242.59 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point8,
+                            { x: -49.73, y: 242.59 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point9",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -26.42, y: 233.92 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point9,
+                            { x: -26.42, y: 233.92 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point10",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -22.09, y: 251.69 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point10,
+                            { x: -22.09, y: 251.69 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point11",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -2.35, y: 251.69 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point11,
+                            { x: -2.35, y: 251.69 },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point12",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 15.79, y: 251.69 }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            JCapConfig.points.point12,
+                            { x: 15.79, y: 251.69 },
+                            0,
+                        )(base, val),
                 },
             ],
         },
