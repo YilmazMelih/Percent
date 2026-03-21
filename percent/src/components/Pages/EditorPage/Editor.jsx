@@ -12,15 +12,31 @@ import { BCapConfig } from "../../../engine/fonts/default/B_cap";
 import { CCapConfig } from "../../../engine/fonts/default/C_cap";
 import { DCapConfig } from "../../../engine/fonts/default/D_cap";
 import { ECapConfig } from "../../../engine/fonts/default/E_cap";
+import { eConfig } from "../../../engine/fonts/default/e";
 import { FCapConfig } from "../../../engine/fonts/default/F_cap";
 import { GCapConfig } from "../../../engine/fonts/default/G_cap";
 import { HCapConfig } from "../../../engine/fonts/default/H_cap";
 import { ICapConfig } from "../../../engine/fonts/default/I_cap";
 import { JCapConfig } from "../../../engine/fonts/default/J_cap";
-import { eConfig } from "../../../engine/fonts/default/e";
+import { KCapConfig } from "../../../engine/fonts/default/K_cap";
+import { LCapConfig } from "../../../engine/fonts/default/L_cap";
 import { lConfig } from "../../../engine/fonts/default/l";
-import { oConfig } from "../../../engine/fonts/default/o";
+import { MCapConfig } from "../../../engine/fonts/default/M_cap";
+import { NCapConfig } from "../../../engine/fonts/default/N_cap";
 import { nConfig } from "../../../engine/fonts/default/n";
+import { OCapConfig } from "../../../engine/fonts/default/O_cap";
+import { oConfig } from "../../../engine/fonts/default/o";
+import { PCapConfig } from "../../../engine/fonts/default/P_cap";
+import { QCapConfig } from "../../../engine/fonts/default/Q_cap";
+import { RCapConfig } from "../../../engine/fonts/default/R_cap";
+import { SCapConfig } from "../../../engine/fonts/default/S_cap";
+import { TCapConfig } from "../../../engine/fonts/default/T_cap";
+import { UCapConfig } from "../../../engine/fonts/default/U_cap";
+import { VCapConfig } from "../../../engine/fonts/default/V_cap";
+import { WCapConfig } from "../../../engine/fonts/default/W_cap";
+import { XCapConfig } from "../../../engine/fonts/default/X_cap";
+import { YCapConfig } from "../../../engine/fonts/default/Y_cap";
+import { ZCapConfig } from "../../../engine/fonts/default/Z_cap";
 import {
     convertPathToGlyphObject,
     applyInferredTransformToPoint,
@@ -42,15 +58,46 @@ const initializeGlyphData = (configs) => {
     }
     return data;
 };
-const testD = `
-M245.63,176.3c0,72.8-23.38,91.33-87.52,91.33l-87.68-.27V80.63h84.43c56.29,0,90.77,14.48,90.77,95.67ZM220.97,173.05c0-51.89-45.54-53.44-66.65-53.44-7.31,0-15.7.27-15.7.27v108.79h13.8c22.46,0,68.54,4.68,68.54-55.61Z
-`;
-const testSVGStr = `
+
+// Ascender 30.5
+// Cap Height 80.5
+// X Height 136.25
+// Baseline 267.76
+//Midheight-187.26
+// Descender 320
+
+let testFullInnerHTML = `
+ 
 
 `;
-const testFromPoint = { x: 269.87, y: 199.11 };
+let testD = "";
+let testSVGStr = "";
+let testFromPoint = { x: 0, y: 0 };
+
+// Temporary test helper: derive test inputs directly from full SVG innerHTML.
+const extractTestInputsFromInnerHTML = (innerHTML) => {
+    const pathMatch = innerHTML.match(/<path\b[^>]*\bd="([^"]*)"/i);
+    const extractedD = pathMatch?.[1] ?? "";
+
+    const circleMatches = innerHTML.match(/<circle\b[^>]*\/?>/gi) ?? [];
+    const extractedCircles = circleMatches.join("\n");
+
+    const mMatch = extractedD.match(
+        /M\s*([-+]?\d*\.?\d+(?:e[-+]?\d+)?)\s*,?\s*([-+]?\d*\.?\d+(?:e[-+]?\d+)?)/i,
+    );
+    const extractedFromPoint = mMatch
+        ? { x: Number(mMatch[1]), y: Number(mMatch[2]) }
+        : { x: 0, y: 0 };
+
+    return {
+        testD: extractedD,
+        testSVGStr: extractedCircles,
+        testFromPoint: extractedFromPoint,
+    };
+};
+({ testD, testSVGStr, testFromPoint } = extractTestInputsFromInnerHTML(testFullInnerHTML));
 const testP = convertPathToGlyphObject(testD);
-const testPoints = shiftPointsToAnchor(testP.points, "point6", -95.8, 80.76);
+const testPoints = shiftPointsToAnchor(testP.points, "point4", null, 267.76);
 const testToPoint = testPoints.point1;
 const testNodes = generateNodesFromCircles(testFromPoint, testToPoint, testSVGStr);
 const testConfig = {
@@ -59,7 +106,7 @@ const testConfig = {
     nodes: testNodes,
 };
 
-// console.log(testConfig);
+console.log(testConfig);
 
 const initialConfigs = {
     A: ACapConfig,
@@ -68,15 +115,31 @@ const initialConfigs = {
     C: CCapConfig,
     D: DCapConfig,
     E: ECapConfig,
+    e: eConfig,
     F: FCapConfig,
     G: GCapConfig,
     H: HCapConfig,
     I: ICapConfig,
     J: JCapConfig,
-    e: eConfig,
+    K: KCapConfig,
+    L: LCapConfig,
     l: lConfig,
+    M: MCapConfig,
+    N: NCapConfig,
     n: nConfig,
+    O: OCapConfig,
     o: oConfig,
+    P: PCapConfig,
+    Q: QCapConfig,
+    R: RCapConfig,
+    S: SCapConfig,
+    T: TCapConfig,
+    U: UCapConfig,
+    V: VCapConfig,
+    W: WCapConfig,
+    X: XCapConfig,
+    Y: YCapConfig,
+    Z: ZCapConfig,
 };
 
 const GLYPH_STATE_STORAGE_KEY = "editor:glyphData:v1";
