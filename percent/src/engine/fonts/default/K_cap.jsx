@@ -107,36 +107,209 @@ export const KCapConfig = {
     nodes: [
         {
             id: "0",
-            name: "node1",
+            name: "left",
             default: 1,
             r: 38.16,
             pos: {
                 x: -62.51,
                 y: 230.14,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point1",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point9,
+                            { x: -52.51, y: KCapConfig.points.point9.y },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point4",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point4,
+                            { x: -62.51, y: 173.72 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point5",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point5,
+                            { x: -62.51, y: KCapConfig.points.point5.y },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point6",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point6,
+                            { x: -62.51, y: KCapConfig.points.point6.y },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point7",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point7,
+                            { x: -62.51, y: KCapConfig.points.point7.y },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point8",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point8,
+                            { x: -62.51, y: KCapConfig.points.point8.y },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point9",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point9,
+                            { x: -62.51, y: 173.72 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point12",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point9,
+                            { x: -52.51, y: KCapConfig.points.point9.y },
+                            0,
+                        )(base, val);
+                    },
+                },
+            ],
         },
         {
             id: "1",
-            name: "node2",
+            name: "top",
             default: 1,
             r: 32.16,
             pos: {
                 x: 29.99,
                 y: 124.96,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point9",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point9,
+                            { x: -24.36, y: 144.89 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point10",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point10,
+                            { x: 33.19, y: 80.64 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point11",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point11,
+                            { x: 65.17, y: 80.64 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point12",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point12,
+                            { x: 11.22, y: 138.53 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point1",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point1,
+                            { x: 11.22, y: 138.53 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "2",
-            name: "node3",
+            name: "bottom",
             default: 1,
             r: 32.65,
             pos: {
                 x: 33.3,
                 y: 228.22,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point4",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point4,
+                            { x: -24.36, y: 202.03 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point3",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point3,
+                            { x: 38.61, y: 269.24 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point2",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point2,
+                            { x: 70.05, y: 269.24 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point12",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point12,
+                            { x: 10.71, y: 205.45 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point1",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            KCapConfig.points.point1,
+                            { x: 10.71, y: 205.45 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
     ],
 };
