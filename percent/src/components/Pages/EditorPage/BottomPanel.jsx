@@ -7,48 +7,65 @@ const BottomPanel = ({ glyphData }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [fontSize, setFontSize] = useState(48);
   const [isEditingFontSize, setIsEditingFontSize] = useState(false);
+  const [letterSpacing, setLetterSpacing] = useState(0);
+  const [isEditingLetterSpacing, setIsEditingLetterSpacing] = useState(false);
+
   const wrapperRef = useRef(null);
   const scrubRef = useRef(null);
 
-  const inputRef = useRef(null);
+  const fontSizeInputRef = useRef(null);
+  const letterSpacingInputRef = useRef(null);
 
   useEffect(() => {
     if (isEditingFontSize) {
-      inputRef.current?.focus();
-      inputRef.current?.select();
+      fontSizeInputRef.current?.focus();
+      fontSizeInputRef.current?.select();
     }
   }, [isEditingFontSize]);
 
-  const handleMouseDown = (e) => {
-    if (isEditingFontSize) return;
-    e.preventDefault();
+  useEffect(() => {
+    if (isEditingLetterSpacing) {
+      letterSpacingInputRef.current?.focus();
+      letterSpacingInputRef.current?.select();
+    }
+  }, [isEditingLetterSpacing]);
+
+  const createScrubHandler = (value, setValue, isEditing) => {
+    const handleMouseDown = (e) => {
+      if (isEditing) return;
+      e.preventDefault();
+      
+      scrubRef.current = {
+        isScrubbing: true,
+        startX: e.clientX,
+        startValue: value,
+      };
+  
+      const handleMouseMove = (e) => {
+        if (!scrubRef.current?.isScrubbing) return;
     
-    scrubRef.current = {
-      isScrubbing: true,
-      startX: e.clientX,
-      startSize: fontSize,
+        const deltaX = e.clientX - scrubRef.current.startX;
+        const newValue = Math.round(scrubRef.current.startValue + deltaX / 2);
+        
+        setValue(Math.max(-50, Math.min(newValue, 100))); // Allow negative spacing
+      };
+  
+      const handleMouseUp = () => {
+        scrubRef.current = { ...scrubRef.current, isScrubbing: false };
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+        document.body.style.cursor = '';
+      };
+
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = 'col-resize';
     };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-    document.body.style.cursor = 'col-resize';
+    return handleMouseDown;
   };
 
-  const handleMouseMove = (e) => {
-    if (!scrubRef.current?.isScrubbing) return;
-
-    const deltaX = e.clientX - scrubRef.current.startX;
-    const newSize = Math.round(scrubRef.current.startSize + deltaX / 2);
-    
-    setFontSize(Math.max(1, Math.min(newSize, 300)));
-  };
-
-  const handleMouseUp = () => {
-    scrubRef.current = { ...scrubRef.current, isScrubbing: false };
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', handleMouseUp);
-    document.body.style.cursor = '';
-  };
+  const handleFontSizeMouseDown = createScrubHandler(fontSize, setFontSize, isEditingFontSize);
+  const handleLetterSpacingMouseDown = createScrubHandler(letterSpacing, setLetterSpacing, isEditingLetterSpacing);
 
   const options = [
     'Edited Glyphs',
@@ -74,7 +91,8 @@ const BottomPanel = ({ glyphData }) => {
 
   const handleOptionSelect = (option) => {
     if (option === 'Edited Glyphs') {
-      const editedGlyphs = glyphData ? Object.keys(glyphData).join('') : '';
+      const gridOrder = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+      const editedGlyphs = gridOrder.filter(char => glyphData && glyphData[char]).join('');
       setPreviewText(editedGlyphs);
     } else {
       setPreviewText(option);
@@ -114,11 +132,11 @@ const BottomPanel = ({ glyphData }) => {
         </div>
         <div 
           className="font-size-wrapper"
-          onMouseDown={handleMouseDown}
+          onMouseDown={handleFontSizeMouseDown}
         >
           {isEditingFontSize ? (
             <input
-              ref={inputRef}
+              ref={fontSizeInputRef}
               type="number"
               className="font-size-input"
               value={fontSize}
@@ -140,9 +158,37 @@ const BottomPanel = ({ glyphData }) => {
           )}
           <span>pt</span>
         </div>
+        <div 
+          className="letter-spacing-wrapper"
+          onMouseDown={handleLetterSpacingMouseDown}
+        >
+          {isEditingLetterSpacing ? (
+            <input
+              ref={letterSpacingInputRef}
+              type="number"
+              className="letter-spacing-input"
+              value={letterSpacing}
+              onChange={(e) => setLetterSpacing(parseInt(e.target.value, 10) || 0)}
+              onBlur={() => setIsEditingLetterSpacing(false)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setIsEditingLetterSpacing(false);
+                }
+              }}
+            />
+          ) : (
+            <span 
+              className="letter-spacing-display"
+              onDoubleClick={() => setIsEditingLetterSpacing(true)}
+            >
+              {letterSpacing}
+            </span>
+          )}
+          <span>px</span>
+        </div>
       </div>
       <div className="preview-area">
-        <FontPreviewRenderer text={previewText} glyphData={glyphData} fontSize={fontSize} />
+        <FontPreviewRenderer text={previewText} glyphData={glyphData} fontSize={fontSize} letterSpacing={letterSpacing} />
       </div>
     </div>
   );

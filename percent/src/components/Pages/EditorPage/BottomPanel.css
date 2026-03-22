@@ -31,8 +31,18 @@
   cursor: col-resize;
 }
 
+.letter-spacing-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  position: relative;
+  cursor: col-resize;
+}
+
 .font-size-input,
-.font-size-display {
+.font-size-display,
+.letter-spacing-input,
+.letter-spacing-display {
   width: 4em;
   padding: 0.25rem 0.5rem;
   border: 1px solid #ccc;
@@ -44,7 +54,9 @@
 }
 
 .font-size-input::-webkit-outer-spin-button,
-.font-size-input::-webkit-inner-spin-button {
+.font-size-input::-webkit-inner-spin-button,
+.letter-spacing-input::-webkit-outer-spin-button,
+.letter-spacing-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
