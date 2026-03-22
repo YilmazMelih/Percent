@@ -79,25 +79,107 @@ export const TCapConfig = {
     nodes: [
         {
             id: "0",
-            name: "node1",
+            name: "middle",
             default: 1,
             r: 33.76,
             pos: {
                 x: -0.19,
                 y: 189.05,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point2",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            TCapConfig.points.point2,
+                            { x: -0.19, y: TCapConfig.points.point2.y },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point3",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            TCapConfig.points.point3,
+                            { x: -0.19, y: TCapConfig.points.point3.y },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point4",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            TCapConfig.points.point4,
+                            { x: -0.19, y: TCapConfig.points.point4.y },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point5",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            TCapConfig.points.point5,
+                            { x: -0.19, y: TCapConfig.points.point5.y },
+                            0,
+                        )(base, val);
+                    },
+                },
+            ],
         },
         {
             id: "1",
-            name: "node2",
+            name: "top",
             default: 1,
             r: 22.65,
             pos: {
                 x: 58.11,
                 y: 103.15,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point1",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            TCapConfig.points.point1,
+                            { x: TCapConfig.points.point1.x, y: 80.5 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point2",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            TCapConfig.points.point2,
+                            { x: TCapConfig.points.point2.x, y: 80.5 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point5",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            TCapConfig.points.point5,
+                            { x: TCapConfig.points.point5.x, y: 80.5 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point6",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            TCapConfig.points.point6,
+                            { x: TCapConfig.points.point6.x, y: 80.5 },
+                            0,
+                        )(base, val);
+                    },
+                },
+            ],
         },
     ],
 };

@@ -194,58 +194,396 @@ export const QCapConfig = {
     nodes: [
         {
             id: "0",
-            name: "node1",
+            name: "bottom",
             default: 1,
             r: 19.21,
             pos: {
                 x: -0.01,
                 y: 251.06,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point26",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point26,
+                            { x: -37.75, y: 224.03 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point27",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point27,
+                            { x: -30.56, y: 250.2 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point28",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point28,
+                            { x: 0.14, y: 250.2 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point29",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point29,
+                            { x: 30.84, y: 250.2 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point30",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point30,
+                            { x: 35.05, y: 222.29 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "1",
-            name: "node2",
+            name: "left",
             default: 1,
             r: 34.9,
             pos: {
                 x: -72.67,
                 y: 174.06,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point5",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point5,
+                            { x: -93.36, y: 235.23 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point6",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point6,
+                            { x: -93.36, y: 174.05 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point7",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point7,
+                            { x: -93.36, y: 112.87 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point8",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point8,
+                            { x: -60.32, y: 77.85 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point23",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point23,
+                            { x: -32.41, y: 116 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point24",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point24,
+                            { x: -68.71, y: 117.81 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point25",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point25,
+                            { x: -68.71, y: 174.59 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point26",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point26,
+                            { x: -68.71, y: 231.37 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point27",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point27,
+                            { x: -34.69, y: 231.82 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "2",
-            name: "node3",
+            name: "right",
             default: 1,
             r: 34.48,
             pos: {
                 x: 68.97,
                 y: 160.69,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point11",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point11,
+                            { x: 77.76, y: 106.17 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point12",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point12,
+                            { x: 88.45, y: 139.15 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point13",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point13,
+                            { x: 93.35, y: 153.34 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point14",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point14,
+                            { x: 98.19, y: 197.34 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point15",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point15,
+                            { x: 81.25, y: 224.03 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point16",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point16,
+                            { x: 66.9, y: 246.65 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point17",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point17,
+                            { x: 57.04, y: 251.83 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point29",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point29,
+                            { x: 28.63, y: 231.83 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point30",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point30,
+                            { x: 68.42, y: 228.83 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point31",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point31,
+                            { x: 68.42, y: 173.11 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point19",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point31,
+                            { x: 68.42, y: 173.11 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point20",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point20,
+                            { x: 68.41, y: 121.87 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point21",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point21,
+                            { x: 35.45, y: 116.01 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "3",
-            name: "node4",
+            name: "top",
             default: 1,
             r: 19.08,
             pos: {
                 x: -1.36,
                 y: 96.94,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point24",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point24,
+                            { x: -37.77, y: 126.21 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point23",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point23,
+                            { x: -31.55, y: 97.64 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point22",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point22,
+                            { x: 0.13, y: 97.64 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point21",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point21,
+                            { x: 31.79, y: 97.64 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point20",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point20,
+                            { x: 35.03, y: 126.2 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "4",
-            name: "node5",
+            name: "tail",
             default: 1,
             r: 23.11,
             pos: {
                 x: 81.25,
                 y: 247.15,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point17",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point17,
+                            { x: 57.03, y: 251.83 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point16",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point16,
+                            { x: 68.98, y: 244.58 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point18",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point18,
+                            { x: 89.56, y: 248.04 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point1",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point18,
+                            { x: 89.56, y: 248.04 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point2",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            QCapConfig.points.point2,
+                            { x: 93.35, y: 271.07 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
     ],
 };

@@ -52,7 +52,7 @@ export const SCapConfig = {
         },
         {
             cmd: "C",
-            points: ["point28", "point29", "point30"],
+            points: ["pointA", "point29", "point30"],
         },
         {
             cmd: "C",
@@ -183,6 +183,10 @@ export const SCapConfig = {
             x: 23.68,
             y: 134.15,
         },
+        pointA: {
+            x: 23.68,
+            y: 134.15,
+        },
         point29: {
             x: 21.79,
             y: 121.16,
@@ -231,36 +235,435 @@ export const SCapConfig = {
     nodes: [
         {
             id: "0",
-            name: "node1",
+            name: "top",
             default: 1,
             r: 21.5,
             pos: {
                 x: 1.03,
                 y: 97.39,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point23",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point23,
+                            { x: -64.67, y: 76.46 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point24",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point24,
+                            { x: 1.65, y: 76.46 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point25",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point25,
+                            { x: 28.46, y: 76.46 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point26",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point26,
+                            { x: 53.58, y: 88.58 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point27",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point27,
+                            { x: 66.13, y: 116.47 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point28",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point28,
+                            { x: 44.45, y: 125.14 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "pointA",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.pointA,
+                            { x: 39.69, y: 106.93 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point29",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point29,
+                            { x: 21.14, y: 97.97 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point30",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point30,
+                            { x: 6.13, y: 97.97 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point31",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point31,
+                            { x: -20.09, y: 97.97 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "1",
-            name: "node2",
+            name: "bottom",
             default: 1,
             r: 23.77,
             pos: {
                 x: 1.03,
                 y: 247.9,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point6",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point6,
+                            { x: -5.87, y: 277.27 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point7",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point7,
+                            { x: -34.61, y: 263.15 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point8",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point8,
+                            { x: -58.4, y: 251.47 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point9",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point9,
+                            { x: -65.86, y: 229.19 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point10",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point10,
+                            { x: -42.28, y: 219.98 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point11",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point11,
+                            { x: -38.5, y: 235.68 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point12",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point12,
+                            { x: -24.92, y: 242.73 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point13",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point13,
+                            { x: 6.66, y: 257.55 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point14",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point14,
+                            { x: 41.94, y: 245.42 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point15",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point15,
+                            { x: 43.6, y: 221.41 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point16",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point16,
+                            { x: 44.46, y: 208.99 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "2",
-            name: "node3",
+            name: "middle",
             default: 1,
             r: 27.42,
             pos: {
                 x: 1.03,
                 y: 170.22,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point23",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point23,
+                            { x: -28.85, y: 75.91 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point22",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point22,
+                            { x: -64.01, y: 92.46 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point21",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point21,
+                            { x: -65.84, y: 123.05 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point20",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point20,
+                            { x: -67.68, y: 153.64 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point19",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point19,
+                            { x: -50.74, y: 169.04 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point18",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point18,
+                            { x: -13.26, y: 179.75 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point17",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point17,
+                            { x: 17.59, y: 188.56 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point16",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point16,
+                            { x: 39.92, y: 195.45 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point15",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point15,
+                            { x: 43.4, y: 214.81 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point14",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point14,
+                            { x: 45.37, y: 225.74 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point5",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point5,
+                            { x: 23.71, y: 275.36 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point4",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point4,
+                            { x: 48.24, y: 258.74 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point3",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point3,
+                            { x: 58.01, y: 251.97 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point2",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point2,
+                            { x: 64.37, y: 244.03 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point1",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point39,
+                            { x: 67.06, y: 234.33 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point39",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point39,
+                            { x: 67.06, y: 234.33 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point38",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point38,
+                            { x: 70.25, y: 222.93 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point37",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point37,
+                            { x: 70.09, y: 212.7 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point36",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point36,
+                            { x: 65.33, y: 201.13 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point35",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point35,
+                            { x: 54.68, y: 179.77 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point34",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point34,
+                            { x: 46.75, y: 173.8 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point33",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point33,
+                            { x: 8.15, y: 162.2 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point32",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            SCapConfig.points.point32,
+                            { x: -38.04, y: 148.31 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
     ],
 };
