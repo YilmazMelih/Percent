@@ -10,6 +10,12 @@
   flex-direction: column;
 }
 
+.control-icon {
+  height: 1.2em; /* Match the line height */
+  width: auto;
+  vertical-align: middle; /* Align with text */
+}
+
 .timeline-header {
   display: flex;
   align-items: center;
@@ -51,6 +57,7 @@
   text-align: right;
   background-color: #fff;
   user-select: none; /* Prevent text selection during drag */
+  cursor: col-resize; /* Ensure drag cursor is always shown */
 }
 
 .font-size-input::-webkit-outer-spin-button,

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './BottomPanel.css';
 import FontPreviewRenderer from './FontPreviewRenderer';
+import iconSize from '../../../assets/images/icon_size.png';
+import iconSpacing from '../../../assets/images/icon_spacing.png';
 
 const BottomPanel = ({ glyphData }) => {
   const [previewText, setPreviewText] = useState('Percent');
@@ -156,7 +158,7 @@ const BottomPanel = ({ glyphData }) => {
               {fontSize}
             </span>
           )}
-          <span>pt</span>
+          <img src={iconSize} alt="Font Size" className="control-icon" title="Font Size" />
         </div>
         <div 
           className="letter-spacing-wrapper"
@@ -184,7 +186,7 @@ const BottomPanel = ({ glyphData }) => {
               {letterSpacing}
             </span>
           )}
-          <span>px</span>
+          <img src={iconSpacing} alt="Letter Spacing" className="control-icon" title="Letter Spacing" />
         </div>
       </div>
       <div className="preview-area">
