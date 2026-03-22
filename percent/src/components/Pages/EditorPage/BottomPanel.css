@@ -16,6 +16,10 @@
   vertical-align: middle; /* Align with text */
 }
 
+.control-icon.rotated {
+  transform: rotate(90deg);
+}
+
 .timeline-header {
   display: flex;
   align-items: center;
@@ -45,10 +49,20 @@
   cursor: col-resize;
 }
 
+.line-height-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  position: relative;
+  cursor: col-resize;
+}
+
 .font-size-input,
 .font-size-display,
 .letter-spacing-input,
-.letter-spacing-display {
+.letter-spacing-display,
+.line-height-input,
+.line-height-display {
   width: 4em;
   padding: 0.25rem 0.5rem;
   border: 1px solid #ccc;
@@ -63,12 +77,16 @@
 .font-size-input::-webkit-outer-spin-button,
 .font-size-input::-webkit-inner-spin-button,
 .letter-spacing-input::-webkit-outer-spin-button,
-.letter-spacing-input::-webkit-inner-spin-button {
+.letter-spacing-input::-webkit-inner-spin-button,
+.line-height-input::-webkit-outer-spin-button,
+.line-height-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.font-size-input[type=number] {
+.font-size-input[type=number],
+.letter-spacing-input[type=number],
+.line-height-input[type=number] {
   -moz-appearance: textfield;
 }
 

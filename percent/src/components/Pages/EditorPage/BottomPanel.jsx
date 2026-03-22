@@ -11,12 +11,17 @@ const BottomPanel = ({ glyphData }) => {
   const [isEditingFontSize, setIsEditingFontSize] = useState(false);
   const [letterSpacing, setLetterSpacing] = useState(0);
   const [isEditingLetterSpacing, setIsEditingLetterSpacing] = useState(false);
+  const [lineHeight, setLineHeight] = useState(1.2);
+  const [isEditingLineHeight, setIsEditingLineHeight] = useState(false);
+
 
   const wrapperRef = useRef(null);
   const scrubRef = useRef(null);
 
   const fontSizeInputRef = useRef(null);
   const letterSpacingInputRef = useRef(null);
+  const lineHeightInputRef = useRef(null);
+
 
   useEffect(() => {
     if (isEditingFontSize) {
@@ -32,26 +37,33 @@ const BottomPanel = ({ glyphData }) => {
     }
   }, [isEditingLetterSpacing]);
 
-  const createScrubHandler = (value, setValue, isEditing) => {
+  useEffect(() => {
+    if (isEditingLineHeight) {
+      lineHeightInputRef.current?.focus();
+      lineHeightInputRef.current?.select();
+    }
+  }, [isEditingLineHeight]);
+
+  const createScrubHandler = (value, setValue, isEditing, min, max, step = 0.5, precision = 0) => {
     const handleMouseDown = (e) => {
       if (isEditing) return;
       e.preventDefault();
-      
+
       scrubRef.current = {
         isScrubbing: true,
         startX: e.clientX,
         startValue: value,
       };
-  
+
       const handleMouseMove = (e) => {
         if (!scrubRef.current?.isScrubbing) return;
-    
+
         const deltaX = e.clientX - scrubRef.current.startX;
-        const newValue = Math.round(scrubRef.current.startValue + deltaX / 2);
-        
-        setValue(Math.max(-50, Math.min(newValue, 100))); // Allow negative spacing
+        let newValue = scrubRef.current.startValue + deltaX * step;
+
+        setValue(parseFloat(Math.max(min, Math.min(newValue, max)).toFixed(precision)));
       };
-  
+
       const handleMouseUp = () => {
         scrubRef.current = { ...scrubRef.current, isScrubbing: false };
         document.removeEventListener('mousemove', handleMouseMove);
@@ -66,8 +78,10 @@ const BottomPanel = ({ glyphData }) => {
     return handleMouseDown;
   };
 
-  const handleFontSizeMouseDown = createScrubHandler(fontSize, setFontSize, isEditingFontSize);
-  const handleLetterSpacingMouseDown = createScrubHandler(letterSpacing, setLetterSpacing, isEditingLetterSpacing);
+  const handleFontSizeMouseDown = createScrubHandler(fontSize, setFontSize, isEditingFontSize, 1, 500, 0.5, 0);
+  const handleLetterSpacingMouseDown = createScrubHandler(letterSpacing, setLetterSpacing, isEditingLetterSpacing, -50, 100, 0.5, 0);
+  const handleLineHeightMouseDown = createScrubHandler(lineHeight, setLineHeight, isEditingLineHeight, 0.1, 3, 0.01, 2);
+
 
   const options = [
     'Edited Glyphs',
@@ -89,7 +103,6 @@ const BottomPanel = ({ glyphData }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [wrapperRef]);
-
 
   const handleOptionSelect = (option) => {
     if (option === 'Edited Glyphs') {
@@ -132,7 +145,7 @@ const BottomPanel = ({ glyphData }) => {
             </ul>
           )}
         </div>
-        <div 
+        <div
           className="font-size-wrapper"
           onMouseDown={handleFontSizeMouseDown}
         >
@@ -151,7 +164,7 @@ const BottomPanel = ({ glyphData }) => {
               }}
             />
           ) : (
-            <span 
+            <span
               className="font-size-display"
               onDoubleClick={() => setIsEditingFontSize(true)}
             >
@@ -160,7 +173,7 @@ const BottomPanel = ({ glyphData }) => {
           )}
           <img src={iconSize} alt="Font Size" className="control-icon" title="Font Size" />
         </div>
-        <div 
+        <div
           className="letter-spacing-wrapper"
           onMouseDown={handleLetterSpacingMouseDown}
         >
@@ -179,7 +192,7 @@ const BottomPanel = ({ glyphData }) => {
               }}
             />
           ) : (
-            <span 
+            <span
               className="letter-spacing-display"
               onDoubleClick={() => setIsEditingLetterSpacing(true)}
             >
@@ -188,9 +201,38 @@ const BottomPanel = ({ glyphData }) => {
           )}
           <img src={iconSpacing} alt="Letter Spacing" className="control-icon" title="Letter Spacing" />
         </div>
+        <div
+          className="line-height-wrapper"
+          onMouseDown={handleLineHeightMouseDown}
+        >
+          {isEditingLineHeight ? (
+            <input
+              ref={lineHeightInputRef}
+              type="number"
+              step="0.1"
+              className="line-height-input"
+              value={lineHeight}
+              onChange={(e) => setLineHeight(parseFloat(e.target.value) || 0)}
+              onBlur={() => setIsEditingLineHeight(false)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setIsEditingLineHeight(false);
+                }
+              }}
+            />
+          ) : (
+            <span
+              className="line-height-display"
+              onDoubleClick={() => setIsEditingLineHeight(true)}
+            >
+              {lineHeight}
+            </span>
+          )}
+          <img src={iconSpacing} alt="Line Height" className="control-icon rotated" title="Line Height" />
+        </div>
       </div>
       <div className="preview-area">
-        <FontPreviewRenderer text={previewText} glyphData={glyphData} fontSize={fontSize} letterSpacing={letterSpacing} />
+        <FontPreviewRenderer text={previewText} glyphData={glyphData} fontSize={fontSize} letterSpacing={letterSpacing} lineHeight={lineHeight} />
       </div>
     </div>
   );

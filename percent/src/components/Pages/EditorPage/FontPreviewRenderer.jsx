@@ -1,36 +1,35 @@
 import React from 'react';
 import GlyphPreview from './GlyphPreview';
 
-const FontPreviewRenderer = ({ text, glyphData, fontSize, letterSpacing }) => {
-  const style = {
-    display: 'flex',
-    alignItems: 'flex-end', // Align glyphs to the baseline
-    flexWrap: 'wrap',
-    gap: `${fontSize * 0.05}px`, // Small gap between glyphs
+const FontPreviewRenderer = ({ text, glyphData, fontSize, letterSpacing, lineHeight }) => {
+  const containerStyle = {
+    fontSize: `${fontSize}px`,
+    lineHeight: `${lineHeight}`,
+    wordBreak: 'break-word',
   };
 
   return (
-    <div style={style}>
+    <div style={containerStyle}>
       {text.split('').map((char, index) => {
-        const charStyle = {
-          marginRight: `${letterSpacing}px`,
-        };
-
-        if (char === ' ') {
-          return <div key={index} style={{ ...charStyle, width: `${fontSize * 0.5}px` }}></div>;
-        }
-
-        const glyph = glyphData[char];
-        if (glyph) {
+        if (glyphData && glyphData[char]) {
           return (
-            <div key={index} style={{ ...charStyle, width: `${fontSize}px`, height: `${fontSize * 1.2}px` }}>
-              <GlyphPreview config={glyph.config} nodeSize={glyph.nodeSize} />
+            <div key={index} style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: `${letterSpacing}px`, height: `${fontSize}px` }}>
+              <GlyphPreview
+                config={glyphData[char].config}
+                nodeSize={glyphData[char].nodeSize}
+                showNodes={false}
+                width={fontSize}
+                height={fontSize}
+              />
             </div>
           );
+        } else {
+          return (
+            <span key={index} style={{ marginRight: `${letterSpacing}px`, verticalAlign: 'middle' }}>
+              {char}
+            </span>
+          );
         }
-
-        // Fallback for characters not in the font
-        return <span key={index} style={{ ...charStyle, fontSize: `${fontSize}px`, height: `${fontSize * 1.2}px`, alignSelf: 'center' }}>{char}</span>;
       })}
     </div>
   );
