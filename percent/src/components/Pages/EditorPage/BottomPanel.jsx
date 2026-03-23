@@ -84,9 +84,11 @@ const BottomPanel = ({ glyphData }) => {
 
 
   const options = [
-    'Edited Glyphs',
-    'Hello World',
-    'The quick brown fox jumps over the lazy dog',
+    { value: 'Edited Glyphs', label: 'Edited Glyphs' },
+    { value: 'Hello World', label: 'Hello World' },
+    { value: 'The quick brown fox jumps over the lazy dog', label: 'The quick brown fox jumps over the lazy dog' },
+    { value: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', label: 'All Uppercase' },
+    { value: 'abcdefghijklmnopqrstuvwxyz', label: 'All Lowercase' },
   ];
 
   // Handles clicks outside of the dropdown component
@@ -105,12 +107,12 @@ const BottomPanel = ({ glyphData }) => {
   }, [wrapperRef]);
 
   const handleOptionSelect = (option) => {
-    if (option === 'Edited Glyphs') {
+    if (option.value === 'Edited Glyphs') {
       const gridOrder = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
       const editedGlyphs = gridOrder.filter(char => glyphData && glyphData[char]).join('');
       setPreviewText(editedGlyphs);
     } else {
-      setPreviewText(option);
+      setPreviewText(option.value);
     }
     setDropdownOpen(false);
   };
@@ -139,7 +141,7 @@ const BottomPanel = ({ glyphData }) => {
             <ul className="options-dropdown">
               {options.map((option, index) => (
                 <li key={index} onClick={() => handleOptionSelect(option)}>
-                  {option}
+                  {option.label}
                 </li>
               ))}
             </ul>
