@@ -83,25 +83,127 @@ export const VCapConfig = {
     nodes: [
         {
             id: "0",
-            name: "node1",
+            name: "left",
             default: 1,
             r: 30.68,
             pos: {
                 x: -39.69,
                 y: 169.74,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point3",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            VCapConfig.points.point3,
+                            { x: -9.76, y: 268.57 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point4",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            VCapConfig.points.point4,
+                            { x: -87.27, y: 79.96 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point5",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            VCapConfig.points.point5,
+                            { x: -60.17, y: 79.69 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point6",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            VCapConfig.points.point6,
+                            { x: -4.64, y: 222.45 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point7",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            VCapConfig.points.point7,
+                            { x: -3.42, y: 225.65 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "1",
-            name: "node2",
+            name: "right",
             default: 1,
             r: 30.03,
             pos: {
                 x: 40.06,
                 y: 169.74,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point2",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            VCapConfig.points.point2,
+                            { x: 9.76, y: 268.57 },
+                            0,
+                        )(base, val),
+                },
+
+                {
+                    point: "point1",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            VCapConfig.points.point1,
+                            { x: 87.26, y: 79.96 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point9",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            VCapConfig.points.point1,
+                            { x: 87.26, y: 79.96 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point8",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            VCapConfig.points.point8,
+                            { x: 60.16, y: 79.69 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point7",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            VCapConfig.points.point7,
+                            { x: 5.34, y: 223.25 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point6",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            VCapConfig.points.point6,
+                            { x: 4.68, y: 224.97 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
     ],
 };

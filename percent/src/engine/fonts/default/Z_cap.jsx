@@ -11,8 +11,8 @@ export const ZCapConfig = {
             points: ["point2"],
         },
         {
-            cmd: "C",
-            points: ["point2", "point3", "point4"],
+            cmd: "L",
+            points: ["point4"],
         },
         {
             cmd: "L",
@@ -103,36 +103,165 @@ export const ZCapConfig = {
     nodes: [
         {
             id: "0",
-            name: "node1",
+            name: "top",
             default: 1,
             r: 22.31,
             pos: {
                 x: -19.2,
                 y: 103.08,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point7",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point7,
+                            { x: 19.37, y: 100.66 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point8",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point8,
+                            { x: -74.8, y: 101.36 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point9",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point9,
+                            { x: -74.8, y: 79.95 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "1",
-            name: "node2",
+            name: "bottom",
             default: 1,
             r: 23.34,
             pos: {
                 x: 38.97,
                 y: 244.42,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point12",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point12,
+                            { x: -18.79, y: 247.9 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point1",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point12,
+                            { x: -18.79, y: 247.9 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point2",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point2,
+                            { x: 74.8, y: 247.7 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point4",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point4,
+                            { x: 74.8, y: 268.57 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "2",
-            name: "node3",
+            name: "middle",
             default: 1,
             r: 30.24,
             pos: {
                 x: -2.4,
                 y: 177.26,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point10",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point10,
+                            { x: 69.98, y: 79.96 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point11",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point11,
+                            { x: 69.98, y: 97.85 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point7",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point7,
+                            { x: 19.42, y: 124.61 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point12",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point12,
+                            { x: -23.51, y: 220.41 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point1",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point12,
+                            { x: -23.51, y: 220.41 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point6",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point6,
+                            { x: -75.27, y: 249.59 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point5",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            ZCapConfig.points.point5,
+                            { x: -75.27, y: 267.76 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
     ],
 };

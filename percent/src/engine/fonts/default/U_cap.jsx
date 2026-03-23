@@ -127,36 +127,228 @@ export const UCapConfig = {
     nodes: [
         {
             id: "0",
-            name: "node1",
+            name: "left",
             default: 1,
             r: 32.62,
             pos: {
                 x: -58.72,
                 y: 137.46,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point2",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point2,
+                            { x: -71.94, y: 266.69 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point3",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point3,
+                            { x: -75.62, y: 220.89 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point4",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point4,
+                            { x: -75.35, y: 189.23 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point5",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point5,
+                            { x: -77.38, y: 80.2 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point6",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point6,
+                            { x: -50.96, y: 80.2 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point7",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point7,
+                            { x: -49.55, y: 178.81 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point8",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point8,
+                            { x: -49.55, y: 214.26 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point9",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point9,
+                            { x: -30.51, y: 227.7 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "1",
-            name: "node2",
+            name: "middle",
             default: 1,
             r: 22.72,
             pos: {
                 x: -0.01,
                 y: 248.55,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point8",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point8,
+                            { x: -25.84, y: 231.44 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point9",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point9,
+                            { x: -25.84, y: 249.57 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point10",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point10,
+                            { x: -0.13, y: 249.57 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point11",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point11,
+                            { x: 25.58, y: 249.57 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point12",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point12,
+                            { x: 25.84, y: 235.07 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "2",
-            name: "node3",
+            name: "right",
             default: 1,
             r: 32.8,
             pos: {
                 x: 58.53,
                 y: 137.46,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point18",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point18,
+                            { x: 77.24, y: 271.28 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point17",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point17,
+                            { x: 76.23, y: 217.3 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point16",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point16,
+                            { x: 76.23, y: 186.18 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point15",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point15,
+                            { x: 77.24, y: 80.2 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point14",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point14,
+                            { x: 51.22, y: 80.2 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point13",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point13,
+                            { x: 50.51, y: 179.31 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point12",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point12,
+                            { x: 50.51, y: 208.85 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point11",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            UCapConfig.points.point11,
+                            { x: 39.58, y: 230.78 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
     ],
 };

@@ -115,47 +115,213 @@ export const XCapConfig = {
     nodes: [
         {
             id: "0",
-            name: "node1",
+            name: "leftTop",
             default: 1,
             r: 29.41,
             pos: {
                 x: -46.78,
                 y: 112.23,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point7",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point7,
+                            { x: -14.35, y: 174.13 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point8",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point8,
+                            { x: -76.14, y: 79.82 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point9",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point9,
+                            { x: -47.14, y: 79.82 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point10",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point10,
+                            { x: 0.28, y: 154.89 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "1",
-            name: "node2",
+            name: "rightTop",
             default: 1,
             r: 29.41,
             pos: {
                 x: 47.55,
                 y: 112.23,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point10",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point10,
+                            { x: 0.27, y: 154.88 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point11",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point11,
+                            { x: 44.98, y: 79.81 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point12",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point12,
+                            { x: 76.14, y: 79.81 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point13",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point13,
+                            { x: 14.35, y: 174.12 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point1",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point13,
+                            { x: 14.35, y: 174.12 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "2",
-            name: "node3",
+            name: "rightBottom",
             default: 1,
             r: 28.76,
             pos: {
                 x: 44.57,
                 y: 231.62,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point4",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point4,
+                            { x: 0, y: 193.64 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point3",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point3,
+                            { x: 47.43, y: 268.71 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point2",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point2,
+                            { x: 76.16, y: 268.71 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point13",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point13,
+                            { x: 14.36, y: 174.12 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point1",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point13,
+                            { x: 14.36, y: 174.12 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
         {
             id: "3",
-            name: "node4",
+            name: "leftBottom",
             default: 1,
             r: 28.76,
             pos: {
                 x: -42.51,
                 y: 231.62,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point7",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point7,
+                            { x: -14.36, y: 174.13 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point6",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point6,
+                            { x: -76.16, y: 268.71 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point5",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point5,
+                            { x: -47.16, y: 268.71 },
+                            0,
+                        )(base, val),
+                },
+                {
+                    point: "point4",
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            XCapConfig.points.point4,
+                            { x: 0, y: 193.64 },
+                            0,
+                        )(base, val),
+                },
+            ],
         },
     ],
 };
