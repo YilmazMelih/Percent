@@ -67,10 +67,12 @@ const initializeGlyphData = (configs) => {
 // Descender 320
 
 let testFullInnerHTML = `
- 
+
 
 `;
-let testD = "";
+let testD = `
+M147.44,247.76l93.58-.19v20.87H80.83l.69-36.53,84.7-106.62h-84.7l.54-44.65h168.86v33.02l-103.48,134.11Z
+`;
 let testSVGStr = "";
 let testFromPoint = { x: 0, y: 0 };
 
@@ -95,9 +97,9 @@ const extractTestInputsFromInnerHTML = (innerHTML) => {
         testFromPoint: extractedFromPoint,
     };
 };
-({ testD, testSVGStr, testFromPoint } = extractTestInputsFromInnerHTML(testFullInnerHTML));
+// ({ testD, testSVGStr, testFromPoint } = extractTestInputsFromInnerHTML(testFullInnerHTML));
 const testP = convertPathToGlyphObject(testD);
-const testPoints = shiftPointsToAnchor(testP.points, "point4", null, 267.76);
+const testPoints = shiftPointsToAnchor(testP.points, "point8", -84.16, 80.77);
 const testToPoint = testPoints.point1;
 const testNodes = generateNodesFromCircles(testFromPoint, testToPoint, testSVGStr);
 const testConfig = {
@@ -106,7 +108,7 @@ const testConfig = {
     nodes: testNodes,
 };
 
-console.log(testConfig);
+// console.log(testConfig);
 
 const initialConfigs = {
     A: ACapConfig,
@@ -126,9 +128,9 @@ const initialConfigs = {
     l: lConfig,
     M: MCapConfig,
     N: NCapConfig,
-    n: nConfig,
+    // n: nConfig,
     O: OCapConfig,
-    o: oConfig,
+    // o: oConfig,
     P: PCapConfig,
     Q: QCapConfig,
     R: RCapConfig,
