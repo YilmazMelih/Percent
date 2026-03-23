@@ -316,6 +316,30 @@ export function convertPathToGlyphObject(d, { baseline = null } = {}) {
     return { basePath: result.basePath, points };
 }
 
+// Rebuild an SVG path string from a glyph object's basePath + points.
+// Nodes are intentionally ignored.
+export function glyphObjectToPath(glyphObject) {
+    const basePath = glyphObject?.basePath ?? [];
+    const points = glyphObject?.points ?? {};
+
+    return basePath
+        .map((seg) => {
+            if (seg?.cmd === "Z") return "Z";
+            const args = Array.isArray(seg?.args) ? seg.args.join(" ") : "";
+            const coords = (seg?.points ?? [])
+                .map((name) => {
+                    const p = points[name];
+                    return p ? `${p.x} ${p.y}` : "";
+                })
+                .filter(Boolean)
+                .join(" ");
+
+            return `${seg?.cmd ?? ""} ${args ? `${args} ` : ""}${coords}`.trim();
+        })
+        .filter(Boolean)
+        .join(" ");
+}
+
 function pointSortKey(name) {
     const m = /^point(\d+)$/.exec(name);
     return m ? parseInt(m[1], 10) : Number.MAX_SAFE_INTEGER;

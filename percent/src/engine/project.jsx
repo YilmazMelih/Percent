@@ -105,6 +105,58 @@ export function extractPathPoints(d) {
     return { endpoints, controlPoints };
 }
 
+// Returns the closest point on an SVG path to (x, y).
+// Uses path sampling in browser via SVGPathElement geometry APIs.
+export function findClosestPointOnPath(point, d, coarseSamples = 200, refineWindow = 2) {
+    const { x, y } = point;
+    if (typeof document === "undefined" || !d) return null;
+
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", d);
+
+    const total = path.getTotalLength();
+    if (!Number.isFinite(total) || total <= 0) return null;
+
+    let bestLen = 0;
+    let bestDist2 = Infinity;
+
+    // Coarse pass to find an approximate closest length.
+    for (let i = 0; i <= coarseSamples; i++) {
+        const len = (total * i) / coarseSamples;
+        const p = path.getPointAtLength(len);
+        const dx = p.x - x;
+        const dy = p.y - y;
+        const dist2 = dx * dx + dy * dy;
+        if (dist2 < bestDist2) {
+            bestDist2 = dist2;
+            bestLen = len;
+        }
+    }
+
+    // Local refinement around the best coarse sample.
+    let step = total / coarseSamples;
+    for (let pass = 0; pass < 6; pass++) {
+        const start = Math.max(0, bestLen - refineWindow * step);
+        const end = Math.min(total, bestLen + refineWindow * step);
+        const samples = 20;
+        for (let i = 0; i <= samples; i++) {
+            const len = start + ((end - start) * i) / samples;
+            const p = path.getPointAtLength(len);
+            const dx = p.x - x;
+            const dy = p.y - y;
+            const dist2 = dx * dx + dy * dy;
+            if (dist2 < bestDist2) {
+                bestDist2 = dist2;
+                bestLen = len;
+            }
+        }
+        step /= 2;
+    }
+
+    const closest = path.getPointAtLength(bestLen);
+    return { x: closest.x, y: closest.y, length: bestLen, distance: Math.sqrt(bestDist2) };
+}
+
 export function buildPath(config, nodeVals, nodeX, nodeY) {
     const computedPoints = { ...config.points };
 
