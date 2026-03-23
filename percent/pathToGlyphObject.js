@@ -116,7 +116,14 @@ export function parsePath(d) {
                 y2 = isRel ? cy + y2 : y2;
                 x = isRel ? cx + x : x;
                 y = isRel ? cy + y : y;
-                out.push({ cmd: "C", points: [{ x: x1, y: y1 }, { x: x2, y: y2 }, { x, y }] });
+                out.push({
+                    cmd: "C",
+                    points: [
+                        { x: x1, y: y1 },
+                        { x: x2, y: y2 },
+                        { x, y },
+                    ],
+                });
                 cx = x;
                 cy = y;
                 lastC2x = x2;
@@ -139,7 +146,14 @@ export function parsePath(d) {
                 y2 = isRel ? cy + y2 : y2;
                 x = isRel ? cx + x : x;
                 y = isRel ? cy + y : y;
-                out.push({ cmd: "C", points: [{ x: rx1, y: ry1 }, { x: x2, y: y2 }, { x, y }] });
+                out.push({
+                    cmd: "C",
+                    points: [
+                        { x: rx1, y: ry1 },
+                        { x: x2, y: y2 },
+                        { x, y },
+                    ],
+                });
                 cx = x;
                 cy = y;
                 lastC2x = x2;
@@ -160,7 +174,13 @@ export function parsePath(d) {
                 y1 = isRel ? cy + y1 : y1;
                 x = isRel ? cx + x : x;
                 y = isRel ? cy + y : y;
-                out.push({ cmd: "Q", points: [{ x: x1, y: y1 }, { x, y }] });
+                out.push({
+                    cmd: "Q",
+                    points: [
+                        { x: x1, y: y1 },
+                        { x, y },
+                    ],
+                });
                 cx = x;
                 cy = y;
                 lastQ1x = x1;
@@ -179,7 +199,13 @@ export function parsePath(d) {
                 let y = readNumber();
                 x = isRel ? cx + x : x;
                 y = isRel ? cy + y : y;
-                out.push({ cmd: "Q", points: [{ x: rx1, y: ry1 }, { x, y }] });
+                out.push({
+                    cmd: "Q",
+                    points: [
+                        { x: rx1, y: ry1 },
+                        { x, y },
+                    ],
+                });
                 cx = x;
                 cy = y;
                 lastQ1x = rx1;

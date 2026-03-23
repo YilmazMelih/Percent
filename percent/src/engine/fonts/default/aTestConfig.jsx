@@ -2,8 +2,13 @@ import {
     makeCopyDeltaFromInterpolation,
     interpolateFromBase,
     findClosestPointOnPath,
+    findClosestPointOnPathTowardFill,
+    findPointOnPathInwardDirection,
 } from "../../project";
+import { glyphObjectToPath } from "../../../../pathToGlyphObject";
+import { aConfig } from "./a";
 
+const defaultAPath = glyphObjectToPath(aConfig);
 const aSkeleton = `M -47.73 162.41 C -47.73 162.41 -39.08 133.35 -1.18 133.87 C 36.73 134.39 44.44 154.34 44.44 154.34 C 44.44 154.34 49.88 163.8 49.7 184.21 L 49.7 242.33 L 53.34 267.76 M 49.7 184.21 C 49.7 184.21 31.17 195.45 16.09 195.9 C -6.8 196.58 -29.5 199.89 -29.5 199.89 C -29.5 199.89 -56.59 205.09 -56.45 232.27 C -56.31 256.95 -29 264.99 -29 264.99 C -29 264.99 26.7 282.05 49.7 225.04`;
 
 const points = {
@@ -174,47 +179,47 @@ const points = {
 };
 
 const skeletonEndpoints = {
-    point1: findClosestPointOnPath(points.point1, aSkeleton),
-    point2: findClosestPointOnPath(points.point2, aSkeleton),
-    point3: findClosestPointOnPath(points.point3, aSkeleton),
-    point4: findClosestPointOnPath(points.point4, aSkeleton),
-    point5: findClosestPointOnPath(points.point5, aSkeleton),
-    point6: findClosestPointOnPath(points.point6, aSkeleton),
-    point7: findClosestPointOnPath(points.point7, aSkeleton),
-    point8: findClosestPointOnPath(points.point8, aSkeleton),
-    point9: findClosestPointOnPath(points.point9, aSkeleton),
-    point10: findClosestPointOnPath(points.point10, aSkeleton),
-    point11: findClosestPointOnPath(points.point11, aSkeleton),
-    point12: findClosestPointOnPath(points.point12, aSkeleton),
-    point13: findClosestPointOnPath(points.point13, aSkeleton),
-    point14: findClosestPointOnPath(points.point14, aSkeleton),
-    point15: findClosestPointOnPath(points.point15, aSkeleton),
-    point16: findClosestPointOnPath(points.point16, aSkeleton),
-    point17: findClosestPointOnPath(points.point17, aSkeleton),
-    point18: findClosestPointOnPath(points.point18, aSkeleton),
-    point19: findClosestPointOnPath(points.point19, aSkeleton),
-    point20: findClosestPointOnPath(points.point20, aSkeleton),
-    point21: findClosestPointOnPath(points.point21, aSkeleton),
-    point22: findClosestPointOnPath(points.point22, aSkeleton),
-    point23: findClosestPointOnPath(points.point23, aSkeleton),
-    point24: findClosestPointOnPath(points.point24, aSkeleton),
-    point25: findClosestPointOnPath(points.point25, aSkeleton),
-    point26: findClosestPointOnPath(points.point26, aSkeleton),
-    point27: findClosestPointOnPath(points.point27, aSkeleton),
-    point28: findClosestPointOnPath(points.point28, aSkeleton),
-    point29: findClosestPointOnPath(points.point29, aSkeleton),
-    point30: findClosestPointOnPath(points.point30, aSkeleton),
-    point31: findClosestPointOnPath(points.point31, aSkeleton),
-    point32: findClosestPointOnPath(points.point32, aSkeleton),
-    point34: findClosestPointOnPath(points.point34, aSkeleton),
-    point35: findClosestPointOnPath(points.point35, aSkeleton),
-    point36: findClosestPointOnPath(points.point36, aSkeleton),
-    point37: findClosestPointOnPath(points.point37, aSkeleton),
-    point38: findClosestPointOnPath(points.point38, aSkeleton),
-    point39: findClosestPointOnPath(points.point39, aSkeleton),
-    point40: findClosestPointOnPath(points.point40, aSkeleton),
-    point41: findClosestPointOnPath(points.point41, aSkeleton),
-    point42: findClosestPointOnPath(points.point42, aSkeleton),
+    point1: findPointOnPathInwardDirection(points.point1, aSkeleton, defaultAPath),
+    point2: findPointOnPathInwardDirection(points.point2, aSkeleton, defaultAPath),
+    point3: findPointOnPathInwardDirection(points.point3, aSkeleton, defaultAPath),
+    point4: findPointOnPathInwardDirection(points.point4, aSkeleton, defaultAPath),
+    point5: findPointOnPathInwardDirection(points.point5, aSkeleton, defaultAPath),
+    point6: findPointOnPathInwardDirection(points.point6, aSkeleton, defaultAPath),
+    point7: findPointOnPathInwardDirection(points.point7, aSkeleton, defaultAPath),
+    point8: findPointOnPathInwardDirection(points.point8, aSkeleton, defaultAPath),
+    point9: findPointOnPathInwardDirection(points.point9, aSkeleton, defaultAPath),
+    point10: findPointOnPathInwardDirection(points.point10, aSkeleton, defaultAPath),
+    point11: findPointOnPathInwardDirection(points.point11, aSkeleton, defaultAPath),
+    point12: findPointOnPathInwardDirection(points.point12, aSkeleton, defaultAPath),
+    point13: findPointOnPathInwardDirection(points.point13, aSkeleton, defaultAPath),
+    point14: findPointOnPathInwardDirection(points.point14, aSkeleton, defaultAPath),
+    point15: findPointOnPathInwardDirection(points.point15, aSkeleton, defaultAPath),
+    point16: findPointOnPathInwardDirection(points.point16, aSkeleton, defaultAPath),
+    point17: findPointOnPathInwardDirection(points.point17, aSkeleton, defaultAPath),
+    point18: findPointOnPathInwardDirection(points.point18, aSkeleton, defaultAPath),
+    point19: findPointOnPathInwardDirection(points.point19, aSkeleton, defaultAPath),
+    point20: findPointOnPathInwardDirection(points.point20, aSkeleton, defaultAPath),
+    point21: findPointOnPathInwardDirection(points.point21, aSkeleton, defaultAPath),
+    point22: findPointOnPathInwardDirection(points.point22, aSkeleton, defaultAPath),
+    point23: findPointOnPathInwardDirection(points.point23, aSkeleton, defaultAPath),
+    point24: findPointOnPathInwardDirection(points.point24, aSkeleton, defaultAPath),
+    point25: findPointOnPathInwardDirection(points.point25, aSkeleton, defaultAPath),
+    point26: findPointOnPathInwardDirection(points.point26, aSkeleton, defaultAPath),
+    point27: findPointOnPathInwardDirection(points.point27, aSkeleton, defaultAPath),
+    point28: findPointOnPathInwardDirection(points.point28, aSkeleton, defaultAPath),
+    point29: findPointOnPathInwardDirection(points.point29, aSkeleton, defaultAPath),
+    point30: findPointOnPathInwardDirection(points.point30, aSkeleton, defaultAPath),
+    point31: findPointOnPathInwardDirection(points.point31, aSkeleton, defaultAPath),
+    point32: findPointOnPathInwardDirection(points.point32, aSkeleton, defaultAPath),
+    point34: findPointOnPathInwardDirection(points.point34, aSkeleton, defaultAPath),
+    point35: findPointOnPathInwardDirection(points.point35, aSkeleton, defaultAPath),
+    point36: findPointOnPathInwardDirection(points.point36, aSkeleton, defaultAPath),
+    point37: findPointOnPathInwardDirection(points.point37, aSkeleton, defaultAPath),
+    point38: findPointOnPathInwardDirection(points.point38, aSkeleton, defaultAPath),
+    point39: findPointOnPathInwardDirection(points.point39, aSkeleton, defaultAPath),
+    point40: findPointOnPathInwardDirection(points.point40, aSkeleton, defaultAPath),
+    point41: findPointOnPathInwardDirection(points.point41, aSkeleton, defaultAPath),
+    point42: findPointOnPathInwardDirection(points.point42, aSkeleton, defaultAPath),
 };
 
 export const aTestConfig = {
@@ -317,8 +322,8 @@ export const aTestConfig = {
                     point: "point4",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point4,
-                            aConfig.skeletonEndpoints.point4,
+                            aTestConfig.points.point4,
+                            aTestConfig.skeletonEndpoints.point4,
                             0,
                         )(base, val),
                 },
@@ -326,8 +331,8 @@ export const aTestConfig = {
                     point: "point5",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point5,
-                            aConfig.skeletonEndpoints.point5,
+                            aTestConfig.points.point5,
+                            aTestConfig.skeletonEndpoints.point5,
                             0,
                         )(base, val),
                 },
@@ -335,8 +340,8 @@ export const aTestConfig = {
                     point: "point6",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point6,
-                            aConfig.skeletonEndpoints.point6,
+                            aTestConfig.points.point6,
+                            aTestConfig.skeletonEndpoints.point6,
                             0,
                         )(base, val),
                 },
@@ -344,8 +349,8 @@ export const aTestConfig = {
                     point: "point7",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point7,
-                            aConfig.skeletonEndpoints.point7,
+                            aTestConfig.points.point7,
+                            aTestConfig.skeletonEndpoints.point7,
                             0,
                         )(base, val),
                 },
@@ -353,8 +358,8 @@ export const aTestConfig = {
                     point: "point8",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point8,
-                            aConfig.skeletonEndpoints.point8,
+                            aTestConfig.points.point8,
+                            aTestConfig.skeletonEndpoints.point8,
                             0,
                         )(base, val),
                 },
@@ -362,8 +367,8 @@ export const aTestConfig = {
                     point: "point9",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point9,
-                            aConfig.skeletonEndpoints.point9,
+                            aTestConfig.points.point9,
+                            aTestConfig.skeletonEndpoints.point9,
                             0,
                         )(base, val),
                 },
@@ -371,8 +376,8 @@ export const aTestConfig = {
                     point: "point10",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point10,
-                            aConfig.skeletonEndpoints.point10,
+                            aTestConfig.points.point10,
+                            aTestConfig.skeletonEndpoints.point10,
                             0,
                         )(base, val),
                 },
@@ -380,8 +385,8 @@ export const aTestConfig = {
                     point: "point11",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point11,
-                            aConfig.skeletonEndpoints.point11,
+                            aTestConfig.points.point11,
+                            aTestConfig.skeletonEndpoints.point11,
                             0,
                         )(base, val),
                 },
@@ -389,8 +394,8 @@ export const aTestConfig = {
                     point: "point12",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point12,
-                            aConfig.skeletonEndpoints.point12,
+                            aTestConfig.points.point12,
+                            aTestConfig.skeletonEndpoints.point12,
                             0,
                         )(base, val),
                 },
@@ -398,8 +403,8 @@ export const aTestConfig = {
                     point: "point40",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point40,
-                            aConfig.skeletonEndpoints.point40,
+                            aTestConfig.points.point40,
+                            aTestConfig.skeletonEndpoints.point40,
                             0,
                         )(base, val),
                 },
@@ -407,8 +412,8 @@ export const aTestConfig = {
                     point: "point39",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point39,
-                            aConfig.skeletonEndpoints.point39,
+                            aTestConfig.points.point39,
+                            aTestConfig.skeletonEndpoints.point39,
                             0,
                         )(base, val),
                 },
@@ -416,8 +421,8 @@ export const aTestConfig = {
                     point: "point38",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point38,
-                            aConfig.skeletonEndpoints.point38,
+                            aTestConfig.points.point38,
+                            aTestConfig.skeletonEndpoints.point38,
                             0,
                         )(base, val),
                 },
@@ -425,8 +430,8 @@ export const aTestConfig = {
                     point: "point37",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point37,
-                            aConfig.skeletonEndpoints.point37,
+                            aTestConfig.points.point37,
+                            aTestConfig.skeletonEndpoints.point37,
                             0,
                         )(base, val),
                 },
@@ -434,8 +439,8 @@ export const aTestConfig = {
                     point: "point36",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point36,
-                            aConfig.skeletonEndpoints.point36,
+                            aTestConfig.points.point36,
+                            aTestConfig.skeletonEndpoints.point36,
                             0,
                         )(base, val),
                 },
@@ -443,8 +448,8 @@ export const aTestConfig = {
                     point: "point35",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point35,
-                            aConfig.skeletonEndpoints.point35,
+                            aTestConfig.points.point35,
+                            aTestConfig.skeletonEndpoints.point35,
                             0,
                         )(base, val),
                 },
@@ -464,8 +469,8 @@ export const aTestConfig = {
                     point: "point28",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point28,
-                            aConfig.skeletonEndpoints.point28,
+                            aTestConfig.points.point28,
+                            aTestConfig.skeletonEndpoints.point28,
                             0,
                         )(base, val),
                 },
@@ -473,8 +478,8 @@ export const aTestConfig = {
                     point: "point27",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point27,
-                            aConfig.skeletonEndpoints.point27,
+                            aTestConfig.points.point27,
+                            aTestConfig.skeletonEndpoints.point27,
                             0,
                         )(base, val),
                 },
@@ -482,8 +487,8 @@ export const aTestConfig = {
                     point: "point26",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point26,
-                            aConfig.skeletonEndpoints.point26,
+                            aTestConfig.points.point26,
+                            aTestConfig.skeletonEndpoints.point26,
                             0,
                         )(base, val),
                 },
@@ -491,8 +496,8 @@ export const aTestConfig = {
                     point: "point25",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point25,
-                            aConfig.skeletonEndpoints.point25,
+                            aTestConfig.points.point25,
+                            aTestConfig.skeletonEndpoints.point25,
                             0,
                         )(base, val),
                 },
@@ -500,8 +505,8 @@ export const aTestConfig = {
                     point: "point24",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point24,
-                            aConfig.skeletonEndpoints.point24,
+                            aTestConfig.points.point24,
+                            aTestConfig.skeletonEndpoints.point24,
                             0,
                         )(base, val),
                 },
@@ -509,8 +514,8 @@ export const aTestConfig = {
                     point: "point23",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point23,
-                            aConfig.skeletonEndpoints.point23,
+                            aTestConfig.points.point23,
+                            aTestConfig.skeletonEndpoints.point23,
                             0,
                         )(base, val),
                 },
@@ -518,8 +523,8 @@ export const aTestConfig = {
                     point: "point22",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point22,
-                            aConfig.skeletonEndpoints.point22,
+                            aTestConfig.points.point22,
+                            aTestConfig.skeletonEndpoints.point22,
                             0,
                         )(base, val),
                 },
@@ -527,8 +532,8 @@ export const aTestConfig = {
                     point: "point21",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point21,
-                            aConfig.skeletonEndpoints.point21,
+                            aTestConfig.points.point21,
+                            aTestConfig.skeletonEndpoints.point21,
                             0,
                         )(base, val),
                 },
@@ -536,8 +541,8 @@ export const aTestConfig = {
                     point: "point20",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point20,
-                            aConfig.skeletonEndpoints.point20,
+                            aTestConfig.points.point20,
+                            aTestConfig.skeletonEndpoints.point20,
                             0,
                         )(base, val),
                 },
@@ -545,8 +550,8 @@ export const aTestConfig = {
                     point: "point19",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point19,
-                            aConfig.skeletonEndpoints.point19,
+                            aTestConfig.points.point19,
+                            aTestConfig.skeletonEndpoints.point19,
                             0,
                         )(base, val),
                 },
@@ -554,8 +559,8 @@ export const aTestConfig = {
                     point: "point18",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point18,
-                            aConfig.skeletonEndpoints.point18,
+                            aTestConfig.points.point18,
+                            aTestConfig.skeletonEndpoints.point18,
                             0,
                         )(base, val),
                 },
@@ -563,8 +568,8 @@ export const aTestConfig = {
                     point: "point17",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point17,
-                            aConfig.skeletonEndpoints.point17,
+                            aTestConfig.points.point17,
+                            aTestConfig.skeletonEndpoints.point17,
                             0,
                         )(base, val),
                 },
@@ -572,8 +577,8 @@ export const aTestConfig = {
                     point: "point16",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point16,
-                            aConfig.skeletonEndpoints.point16,
+                            aTestConfig.points.point16,
+                            aTestConfig.skeletonEndpoints.point16,
                             0,
                         )(base, val),
                 },
@@ -581,8 +586,8 @@ export const aTestConfig = {
                     point: "point15",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point15,
-                            aConfig.skeletonEndpoints.point15,
+                            aTestConfig.points.point15,
+                            aTestConfig.skeletonEndpoints.point15,
                             0,
                         )(base, val),
                 },
@@ -590,8 +595,8 @@ export const aTestConfig = {
                     point: "point13",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point13,
-                            aConfig.skeletonEndpoints.point13,
+                            aTestConfig.points.point13,
+                            aTestConfig.skeletonEndpoints.point13,
                             0,
                         )(base, val),
                 },
@@ -611,8 +616,8 @@ export const aTestConfig = {
                     point: "point26",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point26,
-                            aConfig.skeletonEndpoints.point26,
+                            aTestConfig.points.point26,
+                            aTestConfig.skeletonEndpoints.point26,
                             0,
                         )(base, val),
                 },
@@ -620,8 +625,8 @@ export const aTestConfig = {
                     point: "point27",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point27,
-                            aConfig.skeletonEndpoints.point27,
+                            aTestConfig.points.point27,
+                            aTestConfig.skeletonEndpoints.point27,
                             0,
                         )(base, val),
                 },
@@ -629,8 +634,8 @@ export const aTestConfig = {
                     point: "point28",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point28,
-                            aConfig.skeletonEndpoints.point28,
+                            aTestConfig.points.point28,
+                            aTestConfig.skeletonEndpoints.point28,
                             0,
                         )(base, val),
                 },
@@ -638,8 +643,8 @@ export const aTestConfig = {
                     point: "point29",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point29,
-                            aConfig.skeletonEndpoints.point29,
+                            aTestConfig.points.point29,
+                            aTestConfig.skeletonEndpoints.point29,
                             0,
                         )(base, val),
                 },
@@ -647,8 +652,8 @@ export const aTestConfig = {
                     point: "point30",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point30,
-                            aConfig.skeletonEndpoints.point30,
+                            aTestConfig.points.point30,
+                            aTestConfig.skeletonEndpoints.point30,
                             0,
                         )(base, val),
                 },
@@ -656,8 +661,8 @@ export const aTestConfig = {
                     point: "point31",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point31,
-                            aConfig.skeletonEndpoints.point31,
+                            aTestConfig.points.point31,
+                            aTestConfig.skeletonEndpoints.point31,
                             0,
                         )(base, val),
                 },
@@ -665,8 +670,8 @@ export const aTestConfig = {
                     point: "point32",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point32,
-                            aConfig.skeletonEndpoints.point32,
+                            aTestConfig.points.point32,
+                            aTestConfig.skeletonEndpoints.point32,
                             0,
                         )(base, val),
                 },
@@ -674,8 +679,8 @@ export const aTestConfig = {
                     point: "point1",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point1,
-                            aConfig.skeletonEndpoints.point1,
+                            aTestConfig.points.point1,
+                            aTestConfig.skeletonEndpoints.point1,
                             0,
                         )(base, val),
                 },
@@ -683,8 +688,8 @@ export const aTestConfig = {
                     point: "point2",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point2,
-                            aConfig.skeletonEndpoints.point2,
+                            aTestConfig.points.point2,
+                            aTestConfig.skeletonEndpoints.point2,
                             0,
                         )(base, val),
                 },
@@ -692,8 +697,8 @@ export const aTestConfig = {
                     point: "point3",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point3,
-                            aConfig.skeletonEndpoints.point3,
+                            aTestConfig.points.point3,
+                            aTestConfig.skeletonEndpoints.point3,
                             0,
                         )(base, val),
                 },
@@ -701,8 +706,8 @@ export const aTestConfig = {
                     point: "point40",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point40,
-                            aConfig.skeletonEndpoints.point40,
+                            aTestConfig.points.point40,
+                            aTestConfig.skeletonEndpoints.point40,
                             0,
                         )(base, val),
                 },
@@ -710,8 +715,8 @@ export const aTestConfig = {
                     point: "point41",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point41,
-                            aConfig.skeletonEndpoints.point41,
+                            aTestConfig.points.point41,
+                            aTestConfig.skeletonEndpoints.point41,
                             0,
                         )(base, val),
                 },
@@ -719,8 +724,8 @@ export const aTestConfig = {
                     point: "point35",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point35,
-                            aConfig.skeletonEndpoints.point35,
+                            aTestConfig.points.point35,
+                            aTestConfig.skeletonEndpoints.point35,
                             0,
                         )(base, val),
                 },
@@ -728,8 +733,8 @@ export const aTestConfig = {
                     point: "point42",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point42,
-                            aConfig.skeletonEndpoints.point42,
+                            aTestConfig.points.point42,
+                            aTestConfig.skeletonEndpoints.point42,
                             0,
                         )(base, val),
                 },
@@ -737,8 +742,8 @@ export const aTestConfig = {
                     point: "point34",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point34,
-                            aConfig.skeletonEndpoints.point34,
+                            aTestConfig.points.point34,
+                            aTestConfig.skeletonEndpoints.point34,
                             0,
                         )(base, val),
                 },
@@ -746,8 +751,8 @@ export const aTestConfig = {
                     point: "point13",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point13,
-                            aConfig.skeletonEndpoints.point13,
+                            aTestConfig.points.point13,
+                            aTestConfig.skeletonEndpoints.point13,
                             0,
                         )(base, val),
                 },
@@ -755,8 +760,8 @@ export const aTestConfig = {
                     point: "point14",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point14,
-                            aConfig.skeletonEndpoints.point14,
+                            aTestConfig.points.point14,
+                            aTestConfig.skeletonEndpoints.point14,
                             0,
                         )(base, val),
                 },
@@ -764,8 +769,8 @@ export const aTestConfig = {
                     point: "point15",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point15,
-                            aConfig.skeletonEndpoints.point15,
+                            aTestConfig.points.point15,
+                            aTestConfig.skeletonEndpoints.point15,
                             0,
                         )(base, val),
                 },
@@ -773,8 +778,8 @@ export const aTestConfig = {
                     point: "point16",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point16,
-                            aConfig.skeletonEndpoints.point16,
+                            aTestConfig.points.point16,
+                            aTestConfig.skeletonEndpoints.point16,
                             0,
                         )(base, val),
                 },
@@ -782,8 +787,8 @@ export const aTestConfig = {
                     point: "point17",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point17,
-                            aConfig.skeletonEndpoints.point17,
+                            aTestConfig.points.point17,
+                            aTestConfig.skeletonEndpoints.point17,
                             0,
                         )(base, val),
                 },
@@ -791,8 +796,8 @@ export const aTestConfig = {
                     point: "point18",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point18,
-                            aConfig.skeletonEndpoints.point18,
+                            aTestConfig.points.point18,
+                            aTestConfig.skeletonEndpoints.point18,
                             0,
                         )(base, val),
                 },
@@ -812,8 +817,8 @@ export const aTestConfig = {
                     point: "point15",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point15,
-                            aConfig.skeletonEndpoints.point15,
+                            aTestConfig.points.point15,
+                            aTestConfig.skeletonEndpoints.point15,
                             0,
                         )(base, val),
                 },
@@ -821,8 +826,8 @@ export const aTestConfig = {
                     point: "point14",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point14,
-                            aConfig.skeletonEndpoints.point14,
+                            aTestConfig.points.point14,
+                            aTestConfig.skeletonEndpoints.point14,
                             0,
                         )(base, val),
                 },
@@ -830,8 +835,8 @@ export const aTestConfig = {
                     point: "point13",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point13,
-                            aConfig.skeletonEndpoints.point13,
+                            aTestConfig.points.point13,
+                            aTestConfig.skeletonEndpoints.point13,
                             0,
                         )(base, val),
                 },
@@ -839,8 +844,8 @@ export const aTestConfig = {
                     point: "point12",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point12,
-                            aConfig.skeletonEndpoints.point12,
+                            aTestConfig.points.point12,
+                            aTestConfig.skeletonEndpoints.point12,
                             0,
                         )(base, val),
                 },
@@ -848,8 +853,8 @@ export const aTestConfig = {
                     point: "point36",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point36,
-                            aConfig.skeletonEndpoints.point36,
+                            aTestConfig.points.point36,
+                            aTestConfig.skeletonEndpoints.point36,
                             0,
                         )(base, val),
                 },
@@ -857,8 +862,8 @@ export const aTestConfig = {
                     point: "point35",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point35,
-                            aConfig.skeletonEndpoints.point35,
+                            aTestConfig.points.point35,
+                            aTestConfig.skeletonEndpoints.point35,
                             0,
                         )(base, val),
                 },
@@ -866,8 +871,8 @@ export const aTestConfig = {
                     point: "point34",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point34,
-                            aConfig.skeletonEndpoints.point34,
+                            aTestConfig.points.point34,
+                            aTestConfig.skeletonEndpoints.point34,
                             0,
                         )(base, val),
                 },
@@ -875,8 +880,8 @@ export const aTestConfig = {
                     point: "point42",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point42,
-                            aConfig.skeletonEndpoints.point42,
+                            aTestConfig.points.point42,
+                            aTestConfig.skeletonEndpoints.point42,
                             0,
                         )(base, val),
                 },
@@ -896,8 +901,8 @@ export const aTestConfig = {
                     point: "point6",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point6,
-                            aConfig.skeletonEndpoints.point6,
+                            aTestConfig.points.point6,
+                            aTestConfig.skeletonEndpoints.point6,
                             0,
                         )(base, val),
                 },
@@ -905,8 +910,8 @@ export const aTestConfig = {
                     point: "point5",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point5,
-                            aConfig.skeletonEndpoints.point5,
+                            aTestConfig.points.point5,
+                            aTestConfig.skeletonEndpoints.point5,
                             0,
                         )(base, val),
                 },
@@ -914,8 +919,8 @@ export const aTestConfig = {
                     point: "point4",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point4,
-                            aConfig.skeletonEndpoints.point4,
+                            aTestConfig.points.point4,
+                            aTestConfig.skeletonEndpoints.point4,
                             0,
                         )(base, val),
                 },
@@ -923,8 +928,8 @@ export const aTestConfig = {
                     point: "point39",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point39,
-                            aConfig.skeletonEndpoints.point39,
+                            aTestConfig.points.point39,
+                            aTestConfig.skeletonEndpoints.point39,
                             0,
                         )(base, val),
                 },
@@ -932,8 +937,8 @@ export const aTestConfig = {
                     point: "point40",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point40,
-                            aConfig.skeletonEndpoints.point40,
+                            aTestConfig.points.point40,
+                            aTestConfig.skeletonEndpoints.point40,
                             0,
                         )(base, val),
                 },
@@ -941,8 +946,8 @@ export const aTestConfig = {
                     point: "point41",
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
-                            aConfig.points.point41,
-                            aConfig.skeletonEndpoints.point41,
+                            aTestConfig.points.point41,
+                            aTestConfig.skeletonEndpoints.point41,
                             0,
                         )(base, val),
                 },
