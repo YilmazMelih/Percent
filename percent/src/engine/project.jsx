@@ -285,7 +285,7 @@ export function findClosestPointOnPathTowardFill(
 // Finds a point on SP that lies in the inward direction from P1.
 // Unlike closest-point matching, this prioritizes directional alignment
 // with the inward ray toward the glyph fill (F).
-export function findPointOnPathInwardDirection(point, skeletonD, glyphD, samples = 800) {
+export function findPointOnPathInwardDirection(point, skeletonD, glyphD, samples = 2000) {
     const { x, y } = point ?? {};
     const skeletonPath = makeSvgPathElement(skeletonD);
     const glyphPath = makeSvgPathElement(glyphD);
@@ -330,20 +330,7 @@ export function findPointOnPathInwardDirection(point, skeletonD, glyphD, samples
 }
 
 export function buildPath(config, nodeVals, nodeX, nodeY) {
-    const computedPoints = { ...config.points };
-
-    config.nodes.forEach((node) => {
-        node.affects.forEach((affect) => {
-            const basePoint = computedPoints[affect.point];
-            const sizedPoint = affect.formula(computedPoints[affect.point], nodeVals[node.id]);
-            const dx = nodeX?.[node.id] ?? 0;
-            const dy = nodeY?.[node.id] ?? 0;
-            computedPoints[affect.point] = {
-                x: sizedPoint.x + dx,
-                y: sizedPoint.y + dy,
-            };
-        });
-    });
+    const computedPoints = computeGlyphPoints(config, nodeVals, nodeX, nodeY);
 
     return config.basePath
         .map((seg) => {
@@ -357,6 +344,24 @@ export function buildPath(config, nodeVals, nodeX, nodeY) {
             return `${seg.cmd} ${args ? `${args} ` : ""}${coords}`;
         })
         .join(" ");
+}
+
+export function computeGlyphPoints(config, nodeVals, nodeX, nodeY) {
+    const computedPoints = { ...config.points };
+
+    config.nodes.forEach((node) => {
+        node.affects.forEach((affect) => {
+            const sizedPoint = affect.formula(computedPoints[affect.point], nodeVals[node.id]);
+            const dx = nodeX?.[node.id] ?? 0;
+            const dy = nodeY?.[node.id] ?? 0;
+            computedPoints[affect.point] = {
+                x: sizedPoint.x + dx,
+                y: sizedPoint.y + dy,
+            };
+        });
+    });
+
+    return computedPoints;
 }
 
 export function buildNodes(
