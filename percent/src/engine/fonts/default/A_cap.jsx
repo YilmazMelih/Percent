@@ -1,6 +1,7 @@
 import { interpolateFromBase } from "../../project";
 
 export const ACapConfig = {
+    unicode: 65,
     basePath: [
         { cmd: "M", points: ["rightBottomRight"] },
         { cmd: "L", points: ["rightBottomLeft"] },

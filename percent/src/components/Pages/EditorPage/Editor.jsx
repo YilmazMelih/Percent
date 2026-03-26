@@ -37,6 +37,7 @@ import { WCapConfig } from "../../../engine/fonts/default/W_cap";
 import { XCapConfig } from "../../../engine/fonts/default/X_cap";
 import { YCapConfig } from "../../../engine/fonts/default/Y_cap";
 import { ZCapConfig } from "../../../engine/fonts/default/Z_cap";
+import { exportGlyphBasePaths } from "./exportGlyphBasePath";
 import {
     convertPathToGlyphObject,
     applyInferredTransformToPoint,
@@ -316,6 +317,38 @@ export default function Editor() {
                                             setSeePathPoints,
                                             isBottomPanelVisible,
                                             setBottomPanelVisible,
+                                            onExport: () =>
+                                                exportGlyphBasePaths(glyphData, [
+                                                    "A",
+                                                    "a",
+                                                    "B",
+                                                    "C",
+                                                    "D",
+                                                    "E",
+                                                    "e",
+                                                    "F",
+                                                    "G",
+                                                    "H",
+                                                    "I",
+                                                    "J",
+                                                    "K",
+                                                    "L",
+                                                    "l",
+                                                    "M",
+                                                    "N",
+                                                    "O",
+                                                    "P",
+                                                    "Q",
+                                                    "R",
+                                                    "S",
+                                                    "T",
+                                                    "U",
+                                                    "V",
+                                                    "W",
+                                                    "X",
+                                                    "Y",
+                                                    "Z",
+                                                ]),
                                         })}
                                 </SidePanelGroup>
                             </div>

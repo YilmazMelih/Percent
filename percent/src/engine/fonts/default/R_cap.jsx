@@ -1,6 +1,7 @@
 import { makeCopyDeltaFromInterpolation } from "../../project";
 
 export const RCapConfig = {
+    unicode: 82,
     basePath: [
         {
             cmd: "M",

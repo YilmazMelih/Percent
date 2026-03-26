@@ -1,6 +1,7 @@
 import { interpolateFromBase } from "../../project";
 
 export const FCapConfig = {
+    unicode: 70,
     basePath: [
         {
             cmd: "M",

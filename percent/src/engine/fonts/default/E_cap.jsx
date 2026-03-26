@@ -1,6 +1,7 @@
 import { interpolateFromBase } from "../../project";
 
 export const ECapConfig = {
+    unicode: 69,
     basePath: [
         {
             cmd: "M",

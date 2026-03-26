@@ -1,6 +1,7 @@
 import { makeCopyDeltaFromInterpolation } from "../../project";
 
 export const QCapConfig = {
+    unicode: 81,
     basePath: [
         {
             cmd: "M",

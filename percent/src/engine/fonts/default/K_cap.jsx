@@ -1,6 +1,7 @@
 import { makeCopyDeltaFromInterpolation } from "../../project";
 
 export const KCapConfig = {
+    unicode: 75,
     basePath: [
         {
             cmd: "M",

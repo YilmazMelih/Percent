@@ -1,6 +1,7 @@
 import { makeCopyDeltaFromInterpolation } from "../../project";
 
 export const CCapConfig = {
+    unicode: 67,
     basePath: [
         {
             cmd: "M",
@@ -473,17 +474,17 @@ export const CCapConfig = {
             },
             affects: [
                 //OG POINTS:
-//             point13 (26.69, 212.7) Workspace.jsx:28:17
-// point24 (-29.11, 165.55) Workspace.jsx:28:17
-// point12 (15.29, 225.55) 2 Workspace.jsx:28:17
-// point13 (13.67, 212.02) Workspace.jsx:28:17
-// point14 (13.67, 177.11) Workspace.jsx:28:17
-// point15 (13.67, 80.5) Workspace.jsx:28:17
-// point1 (89.44, 80.5) Workspace.jsx:28:17
-// point2 (89.44, 186.85) Workspace.jsx:28:17
-// point3 (89.44, 250.98) Workspace.jsx:28:17
+                //             point13 (26.69, 212.7) Workspace.jsx:28:17
+                // point24 (-29.11, 165.55) Workspace.jsx:28:17
+                // point12 (15.29, 225.55) 2 Workspace.jsx:28:17
+                // point13 (13.67, 212.02) Workspace.jsx:28:17
+                // point14 (13.67, 177.11) Workspace.jsx:28:17
+                // point15 (13.67, 80.5) Workspace.jsx:28:17
+                // point1 (89.44, 80.5) Workspace.jsx:28:17
+                // point2 (89.44, 186.85) Workspace.jsx:28:17
+                // point3 (89.44, 250.98) Workspace.jsx:28:17
                 // point4 (55.88, 272.09)
-//TO GO TO:
+                //TO GO TO:
                 {
                     point: "point5",
                     formula: (base, val) =>

@@ -6,7 +6,7 @@ import {
     findPointOnPathInwardDirection,
 } from "../../project";
 import { glyphObjectToPath } from "../../../../pathToGlyphObject";
-import { aConfig } from "./a";
+import { aConfig } from "./A";
 
 const defaultAPath = glyphObjectToPath(aConfig);
 const aSkeleton = `M -47.73 162.41 C -47.73 162.41 -39.08 133.35 -1.18 133.87 C 36.73 134.39 44.44 154.34 44.44 154.34 C 44.44 154.34 49.88 163.8 49.7 184.21 L 49.7 242.33 L 53.34 267.76 M 49.7 184.21 C 49.7 184.21 31.17 195.45 16.09 195.9 C -6.8 196.58 -29.5 199.89 -29.5 199.89 C -29.5 199.89 -56.59 205.09 -56.45 232.27 C -56.31 256.95 -29 264.99 -29 264.99 C -29 264.99 26.7 282.05 49.7 225.04`;

@@ -1,6 +1,7 @@
 import { makeCopyDeltaFromInterpolation } from "../../project";
 
 export const aConfig = {
+    unicode: 65,
     basePath: [
         { cmd: "M", points: ["point1"] },
         {
