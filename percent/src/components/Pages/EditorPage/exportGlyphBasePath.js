@@ -20,7 +20,7 @@ export function exportGlyphBasePaths(glyphData, glyphKeys) {
                 { x: pt.x - xMin + 60, y: 267.76 - pt.y },
             ]),
         );
-        console.log(`xMin: ${xMin}, xMax: ${xMax}`);
+        // console.log(`xMin: ${xMin}, xMax: ${xMax}`);
         const curPath = new opentype.Path();
         for (const seg of config.basePath) {
             const cmd = seg.cmd;

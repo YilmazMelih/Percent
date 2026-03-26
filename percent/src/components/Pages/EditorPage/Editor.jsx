@@ -320,7 +320,7 @@ export default function Editor() {
                                             onExport: () =>
                                                 exportGlyphBasePaths(glyphData, [
                                                     "A",
-                                                    "a",
+                                                    // "a",
                                                     "B",
                                                     "C",
                                                     "D",
