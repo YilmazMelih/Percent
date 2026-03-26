@@ -54,11 +54,14 @@ export default function SettingsPanel({
                         onClick={onExport}
                         className="px-3 py-1 text-xs rounded bg-purple-600 text-white hover:bg-purple-700"
                     >
-                        Export A_cap + B_cap
+                        Export
                     </button>
                 </div>
             )}
-            <div className="control-group" style={{ marginTop: '1rem', borderTop: '1px solid #e0e0e0', paddingTop: '1rem' }}>
+            <div
+                className="control-group"
+                style={{ marginTop: "1rem", borderTop: "1px solid #e0e0e0", paddingTop: "1rem" }}
+            >
                 <label htmlFor="display-toggle">Display</label>
                 <input
                     id="display-toggle"
