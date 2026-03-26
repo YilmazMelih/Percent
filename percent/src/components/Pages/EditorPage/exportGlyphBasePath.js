@@ -11,16 +11,16 @@ export function exportGlyphBasePaths(glyphData, glyphKeys) {
         const savedGlyph = glyphData[key];
         const { config, nodeSize, nodeX, nodeY } = savedGlyph;
         const prePoints = computeGlyphPoints(config, nodeSize, nodeX, nodeY);
-        const sidePad = 10;
+        const defaultLSB = 20;
+        const defaultRSB = 20;
         const xMin = Math.min(...Object.values(prePoints).map((pt) => pt.x));
         const xMax = Math.max(...Object.values(prePoints).map((pt) => pt.x));
         const points = Object.fromEntries(
             Object.entries(prePoints).map(([key, pt]) => [
                 key,
-                { x: pt.x - xMin + 60, y: 267.76 - pt.y },
+                { x: pt.x - xMin + (config.lsb ?? defaultLSB), y: 267.76 - pt.y },
             ]),
         );
-        // console.log(`xMin: ${xMin}, xMax: ${xMax}`);
         const curPath = new opentype.Path();
         for (const seg of config.basePath) {
             const cmd = seg.cmd;
@@ -61,7 +61,7 @@ export function exportGlyphBasePaths(glyphData, glyphKeys) {
         const GL = new opentype.Glyph({
             name: key,
             unicode: config.unicode,
-            advanceWidth: xMax - xMin + 100, //TBD??
+            advanceWidth: xMax - xMin + (config.rsb ?? defaultRSB) + (config.lsb ?? defaultLSB), //TBD??
             path: curPath,
         });
         return GL;
@@ -69,11 +69,8 @@ export function exportGlyphBasePaths(glyphData, glyphKeys) {
     const font = new opentype.Font({
         familyName: "Test Font",
         styleName: "Regular",
-        unitsPerEm: 289.5, //TBD
+        unitsPerEm: 250, //TBD
         ascender: 237.26, //TBD
-        baseline: 0, //TBD
-        capHeight: 187.26, //TBD
-        xHeight: 131.51, //TBD
         descender: -52.24, //TBD
         glyphs: [notdefGlyph, ...openTypeGlyphs],
     });
