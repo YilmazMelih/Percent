@@ -16,6 +16,8 @@ export default function SettingsPanel({
     setSeeNodes,
     seePathPoints,
     setSeePathPoints,
+    seeGuidelines,
+    setSeeGuidelines,
     isBottomPanelVisible,
     setBottomPanelVisible,
     onExport,
@@ -45,6 +47,8 @@ export default function SettingsPanel({
                 setSeeNodes={setSeeNodes}
                 seePathPoints={seePathPoints}
                 setSeePathPoints={setSeePathPoints}
+                seeGuidelines={seeGuidelines}
+                setSeeGuidelines={setSeeGuidelines}
             />
             {onExport && (
                 <div

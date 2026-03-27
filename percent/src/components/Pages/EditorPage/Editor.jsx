@@ -148,6 +148,7 @@ const GLYPH_STATE_STORAGE_KEY = "editor:glyphData:v1";
 const SELECTED_GLYPH_STORAGE_KEY = "editor:selectedGlyph:v1";
 const SEE_NODES_STORAGE_KEY = "editor:seeNodes:v1";
 const SEE_PATH_POINTS_STORAGE_KEY = "editor:seePathPoints:v1";
+const SEE_GUIDELINES_STORAGE_KEY = "editor:seeGuidelines:v1";
 const SETTINGS_PANEL_OPEN_STORAGE_KEY = "editor:settingsPanelOpen:v1";
 const NODE_GROUP_LINKS_STORAGE_KEY = "editor:nodeGroupLinks:v1";
 
@@ -201,6 +202,11 @@ export default function Editor() {
         const saved = window.localStorage.getItem(SEE_PATH_POINTS_STORAGE_KEY);
         return saved === null ? false : saved === "true";
     });
+    const [seeGuidelines, setSeeGuidelines] = useState(() => {
+        if (typeof window === "undefined") return true;
+        const saved = window.localStorage.getItem(SEE_GUIDELINES_STORAGE_KEY);
+        return saved === null ? true : saved === "true";
+    });
     const [isBottomPanelVisible, setBottomPanelVisible] = useState(false);
     const [nodeGroupLinks, setNodeGroupLinks] = useState(() => {
         if (typeof window === "undefined") return {};
@@ -246,6 +252,10 @@ export default function Editor() {
     useEffect(() => {
         window.localStorage.setItem(SEE_PATH_POINTS_STORAGE_KEY, String(seePathPoints));
     }, [seePathPoints]);
+
+    useEffect(() => {
+        window.localStorage.setItem(SEE_GUIDELINES_STORAGE_KEY, String(seeGuidelines));
+    }, [seeGuidelines]);
 
     useEffect(() => {
         window.localStorage.setItem(SETTINGS_PANEL_OPEN_STORAGE_KEY, String(isSettingsPanelOpen));
@@ -324,6 +334,7 @@ export default function Editor() {
                                         nodeY={currentGlyph.nodeY}
                                         seeNodes={seeNodes}
                                         seePathPoints={seePathPoints}
+                                        seeGuidelines={seeGuidelines}
                                     />
                                 )}
                                 <SidePanelGroup
@@ -349,6 +360,8 @@ export default function Editor() {
                                             setSeeNodes,
                                             seePathPoints,
                                             setSeePathPoints,
+                                            seeGuidelines,
+                                            setSeeGuidelines,
                                             isBottomPanelVisible,
                                             setBottomPanelVisible,
                                             onExport: () =>

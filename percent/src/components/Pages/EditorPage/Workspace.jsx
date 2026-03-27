@@ -14,6 +14,7 @@ export default function Workspace({
     nodeY,
     seeNodes,
     seePathPoints,
+    seeGuidelines,
 }) {
     const [ascender, setAscender] = useState(30.5);
     const [cap_height, setCapHeight] = useState(80.5);
@@ -50,28 +51,30 @@ export default function Workspace({
                         <path d="M 0 0 L 8 4 L 0 8 z" fill="#7c3aed" />
                     </marker>
                 </defs>
-                <g stroke="lightgray" strokeWidth="1.5">
-                    <text x={-330} y={ascender - 8} fontSize="16" fill="lightgray" stroke="none">
-                        Ascender
-                    </text>
-                    <line x1="-330" y1={ascender} x2="330" y2={ascender} />
-                    <text x={-330} y={cap_height - 8} fontSize="16" fill="lightgray" stroke="none">
-                        Cap Height
-                    </text>
-                    <line x1="-330" y1={cap_height} x2="330" y2={cap_height} />
-                    <text x={-330} y={x_height - 8} fontSize="16" fill="lightgray" stroke="none">
-                        X Height
-                    </text>
-                    <line x1="-330" y1={x_height} x2="330" y2={x_height} />
-                    <text x={-330} y={baseline - 8} fontSize="16" fill="lightgray" stroke="none">
-                        Baseline
-                    </text>
-                    <line x1="-330" y1={baseline} x2="330" y2={baseline} />
-                    <text x={-330} y={descender - 8} fontSize="16" fill="lightgray" stroke="none">
-                        Descender
-                    </text>
-                    <line x1="-330" y1={descender} x2="330" y2={descender} />
-                </g>
+                {seeGuidelines && (
+                    <g stroke="lightgray" strokeWidth="1.5">
+                        <text x={-330} y={ascender - 8} fontSize="16" fill="lightgray" stroke="none">
+                            Ascender
+                        </text>
+                        <line x1="-330" y1={ascender} x2="330" y2={ascender} />
+                        <text x={-330} y={cap_height - 8} fontSize="16" fill="lightgray" stroke="none">
+                            Cap Height
+                        </text>
+                        <line x1="-330" y1={cap_height} x2="330" y2={cap_height} />
+                        <text x={-330} y={x_height - 8} fontSize="16" fill="lightgray" stroke="none">
+                            X Height
+                        </text>
+                        <line x1="-330" y1={x_height} x2="330" y2={x_height} />
+                        <text x={-330} y={baseline - 8} fontSize="16" fill="lightgray" stroke="none">
+                            Baseline
+                        </text>
+                        <line x1="-330" y1={baseline} x2="330" y2={baseline} />
+                        <text x={-330} y={descender - 8} fontSize="16" fill="lightgray" stroke="none">
+                            Descender
+                        </text>
+                        <line x1="-330" y1={descender} x2="330" y2={descender} />
+                    </g>
+                )}
 
                 <path fill="#ededed" stroke="none" strokeWidth="1" d={d}></path>
                 {/* <path

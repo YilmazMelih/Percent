@@ -21,6 +21,8 @@ export default function SliderPanel({
     setSeeNodes,
     seePathPoints,
     setSeePathPoints,
+    seeGuidelines,
+    setSeeGuidelines,
 }) {
     const [showAdvanced, setShowAdvanced] = useState(false);
     const [drafts, setDrafts] = useState({});
@@ -108,8 +110,8 @@ export default function SliderPanel({
 
     return (
         <>
-            <div className="flex items-center justify-between gap-2 text-sm text-gray-600 mb-2">
-                <label className="flex-1 flex items-center justify-center gap-1 whitespace-nowrap">
+            <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-2">
+                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
                     <input
                         type="checkbox"
                         checked={seeNodes}
@@ -118,7 +120,7 @@ export default function SliderPanel({
                     />
                     See Nodes
                 </label>
-                <label className="flex-1 flex items-center justify-center gap-1 whitespace-nowrap">
+                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
                     <input
                         type="checkbox"
                         checked={seePathPoints}
@@ -127,7 +129,16 @@ export default function SliderPanel({
                     />
                     See Path Points
                 </label>
-                <label className="flex-1 flex items-center justify-center gap-1 whitespace-nowrap">
+                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
+                    <input
+                        type="checkbox"
+                        checked={seeGuidelines}
+                        onChange={(e) => setSeeGuidelines(e.target.checked)}
+                        className="rounded border-gray-300"
+                    />
+                    See Guidelines
+                </label>
+                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
                     <input
                         type="checkbox"
                         checked={showAdvanced}
