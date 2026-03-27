@@ -4,17 +4,122 @@
 export const NODE_SIZE_GROUPS = [
     // Example:
     {
-        id: "M-W left slant",
+        id: "left diagonal",
         members: [
             { glyph: "M", nodeName: "leftOuter" },
             { glyph: "W", nodeName: "leftOuter" },
+            { glyph: "V", nodeName: "left" },
+            { glyph: "A", nodeName: "left" },
+            { glyph: "Y", nodeName: "left" },
         ],
     },
     {
-        id: "M-W right slant",
+        id: "right diagonal",
         members: [
             { glyph: "M", nodeName: "rightOuter" },
             { glyph: "W", nodeName: "rightOuter" },
+            { glyph: "V", nodeName: "right" },
+            { glyph: "A", nodeName: "right" },
+            { glyph: "Y", nodeName: "right" },
+        ],
+    },
+    {
+        id: "inner left diagonal",
+        members: [
+            { glyph: "M", nodeName: "leftInner" },
+            { glyph: "W", nodeName: "leftInner" },
+        ],
+    },
+    {
+        id: "inner right diagonal",
+        members: [
+            { glyph: "M", nodeName: "rightInner" },
+            { glyph: "W", nodeName: "rightInner" },
+        ],
+    },
+    {
+        id: "crossbar",
+        members: [
+            { glyph: "A", nodeName: "middle" },
+            { glyph: "H", nodeName: "middle" },
+            { glyph: "E", nodeName: "middle" },
+            { glyph: "F", nodeName: "middle" },
+            { glyph: "R", nodeName: "middle" },
+        ],
+    },
+    {
+        id: "top-horizontal",
+        members: [
+            { glyph: "T", nodeName: "top" },
+            { glyph: "E", nodeName: "top" },
+            { glyph: "F", nodeName: "top" },
+        ],
+    },
+    {
+        id: "top-curve",
+        members: [
+            { glyph: "O", nodeName: "top" },
+            { glyph: "C", nodeName: "top" },
+            { glyph: "Q", nodeName: "top" },
+            { glyph: "G", nodeName: "top" },
+            { glyph: "S", nodeName: "top" },
+        ],
+    },
+    {
+        id: "bottom-curve",
+        members: [
+            { glyph: "O", nodeName: "bottom" },
+            { glyph: "C", nodeName: "bottom" },
+            { glyph: "Q", nodeName: "bottom" },
+            { glyph: "G", nodeName: "right" },
+            { glyph: "S", nodeName: "bottom" },
+            { glyph: "J", nodeName: "bottom" },
+            { glyph: "U", nodeName: "middle" },
+        ],
+    },
+    {
+        id: "left-curve",
+        members: [
+            { glyph: "O", nodeName: "left" },
+            { glyph: "C", nodeName: "middle" },
+            { glyph: "Q", nodeName: "left" },
+            { glyph: "G", nodeName: "left" },
+        ],
+    },
+    {
+        id: "right-curve",
+        members: [
+            { glyph: "O", nodeName: "right" },
+            { glyph: "Q", nodeName: "right" },
+            { glyph: "D", nodeName: "right" },
+        ],
+    },
+    {
+        id: "bowl",
+        members: [
+            { glyph: "P", nodeName: "right" },
+            { glyph: "B", nodeName: "bottom" },
+            { glyph: "R", nodeName: "rightTop" },
+        ],
+    },
+    {
+        id: "stem",
+        members: [
+            { glyph: "T", nodeName: "middle" },
+            { glyph: "U", nodeName: "left" },
+            { glyph: "I", nodeName: "middle" },
+            { glyph: "L", nodeName: "left" },
+            { glyph: "R", nodeName: "left" },
+            { glyph: "B", nodeName: "left" },
+            { glyph: "D", nodeName: "left" },
+            { glyph: "E", nodeName: "left" },
+            { glyph: "F", nodeName: "bottom" },
+            { glyph: "H", nodeName: "left" },
+            { glyph: "J", nodeName: "right" },
+            { glyph: "K", nodeName: "left" },
+            { glyph: "P", nodeName: "left" },
+            { glyph: "Y", nodeName: "bottom" },
+            { glyph: "N", nodeName: "left" },
         ],
     },
 ];
