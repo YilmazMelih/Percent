@@ -38,6 +38,7 @@ import { XCapConfig } from "../../../engine/fonts/default/X_cap";
 import { YCapConfig } from "../../../engine/fonts/default/Y_cap";
 import { ZCapConfig } from "../../../engine/fonts/default/Z_cap";
 import { exportGlyphBasePaths } from "./exportGlyphBasePath";
+import { applyGroupedNodeSizeChanges } from "./nodeGroups";
 import {
     convertPathToGlyphObject,
     applyInferredTransformToPoint,
@@ -64,11 +65,9 @@ const initializeGlyphData = (configs) => {
 // Cap Height 80.5
 // X Height 136.25
 // Baseline 267.76
-//Midheight-187.26
 // Descender 320
 
 let testFullInnerHTML = `
-
 
 `;
 let testD = `
@@ -149,6 +148,8 @@ const GLYPH_STATE_STORAGE_KEY = "editor:glyphData:v1";
 const SELECTED_GLYPH_STORAGE_KEY = "editor:selectedGlyph:v1";
 const SEE_NODES_STORAGE_KEY = "editor:seeNodes:v1";
 const SEE_PATH_POINTS_STORAGE_KEY = "editor:seePathPoints:v1";
+const SETTINGS_PANEL_OPEN_STORAGE_KEY = "editor:settingsPanelOpen:v1";
+const NODE_GROUP_LINKS_STORAGE_KEY = "editor:nodeGroupLinks:v1";
 
 const hydrateGlyphData = (configs) => {
     const baseData = initializeGlyphData(configs);
@@ -201,6 +202,21 @@ export default function Editor() {
         return saved === null ? false : saved === "true";
     });
     const [isBottomPanelVisible, setBottomPanelVisible] = useState(false);
+    const [nodeGroupLinks, setNodeGroupLinks] = useState(() => {
+        if (typeof window === "undefined") return {};
+        try {
+            const raw = window.localStorage.getItem(NODE_GROUP_LINKS_STORAGE_KEY);
+            const parsed = raw ? JSON.parse(raw) : {};
+            return parsed && typeof parsed === "object" ? parsed : {};
+        } catch {
+            return {};
+        }
+    });
+    const [isSettingsPanelOpen, setIsSettingsPanelOpen] = useState(() => {
+        if (typeof window === "undefined") return false;
+        const saved = window.localStorage.getItem(SETTINGS_PANEL_OPEN_STORAGE_KEY);
+        return saved === "true";
+    });
     const [maxPaneSize, setMaxPaneSize] = useState((window.innerWidth * 2) / 3);
 
     useEffect(() => {
@@ -231,17 +247,31 @@ export default function Editor() {
         window.localStorage.setItem(SEE_PATH_POINTS_STORAGE_KEY, String(seePathPoints));
     }, [seePathPoints]);
 
+    useEffect(() => {
+        window.localStorage.setItem(SETTINGS_PANEL_OPEN_STORAGE_KEY, String(isSettingsPanelOpen));
+    }, [isSettingsPanelOpen]);
+
+    useEffect(() => {
+        window.localStorage.setItem(NODE_GROUP_LINKS_STORAGE_KEY, JSON.stringify(nodeGroupLinks));
+    }, [nodeGroupLinks]);
+
     const handleNodeSizeChange = (value) => {
         setGlyphData((prevData) => {
             const oldNodeSize = prevData[selectedGlyph].nodeSize;
             const newNodeSize = typeof value === "function" ? value(oldNodeSize) : value;
-            return {
+            const nextData = {
                 ...prevData,
                 [selectedGlyph]: {
                     ...prevData[selectedGlyph],
                     nodeSize: newNodeSize,
                 },
             };
+            return applyGroupedNodeSizeChanges(
+                prevData,
+                nextData,
+                selectedGlyph,
+                nodeGroupLinks,
+            );
         });
     };
 
@@ -301,7 +331,11 @@ export default function Editor() {
                                         seePathPoints={seePathPoints}
                                     />
                                 )}
-                                <SidePanelGroup side="right">
+                                <SidePanelGroup
+                                    side="right"
+                                    activeIndex={isSettingsPanelOpen ? 0 : null}
+                                    onActiveIndexChange={(index) => setIsSettingsPanelOpen(index !== null)}
+                                >
                                     {currentGlyph &&
                                         SettingsPanel({
                                             config: currentGlyph.config,

@@ -26,11 +26,17 @@ function getTabConfig(child) {
     return { ...child.props, content: child.props.children };
 }
 
-export default function SidePanelGroup({ side = "right", children }) {
+export default function SidePanelGroup({
+    side = "right",
+    children,
+    activeIndex: controlledActiveIndex,
+    onActiveIndexChange,
+}) {
     const tabs = Children.toArray(children).map(getTabConfig).filter(Boolean);
-    const [activeIndex, setActiveIndex] = useState(null);
+    const [internalActiveIndex, setInternalActiveIndex] = useState(null);
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const isRight = side === "right";
+    const activeIndex = controlledActiveIndex ?? internalActiveIndex;
 
     const containerClass = isRight
         ? "fixed right-0 z-[700] flex flex-row-reverse items-stretch"
@@ -42,7 +48,9 @@ export default function SidePanelGroup({ side = "right", children }) {
     const closedArrow = isRight ? "◀" : "▶";
 
     const handleTabClick = (index) => {
-        setActiveIndex((prev) => (prev === index ? null : index));
+        const next = activeIndex === index ? null : index;
+        setInternalActiveIndex(next);
+        onActiveIndexChange?.(next);
     };
 
     const panelOpen = activeIndex !== null;
