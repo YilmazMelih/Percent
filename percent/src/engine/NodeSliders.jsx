@@ -9,6 +9,11 @@ import {
 export default function SliderPanel({
     names,
     glyphKey,
+    /** When true (e.g. Settings panel), global + Advanced toggles are omitted — parent renders them. */
+    hideGlobalToolbar = false,
+    /** Required when hideGlobalToolbar is true; optional otherwise (uses local state). */
+    showAdvanced: showAdvancedProp,
+    setShowAdvanced: setShowAdvancedProp,
     nodeSize,
     setNodeSize,
     nodeX,
@@ -24,7 +29,13 @@ export default function SliderPanel({
     seeGuidelines,
     setSeeGuidelines,
 }) {
-    const [showAdvanced, setShowAdvanced] = useState(false);
+    const [internalShowAdvanced, setInternalShowAdvanced] = useState(false);
+    const showAdvanced = hideGlobalToolbar
+        ? (showAdvancedProp ?? internalShowAdvanced)
+        : internalShowAdvanced;
+    const setShowAdvanced = hideGlobalToolbar
+        ? (setShowAdvancedProp ?? setInternalShowAdvanced)
+        : setInternalShowAdvanced;
     const [drafts, setDrafts] = useState({});
     const [tooltipIndex, setTooltipIndex] = useState(null);
     const hoverTimerRef = useRef(null);
@@ -110,44 +121,46 @@ export default function SliderPanel({
 
     return (
         <>
-            <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-2">
-                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
-                    <input
-                        type="checkbox"
-                        checked={seeNodes}
-                        onChange={(e) => setSeeNodes(e.target.checked)}
-                        className="rounded border-gray-300"
-                    />
-                    See Nodes
-                </label>
-                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
-                    <input
-                        type="checkbox"
-                        checked={seePathPoints}
-                        onChange={(e) => setSeePathPoints(e.target.checked)}
-                        className="rounded border-gray-300"
-                    />
-                    See Path Points
-                </label>
-                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
-                    <input
-                        type="checkbox"
-                        checked={seeGuidelines}
-                        onChange={(e) => setSeeGuidelines(e.target.checked)}
-                        className="rounded border-gray-300"
-                    />
-                    See Guidelines
-                </label>
-                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
-                    <input
-                        type="checkbox"
-                        checked={showAdvanced}
-                        onChange={(e) => setShowAdvanced(e.target.checked)}
-                        className="rounded border-gray-300"
-                    />
-                    Advanced
-                </label>
-            </div>
+            {!hideGlobalToolbar && (
+                <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-2">
+                    <label className="flex items-center justify-center gap-1 whitespace-nowrap">
+                        <input
+                            type="checkbox"
+                            checked={seeNodes}
+                            onChange={(e) => setSeeNodes(e.target.checked)}
+                            className="rounded border-gray-300"
+                        />
+                        See Nodes
+                    </label>
+                    <label className="flex items-center justify-center gap-1 whitespace-nowrap">
+                        <input
+                            type="checkbox"
+                            checked={seePathPoints}
+                            onChange={(e) => setSeePathPoints(e.target.checked)}
+                            className="rounded border-gray-300"
+                        />
+                        See Path Points
+                    </label>
+                    <label className="flex items-center justify-center gap-1 whitespace-nowrap">
+                        <input
+                            type="checkbox"
+                            checked={!!seeGuidelines}
+                            onChange={(e) => setSeeGuidelines?.(e.target.checked)}
+                            className="rounded border-gray-300"
+                        />
+                        See Guidelines
+                    </label>
+                    <label className="flex items-center justify-center gap-1 whitespace-nowrap">
+                        <input
+                            type="checkbox"
+                            checked={showAdvanced}
+                            onChange={(e) => setShowAdvanced(e.target.checked)}
+                            className="rounded border-gray-300"
+                        />
+                        Advanced
+                    </label>
+                </div>
+            )}
             <div className="flex flex-col gap-4 p-4 bg-gray-100 rounded-lg w-full">
                 {names.map((name, i) => (
                     <div key={i} className="flex flex-col gap-1">
@@ -164,7 +177,7 @@ export default function SliderPanel({
                             />
                             <span className="flex items-center gap-2 flex-shrink-0">
                                 <span className="w-8 text-right tabular-nums">
-                                    {nodeSize[i].toFixed(2)}
+                                    {(nodeSize[i] ?? 1).toFixed(2)}
                                 </span>
                                 <span className="relative ml-6 w-8 flex justify-end">
                                     {glyphKey && isNodeInAnyGroup(glyphKey, name) ? (

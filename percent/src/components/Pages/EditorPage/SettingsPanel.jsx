@@ -1,5 +1,19 @@
+import { useState } from "react";
 import { SidePanelTab } from "./SidePanelGroup";
 import SliderPanel from "../../../engine/NodeSliders";
+
+/**
+ * @typedef {Object} GlyphPanel
+ * @property {string} glyphKey - editor glyph key (e.g. "A", "a") for node groups / persistence
+ * @property {string} [title] - section heading
+ * @property {object} config
+ * @property {number[]} nodeSize
+ * @property {function} setNodeSize
+ * @property {number[]} nodeX
+ * @property {number[]} nodeY
+ * @property {function} setNodeX
+ * @property {function} setNodeY
+ */
 
 export default function SettingsPanel({
     config,
@@ -10,6 +24,8 @@ export default function SettingsPanel({
     setNodeX,
     nodeY,
     setNodeY,
+    /** @type {GlyphPanel[] | undefined} If set, renders one slider block per entry (e.g. TypeVisualizer). */
+    glyphPanels,
     nodeGroupLinks,
     setNodeGroupLinks,
     seeNodes,
@@ -22,6 +38,23 @@ export default function SettingsPanel({
     setBottomPanelVisible,
     onExport,
 }) {
+    const isMulti = Array.isArray(glyphPanels) && glyphPanels.length > 0;
+    const [showAdvanced, setShowAdvanced] = useState(false);
+
+    const sliderCommon = {
+        hideGlobalToolbar: true,
+        showAdvanced,
+        setShowAdvanced,
+        nodeGroupLinks,
+        setNodeGroupLinks,
+        seeNodes,
+        setSeeNodes,
+        seePathPoints,
+        setSeePathPoints,
+        seeGuidelines,
+        setSeeGuidelines,
+    };
+
     return (
         <SidePanelTab
             tabLabel="settings"
@@ -32,24 +65,79 @@ export default function SettingsPanel({
             tabTextColor="#ffffff"
             tabBorderColor="#1fa961"
         >
-            <SliderPanel
-                names={config.nodes.map((node) => node.name)}
-                glyphKey={glyphKey}
-                nodeSize={nodeSize}
-                setNodeSize={setNodeSize}
-                nodeX={nodeX}
-                setNodeX={setNodeX}
-                nodeY={nodeY}
-                setNodeY={setNodeY}
-                nodeGroupLinks={nodeGroupLinks}
-                setNodeGroupLinks={setNodeGroupLinks}
-                seeNodes={seeNodes}
-                setSeeNodes={setSeeNodes}
-                seePathPoints={seePathPoints}
-                setSeePathPoints={setSeePathPoints}
-                seeGuidelines={seeGuidelines}
-                setSeeGuidelines={setSeeGuidelines}
-            />
+            <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
+                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
+                    <input
+                        type="checkbox"
+                        checked={seeNodes}
+                        onChange={(e) => setSeeNodes(e.target.checked)}
+                        className="rounded border-gray-300"
+                    />
+                    See Nodes
+                </label>
+                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
+                    <input
+                        type="checkbox"
+                        checked={seePathPoints}
+                        onChange={(e) => setSeePathPoints(e.target.checked)}
+                        className="rounded border-gray-300"
+                    />
+                    See Path Points
+                </label>
+                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
+                    <input
+                        type="checkbox"
+                        checked={!!seeGuidelines}
+                        onChange={(e) => setSeeGuidelines?.(e.target.checked)}
+                        className="rounded border-gray-300"
+                    />
+                    See Guidelines
+                </label>
+                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
+                    <input
+                        type="checkbox"
+                        checked={showAdvanced}
+                        onChange={(e) => setShowAdvanced(e.target.checked)}
+                        className="rounded border-gray-300"
+                    />
+                    Advanced
+                </label>
+            </div>
+            {isMulti ? (
+                glyphPanels.map((panel, idx) => (
+                    <div
+                        key={`${panel.glyphKey}-${idx}`}
+                        className={idx ? "mt-6 pt-4 border-t border-gray-200" : ""}
+                    >
+                        <h3 className="text-sm font-medium text-gray-800 mb-2">
+                            {panel.title ?? `Glyph ${panel.glyphKey}`}
+                        </h3>
+                        <SliderPanel
+                            names={panel.config.nodes.map((node) => node.name)}
+                            glyphKey={panel.glyphKey}
+                            nodeSize={panel.nodeSize}
+                            setNodeSize={panel.setNodeSize}
+                            nodeX={panel.nodeX}
+                            setNodeX={panel.setNodeX}
+                            nodeY={panel.nodeY}
+                            setNodeY={panel.setNodeY}
+                            {...sliderCommon}
+                        />
+                    </div>
+                ))
+            ) : (
+                <SliderPanel
+                    names={config.nodes.map((node) => node.name)}
+                    glyphKey={glyphKey}
+                    nodeSize={nodeSize}
+                    setNodeSize={setNodeSize}
+                    nodeX={nodeX}
+                    setNodeX={setNodeX}
+                    nodeY={nodeY}
+                    setNodeY={setNodeY}
+                    {...sliderCommon}
+                />
+            )}
             {onExport && (
                 <div
                     className="control-group"
