@@ -2,7 +2,7 @@ import { useState, Children, isValidElement } from "react";
 
 const HEADER_OFFSET = "5rem";
 const TAB_HEIGHT = "150px";
-const PANEL_WIDTH = "18rem";
+const PANEL_WIDTH = "24rem";
 const DEFAULT_TAB_COLOR = "#d1d5db";
 const DEFAULT_TAB_HOVER_COLOR = "#9ca3af";
 const DEFAULT_TAB_TEXT_COLOR = "#1f2937";
@@ -60,7 +60,7 @@ export default function SidePanelGroup({
         <div className={containerClass} style={{ top: HEADER_OFFSET, bottom: 0 }}>
             <div
                 className={`bg-white shadow-lg overflow-hidden transition-[width] duration-200 ease-out ${panelBorderClass} ${
-                    panelOpen ? "w-72" : "w-0"
+                    panelOpen ? "w-96" : "w-0"
                 }`}
                 style={{
                     borderColor: activeTab

@@ -3,12 +3,15 @@ import SliderPanel from "../../../engine/NodeSliders";
 
 export default function SettingsPanel({
     config,
+    glyphKey,
     nodeSize,
     setNodeSize,
     nodeX,
     setNodeX,
     nodeY,
     setNodeY,
+    nodeGroupLinks,
+    setNodeGroupLinks,
     seeNodes,
     setSeeNodes,
     seePathPoints,
@@ -29,12 +32,15 @@ export default function SettingsPanel({
         >
             <SliderPanel
                 names={config.nodes.map((node) => node.name)}
+                glyphKey={glyphKey}
                 nodeSize={nodeSize}
                 setNodeSize={setNodeSize}
                 nodeX={nodeX}
                 setNodeX={setNodeX}
                 nodeY={nodeY}
                 setNodeY={setNodeY}
+                nodeGroupLinks={nodeGroupLinks}
+                setNodeGroupLinks={setNodeGroupLinks}
                 seeNodes={seeNodes}
                 setSeeNodes={setSeeNodes}
                 seePathPoints={seePathPoints}

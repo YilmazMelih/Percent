@@ -266,12 +266,7 @@ export default function Editor() {
                     nodeSize: newNodeSize,
                 },
             };
-            return applyGroupedNodeSizeChanges(
-                prevData,
-                nextData,
-                selectedGlyph,
-                nodeGroupLinks,
-            );
+            return applyGroupedNodeSizeChanges(prevData, nextData, selectedGlyph, nodeGroupLinks);
         });
     };
 
@@ -334,17 +329,22 @@ export default function Editor() {
                                 <SidePanelGroup
                                     side="right"
                                     activeIndex={isSettingsPanelOpen ? 0 : null}
-                                    onActiveIndexChange={(index) => setIsSettingsPanelOpen(index !== null)}
+                                    onActiveIndexChange={(index) =>
+                                        setIsSettingsPanelOpen(index !== null)
+                                    }
                                 >
                                     {currentGlyph &&
                                         SettingsPanel({
                                             config: currentGlyph.config,
+                                            glyphKey: selectedGlyph,
                                             nodeSize: currentGlyph.nodeSize,
                                             setNodeSize: handleNodeSizeChange,
                                             nodeX: currentGlyph.nodeX,
                                             nodeY: currentGlyph.nodeY,
                                             setNodeX: handleNodeXChange,
                                             setNodeY: handleNodeYChange,
+                                            nodeGroupLinks,
+                                            setNodeGroupLinks,
                                             seeNodes,
                                             setSeeNodes,
                                             seePathPoints,

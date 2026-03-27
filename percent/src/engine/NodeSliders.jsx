@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import {
+    isNodeGroupMemberLinked,
+    isNodeInAnyGroup,
+    getNodeGroupNamesForMember,
+    nodeGroupMemberKey,
+} from "../components/Pages/EditorPage/nodeGroups";
 
 export default function SliderPanel({
     names,
+    glyphKey,
     nodeSize,
     setNodeSize,
     nodeX,
     setNodeX,
     nodeY,
     setNodeY,
+    nodeGroupLinks,
+    setNodeGroupLinks,
     seeNodes,
     setSeeNodes,
     seePathPoints,
@@ -15,6 +24,8 @@ export default function SliderPanel({
 }) {
     const [showAdvanced, setShowAdvanced] = useState(false);
     const [drafts, setDrafts] = useState({});
+    const [tooltipIndex, setTooltipIndex] = useState(null);
+    const hoverTimerRef = useRef(null);
     const handleSizeChange = (index, newValue) => {
         const updated = [...nodeSize];
         updated[index] = parseFloat(newValue);
@@ -71,10 +82,34 @@ export default function SliderPanel({
         setNodeY(newY);
     };
 
+    const handleLockMouseEnter = (index) => {
+        if (hoverTimerRef.current) window.clearTimeout(hoverTimerRef.current);
+        hoverTimerRef.current = window.setTimeout(() => {
+            setTooltipIndex(index);
+        }, 500);
+    };
+
+    const handleLockMouseLeave = () => {
+        if (hoverTimerRef.current) window.clearTimeout(hoverTimerRef.current);
+        hoverTimerRef.current = null;
+        setTooltipIndex(null);
+    };
+
+    const toggleNodeLinkOverride = (nodeName) => {
+        if (!glyphKey || !nodeName || !setNodeGroupLinks) return;
+        const k = nodeGroupMemberKey(glyphKey, nodeName);
+        setNodeGroupLinks((prev) => {
+            const next = { ...(prev ?? {}) };
+            if (next[k] === false) delete next[k];
+            else next[k] = false;
+            return next;
+        });
+    };
+
     return (
         <>
-            <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
-                <label className="flex items-center gap-1">
+            <div className="flex items-center justify-between gap-2 text-sm text-gray-600 mb-2">
+                <label className="flex-1 flex items-center justify-center gap-1 whitespace-nowrap">
                     <input
                         type="checkbox"
                         checked={seeNodes}
@@ -83,7 +118,7 @@ export default function SliderPanel({
                     />
                     See Nodes
                 </label>
-                <label className="flex items-center gap-1">
+                <label className="flex-1 flex items-center justify-center gap-1 whitespace-nowrap">
                     <input
                         type="checkbox"
                         checked={seePathPoints}
@@ -92,7 +127,7 @@ export default function SliderPanel({
                     />
                     See Path Points
                 </label>
-                <label className="flex items-center gap-1 ml-auto">
+                <label className="flex-1 flex items-center justify-center gap-1 whitespace-nowrap">
                     <input
                         type="checkbox"
                         checked={showAdvanced}
@@ -102,11 +137,11 @@ export default function SliderPanel({
                     Advanced
                 </label>
             </div>
-            <div className="flex flex-col gap-4 p-4 bg-gray-100 rounded-lg w-64">
+            <div className="flex flex-col gap-4 p-4 bg-gray-100 rounded-lg w-full">
                 {names.map((name, i) => (
                     <div key={i} className="flex flex-col gap-1">
                         <div className="flex items-center gap-2">
-                            <span className="w-14">{name}</span>
+                            <span className="w-14 mr-6">{name}</span>
                             <input
                                 type="range"
                                 min={0}
@@ -114,9 +149,54 @@ export default function SliderPanel({
                                 step={0.01}
                                 value={nodeSize[i]}
                                 onChange={(e) => handleSizeChange(i, e.target.value)}
-                                className="w-full"
+                                className="flex-1 max-w-30 min-w-0"
                             />
-                            <span className="w-10 text-right">{nodeSize[i].toFixed(2)}</span>
+                            <span className="flex items-center gap-2 flex-shrink-0">
+                                <span className="w-8 text-right tabular-nums">
+                                    {nodeSize[i].toFixed(2)}
+                                </span>
+                                <span className="relative ml-6 w-8 flex justify-end">
+                                    {glyphKey && isNodeInAnyGroup(glyphKey, name) ? (
+                                        <>
+                                            <button
+                                                type="button"
+                                                onClick={() => toggleNodeLinkOverride(name)}
+                                                onMouseEnter={() => handleLockMouseEnter(i)}
+                                                onMouseLeave={handleLockMouseLeave}
+                                                className="w-6 h-6 flex items-center justify-center text-gray-600 hover:text-gray-900"
+                                                aria-label={
+                                                    isNodeGroupMemberLinked(
+                                                        nodeGroupLinks,
+                                                        glyphKey,
+                                                        name,
+                                                    )
+                                                        ? "Linked (click to unlink)"
+                                                        : "Unlinked (click to relink)"
+                                                }
+                                            >
+                                                {isNodeGroupMemberLinked(
+                                                    nodeGroupLinks,
+                                                    glyphKey,
+                                                    name,
+                                                )
+                                                    ? "🔒"
+                                                    : "🔓"}
+                                            </button>
+                                            {tooltipIndex === i && (
+                                                <div className="absolute right-0 top-full mt-1 text-[10px] text-gray-700 bg-white border border-gray-300 rounded px-1 py-0.5 whitespace-nowrap shadow">
+                                                    {isNodeGroupMemberLinked(
+                                                        nodeGroupLinks,
+                                                        glyphKey,
+                                                        name,
+                                                    )
+                                                        ? `Unlink node from "${getNodeGroupNamesForMember(glyphKey, name)[0]}" group`
+                                                        : `Link node to "${getNodeGroupNamesForMember(glyphKey, name)[0]}" group`}
+                                                </div>
+                                            )}
+                                        </>
+                                    ) : null}
+                                </span>
+                            </span>
                         </div>
                         {showAdvanced && (
                             <div className="flex items-center gap-2 text-xs text-gray-500">

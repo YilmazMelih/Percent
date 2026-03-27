@@ -3,21 +3,46 @@
 // Future UI can toggle any member off via nodeLinkOverrides without editing this list.
 export const NODE_SIZE_GROUPS = [
     // Example:
-    // {
-    //     id: "a-left-p-right",
-    //     members: [
-    //         { glyph: "A", nodeName: "left" },
-    //         { glyph: "P", nodeName: "right" },
-    //     ],
-    // },
+    {
+        id: "M-W left slant",
+        members: [
+            { glyph: "M", nodeName: "leftOuter" },
+            { glyph: "W", nodeName: "leftOuter" },
+        ],
+    },
+    {
+        id: "M-W right slant",
+        members: [
+            { glyph: "M", nodeName: "rightOuter" },
+            { glyph: "W", nodeName: "rightOuter" },
+        ],
+    },
 ];
 
-function memberKey(glyph, nodeName) {
+export function nodeGroupMemberKey(glyph, nodeName) {
     return `${glyph}:${nodeName}`;
 }
 
-function isLinked(nodeLinkOverrides, glyph, nodeName) {
-    return nodeLinkOverrides?.[memberKey(glyph, nodeName)] !== false;
+export function isNodeGroupMemberLinked(nodeLinkOverrides, glyph, nodeName) {
+    return nodeLinkOverrides?.[nodeGroupMemberKey(glyph, nodeName)] !== false;
+}
+
+export function isNodeInAnyGroup(glyph, nodeName, groups = NODE_SIZE_GROUPS) {
+    return (groups ?? []).some((g) =>
+        (g?.members ?? []).some((m) => m?.glyph === glyph && m?.nodeName === nodeName),
+    );
+}
+
+export function getNodeGroupNamesForMember(glyph, nodeName, groups = NODE_SIZE_GROUPS) {
+    const res = [];
+    for (let i = 0; i < (groups ?? []).length; i++) {
+        const g = groups[i];
+        const members = g?.members ?? [];
+        const match = members.some((m) => m?.glyph === glyph && m?.nodeName === nodeName);
+        if (!match) continue;
+        res.push(g?.id ?? `group-${i + 1}`);
+    }
+    return res;
 }
 
 function sameMember(a, b) {
@@ -67,7 +92,7 @@ export function applyGroupedNodeSizeChanges(
 
     for (const source of changed) {
         if (!source.nodeName) continue;
-        if (!isLinked(nodeLinkOverrides, source.glyph, source.nodeName)) continue;
+        if (!isNodeGroupMemberLinked(nodeLinkOverrides, source.glyph, source.nodeName)) continue;
 
         for (const group of groups) {
             const members = Array.isArray(group?.members) ? group.members : [];
@@ -76,7 +101,8 @@ export function applyGroupedNodeSizeChanges(
 
             for (const member of members) {
                 if (sameMember(member, source)) continue;
-                if (!isLinked(nodeLinkOverrides, member.glyph, member.nodeName)) continue;
+                if (!isNodeGroupMemberLinked(nodeLinkOverrides, member.glyph, member.nodeName))
+                    continue;
 
                 const targetGlyph = ensureWritableGlyph(member.glyph);
                 if (!targetGlyph) continue;
