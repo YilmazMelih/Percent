@@ -25,6 +25,9 @@ export default function Node({
     ringVisiblePercent = 0.85,
     id,
     setNodeSize,
+    /** TypeVisualizer: commit isolation for shared glyph state (pointer on ring). */
+    onRingPointerDown,
+    onRingPointerUp,
 }) {
     const [isHovered, setIsHovered] = useState(false);
     const [isRingHovered, setIsRingHovered] = useState(false);
@@ -44,6 +47,7 @@ export default function Node({
         e.preventDefault();
         e.stopPropagation();
 
+        onRingPointerDown?.();
         dragRef.current = { pointerId: e.pointerId };
         setDragMode("ring");
         setIsDragging(true);
@@ -76,6 +80,7 @@ export default function Node({
         }
         setDragMode(null);
         setIsDragging(false);
+        onRingPointerUp?.();
         try {
             e.currentTarget.releasePointerCapture(e.pointerId);
         } catch {

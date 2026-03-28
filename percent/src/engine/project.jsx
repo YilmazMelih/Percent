@@ -364,6 +364,25 @@ export function computeGlyphPoints(config, nodeVals, nodeX, nodeY) {
     return computedPoints;
 }
 
+/**
+ * Horizontal extent of every named point in {@link config.points} after {@link computeGlyphPoints}
+ * (node size “val” affects + per-node X/Y drags).
+ *
+ * @param {object} config - Glyph config with `points` and `nodes` (same as buildPath / CharFromConfig).
+ * @param {number[]} nodeSize - Per-node slider values, indexed by `node.id` (e.g. same array as editor `nodeSize`).
+ * @param {number[]} [nodeX] - Optional per-node X offsets indexed by `node.id`.
+ * @param {number[]} [nodeY] - Optional per-node Y offsets indexed by `node.id`.
+ * @returns {{ minX: number, maxX: number }} Min/max `x` over adjusted points; `(0, 0)` if nothing finite.
+ */
+export function getAdjustedGlyphBoundsX(config, nodeSize, nodeX, nodeY) {
+    const computedPoints = computeGlyphPoints(config, nodeSize, nodeX, nodeY);
+    const xs = Object.values(computedPoints)
+        .map((p) => p.x)
+        .filter((x) => Number.isFinite(x));
+    if (xs.length === 0) return { minX: 0, maxX: 0 };
+    return { minX: Math.min(...xs), maxX: Math.max(...xs) };
+}
+
 export function buildNodes(
     config,
     nodeVals,
@@ -374,6 +393,8 @@ export function buildNodes(
     setActive,
     isDragging,
     setIsDragging,
+    onRingPointerDown,
+    onRingPointerUp,
 ) {
     return config.nodes.map((node) => {
         const tx = nodeX?.[node.id] ?? 0;
@@ -391,6 +412,8 @@ export function buildNodes(
                 setIsDragging={setIsDragging}
                 id={node.id}
                 setNodeSize={setNodeSize}
+                onRingPointerDown={onRingPointerDown}
+                onRingPointerUp={onRingPointerUp}
             />
         );
     });

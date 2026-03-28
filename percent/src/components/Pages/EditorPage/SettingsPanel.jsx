@@ -1,4 +1,8 @@
 import { useState } from "react";
+import {
+    TYPE_VISUALIZER_VIEW_ZOOM_MAX,
+    TYPE_VISUALIZER_VIEW_ZOOM_MIN,
+} from "../TypeVisualizer/TypeVisualizerWorkspace";
 import { SidePanelTab } from "./SidePanelGroup";
 import SliderPanel from "../../../engine/NodeSliders";
 
@@ -15,7 +19,7 @@ import SliderPanel from "../../../engine/NodeSliders";
  * @property {function} setNodeY
  */
 
-export default function SettingsPanel({
+function SettingsPanelBody({
     config,
     glyphKey,
     nodeSize,
@@ -24,7 +28,6 @@ export default function SettingsPanel({
     setNodeX,
     nodeY,
     setNodeY,
-    /** @type {GlyphPanel[] | undefined} If set, renders one slider block per entry (e.g. TypeVisualizer). */
     glyphPanels,
     nodeGroupLinks,
     setNodeGroupLinks,
@@ -37,8 +40,13 @@ export default function SettingsPanel({
     isBottomPanelVisible,
     setBottomPanelVisible,
     onExport,
+    /** TypeVisualizer only: viewBox zoom (see TypeVisualizerWorkspace). */
+    typeVisualizerViewZoom,
+    setTypeVisualizerViewZoom,
 }) {
-    const isMulti = Array.isArray(glyphPanels) && glyphPanels.length > 0;
+    const glyphPanelsIsArray = Array.isArray(glyphPanels);
+    const isMulti = glyphPanelsIsArray && glyphPanels.length > 0;
+    const isMultiEmptyLine = glyphPanelsIsArray && glyphPanels.length === 0;
     const [showAdvanced, setShowAdvanced] = useState(false);
 
     const sliderCommon = {
@@ -56,15 +64,7 @@ export default function SettingsPanel({
     };
 
     return (
-        <SidePanelTab
-            tabLabel="settings"
-            title="Settings"
-            tabText="Settings"
-            tabColor="#1fa961"
-            tabHoverColor="#2dbe73"
-            tabTextColor="#ffffff"
-            tabBorderColor="#1fa961"
-        >
+        <>
             <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
                 <label className="flex items-center justify-center gap-1 whitespace-nowrap">
                     <input
@@ -103,6 +103,32 @@ export default function SettingsPanel({
                     Advanced
                 </label>
             </div>
+            {typeof setTypeVisualizerViewZoom === "function" &&
+                typeVisualizerViewZoom != null && (
+                    <div className="mb-4 pb-4 border-b border-gray-200 text-sm text-gray-700">
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                            <span className="font-medium text-gray-800">Workspace zoom</span>
+                            <span className="tabular-nums text-gray-500 text-xs">
+                                {Math.round(typeVisualizerViewZoom * 100)}%
+                            </span>
+                        </div>
+                        <p className="text-xs text-gray-500 mb-2">
+                            Left: zoom out (smaller type, more line visible). Right: zoom in.
+                        </p>
+                        <input
+                            type="range"
+                            min={TYPE_VISUALIZER_VIEW_ZOOM_MIN}
+                            max={TYPE_VISUALIZER_VIEW_ZOOM_MAX}
+                            step={0.05}
+                            value={typeVisualizerViewZoom}
+                            onChange={(e) =>
+                                setTypeVisualizerViewZoom(Number.parseFloat(e.target.value))
+                            }
+                            className="w-full accent-[#1fa961]"
+                            aria-label="Workspace zoom"
+                        />
+                    </div>
+                )}
             {isMulti ? (
                 glyphPanels.map((panel, idx) => (
                     <div
@@ -125,6 +151,11 @@ export default function SettingsPanel({
                         />
                     </div>
                 ))
+            ) : isMultiEmptyLine ? (
+                <p className="text-sm text-gray-500">
+                    Type a letter in the workspace to add glyph sliders. Global options above still
+                    apply.
+                </p>
             ) : (
                 <SliderPanel
                     names={config.nodes.map((node) => node.name)}
@@ -168,6 +199,27 @@ export default function SettingsPanel({
                     onChange={(e) => setBottomPanelVisible(e.target.checked)}
                 />
             </div>
+        </>
+    );
+}
+
+/**
+ * Returns a {@link SidePanelTab} element. Call as a function from JSX so {@link SidePanelGroup}
+ * sees `SidePanelTab` as the direct child (`getTabConfig` reads tab props from that element).
+ * Hooks live only in {@link SettingsPanelBody}, which mounts as a normal child in the tree.
+ */
+export default function SettingsPanel(props) {
+    return (
+        <SidePanelTab
+            tabLabel="settings"
+            title="Settings"
+            tabText="Settings"
+            tabColor="#1fa961"
+            tabHoverColor="#2dbe73"
+            tabTextColor="#ffffff"
+            tabBorderColor="#1fa961"
+        >
+            <SettingsPanelBody {...props} />
         </SidePanelTab>
     );
 }

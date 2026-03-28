@@ -1,13 +1,43 @@
 import { Allotment } from "allotment";
 import "allotment/dist/style.css";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import SidePanelGroup from "../EditorPage/SidePanelGroup";
 import SettingsPanel from "../EditorPage/SettingsPanel";
 import BottomPanel from "../EditorPage/BottomPanel";
 import { ACapConfig } from "../../../engine/fonts/default/A_cap";
 import { BCapConfig } from "../../../engine/fonts/default/B_cap";
 import { CCapConfig } from "../../../engine/fonts/default/C_cap";
-import TypeVisualizerWorkspace from "./TypeVisualizerWorkspace";
+import { DCapConfig } from "../../../engine/fonts/default/D_cap";
+import { ECapConfig } from "../../../engine/fonts/default/E_cap";
+import { FCapConfig } from "../../../engine/fonts/default/F_cap";
+import { GCapConfig } from "../../../engine/fonts/default/G_cap";
+import { HCapConfig } from "../../../engine/fonts/default/H_cap";
+import { ICapConfig } from "../../../engine/fonts/default/I_cap";
+import { JCapConfig } from "../../../engine/fonts/default/J_cap";
+import { KCapConfig } from "../../../engine/fonts/default/K_cap";
+import { LCapConfig } from "../../../engine/fonts/default/L_cap";
+import { MCapConfig } from "../../../engine/fonts/default/M_cap";
+import { NCapConfig } from "../../../engine/fonts/default/N_cap";
+import { OCapConfig } from "../../../engine/fonts/default/O_cap";
+import { PCapConfig } from "../../../engine/fonts/default/P_cap";
+import { QCapConfig } from "../../../engine/fonts/default/Q_cap";
+import { RCapConfig } from "../../../engine/fonts/default/R_cap";
+import { SCapConfig } from "../../../engine/fonts/default/S_cap";
+import { TCapConfig } from "../../../engine/fonts/default/T_cap";
+import { UCapConfig } from "../../../engine/fonts/default/U_cap";
+import { VCapConfig } from "../../../engine/fonts/default/V_cap";
+import { WCapConfig } from "../../../engine/fonts/default/W_cap";
+import { XCapConfig } from "../../../engine/fonts/default/X_cap";
+import { YCapConfig } from "../../../engine/fonts/default/Y_cap";
+import { ZCapConfig } from "../../../engine/fonts/default/Z_cap";
+import { aConfig } from "../../../engine/fonts/default/a";
+import { eConfig } from "../../../engine/fonts/default/e";
+import { lConfig } from "../../../engine/fonts/default/l";
+import TypeVisualizerWorkspace, {
+    TYPE_VISUALIZER_MAX_LINE_CHARS,
+    TYPE_VISUALIZER_VIEW_ZOOM_DEFAULT,
+    isTypeVisualizerSpaceEntry,
+} from "./TypeVisualizerWorkspace";
 import { applyGroupedNodeSizeChanges } from "../EditorPage/nodeGroups";
 
 const GLYPH_STATE_STORAGE_KEY = "editor:glyphData:v1";
@@ -22,7 +52,41 @@ export const TYPE_VISUALIZER_CONFIG_BY_KEY = {
     A: ACapConfig,
     B: BCapConfig,
     C: CCapConfig,
+    D: DCapConfig,
+    E: ECapConfig,
+    F: FCapConfig,
+    G: GCapConfig,
+    H: HCapConfig,
+    I: ICapConfig,
+    J: JCapConfig,
+    K: KCapConfig,
+    L: LCapConfig,
+    M: MCapConfig,
+    N: NCapConfig,
+    O: OCapConfig,
+    P: PCapConfig,
+    Q: QCapConfig,
+    R: RCapConfig,
+    S: SCapConfig,
+    T: TCapConfig,
+    U: UCapConfig,
+    V: VCapConfig,
+    W: WCapConfig,
+    X: XCapConfig,
+    Y: YCapConfig,
+    Z: ZCapConfig,
+    a: aConfig,
+    e: eConfig,
+    l: lConfig,
 };
+
+const allowedKeys = Object.keys(TYPE_VISUALIZER_CONFIG_BY_KEY).concat([
+    "Backspace",
+    "Delete",
+    "ArrowLeft",
+    "ArrowRight",
+    " ",
+]);
 
 function createGlyphSlice(config) {
     return {
@@ -35,11 +99,7 @@ function createGlyphSlice(config) {
 
 /** Hardcoded line: three instances (A, B, C). Duplicate stateKey = shared node state. */
 function createInitialLine() {
-    return [
-        { instanceId: "0", stateKey: "A" },
-        { instanceId: "1", stateKey: "B" },
-        { instanceId: "2", stateKey: "C" },
-    ];
+    return [{ instanceId: "0", stateKey: "A" }];
 }
 
 function hydrateGlyphStates() {
@@ -103,9 +163,9 @@ function persistGlyphStatesSlice(glyphStates) {
 }
 
 export default function TypeVisualizer() {
-    const [line, setLine] = useState(createInitialLine);
+    const [line, setLine] = useState([]);
     const [glyphStates, setGlyphStates] = useState(() => hydrateGlyphStates());
-
+    const divRef = useRef(null);
     const [seeNodes, setSeeNodes] = useState(() => {
         if (typeof window === "undefined") return true;
         const saved = window.localStorage.getItem(SEE_NODES_STORAGE_KEY);
@@ -161,6 +221,9 @@ export default function TypeVisualizer() {
     useEffect(() => {
         window.localStorage.setItem(NODE_GROUP_LINKS_STORAGE_KEY, JSON.stringify(nodeGroupLinks));
     }, [nodeGroupLinks]);
+    useEffect(() => {
+        divRef.current?.focus();
+    }, []);
 
     const handleNodeSizeChange = useCallback(
         (stateKey) => (value) => {
@@ -223,7 +286,13 @@ export default function TypeVisualizer() {
     );
 
     const uniqueStateKeys = useMemo(
-        () => [...new Set(line.map((entry) => entry.stateKey))],
+        () => [
+            ...new Set(
+                line
+                    .filter((entry) => !isTypeVisualizerSpaceEntry(entry) && entry.stateKey)
+                    .map((entry) => entry.stateKey),
+            ),
+        ],
         [line],
     );
 
@@ -251,6 +320,15 @@ export default function TypeVisualizer() {
 
     const bottomGlyphData = useMemo(() => ({ ...glyphStates }), [glyphStates]);
 
+    /** 0 … line.length — index of gap before `line[index]`; `line.length` = after last glyph. */
+    const [caretIndex, setCaretIndex] = useState(0);
+    /** ViewBox zoom: lower = more world units visible (smaller glyphs). See TypeVisualizerWorkspace. */
+    const [workspaceViewZoom, setWorkspaceViewZoom] = useState(TYPE_VISUALIZER_VIEW_ZOOM_DEFAULT);
+
+    useEffect(() => {
+        setCaretIndex((c) => Math.min(c, line.length));
+    }, [line.length]);
+
     return (
         <div style={{ height: "calc(100vh - 60px)" }}>
             <Allotment>
@@ -258,14 +336,78 @@ export default function TypeVisualizer() {
                     <Allotment vertical={true}>
                         <Allotment.Pane>
                             <div className="relative min-h-full flex">
-                                <div className="absolute inset-0 flex justify-center">
+                                <div
+                                    tabIndex={0}
+                                    ref={divRef}
+                                    className="absolute inset-0 flex justify-center"
+                                    onClick={() => divRef.current?.focus()}
+                                    onKeyDown={(e) => {
+                                        if (!allowedKeys.includes(e.key)) return;
+                                        e.preventDefault();
+                                        if (e.key === "ArrowLeft") {
+                                            setCaretIndex((c) => Math.max(0, c - 1));
+                                            return;
+                                        }
+                                        if (e.key === "ArrowRight") {
+                                            setCaretIndex((c) => Math.min(line.length, c + 1));
+                                            return;
+                                        }
+                                        if (e.key === "Backspace") {
+                                            if (caretIndex <= 0) return;
+                                            setLine((prev) =>
+                                                prev
+                                                    .slice(0, caretIndex - 1)
+                                                    .concat(prev.slice(caretIndex)),
+                                            );
+                                            setCaretIndex((c) => c - 1);
+                                            return;
+                                        }
+                                        if (e.key === "Delete") {
+                                            setLine((prev) =>
+                                                prev
+                                                    .slice(0, caretIndex)
+                                                    .concat(prev.slice(caretIndex + 1)),
+                                            );
+                                            return;
+                                        }
+                                        if (e.key === " ") {
+                                            if (line.length >= TYPE_VISUALIZER_MAX_LINE_CHARS) return;
+                                            const entry = {
+                                                kind: "space",
+                                                instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                                            };
+                                            setLine((prev) =>
+                                                prev
+                                                    .slice(0, caretIndex)
+                                                    .concat([entry], prev.slice(caretIndex)),
+                                            );
+                                            setCaretIndex((c) => c + 1);
+                                            return;
+                                        }
+                                        if (e.key in TYPE_VISUALIZER_CONFIG_BY_KEY) {
+                                            if (line.length >= TYPE_VISUALIZER_MAX_LINE_CHARS) return;
+                                            const entry = {
+                                                instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                                                stateKey: e.key,
+                                            };
+                                            setLine((prev) =>
+                                                prev
+                                                    .slice(0, caretIndex)
+                                                    .concat([entry], prev.slice(caretIndex)),
+                                            );
+                                            setCaretIndex((c) => c + 1);
+                                        }
+                                    }}
+                                >
                                     <TypeVisualizerWorkspace
                                         line={line}
                                         glyphStates={glyphStates}
+                                        caretIndex={caretIndex}
                                         seeNodes={seeNodes}
                                         seePathPoints={seePathPoints}
                                         seeGuidelines={seeGuidelines}
                                         setNodeSizeByKey={handleNodeSizeChange}
+                                        viewZoom={workspaceViewZoom}
                                     />
                                 </div>
                                 <SidePanelGroup
@@ -275,20 +417,21 @@ export default function TypeVisualizer() {
                                         setIsSettingsPanelOpen(index !== null)
                                     }
                                 >
-                                    {glyphPanels.length > 0 &&
-                                        SettingsPanel({
-                                            glyphPanels,
-                                            nodeGroupLinks,
-                                            setNodeGroupLinks,
-                                            seeNodes,
-                                            setSeeNodes,
-                                            seePathPoints,
-                                            setSeePathPoints,
-                                            seeGuidelines,
-                                            setSeeGuidelines,
-                                            isBottomPanelVisible,
-                                            setBottomPanelVisible,
-                                        })}
+                                    {SettingsPanel({
+                                        glyphPanels,
+                                        nodeGroupLinks,
+                                        setNodeGroupLinks,
+                                        seeNodes,
+                                        setSeeNodes,
+                                        seePathPoints,
+                                        setSeePathPoints,
+                                        seeGuidelines,
+                                        setSeeGuidelines,
+                                        isBottomPanelVisible,
+                                        setBottomPanelVisible,
+                                        typeVisualizerViewZoom: workspaceViewZoom,
+                                        setTypeVisualizerViewZoom: setWorkspaceViewZoom,
+                                    })}
                                 </SidePanelGroup>
                             </div>
                         </Allotment.Pane>

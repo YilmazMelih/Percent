@@ -14,15 +14,14 @@ export default function AdjustedGlyph({
     seeNodes,
     seePathPoints,
     xAdjust = 0,
+    /** Optional: TypeVisualizer ring-drag lifecycle (commit-on-release isolation). */
+    ringDragHooks,
 }) {
     const [isDragging, setIsDragging] = useState(false);
     const [active, setActive] = useState(null);
 
     const adjustedPoints = Object.fromEntries(
-        Object.entries(config.points ?? {}).map(([key, pt]) => [
-            key,
-            { ...pt, x: pt.x + xAdjust },
-        ]),
+        Object.entries(config.points ?? {}).map(([key, pt]) => [key, { ...pt, x: pt.x + xAdjust }]),
     );
     const adjustedConfig = { ...config, points: adjustedPoints };
 
@@ -53,6 +52,8 @@ export default function AdjustedGlyph({
                     setActive,
                     isDragging,
                     setIsDragging,
+                    ringDragHooks?.onRingPointerDown,
+                    ringDragHooks?.onRingPointerUp,
                 )}
             {seePathPoints &&
                 controlPoints.map((point, i) => (
