@@ -1,4 +1,4 @@
-import { interpolateFromBase } from "../../project";
+import { makeCopyDeltaFromInterpolation } from "../../project";
 
 export const lConfig = {
     unicode: 108,
@@ -58,19 +58,39 @@ export const lConfig = {
             affects: [
                 {
                     point: "point1",
-                    formula: (base, val) => interpolateFromBase(val, base, { x: 0, y: base.y }, 0),
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            lConfig.points.point1,
+                            { x: 0, y: lConfig.points.point1.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point2",
-                    formula: (base, val) => interpolateFromBase(val, base, { x: 0, y: base.y }, 0),
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            lConfig.points.point2,
+                            { x: 0, y: lConfig.points.point2.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point3",
-                    formula: (base, val) => interpolateFromBase(val, base, { x: 0, y: base.y }, 0),
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            lConfig.points.point3,
+                            { x: 0, y: lConfig.points.point3.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point4",
-                    formula: (base, val) => interpolateFromBase(val, base, { x: 0, y: base.y }, 0),
+                    formula: (base, val) =>
+                        makeCopyDeltaFromInterpolation(
+                            lConfig.points.point4,
+                            { x: 0, y: lConfig.points.point4.y },
+                            0,
+                        )(base, val),
                 },
             ],
         },

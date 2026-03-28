@@ -1,4 +1,4 @@
-import { interpolateFromBase } from "../../project";
+import { makeCopyDeltaFromInterpolation } from "../../project";
 
 export const HCapConfig = {
     unicode: 72,
@@ -123,32 +123,56 @@ export const HCapConfig = {
                 {
                     point: "point5",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -61.73, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point5,
+                            { x: -61.73, y: HCapConfig.points.point5.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point6",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -61.73, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point6,
+                            { x: -61.73, y: HCapConfig.points.point6.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point7",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -61.73, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point7,
+                            { x: -61.73, y: HCapConfig.points.point7.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point8",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -61.73, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point8,
+                            { x: -61.73, y: HCapConfig.points.point8.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point9",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -61.73, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point9,
+                            { x: -61.73, y: HCapConfig.points.point9.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point10",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -61.73, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point10,
+                            { x: -61.73, y: HCapConfig.points.point10.y },
+                            0,
+                        )(base, val),
                 },
             ],
         },
@@ -164,23 +188,47 @@ export const HCapConfig = {
             affects: [
                 {
                     point: "point4",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 174.42 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point4,
+                            { x: HCapConfig.points.point4.x, y: 174.42 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
                 {
                     point: "point5",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 174.42 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point5,
+                            { x: HCapConfig.points.point5.x, y: 174.42 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
                 {
                     point: "point10",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 174.42 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point10,
+                            { x: HCapConfig.points.point10.x, y: 174.42 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
                 {
                     point: "point11",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 174.42 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point11,
+                            { x: HCapConfig.points.point11.x, y: 174.42 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
             ],
         },
@@ -197,32 +245,56 @@ export const HCapConfig = {
                 {
                     point: "point1",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 61.71, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point1,
+                            { x: 61.71, y: HCapConfig.points.point1.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point2",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 61.71, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point2,
+                            { x: 61.71, y: HCapConfig.points.point2.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point3",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 61.71, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point3,
+                            { x: 61.71, y: HCapConfig.points.point3.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point4",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 61.71, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point4,
+                            { x: 61.71, y: HCapConfig.points.point4.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point11",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 61.71, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point11,
+                            { x: 61.71, y: HCapConfig.points.point11.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point12",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: 61.71, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            HCapConfig.points.point12,
+                            { x: 61.71, y: HCapConfig.points.point12.y },
+                            0,
+                        )(base, val),
                 },
             ],
         },

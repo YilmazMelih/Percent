@@ -1,4 +1,4 @@
-import { interpolateFromBase } from "../../project";
+import { makeCopyDeltaFromInterpolation } from "../../project";
 
 export const ECapConfig = {
     unicode: 69,
@@ -124,25 +124,27 @@ export const ECapConfig = {
                 y: 103.37,
             },
             affects: [
-                // {
-                //     point: "point4",
-                //     formula: (base, val) =>
-                //         interpolateFromBase(val, base, { x: base.x, y: 103.37 }, 0),
-                // },
-                // {
-                //     point: "point5",
-                //     formula: (base, val) =>
-                //         interpolateFromBase(val, base, { x: base.x, y: 103.37 }, 0),
-                // },
                 {
                     point: "point6",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 103.37 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point6,
+                            { x: ECapConfig.points.point6.x, y: 103.37 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
                 {
                     point: "point7",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 103.37 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point7,
+                            { x: ECapConfig.points.point7.x, y: 103.37 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
             ],
         },
@@ -158,23 +160,47 @@ export const ECapConfig = {
             affects: [
                 {
                     point: "point8",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 172.44 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point8,
+                            { x: ECapConfig.points.point8.x, y: 172.44 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
                 {
                     point: "point9",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 172.44 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point9,
+                            { x: ECapConfig.points.point9.x, y: 172.44 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
                 {
                     point: "point10",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 172.44 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point10,
+                            { x: ECapConfig.points.point10.x, y: 172.44 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
                 {
                     point: "point11",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 172.44 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point11,
+                            { x: ECapConfig.points.point11.x, y: 172.44 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
             ],
         },
@@ -188,30 +214,38 @@ export const ECapConfig = {
                 y: 244.01,
             },
             affects: [
-                // {
-                //     point: "point2",
-                //     formula: (base, val) =>
-                //         interpolateFromBase(val, base, { x: base.x, y: 244.01 }, 0),
-                // },
-                // {
-                //     point: "point3",
-                //     formula: (base, val) =>
-                //         interpolateFromBase(val, base, { x: base.x, y: 244.01 }, 0),
-                // },
                 {
                     point: "point12",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 244.01 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point12,
+                            { x: ECapConfig.points.point12.x, y: 244.01 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
                 {
                     point: "point13",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 244.01 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point13,
+                            { x: ECapConfig.points.point13.x, y: 244.01 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
                 {
                     point: "point1",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 244.01 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point1,
+                            { x: ECapConfig.points.point1.x, y: 244.01 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
             ],
         },
@@ -228,32 +262,56 @@ export const ECapConfig = {
                 {
                     point: "point3",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -50.33, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point3,
+                            { x: -50.33, y: ECapConfig.points.point3.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point4",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -50.33, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point4,
+                            { x: -50.33, y: ECapConfig.points.point4.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point7",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -50.33, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point7,
+                            { x: -50.33, y: ECapConfig.points.point7.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point8",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -50.33, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point8,
+                            { x: -50.33, y: ECapConfig.points.point8.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point11",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -50.33, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point11,
+                            { x: -50.33, y: ECapConfig.points.point11.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point12",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -50.33, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            ECapConfig.points.point12,
+                            { x: -50.33, y: ECapConfig.points.point12.y },
+                            0,
+                        )(base, val),
                 },
             ],
         },

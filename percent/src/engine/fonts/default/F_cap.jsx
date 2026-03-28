@@ -1,4 +1,4 @@
-import { interpolateFromBase } from "../../project";
+import { makeCopyDeltaFromInterpolation } from "../../project";
 
 export const FCapConfig = {
     unicode: 70,
@@ -111,37 +111,65 @@ export const FCapConfig = {
                 {
                     point: "point1",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            FCapConfig.points.point1,
+                            { x: -50.29, y: FCapConfig.points.point1.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point2",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            FCapConfig.points.point2,
+                            { x: -50.29, y: FCapConfig.points.point2.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point5",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            FCapConfig.points.point5,
+                            { x: -50.29, y: FCapConfig.points.point5.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point6",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            FCapConfig.points.point6,
+                            { x: -50.29, y: FCapConfig.points.point6.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point9",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            FCapConfig.points.point9,
+                            { x: -50.29, y: FCapConfig.points.point9.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point10",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            FCapConfig.points.point10,
+                            { x: -50.29, y: FCapConfig.points.point10.y },
+                            0,
+                        )(base, val),
                 },
                 {
                     point: "point11",
                     formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: -50.29, y: base.y }, 0),
+                        makeCopyDeltaFromInterpolation(
+                            FCapConfig.points.point11,
+                            { x: -50.29, y: FCapConfig.points.point11.y },
+                            0,
+                        )(base, val),
                 },
             ],
         },
@@ -157,23 +185,47 @@ export const FCapConfig = {
             affects: [
                 {
                     point: "point6",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 172.69 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            FCapConfig.points.point6,
+                            { x: FCapConfig.points.point6.x, y: 172.69 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
                 {
                     point: "point7",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 172.69 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            FCapConfig.points.point7,
+                            { x: FCapConfig.points.point7.x, y: 172.69 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
                 {
                     point: "point8",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 172.69 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            FCapConfig.points.point8,
+                            { x: FCapConfig.points.point8.x, y: 172.69 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
                 {
                     point: "point9",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 172.69 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            FCapConfig.points.point9,
+                            { x: FCapConfig.points.point9.x, y: 172.69 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
             ],
         },
@@ -187,25 +239,27 @@ export const FCapConfig = {
                 y: 103.7,
             },
             affects: [
-                // {
-                //     point: "point2",
-                //     formula: (base, val) =>
-                //         interpolateFromBase(val, base, { x: base.x, y: 103.7 }, 0),
-                // },
-                // {
-                //     point: "point3",
-                //     formula: (base, val) =>
-                //         interpolateFromBase(val, base, { x: base.x, y: 103.7 }, 0),
-                // },
                 {
                     point: "point4",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 103.7 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            FCapConfig.points.point4,
+                            { x: FCapConfig.points.point4.x, y: 103.7 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
                 {
                     point: "point5",
-                    formula: (base, val) =>
-                        interpolateFromBase(val, base, { x: base.x, y: 103.7 }, 0),
+                    formula: (base, val) => {
+                        const out = makeCopyDeltaFromInterpolation(
+                            FCapConfig.points.point5,
+                            { x: FCapConfig.points.point5.x, y: 103.7 },
+                            0,
+                        )(base, val);
+                        return { x: base.x, y: out.y };
+                    },
                 },
             ],
         },

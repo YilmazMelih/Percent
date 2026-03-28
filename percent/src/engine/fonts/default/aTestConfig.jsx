@@ -1,6 +1,5 @@
 import {
     makeCopyDeltaFromInterpolation,
-    interpolateFromBase,
     findClosestPointOnPath,
     findClosestPointOnPathTowardFill,
     findPointOnPathInwardDirection,

@@ -34,6 +34,9 @@ function Header() {
                         Playground
                     </Link>
                 )}
+                <Link to="/type-visualizer" className="header-link">
+                    Type Visualizer
+                </Link>
                 <Link to="/editor" className="header-link">
                     Editor
                 </Link>
