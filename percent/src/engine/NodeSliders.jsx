@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
     isNodeGroupMemberLinked,
     isNodeInAnyGroup,
@@ -64,6 +64,11 @@ export default function SliderPanel({
     const isValidNumber = (v) => /^-?\d*\.?\d+$/.test(v);
     const draftKey = (axis, index) => `${axis}-${index}`;
 
+    useEffect(() => {
+        // Switching glyphs/panels should show live translation values for the new selection.
+        setDrafts({});
+    }, [glyphKey, names]);
+
     const handleInputChange = (axis, index, value) => {
         const key = draftKey(axis, index);
         setDrafts((prev) => ({ ...prev, [key]: value }));
@@ -93,6 +98,12 @@ export default function SliderPanel({
         newY[index] = 0;
         setNodeX(newX);
         setNodeY(newY);
+        setDrafts((prev) => {
+            const next = { ...prev };
+            delete next[draftKey("x", index)];
+            delete next[draftKey("y", index)];
+            return next;
+        });
     };
 
     const handleLockMouseEnter = (index) => {

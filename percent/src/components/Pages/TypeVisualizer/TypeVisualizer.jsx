@@ -39,6 +39,7 @@ import TypeVisualizerWorkspace, {
     isTypeVisualizerSpaceEntry,
 } from "./TypeVisualizerWorkspace";
 import { applyGroupedNodeSizeChanges } from "../EditorPage/nodeGroups";
+import { useLocalStorageBoolean, useLocalStorageJson } from "../../../hooks/useLocalStorageState";
 
 const GLYPH_STATE_STORAGE_KEY = "editor:glyphData:v1";
 const SEE_NODES_STORAGE_KEY = "editor:seeNodes:v1";
@@ -46,6 +47,7 @@ const SEE_PATH_POINTS_STORAGE_KEY = "editor:seePathPoints:v1";
 const SEE_GUIDELINES_STORAGE_KEY = "editor:seeGuidelines:v1";
 const SETTINGS_PANEL_OPEN_STORAGE_KEY = "editor:settingsPanelOpen:v1";
 const NODE_GROUP_LINKS_STORAGE_KEY = "editor:nodeGroupLinks:v1";
+const SHOW_ADVANCED_STORAGE_KEY = "editor:showAdvanced:v1";
 
 /** Maps editor glyph keys → config. Extend when adding glyphs dynamically. */
 export const TYPE_VISUALIZER_CONFIG_BY_KEY = {
@@ -166,61 +168,29 @@ export default function TypeVisualizer() {
     const [line, setLine] = useState([]);
     const [glyphStates, setGlyphStates] = useState(() => hydrateGlyphStates());
     const divRef = useRef(null);
-    const [seeNodes, setSeeNodes] = useState(() => {
-        if (typeof window === "undefined") return true;
-        const saved = window.localStorage.getItem(SEE_NODES_STORAGE_KEY);
-        return saved === null ? true : saved === "true";
-    });
-    const [seePathPoints, setSeePathPoints] = useState(() => {
-        if (typeof window === "undefined") return false;
-        const saved = window.localStorage.getItem(SEE_PATH_POINTS_STORAGE_KEY);
-        return saved === null ? false : saved === "true";
-    });
-    const [seeGuidelines, setSeeGuidelines] = useState(() => {
-        if (typeof window === "undefined") return true;
-        const saved = window.localStorage.getItem(SEE_GUIDELINES_STORAGE_KEY);
-        return saved === null ? true : saved === "true";
-    });
+    const [seeNodes, setSeeNodes] = useLocalStorageBoolean(SEE_NODES_STORAGE_KEY, true);
+    const [seePathPoints, setSeePathPoints] = useLocalStorageBoolean(
+        SEE_PATH_POINTS_STORAGE_KEY,
+        false,
+    );
+    const [seeGuidelines, setSeeGuidelines] = useLocalStorageBoolean(
+        SEE_GUIDELINES_STORAGE_KEY,
+        true,
+    );
     const [isBottomPanelVisible, setBottomPanelVisible] = useState(false);
-    const [nodeGroupLinks, setNodeGroupLinks] = useState(() => {
-        if (typeof window === "undefined") return {};
-        try {
-            const raw = window.localStorage.getItem(NODE_GROUP_LINKS_STORAGE_KEY);
-            const parsed = raw ? JSON.parse(raw) : {};
-            return parsed && typeof parsed === "object" ? parsed : {};
-        } catch {
-            return {};
-        }
-    });
-    const [isSettingsPanelOpen, setIsSettingsPanelOpen] = useState(() => {
-        if (typeof window === "undefined") return false;
-        const saved = window.localStorage.getItem(SETTINGS_PANEL_OPEN_STORAGE_KEY);
-        return saved === "true";
-    });
+    const [nodeGroupLinks, setNodeGroupLinks] = useLocalStorageJson(
+        NODE_GROUP_LINKS_STORAGE_KEY,
+        {},
+    );
+    const [isSettingsPanelOpen, setIsSettingsPanelOpen] = useLocalStorageBoolean(
+        SETTINGS_PANEL_OPEN_STORAGE_KEY,
+        false,
+    );
 
     useEffect(() => {
         persistGlyphStatesSlice(glyphStates);
     }, [glyphStates]);
 
-    useEffect(() => {
-        window.localStorage.setItem(SEE_NODES_STORAGE_KEY, String(seeNodes));
-    }, [seeNodes]);
-
-    useEffect(() => {
-        window.localStorage.setItem(SEE_PATH_POINTS_STORAGE_KEY, String(seePathPoints));
-    }, [seePathPoints]);
-
-    useEffect(() => {
-        window.localStorage.setItem(SEE_GUIDELINES_STORAGE_KEY, String(seeGuidelines));
-    }, [seeGuidelines]);
-
-    useEffect(() => {
-        window.localStorage.setItem(SETTINGS_PANEL_OPEN_STORAGE_KEY, String(isSettingsPanelOpen));
-    }, [isSettingsPanelOpen]);
-
-    useEffect(() => {
-        window.localStorage.setItem(NODE_GROUP_LINKS_STORAGE_KEY, JSON.stringify(nodeGroupLinks));
-    }, [nodeGroupLinks]);
     useEffect(() => {
         divRef.current?.focus();
     }, []);
@@ -324,6 +294,7 @@ export default function TypeVisualizer() {
     const [caretIndex, setCaretIndex] = useState(0);
     /** ViewBox zoom: lower = more world units visible (smaller glyphs). See TypeVisualizerWorkspace. */
     const [workspaceViewZoom, setWorkspaceViewZoom] = useState(TYPE_VISUALIZER_VIEW_ZOOM_DEFAULT);
+    const [showAdvanced, setShowAdvanced] = useLocalStorageBoolean(SHOW_ADVANCED_STORAGE_KEY, false);
 
     useEffect(() => {
         setCaretIndex((c) => Math.min(c, line.length));
@@ -427,6 +398,8 @@ export default function TypeVisualizer() {
                                         setSeePathPoints,
                                         seeGuidelines,
                                         setSeeGuidelines,
+                                        showAdvanced,
+                                        setShowAdvanced,
                                         isBottomPanelVisible,
                                         setBottomPanelVisible,
                                         typeVisualizerViewZoom: workspaceViewZoom,

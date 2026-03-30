@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
     TYPE_VISUALIZER_VIEW_ZOOM_MAX,
     TYPE_VISUALIZER_VIEW_ZOOM_MIN,
@@ -40,6 +39,8 @@ function SettingsPanelBody({
     isBottomPanelVisible,
     setBottomPanelVisible,
     onExport,
+    showAdvanced = false,
+    setShowAdvanced = () => {},
     /** TypeVisualizer only: viewBox zoom (see TypeVisualizerWorkspace). */
     typeVisualizerViewZoom,
     setTypeVisualizerViewZoom,
@@ -47,8 +48,6 @@ function SettingsPanelBody({
     const glyphPanelsIsArray = Array.isArray(glyphPanels);
     const isMulti = glyphPanelsIsArray && glyphPanels.length > 0;
     const isMultiEmptyLine = glyphPanelsIsArray && glyphPanels.length === 0;
-    const [showAdvanced, setShowAdvanced] = useState(false);
-
     const sliderCommon = {
         hideGlobalToolbar: true,
         showAdvanced,
