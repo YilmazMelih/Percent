@@ -162,7 +162,7 @@ const Home = () => {
             <Carousel />
 
             <div className="button-container">
-                <Button onClick={() => navigate("/boarding")}>Launch percent</Button>
+                <Button onClick={() => navigate("/type-visualizer")}>Launch percent</Button>
             </div>
         </div>
     );
