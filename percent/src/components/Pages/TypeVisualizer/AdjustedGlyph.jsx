@@ -16,6 +16,7 @@ export default function AdjustedGlyph({
     xAdjust = 0,
     /** Optional: TypeVisualizer ring-drag lifecycle (commit-on-release isolation). */
     ringDragHooks,
+    guideLines,
 }) {
     const [isDragging, setIsDragging] = useState(false);
     const [active, setActive] = useState(null);
@@ -27,7 +28,7 @@ export default function AdjustedGlyph({
 
     const adjustedNodesX = (nodeX ?? config.nodes.map(() => 0)).map((v) => v + xAdjust);
 
-    const d = buildPath(adjustedConfig, nodeSize, nodeX, nodeY);
+    const d = buildPath(adjustedConfig, nodeSize, nodeX, nodeY, guideLines);
     const { controlPoints, endpoints } = extractPathPoints(d);
     const logPointName = (point) => {
         const name = Object.keys(adjustedPoints ?? {}).find((key) => {
@@ -45,6 +46,7 @@ export default function AdjustedGlyph({
                 buildNodes(
                     adjustedConfig,
                     nodeSize,
+                    guideLines,
                     adjustedNodesX,
                     nodeY,
                     setNodeSize,

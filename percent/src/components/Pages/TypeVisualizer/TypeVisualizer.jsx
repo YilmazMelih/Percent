@@ -165,6 +165,13 @@ function persistGlyphStatesSlice(glyphStates) {
 }
 
 export default function TypeVisualizer() {
+    const [guideLines, setGuideLines] = useState({
+        ascender: 30.5,
+        cap_height: 80.5,
+        x_height: 136.25,
+        baseline: 267.76,
+        descender: 320,
+    });
     const [line, setLine] = useState([]);
     const [glyphStates, setGlyphStates] = useState(() => hydrateGlyphStates());
     const divRef = useRef(null);
@@ -294,7 +301,10 @@ export default function TypeVisualizer() {
     const [caretIndex, setCaretIndex] = useState(0);
     /** ViewBox zoom: lower = more world units visible (smaller glyphs). See TypeVisualizerWorkspace. */
     const [workspaceViewZoom, setWorkspaceViewZoom] = useState(TYPE_VISUALIZER_VIEW_ZOOM_DEFAULT);
-    const [showAdvanced, setShowAdvanced] = useLocalStorageBoolean(SHOW_ADVANCED_STORAGE_KEY, false);
+    const [showAdvanced, setShowAdvanced] = useLocalStorageBoolean(
+        SHOW_ADVANCED_STORAGE_KEY,
+        false,
+    );
 
     useEffect(() => {
         setCaretIndex((c) => Math.min(c, line.length));
@@ -342,7 +352,8 @@ export default function TypeVisualizer() {
                                             return;
                                         }
                                         if (e.key === " ") {
-                                            if (line.length >= TYPE_VISUALIZER_MAX_LINE_CHARS) return;
+                                            if (line.length >= TYPE_VISUALIZER_MAX_LINE_CHARS)
+                                                return;
                                             const entry = {
                                                 kind: "space",
                                                 instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
@@ -356,7 +367,8 @@ export default function TypeVisualizer() {
                                             return;
                                         }
                                         if (e.key in TYPE_VISUALIZER_CONFIG_BY_KEY) {
-                                            if (line.length >= TYPE_VISUALIZER_MAX_LINE_CHARS) return;
+                                            if (line.length >= TYPE_VISUALIZER_MAX_LINE_CHARS)
+                                                return;
                                             const entry = {
                                                 instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
                                                 stateKey: e.key,
@@ -377,6 +389,8 @@ export default function TypeVisualizer() {
                                         seeNodes={seeNodes}
                                         seePathPoints={seePathPoints}
                                         seeGuidelines={seeGuidelines}
+                                        guideLines={guideLines}
+                                        setGuideLines={setGuideLines}
                                         setNodeSizeByKey={handleNodeSizeChange}
                                         viewZoom={workspaceViewZoom}
                                     />

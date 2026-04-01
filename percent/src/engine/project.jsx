@@ -398,8 +398,8 @@ export function computeGlyphPoints(config, nodeVals, nodeX, nodeY, guideLines) {
  * @param {number[]} [nodeY] - Optional per-node Y offsets indexed by `node.id`.
  * @returns {{ minX: number, maxX: number }} Min/max `x` over adjusted points; `(0, 0)` if nothing finite.
  */
-export function getAdjustedGlyphBoundsX(config, nodeSize, nodeX, nodeY) {
-    const computedPoints = computeGlyphPoints(config, nodeSize, nodeX, nodeY);
+export function getAdjustedGlyphBoundsX(config, nodeSize, nodeX, nodeY, guideLines) {
+    const computedPoints = computeGlyphPoints(config, nodeSize, nodeX, nodeY, guideLines);
     const xs = Object.values(computedPoints)
         .map((p) => p.x)
         .filter((x) => Number.isFinite(x));

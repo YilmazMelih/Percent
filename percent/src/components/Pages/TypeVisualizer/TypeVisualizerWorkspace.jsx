@@ -34,6 +34,7 @@ export function computeCaretWorldX(
     gap = RIGHT_SPACING,
     resolveNodeSize = null,
     wordSpaceWidth = TYPE_VISUALIZER_WORD_SPACE_WIDTH,
+    guideLines,
 ) {
     let x = 0;
     for (let i = 0; i < caretIndex; i++) {
@@ -51,6 +52,7 @@ export function computeCaretWorldX(
             nodeSize,
             slice.nodeX,
             slice.nodeY,
+            guideLines,
         );
         x += maxX - minX + gap;
     }
@@ -71,6 +73,8 @@ export default function TypeVisualizerWorkspace({
     seeNodes,
     seePathPoints,
     seeGuidelines,
+    guideLines,
+    setGuideLines,
     setNodeSizeByKey,
     wordSpaceWidth = TYPE_VISUALIZER_WORD_SPACE_WIDTH,
     viewZoom = TYPE_VISUALIZER_VIEW_ZOOM_DEFAULT,
@@ -81,11 +85,6 @@ export default function TypeVisualizerWorkspace({
     );
     const viewWidth = VIEWBOX_WIDTH / zoomClamped;
     const viewHeight = VIEWBOX_HEIGHT / zoomClamped;
-    const [ascender, setAscender] = useState(30.5);
-    const [cap_height, setCapHeight] = useState(80.5);
-    const [x_height, setXHeight] = useState(136.25);
-    const [baseline, setBaseline] = useState(267.76);
-    const [descender, setDescender] = useState(320);
     const [vbAdjust, setVbAdjust] = useState(0);
 
     /** While non-null, peers sharing `stateKey` render at `frozenNodeSize`; active instance uses `previewNodeSize`. */
@@ -170,6 +169,7 @@ export default function TypeVisualizerWorkspace({
                 RIGHT_SPACING,
                 resolveNodeSizeForLayout,
                 wordSpaceWidth,
+                guideLines,
             ),
         [line, glyphStates, caretIndex, resolveNodeSizeForLayout, wordSpaceWidth],
     );
@@ -179,8 +179,8 @@ export default function TypeVisualizerWorkspace({
 
     /** Keep the ascender–descender band in the vertical middle of the view as `viewHeight` changes. */
     const viewVerticalCenterY = useMemo(
-        () => (ascender + descender) / 2,
-        [ascender, descender],
+        () => (guideLines.ascender + guideLines.descender) / 2,
+        [guideLines.ascender, guideLines.descender],
     );
     const viewMinY = viewVerticalCenterY - viewHeight / 2;
 
@@ -214,7 +214,7 @@ export default function TypeVisualizerWorkspace({
                     <g stroke="lightgray" strokeWidth="1.5">
                         <text
                             x={TYPE_VISUALIZER_GUIDELINE_LABEL_X}
-                            y={ascender - 8}
+                            y={guideLines.ascender - 8}
                             fontSize="16"
                             fill="lightgray"
                             stroke="none"
@@ -223,13 +223,13 @@ export default function TypeVisualizerWorkspace({
                         </text>
                         <line
                             x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
-                            y1={ascender}
+                            y1={guideLines.ascender}
                             x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
-                            y2={ascender}
+                            y2={guideLines.ascender}
                         />
                         <text
                             x={TYPE_VISUALIZER_GUIDELINE_LABEL_X}
-                            y={cap_height - 8}
+                            y={guideLines.cap_height - 8}
                             fontSize="16"
                             fill="lightgray"
                             stroke="none"
@@ -238,13 +238,13 @@ export default function TypeVisualizerWorkspace({
                         </text>
                         <line
                             x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
-                            y1={cap_height}
+                            y1={guideLines.cap_height}
                             x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
-                            y2={cap_height}
+                            y2={guideLines.cap_height}
                         />
                         <text
                             x={TYPE_VISUALIZER_GUIDELINE_LABEL_X}
-                            y={x_height - 8}
+                            y={guideLines.x_height - 8}
                             fontSize="16"
                             fill="lightgray"
                             stroke="none"
@@ -253,13 +253,13 @@ export default function TypeVisualizerWorkspace({
                         </text>
                         <line
                             x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
-                            y1={x_height}
+                            y1={guideLines.x_height}
                             x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
-                            y2={x_height}
+                            y2={guideLines.x_height}
                         />
                         <text
                             x={TYPE_VISUALIZER_GUIDELINE_LABEL_X}
-                            y={baseline - 8}
+                            y={guideLines.baseline - 8}
                             fontSize="16"
                             fill="lightgray"
                             stroke="none"
@@ -268,13 +268,13 @@ export default function TypeVisualizerWorkspace({
                         </text>
                         <line
                             x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
-                            y1={baseline}
+                            y1={guideLines.baseline}
                             x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
-                            y2={baseline}
+                            y2={guideLines.baseline}
                         />
                         <text
                             x={TYPE_VISUALIZER_GUIDELINE_LABEL_X}
-                            y={descender - 8}
+                            y={guideLines.descender - 8}
                             fontSize="16"
                             fill="lightgray"
                             stroke="none"
@@ -283,9 +283,9 @@ export default function TypeVisualizerWorkspace({
                         </text>
                         <line
                             x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
-                            y1={descender}
+                            y1={guideLines.descender}
                             x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
-                            y2={descender}
+                            y2={guideLines.descender}
                         />
                     </g>
                 )}
@@ -306,6 +306,7 @@ export default function TypeVisualizerWorkspace({
                         nodeSizeRendered,
                         slice.nodeX,
                         slice.nodeY,
+                        guideLines,
                     );
                     const width = maxX - minX;
                     const xAdjust = cursor - minX;
@@ -335,14 +336,15 @@ export default function TypeVisualizerWorkspace({
                             seePathPoints={seePathPoints}
                             xAdjust={xAdjust}
                             ringDragHooks={ringDragHooks}
+                            guideLines={guideLines}
                         />
                     );
                 })}
                 <line
                     x1={caretX}
-                    y1={descender}
+                    y1={guideLines.descender}
                     x2={caretX}
-                    y2={ascender}
+                    y2={guideLines.ascender}
                     stroke="#B8B8B8"
                     strokeWidth="3"
                     className="animate-[blink_1s_infinite]"
