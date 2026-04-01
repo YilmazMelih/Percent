@@ -15,17 +15,13 @@ export default function Workspace({
     seeNodes,
     seePathPoints,
     seeGuidelines,
+    guideLines,
+    setGuideLines,
 }) {
-    const [ascender, setAscender] = useState(30.5);
-    const [cap_height, setCapHeight] = useState(80.5);
-    const [x_height, setXHeight] = useState(136.25);
-    const [baseline, setBaseline] = useState(267.76);
-    const [descender, setDescender] = useState(320);
-
     const [isDragging, setIsDragging] = useState(false);
     const [active, setActive] = useState(null);
-    const d = buildPath(config, nodeSize, nodeX, nodeY);
-    const computedPoints = computeGlyphPoints(config, nodeSize, nodeX, nodeY);
+    const d = buildPath(config, nodeSize, nodeX, nodeY, guideLines);
+    const computedPoints = computeGlyphPoints(config, nodeSize, nodeX, nodeY, guideLines);
     const { controlPoints, endpoints } = extractPathPoints(d);
     const logPointName = (point) => {
         const name = Object.keys(config.points ?? {}).find((key) => {
@@ -53,26 +49,81 @@ export default function Workspace({
                 </defs>
                 {seeGuidelines && (
                     <g stroke="lightgray" strokeWidth="1.5">
-                        <text x={-330} y={ascender - 8} fontSize="16" fill="lightgray" stroke="none">
+                        <text
+                            x={-330}
+                            y={guideLines.ascender - 8}
+                            fontSize="16"
+                            fill="lightgray"
+                            stroke="none"
+                        >
                             Ascender
                         </text>
-                        <line x1="-330" y1={ascender} x2="330" y2={ascender} />
-                        <text x={-330} y={cap_height - 8} fontSize="16" fill="lightgray" stroke="none">
+                        <line
+                            x1="-330"
+                            y1={guideLines.ascender}
+                            x2="330"
+                            y2={guideLines.ascender}
+                        />
+                        <text
+                            x={-330}
+                            y={guideLines.cap_height - 8}
+                            fontSize="16"
+                            fill="lightgray"
+                            stroke="none"
+                        >
                             Cap Height
                         </text>
-                        <line x1="-330" y1={cap_height} x2="330" y2={cap_height} />
-                        <text x={-330} y={x_height - 8} fontSize="16" fill="lightgray" stroke="none">
+                        <line
+                            x1="-330"
+                            y1={guideLines.cap_height}
+                            x2="330"
+                            y2={guideLines.cap_height}
+                        />
+                        <text
+                            x={-330}
+                            y={guideLines.x_height - 8}
+                            fontSize="16"
+                            fill="lightgray"
+                            stroke="none"
+                        >
                             X Height
                         </text>
-                        <line x1="-330" y1={x_height} x2="330" y2={x_height} />
-                        <text x={-330} y={baseline - 8} fontSize="16" fill="lightgray" stroke="none">
+                        <line
+                            x1="-330"
+                            y1={guideLines.x_height}
+                            x2="330"
+                            y2={guideLines.x_height}
+                        />
+                        <text
+                            x={-330}
+                            y={guideLines.baseline - 8}
+                            fontSize="16"
+                            fill="lightgray"
+                            stroke="none"
+                        >
                             Baseline
                         </text>
-                        <line x1="-330" y1={baseline} x2="330" y2={baseline} />
-                        <text x={-330} y={descender - 8} fontSize="16" fill="lightgray" stroke="none">
+                        <line
+                            x1="-330"
+                            y1={guideLines.baseline}
+                            x2="330"
+                            y2={guideLines.baseline}
+                        />
+                        <text
+                            x={-330}
+                            y={guideLines.descender - 8}
+                            fontSize="16"
+                            fill="lightgray"
+                            stroke="none"
+                        >
                             Descender
                         </text>
-                        <line x1="-330" y1={descender} x2="330" y2={descender} />
+                        <line
+                            x1="-330"
+                            y1={guideLines.descender}
+                            x2="330"
+                            y2={guideLines.descender}
+                        />
                     </g>
                 )}
 
@@ -88,6 +139,7 @@ export default function Workspace({
                     buildNodes(
                         config,
                         nodeSize,
+                        guideLines,
                         nodeX,
                         nodeY,
                         setNodeSize,

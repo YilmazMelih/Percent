@@ -21,17 +21,17 @@ export const ACapConfig = {
         { cmd: "Z" },
     ],
     points: {
-        rightBottomRight: { x: 105.14, y: 267.76 },
-        rightBottomLeft: { x: 29.1, y: 267.76 },
+        rightBottomRight: { x: 105.14, y: 0, attach: "base" },
+        rightBottomLeft: { x: 29.1, y: 0, attach: "base" },
         midBottomRight: { x: 21.52, y: 237.18 },
         midBottomLeft: { x: -22.06, y: 237.45 },
-        leftBottomRight: { x: -29.64, y: 267.76 },
-        leftBottomLeft: { x: -105.14, y: 267.22 },
-        leftTop: { x: -44.79, y: 80.5 },
-        rightTop: { x: 43.71, y: 80.5 },
+        leftBottomRight: { x: -29.64, y: 0, attach: "base" },
+        leftBottomLeft: { x: -105.14, y: 0, attach: "base" },
+        leftTop: { x: -44.79, y: 0, attach: "cap" },
+        rightTop: { x: 43.71, y: 0, attach: "cap" },
         centBottomRight: { x: 12.86, y: 193.89 },
-        centTopRight: { x: -0.41, y: 136.25 },
-        centTopLeft: { x: -1.76, y: 136.25 },
+        centTopRight: { x: -0.41, y: 136.25 - 80.5, attach: "cap" },
+        centTopLeft: { x: -1.76, y: 136.25 - 80.5, attach: "cap" },
         centBottomLeft: { x: -13.67, y: 193.89 },
     },
     nodes: [
@@ -243,7 +243,8 @@ export const ACapConfig = {
             r: 30.75,
             pos: {
                 x: 0,
-                y: 108.375,
+                y: 108.375 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {

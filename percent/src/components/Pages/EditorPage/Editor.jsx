@@ -198,8 +198,15 @@ export default function Editor() {
         "A",
     );
     const selectedGlyph = initialConfigs[selectedGlyphRaw] ? selectedGlyphRaw : "A";
-    const setSelectedGlyph = (next) =>
-        setSelectedGlyphRaw(initialConfigs[next] ? next : "A");
+    const setSelectedGlyph = (next) => setSelectedGlyphRaw(initialConfigs[next] ? next : "A");
+    const [guideLines, setGuideLines] = useState({
+        ascender: 30.5,
+        cap_height: 80.5,
+        x_height: 136.25,
+        baseline: 267.76,
+        descender: 320,
+    });
+
     const [seeNodes, setSeeNodes] = useLocalStorageBoolean(SEE_NODES_STORAGE_KEY, true);
     const [seePathPoints, setSeePathPoints] = useLocalStorageBoolean(
         SEE_PATH_POINTS_STORAGE_KEY,
@@ -219,7 +226,10 @@ export default function Editor() {
         false,
     );
     const [maxPaneSize, setMaxPaneSize] = useState((window.innerWidth * 2) / 3);
-    const [showAdvanced, setShowAdvanced] = useLocalStorageBoolean(SHOW_ADVANCED_STORAGE_KEY, false);
+    const [showAdvanced, setShowAdvanced] = useLocalStorageBoolean(
+        SHOW_ADVANCED_STORAGE_KEY,
+        false,
+    );
 
     useEffect(() => {
         const handleResize = () => {
@@ -287,6 +297,7 @@ export default function Editor() {
             <Allotment>
                 <Allotment.Pane minSize={200} preferredSize="280px" maxSize={maxPaneSize}>
                     <AllGlyphs
+                        guideLines={guideLines}
                         glyphData={glyphData}
                         selectedGlyph={selectedGlyph}
                         onGlyphSelect={setSelectedGlyph}
@@ -299,6 +310,8 @@ export default function Editor() {
                             <div className="relative min-h-full flex">
                                 {currentGlyph && (
                                     <Workspace
+                                        guideLines={guideLines}
+                                        setGuideLines={setGuideLines}
                                         config={currentGlyph.config}
                                         nodeSize={currentGlyph.nodeSize}
                                         setNodeSize={handleNodeSizeChange}
