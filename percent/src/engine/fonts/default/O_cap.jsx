@@ -57,23 +57,28 @@ export const OCapConfig = {
         },
         point2: {
             x: 107.29,
-            y: 232.75,
+            y: 232.75 - 267.76,
+            attach: "base",
         },
         point3: {
             x: 71.31,
-            y: 270.64,
+            y: 270.64 - 267.76,
+            attach: "base",
         },
         point4: {
             x: -0.41,
-            y: 270.64,
+            y: 270.64 - 267.76,
+            attach: "base",
         },
         point5: {
             x: -67.52,
-            y: 270.64,
+            y: 270.64 - 267.76,
+            attach: "base",
         },
         point6: {
             x: -107.29,
-            y: 238.17,
+            y: 238.17 - 267.76,
+            attach: "base",
         },
         point7: {
             x: -107.29,
@@ -81,23 +86,28 @@ export const OCapConfig = {
         },
         point8: {
             x: -107.29,
-            y: 110.97,
+            y: 110.97 - 80.5,
+            attach: "cap",
         },
         point9: {
             x: -61.83,
-            y: 78.5,
+            y: 78.5 - 80.5,
+            attach: "cap",
         },
         point10: {
             x: -0.41,
-            y: 78.5,
+            y: 78.5 - 80.5,
+            attach: "cap",
         },
         point11: {
             x: 69.15,
-            y: 78.5,
+            y: 78.5 - 80.5,
+            attach: "cap",
         },
         point12: {
             x: 107.29,
-            y: 118.01,
+            y: 118.01 - 80.5,
+            attach: "cap",
         },
         point13: {
             x: 35.59,
@@ -105,23 +115,28 @@ export const OCapConfig = {
         },
         point14: {
             x: 35.05,
-            y: 141.01,
+            y: 141.01 - 80.5,
+            attach: "cap",
         },
         point15: {
             x: 20.44,
-            y: 118.01,
+            y: 118.01 - 80.5,
+            attach: "cap",
         },
         point16: {
             x: -1.22,
-            y: 118.01,
+            y: 118.01 - 80.5,
+            attach: "cap",
         },
         point17: {
             x: -21.25,
-            y: 118.01,
+            y: 118.01 - 80.5,
+            attach: "cap",
         },
         point18: {
             x: -36.94,
-            y: 138.85,
+            y: 138.85 - 80.5,
+            attach: "cap",
         },
         point19: {
             x: -36.13,
@@ -129,23 +144,28 @@ export const OCapConfig = {
         },
         point20: {
             x: -35.59,
-            y: 211.64,
+            y: 211.64 - 267.76,
+            attach: "base",
         },
         point21: {
             x: -20.16,
-            y: 230.86,
+            y: 230.86 - 267.76,
+            attach: "base",
         },
         point22: {
             x: 0.68,
-            y: 230.86,
+            y: 230.86 - 267.76,
+            attach: "base",
         },
         point23: {
             x: 21.5,
-            y: 230.86,
+            y: 230.86 - 267.76,
+            attach: "base",
         },
         point24: {
             x: 36.13,
-            y: 209.21,
+            y: 209.21 - 267.76,
+            attach: "base",
         },
     },
     nodes: [
@@ -324,7 +344,8 @@ export const OCapConfig = {
             r: 19.75,
             pos: {
                 x: -0.28,
-                y: 98.26,
+                y: 98.26 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {
@@ -381,7 +402,8 @@ export const OCapConfig = {
             r: 19.75,
             pos: {
                 x: -0.01,
-                y: 250.89,
+                y: 250.89 - 267.76,
+                attach: "base",
             },
             affects: [
                 {

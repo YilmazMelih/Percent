@@ -46,7 +46,8 @@ export const JCapConfig = {
     points: {
         point1: {
             x: 89.44,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
         point2: {
             x: 89.44,
@@ -54,47 +55,58 @@ export const JCapConfig = {
         },
         point3: {
             x: 89.44,
-            y: 250.98,
+            y: 250.98 - 267.76,
+            attach: "base",
         },
         point4: {
             x: 55.88,
-            y: 272.09,
+            y: 272.09 - 267.76,
+            attach: "base",
         },
         point5: {
             x: 1.22,
-            y: 273.72,
+            y: 273.72 - 267.76,
+            attach: "base",
         },
         point6: {
             x: -60.48,
-            y: 275.61,
+            y: 275.61 - 267.76,
+            attach: "base",
         },
         point7: {
             x: -89.44,
-            y: 244.76,
+            y: 244.76 - 267.76,
+            attach: "base",
         },
         point8: {
             x: -89.44,
-            y: 200.93,
+            y: 200.93 - 267.76,
+            attach: "base",
         },
         point9: {
             x: -20.16,
-            y: 189.56,
+            y: 189.56 - 267.76,
+            attach: "base",
         },
         point10: {
             x: -23.41,
-            y: 226.9,
+            y: 226.9 - 267.76,
+            attach: "base",
         },
         point11: {
             x: -2.84,
-            y: 226.09,
+            y: 226.09 - 267.76,
+            attach: "base",
         },
         point12: {
             x: 15.29,
-            y: 225.55,
+            y: 225.55 - 267.76,
+            attach: "base",
         },
         point13: {
             x: 13.67,
-            y: 212.02,
+            y: 212.02 - 267.76,
+            attach: "base",
         },
         point14: {
             x: 13.67,
@@ -102,7 +114,8 @@ export const JCapConfig = {
         },
         point15: {
             x: 13.67,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
     },
     nodes: [
@@ -197,7 +210,8 @@ export const JCapConfig = {
             r: 28.42,
             pos: {
                 x: -34.23,
-                y: 241.13,
+                y: 241.13 - 267.76,
+                attach: "base",
             },
             affects: [
                 {

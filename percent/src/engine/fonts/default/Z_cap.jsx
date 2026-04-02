@@ -54,11 +54,13 @@ export const ZCapConfig = {
     points: {
         point1: {
             x: 1.9,
-            y: 221.21,
+            y: 221.21 - 267.76,
+            attach: "base",
         },
         point2: {
             x: 84.71,
-            y: 220.67,
+            y: 220.67 - 267.76,
+            attach: "base",
         },
         point3: {
             x: 84.16,
@@ -66,39 +68,48 @@ export const ZCapConfig = {
         },
         point4: {
             x: 84.16,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point5: {
             x: -84.16,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point6: {
             x: -84.7,
-            y: 232.04,
+            y: 232.04 - 267.76,
+            attach: "base",
         },
         point7: {
             x: 0,
-            y: 125.42,
+            y: 125.42 - 80.5,
+            attach: "cap",
         },
         point8: {
             x: -84.7,
-            y: 125.42,
+            y: 125.42 - 80.5,
+            attach: "cap",
         },
         point9: {
             x: -84.16,
-            y: 80.77,
+            y: 80.77 - 80.5,
+            attach: "cap",
         },
         point10: {
             x: 84.69,
-            y: 80.77,
+            y: 80.77 - 80.5,
+            attach: "cap",
         },
         point11: {
             x: 84.69,
-            y: 113.79,
+            y: 113.79 - 80.5,
+            attach: "cap",
         },
         point12: {
             x: 1.89,
-            y: 221.22,
+            y: 221.22 - 267.76,
+            attach: "base",
         },
     },
     nodes: [
@@ -109,7 +120,8 @@ export const ZCapConfig = {
             r: 22.31,
             pos: {
                 x: -19.2,
-                y: 103.08,
+                y: 103.08 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {
@@ -148,7 +160,8 @@ export const ZCapConfig = {
             r: 23.34,
             pos: {
                 x: 38.97,
-                y: 244.42,
+                y: 244.42 - 267.76,
+                attach: "base",
             },
             affects: [
                 {

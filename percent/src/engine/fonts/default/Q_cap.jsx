@@ -69,23 +69,28 @@ export const QCapConfig = {
     points: {
         point1: {
             x: 99.99,
-            y: 210.73,
+            y: 210.73 - 267.76,
+            attach: "base",
         },
         point2: {
             x: 107.56,
-            y: 270.26,
+            y: 270.26 - 267.76,
+            attach: "base",
         },
         point3: {
             x: -0.14,
-            y: 269.99,
+            y: 269.99 - 267.76,
+            attach: "base",
         },
         point4: {
             x: -61.84,
-            y: 270.26,
+            y: 270.26 - 267.76,
+            attach: "base",
         },
         point5: {
             x: -107.57,
-            y: 238.06,
+            y: 238.06 - 267.76,
+            attach: "base",
         },
         point6: {
             x: -107.57,
@@ -93,51 +98,64 @@ export const QCapConfig = {
         },
         point7: {
             x: -107.57,
-            y: 110.86,
+            y: 110.86 - 80.5,
+            attach: "cap",
         },
         point8: {
             x: -61.57,
-            y: 77.85,
+            y: 77.85 - 80.5,
+            attach: "cap",
         },
         point9: {
             x: -0.14,
-            y: 77.85,
+            y: 77.85 - 80.5,
+            attach: "cap",
         },
         point10: {
             x: 53.44,
-            y: 77.85,
+            y: 77.85 - 80.5,
+            attach: "cap",
         },
         point11: {
             x: 87,
-            y: 99.5,
+            y: 99.5 - 80.5,
+            attach: "cap",
         },
         point12: {
             x: 100.26,
-            y: 140.09,
+            y: 140.09 - 80.5,
+            attach: "cap",
         },
         point13: {
             x: 104.32,
-            y: 152.27,
+            y: 152.27 - 80.5,
+            attach: "cap",
         },
         point14: {
             x: 106.21,
-            y: 178.79,
+            y: 178.79 - 80.5 * 0.5,
+            attach: "cap",
+            ratio: 0.5,
         },
         point15: {
             x: 95.94,
-            y: 196.65,
+            y: 196.65 - 267.76,
+            attach: "base",
         },
         point16: {
             x: 82.67,
-            y: 219.92,
+            y: 219.92 - 267.76,
+            attach: "base",
         },
         point17: {
             x: 41,
-            y: 242.66,
+            y: 242.66 - 267.76,
+            attach: "base",
         },
         point18: {
             x: 100,
-            y: 210.73,
+            y: 210.73 - 267.76,
+            attach: "base",
         },
         point19: {
             x: 35.03,
@@ -145,23 +163,28 @@ export const QCapConfig = {
         },
         point20: {
             x: 34.76,
-            y: 138.47,
+            y: 138.47 - 80.5,
+            attach: "cap",
         },
         point21: {
             x: 20.69,
-            y: 115.74,
+            y: 115.74 - 80.5,
+            attach: "cap",
         },
         point22: {
             x: -0.96,
-            y: 116.01,
+            y: 116.01 - 80.5,
+            attach: "cap",
         },
         point23: {
             x: -22.34,
-            y: 116.28,
+            y: 116.28 - 80.5,
+            attach: "cap",
         },
         point24: {
             x: -38.3,
-            y: 137.66,
+            y: 137.66 - 80.5,
+            attach: "cap",
         },
         point25: {
             x: -37.76,
@@ -169,23 +192,28 @@ export const QCapConfig = {
         },
         point26: {
             x: -37.22,
-            y: 212.35,
+            y: 212.35 - 267.76,
+            attach: "base",
         },
         point27: {
             x: -21.79,
-            y: 232.37,
+            y: 232.37 - 267.76,
+            attach: "base",
         },
         point28: {
             x: 0.67,
-            y: 231.83,
+            y: 231.83 - 267.76,
+            attach: "base",
         },
         point29: {
             x: 22.59,
-            y: 231.29,
+            y: 231.29 - 267.76,
+            attach: "base",
         },
         point30: {
             x: 35.58,
-            y: 208.56,
+            y: 208.56 - 267.76,
+            attach: "base",
         },
         point31: {
             x: 35.04,
@@ -200,7 +228,8 @@ export const QCapConfig = {
             r: 19.21,
             pos: {
                 x: -0.01,
-                y: 251.06,
+                y: 251.06 - 267.76,
+                attach: "base",
             },
             affects: [
                 {
@@ -479,7 +508,8 @@ export const QCapConfig = {
             r: 19.08,
             pos: {
                 x: -1.36,
-                y: 96.94,
+                y: 96.94 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {

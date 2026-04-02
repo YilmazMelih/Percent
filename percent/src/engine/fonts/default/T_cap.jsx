@@ -46,35 +46,43 @@ export const TCapConfig = {
     points: {
         point1: {
             x: 88.63,
-            y: 125.69,
+            y: 125.69 - 80.5,
+            attach: "cap",
         },
         point2: {
             x: 33.41,
-            y: 125.96,
+            y: 125.96 - 80.5,
+            attach: "cap",
         },
         point3: {
             x: 33.69,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point4: {
             x: -33.97,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point5: {
             x: -33.97,
-            y: 125.96,
+            y: 125.96 - 80.5,
+            attach: "cap",
         },
         point6: {
             x: -88.63,
-            y: 125.69,
+            y: 125.69 - 80.5,
+            attach: "cap",
         },
         point7: {
             x: -88.63,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
         point8: {
             x: 88.63,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
     },
     nodes: [
@@ -85,7 +93,8 @@ export const TCapConfig = {
             r: 33.76,
             pos: {
                 x: -0.19,
-                y: 189.05,
+                y: 189.05 - 267.76,
+                attach: "base",
             },
             affects: [
                 {
@@ -137,7 +146,8 @@ export const TCapConfig = {
             r: 22.65,
             pos: {
                 x: 58.11,
-                y: 103.15,
+                y: 103.15 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {

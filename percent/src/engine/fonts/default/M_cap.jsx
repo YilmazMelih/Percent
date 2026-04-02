@@ -66,11 +66,13 @@ export const MCapConfig = {
     points: {
         point1: {
             x: 129.9,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point2: {
             x: 60.08,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point3: {
             x: 56.28,
@@ -78,11 +80,13 @@ export const MCapConfig = {
         },
         point4: {
             x: 15.97,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point5: {
             x: -14.34,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point6: {
             x: -57.1,
@@ -90,19 +94,23 @@ export const MCapConfig = {
         },
         point7: {
             x: -58.99,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point8: {
             x: -129.89,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point9: {
             x: -115.28,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
         point10: {
             x: -52.5,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
         point11: {
             x: 0,
@@ -110,11 +118,13 @@ export const MCapConfig = {
         },
         point12: {
             x: 51.96,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
         point13: {
             x: 108.78,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
     },
     nodes: [
@@ -125,7 +135,8 @@ export const MCapConfig = {
             r: 34.2,
             pos: {
                 x: -92.52,
-                y: 231.25,
+                y: 231.25 - 267.76,
+                attach: "base",
             },
             affects: [
                 {
@@ -173,7 +184,8 @@ export const MCapConfig = {
             r: 33.42,
             pos: {
                 x: 92.05,
-                y: 231.25,
+                y: 231.25 - 267.76,
+                attach: "base",
             },
             affects: [
                 {

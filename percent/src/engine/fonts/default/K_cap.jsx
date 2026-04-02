@@ -62,11 +62,13 @@ export const KCapConfig = {
         },
         point2: {
             x: 100.67,
-            y: 268.3,
+            y: 268.3 - 267.76,
+            attach: "base",
         },
         point3: {
             x: 18.4,
-            y: 268.3,
+            y: 268.3 - 267.76,
+            attach: "base",
         },
         point4: {
             x: -24.36,
@@ -74,19 +76,23 @@ export const KCapConfig = {
         },
         point5: {
             x: -24.36,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point6: {
             x: -100.4,
-            y: 268.03,
+            y: 268.03 - 267.76,
+            attach: "base",
         },
         point7: {
             x: -100.67,
-            y: 81.31,
+            y: 81.31 - 80.5,
+            attach: "cap",
         },
         point8: {
             x: -24.36,
-            y: 81.31,
+            y: 81.31 - 80.5,
+            attach: "cap",
         },
         point9: {
             x: -24.36,
@@ -94,11 +100,13 @@ export const KCapConfig = {
         },
         point10: {
             x: 18.94,
-            y: 81.31,
+            y: 81.31 - 80.5,
+            attach: "cap",
         },
         point11: {
             x: 100.67,
-            y: 81.58,
+            y: 81.58 - 80.5,
+            attach: "cap",
         },
         point12: {
             x: 34.64,
@@ -113,7 +121,8 @@ export const KCapConfig = {
             r: 38.16,
             pos: {
                 x: -62.51,
-                y: 230.14,
+                y: 230.14 - 267.76,
+                attach: "base",
             },
             affects: [
                 {
@@ -205,7 +214,8 @@ export const KCapConfig = {
             r: 32.16,
             pos: {
                 x: 29.99,
-                y: 124.96,
+                y: 124.96 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {
@@ -262,7 +272,8 @@ export const KCapConfig = {
             r: 32.65,
             pos: {
                 x: 33.3,
-                y: 228.22,
+                y: 228.22 - 267.76,
+                attach: "base",
             },
             affects: [
                 {

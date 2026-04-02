@@ -30,19 +30,23 @@ export const ICapConfig = {
     points: {
         point1: {
             x: -38.02,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point2: {
             x: -38.02,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
         point3: {
             x: 38.02,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
         point4: {
             x: 38.02,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
     },
     nodes: [

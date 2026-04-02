@@ -86,31 +86,38 @@ export const GCapConfig = {
         },
         point2: {
             x: 103.61,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point3: {
             x: 61.66,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point4: {
             x: 53.81,
-            y: 225.81,
+            y: 225.81 - 267.76,
+            attach: "base",
         },
         point5: {
             x: 42.86,
-            y: 274.86,
+            y: 274.86 - 267.76,
+            attach: "base",
         },
         point6: {
             x: -18.67,
-            y: 274.86,
+            y: 274.86 - 267.76,
+            attach: "base",
         },
         point7: {
             x: -73.06,
-            y: 274.86,
+            y: 274.86 - 267.76,
+            attach: "base",
         },
         point8: {
             x: -103.61,
-            y: 227.08,
+            y: 227.08 - 267.76,
+            attach: "base",
         },
         point9: {
             x: -103.61,
@@ -118,67 +125,83 @@ export const GCapConfig = {
         },
         point10: {
             x: -103.61,
-            y: 107.64,
+            y: 107.64 - 80.5,
+            attach: "cap",
         },
         point11: {
             x: -51.46,
-            y: 75.89,
+            y: 75.89 - 80.5,
+            attach: "cap",
         },
         point12: {
             x: 2.93,
-            y: 75.62,
+            y: 75.62 - 80.5,
+            attach: "cap",
         },
         point13: {
             x: 38.92,
-            y: 75.62,
+            y: 75.62 - 80.5,
+            attach: "cap",
         },
         point14: {
             x: 62.74,
-            y: 86.99,
+            y: 86.99 - 80.5,
+            attach: "cap",
         },
         point15: {
             x: 78.97,
-            y: 104.85,
+            y: 104.85 - 80.5,
+            attach: "cap",
         },
         point16: {
             x: 94.94,
-            y: 122.44,
+            y: 122.44 - 80.5,
+            attach: "cap",
         },
         point17: {
             x: 96.83,
-            y: 137.05,
+            y: 137.05 - 80.5,
+            attach: "cap",
         },
         point18: {
             x: 32.15,
-            y: 151.93,
+            y: 151.93 - 80.5,
+            attach: "cap",
         },
         point19: {
             x: 27.82,
-            y: 132.18,
+            y: 132.18 - 80.5,
+            attach: "cap",
         },
         point20: {
             x: 19.7,
-            y: 123.79,
+            y: 123.79 - 80.5,
+            attach: "cap",
         },
         point21: {
             x: 2.38,
-            y: 123.52,
+            y: 123.52 - 80.5,
+            attach: "cap",
         },
         point22: {
             x: -10.34,
-            y: 123.52,
+            y: 123.52 - 80.5,
+            attach: "cap",
         },
         point23: {
             x: -22.52,
-            y: 130.83,
+            y: 130.83 - 80.5,
+            attach: "cap",
         },
         point24: {
             x: -29.82,
-            y: 145.44,
+            y: 145.44 - 80.5,
+            attach: "cap",
         },
         point25: {
             x: -35.5,
-            y: 157.08,
+            y: 157.08 - 80.5,
+            attach: "cap",
         },
         point26: {
             x: -40.1,
@@ -186,23 +209,28 @@ export const GCapConfig = {
         },
         point27: {
             x: -22.24,
-            y: 214.45,
+            y: 214.45 - 267.76,
+            attach: "base",
         },
         point28: {
             x: -9.79,
-            y: 229.6,
+            y: 229.6 - 267.76,
+            attach: "base",
         },
         point29: {
             x: 15.92,
-            y: 225.82,
+            y: 225.82 - 267.76,
+            attach: "base",
         },
         point30: {
             x: 24.85,
-            y: 218.24,
+            y: 218.24 - 267.76,
+            attach: "base",
         },
         point31: {
             x: 33.51,
-            y: 210.93,
+            y: 210.93 - 267.76,
+            attach: "base",
         },
         point32: {
             x: 34.32,
@@ -322,7 +350,8 @@ export const GCapConfig = {
             r: 24.52,
             pos: {
                 x: 18.47,
-                y: 101.01,
+                y: 101.01 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {

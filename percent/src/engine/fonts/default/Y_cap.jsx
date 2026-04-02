@@ -54,11 +54,13 @@ export const YCapConfig = {
         },
         point2: {
             x: 32.34,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point3: {
             x: -35.85,
-            y: 267.49,
+            y: 267.49 - 267.76,
+            attach: "base",
         },
         point4: {
             x: -35.04,
@@ -66,11 +68,13 @@ export const YCapConfig = {
         },
         point5: {
             x: -101.61,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
         point6: {
             x: -29.63,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
         point7: {
             x: -0.13,
@@ -78,11 +82,13 @@ export const YCapConfig = {
         },
         point8: {
             x: 31.53,
-            y: 80.77,
+            y: 80.77 - 80.5,
+            attach: "cap",
         },
         point9: {
             x: 101.61,
-            y: 81.31,
+            y: 81.31 - 80.5,
+            attach: "cap",
         },
     },
     nodes: [
@@ -93,7 +99,8 @@ export const YCapConfig = {
             r: 33.48,
             pos: {
                 x: -1.61,
-                y: 226.13,
+                y: 226.13 - 267.76,
+                attach: "base",
             },
             affects: [
                 {
@@ -141,7 +148,9 @@ export const YCapConfig = {
             r: 28.75,
             pos: {
                 x: -46.88,
-                y: 114.52,
+                y: 114.52 - 80.5 * 0.6,
+                attach: "cap",
+                ratio: 0.6,
             },
             affects: [
                 {
@@ -189,7 +198,9 @@ export const YCapConfig = {
             r: 27.61,
             pos: {
                 x: 46.87,
-                y: 114.07,
+                y: 114.07 - 80.5 * 0.6,
+                ratio: 0.6,
+                attach: "cap",
             },
             affects: [
                 {

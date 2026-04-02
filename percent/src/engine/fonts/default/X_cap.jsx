@@ -66,11 +66,13 @@ export const XCapConfig = {
         },
         point2: {
             x: 107.29,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point3: {
             x: 31.53,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point4: {
             x: 1.75,
@@ -78,11 +80,13 @@ export const XCapConfig = {
         },
         point5: {
             x: -29.36,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point6: {
             x: -107.29,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point7: {
             x: -35.59,
@@ -90,11 +94,13 @@ export const XCapConfig = {
         },
         point8: {
             x: -107.29,
-            y: 80.76,
+            y: 80.76 - 80.5,
+            attach: "cap",
         },
         point9: {
             x: -30.17,
-            y: 80.76,
+            y: 80.76 - 80.5,
+            attach: "cap",
         },
         point10: {
             x: 0.14,
@@ -102,11 +108,13 @@ export const XCapConfig = {
         },
         point11: {
             x: 31.53,
-            y: 80.76,
+            y: 80.76 - 80.5,
+            attach: "cap",
         },
         point12: {
             x: 107.29,
-            y: 80.76,
+            y: 80.76 - 80.5,
+            attach: "cap",
         },
         point13: {
             x: 37.75,
@@ -121,7 +129,9 @@ export const XCapConfig = {
             r: 29.41,
             pos: {
                 x: -46.78,
-                y: 112.23,
+                y: 112.23 - 80.5 * 0.5,
+                attach: "cap",
+                ratio: 0.5,
             },
             affects: [
                 {
@@ -169,7 +179,9 @@ export const XCapConfig = {
             r: 29.41,
             pos: {
                 x: 47.55,
-                y: 112.23,
+                y: 112.23 - 80.5 * 0.5,
+                attach: "cap",
+                ratio: 0.5,
             },
             affects: [
                 {
@@ -226,7 +238,9 @@ export const XCapConfig = {
             r: 28.76,
             pos: {
                 x: 44.57,
-                y: 231.62,
+                y: 231.62 - 267.76 * 0.5,
+                attach: "base",
+                ratio: 0.5,
             },
             affects: [
                 {
@@ -283,7 +297,9 @@ export const XCapConfig = {
             r: 28.76,
             pos: {
                 x: -42.51,
-                y: 231.62,
+                y: 231.62 - 267.76 * 0.5,
+                attach: "base",
+                ratio: 0.5,
             },
             affects: [
                 {

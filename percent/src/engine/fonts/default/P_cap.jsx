@@ -77,31 +77,39 @@ export const PCapConfig = {
         },
         point3: {
             x: -21.79,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point4: {
             x: -89.17,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point5: {
             x: -89.17,
-            y: 81.03,
+            y: 81.03 - 80.5,
+            attach: "cap",
         },
         point6: {
             x: 20.43,
-            y: 80.76,
+            y: 80.76 - 80.5,
+            attach: "cap",
         },
         point7: {
             x: 73.74,
-            y: 79.95,
+            y: 79.95 - 80.5,
+            attach: "cap",
         },
         point8: {
             x: 89.17,
-            y: 111.89,
+            y: 111.89 - 80.5,
+            attach: "cap",
         },
         point9: {
             x: 89.17,
-            y: 132.99,
+            y: 132.99 - 80.5 * 0.5,
+            attach: "cap",
+            ratio: 0.5,
         },
         point10: {
             x: 89.17,
@@ -129,23 +137,29 @@ export const PCapConfig = {
         },
         point16: {
             x: 25.57,
-            y: 141.11,
+            y: 141.11 - 80.5 * 0.5,
+            attach: "cap",
+            ratio: 0.5,
         },
         point17: {
             x: 25.57,
-            y: 129.74,
+            y: 129.74 - 80.5,
+            attach: "cap",
         },
         point18: {
             x: 20.7,
-            y: 117.57,
+            y: 117.57 - 80.5,
+            attach: "cap",
         },
         point19: {
             x: 3.92,
-            y: 117.57,
+            y: 117.57 - 80.5,
+            attach: "cap",
         },
         point20: {
             x: -21.79,
-            y: 117.57,
+            y: 117.57 - 80.5,
+            attach: "cap",
         },
         point21: {
             x: -21.79,
@@ -236,7 +250,9 @@ export const PCapConfig = {
             r: 31.8,
             pos: {
                 x: 57.36,
-                y: 141.11,
+                y: 141.11 - 80.5 * 0.5,
+                attach: "cap",
+                ratio: 0.5,
             },
             affects: [
                 {

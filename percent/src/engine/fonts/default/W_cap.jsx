@@ -66,15 +66,18 @@ export const WCapConfig = {
     points: {
         point1: {
             x: 142.21,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
         point2: {
             x: 97.55,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point3: {
             x: 24.49,
-            y: 267.49,
+            y: 267.49 - 267.76,
+            attach: "base",
         },
         point4: {
             x: -0.14,
@@ -82,19 +85,23 @@ export const WCapConfig = {
         },
         point5: {
             x: -24.22,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point6: {
             x: -94.04,
-            y: 267.22,
+            y: 267.22 - 267.76,
+            attach: "base",
         },
         point7: {
             x: -142.2,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
         point8: {
             x: -69.95,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
         point9: {
             x: -55.07,
@@ -102,11 +109,13 @@ export const WCapConfig = {
         },
         point10: {
             x: -22.34,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
         point11: {
             x: 23.66,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
         point12: {
             x: 57.5,
@@ -114,7 +123,8 @@ export const WCapConfig = {
         },
         point13: {
             x: 68.87,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
     },
     nodes: [
@@ -125,7 +135,8 @@ export const WCapConfig = {
             r: 32.26,
             pos: {
                 x: -93.68,
-                y: 139.37,
+                y: 139.37 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {
@@ -269,7 +280,8 @@ export const WCapConfig = {
             r: 31.71,
             pos: {
                 x: 94.51,
-                y: 143.01,
+                y: 143.01 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {

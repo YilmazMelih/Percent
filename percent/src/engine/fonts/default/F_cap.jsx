@@ -54,23 +54,28 @@ export const FCapConfig = {
     points: {
         point1: {
             x: -88.49,
-            y: 267.75,
+            y: 267.75 - 267.76,
+            attach: "base",
         },
         point2: {
             x: -88.49,
-            y: 81.3,
+            y: 81.3 - 80.5,
+            attach: "cap",
         },
         point3: {
             x: 88.22,
-            y: 81.3,
+            y: 81.3 - 80.5,
+            attach: "cap",
         },
         point4: {
             x: 88.49,
-            y: 125.95,
+            y: 125.95 - 80.5,
+            attach: "cap",
         },
         point5: {
             x: -12.18,
-            y: 126.22,
+            y: 126.22 - 80.5,
+            attach: "cap",
         },
         point6: {
             x: -12.18,
@@ -90,11 +95,13 @@ export const FCapConfig = {
         },
         point10: {
             x: -11.91,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point11: {
             x: -88.49,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
     },
     nodes: [
@@ -105,7 +112,8 @@ export const FCapConfig = {
             r: 38.2,
             pos: {
                 x: -50.29,
-                y: 229.26,
+                y: 229.26 - 267.76,
+                attach: "base",
             },
             affects: [
                 {
@@ -236,7 +244,8 @@ export const FCapConfig = {
             r: 22.4,
             pos: {
                 x: 35.49,
-                y: 103.7,
+                y: 103.7 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {

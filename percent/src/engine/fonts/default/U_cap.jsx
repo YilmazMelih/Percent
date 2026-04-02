@@ -54,75 +54,93 @@ export const UCapConfig = {
     points: {
         point1: {
             x: -2.47,
-            y: 271.28,
+            y: 271.28 - 267.76,
+            attach: "base",
         },
         point2: {
             x: -76.18,
-            y: 271.28,
+            y: 271.28 - 267.76,
+            attach: "base",
         },
         point3: {
             x: -91.33,
-            y: 221.76,
+            y: 221.76 - 267.76,
+            attach: "base",
         },
         point4: {
             x: -91.06,
-            y: 190.1,
+            y: 190.1 - 267.76,
+            attach: "base",
         },
         point5: {
             x: -91.33,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
         point6: {
             x: -26.66,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
         point7: {
             x: -25.84,
-            y: 179,
+            y: 179 - 267.76,
+            attach: "base",
         },
         point8: {
             x: -25.31,
-            y: 200.11,
+            y: 200.11 - 267.76,
+            attach: "base",
         },
         point9: {
             x: -25.84,
-            y: 226.09,
+            y: 226.09 - 267.76,
+            attach: "base",
         },
         point10: {
             x: -0.13,
-            y: 225.82,
+            y: 225.82 - 267.76,
+            attach: "base",
         },
         point11: {
             x: 26.66,
-            y: 225.55,
+            y: 225.55 - 267.76,
+            attach: "base",
         },
         point12: {
             x: 25.58,
-            y: 197.95,
+            y: 197.95 - 267.76,
+            attach: "base",
         },
         point13: {
             x: 25.84,
-            y: 178.46,
+            y: 178.46 - 267.76,
+            attach: "base",
         },
         point14: {
             x: 25.58,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
         point15: {
             x: 91.34,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
         point16: {
             x: 91.34,
-            y: 190.64,
+            y: 190.64 - 267.76,
+            attach: "base",
         },
         point17: {
             x: 91.34,
-            y: 221.76,
+            y: 221.76 - 267.76,
+            attach: "base",
         },
         point18: {
             x: 84.25,
-            y: 271.28,
+            y: 271.28 - 267.76,
+            attach: "base",
         },
     },
     nodes: [
@@ -133,7 +151,8 @@ export const UCapConfig = {
             r: 32.62,
             pos: {
                 x: -58.72,
-                y: 137.46,
+                y: 137.46 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {
@@ -217,7 +236,8 @@ export const UCapConfig = {
             r: 22.72,
             pos: {
                 x: -0.01,
-                y: 248.55,
+                y: 248.55 - 267.76,
+                attach: "base",
             },
             affects: [
                 {
@@ -274,7 +294,8 @@ export const UCapConfig = {
             r: 32.8,
             pos: {
                 x: 58.53,
-                y: 137.46,
+                y: 137.46 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {

@@ -62,31 +62,38 @@ export const ECapConfig = {
     points: {
         point1: {
             x: 88.5,
-            y: 221.21,
+            y: 221.21 - 267.76,
+            attach: "base",
         },
         point2: {
             x: 88.22,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point3: {
             x: -88.49,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point4: {
             x: -88.49,
-            y: 81.31,
+            y: 81.31 - 80.5,
+            attach: "cap",
         },
         point5: {
             x: 88.22,
-            y: 81.31,
+            y: 81.31 - 80.5,
+            attach: "cap",
         },
         point6: {
             x: 88.49,
-            y: 126.23,
+            y: 126.23 - 80.5,
+            attach: "cap",
         },
         point7: {
             x: -12.19,
-            y: 126.23,
+            y: 126.23 - 80.5,
+            attach: "cap",
         },
         point8: {
             x: -12.19,
@@ -106,11 +113,13 @@ export const ECapConfig = {
         },
         point12: {
             x: -11.91,
-            y: 221.22,
+            y: 221.22 - 267.76,
+            attach: "base",
         },
         point13: {
             x: 88.49,
-            y: 221.22,
+            y: 221.22 - 267.76,
+            attach: "base",
         },
     },
     nodes: [
@@ -121,7 +130,8 @@ export const ECapConfig = {
             r: 22.46,
             pos: {
                 x: 12.63,
-                y: 103.37,
+                y: 103.37 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {
@@ -211,7 +221,8 @@ export const ECapConfig = {
             r: 23.34,
             pos: {
                 x: 12.63,
-                y: 244.01,
+                y: 244.01 - 267.76,
+                attach: "base",
             },
             affects: [
                 {

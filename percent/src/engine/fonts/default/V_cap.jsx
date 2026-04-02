@@ -46,39 +46,50 @@ export const VCapConfig = {
     points: {
         point1: {
             x: 105.13,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
         point2: {
             x: 35.85,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point3: {
             x: -36.67,
-            y: 267.49,
+            y: 267.49 - 267.76,
+            attach: "base",
         },
         point4: {
             x: -105.14,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
         point5: {
             x: -29.1,
-            y: 80.5,
+            y: 80.5 - 80.5,
+            attach: "cap",
         },
         point6: {
             x: 0.4,
-            y: 205.25,
+            y: 205.25 - 267.76 * 0.5,
+            attach: "base",
+            ratio: 0.5,
         },
         point7: {
             x: 1.48,
-            y: 205.25,
+            y: 205.25 - 267.76 * 0.5,
+            attach: "base",
+            ratio: 0.5,
         },
         point8: {
             x: 29.62,
-            y: 80.77,
+            y: 80.77 - 80.5,
+            attach: "cap",
         },
         point9: {
             x: 105.13,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
     },
     nodes: [

@@ -54,43 +54,55 @@ export const NCapConfig = {
     points: {
         point1: {
             x: 95.94,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point2: {
             x: 25.57,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point3: {
             x: -29.64,
-            y: 180.62,
+            y: 180.62 - 80.5 * 0.5,
+            attach: "cap",
+            ratio: 0.5,
         },
         point4: {
             x: -29.37,
-            y: 267.22,
+            y: 267.22 - 267.76,
+            attach: "base",
         },
         point5: {
             x: -95.94,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point6: {
             x: -95.94,
-            y: 80.76,
+            y: 80.76 - 80.5,
+            attach: "cap",
         },
         point7: {
             x: -22.87,
-            y: 80.76,
+            y: 80.76 - 80.5,
+            attach: "cap",
         },
         point8: {
             x: 31.79,
-            y: 170.88,
+            y: 170.88 - 267.76 * 0.5,
+            attach: "base",
+            ratio: 0.5,
         },
         point9: {
             x: 31.79,
-            y: 81.31,
+            y: 81.31 - 80.5,
+            attach: "cap",
         },
         point10: {
             x: 95.94,
-            y: 80.77,
+            y: 80.77 - 80.5,
+            attach: "cap",
         },
     },
     nodes: [
@@ -101,7 +113,8 @@ export const NCapConfig = {
             r: 33.22,
             pos: {
                 x: -62.71,
-                y: 220.75,
+                y: 220.75 - 267.76,
+                attach: "base",
             },
             affects: [
                 {
@@ -206,7 +219,8 @@ export const NCapConfig = {
             r: 32.02,
             pos: {
                 x: 63.91,
-                y: 123.58,
+                y: 123.58 - 80.5,
+                attach: "cap",
             },
             affects: [
                 {
