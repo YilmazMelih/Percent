@@ -46,42 +46,42 @@ export const TCapConfig = {
     points: {
         point1: {
             x: 88.63,
-            y: 125.69 - 80.5,
+            y: 125.69,
             attach: "cap",
         },
         point2: {
             x: 33.41,
-            y: 125.96 - 80.5,
+            y: 125.96,
             attach: "cap",
         },
         point3: {
             x: 33.69,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point4: {
             x: -33.97,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point5: {
             x: -33.97,
-            y: 125.96 - 80.5,
+            y: 125.96,
             attach: "cap",
         },
         point6: {
             x: -88.63,
-            y: 125.69 - 80.5,
+            y: 125.69,
             attach: "cap",
         },
         point7: {
             x: -88.63,
-            y: 80.5 - 80.5,
+            y: 80.5,
             attach: "cap",
         },
         point8: {
             x: 88.63,
-            y: 80.5 - 80.5,
+            y: 80.5,
             attach: "cap",
         },
     },
@@ -93,7 +93,7 @@ export const TCapConfig = {
             r: 33.76,
             pos: {
                 x: -0.19,
-                y: 189.05 - 267.76,
+                y: 189.05,
                 attach: "base",
             },
             affects: [
@@ -102,7 +102,7 @@ export const TCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             TCapConfig.points.point2,
-                            { x: -0.19, y: TCapConfig.points.point2.y },
+                            { ...TCapConfig.points.point2, x: -0.19 },
                             0,
                         )(base, val);
                     },
@@ -112,7 +112,7 @@ export const TCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             TCapConfig.points.point3,
-                            { x: -0.19, y: TCapConfig.points.point3.y },
+                            { ...TCapConfig.points.point3, x: -0.19 },
                             0,
                         )(base, val);
                     },
@@ -122,7 +122,7 @@ export const TCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             TCapConfig.points.point4,
-                            { x: -0.19, y: TCapConfig.points.point4.y },
+                            { ...TCapConfig.points.point4, x: -0.19 },
                             0,
                         )(base, val);
                     },
@@ -132,7 +132,7 @@ export const TCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             TCapConfig.points.point5,
-                            { x: -0.19, y: TCapConfig.points.point5.y },
+                            { ...TCapConfig.points.point5, x: -0.19 },
                             0,
                         )(base, val);
                     },
@@ -146,7 +146,7 @@ export const TCapConfig = {
             r: 22.65,
             pos: {
                 x: 58.11,
-                y: 103.15 - 80.5,
+                y: 103.15,
                 attach: "cap",
             },
             affects: [
@@ -155,7 +155,7 @@ export const TCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             TCapConfig.points.point1,
-                            { x: TCapConfig.points.point1.x, y: 80.5 },
+                            { ...TCapConfig.points.point1, y: 80.5 },
                             0,
                         )(base, val);
                     },
@@ -165,7 +165,7 @@ export const TCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             TCapConfig.points.point2,
-                            { x: TCapConfig.points.point2.x, y: 80.5 },
+                            { ...TCapConfig.points.point2, y: 80.5 },
                             0,
                         )(base, val);
                     },
@@ -175,7 +175,7 @@ export const TCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             TCapConfig.points.point5,
-                            { x: TCapConfig.points.point5.x, y: 80.5 },
+                            { ...TCapConfig.points.point5, y: 80.5 },
                             0,
                         )(base, val);
                     },
@@ -185,7 +185,7 @@ export const TCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             TCapConfig.points.point6,
-                            { x: TCapConfig.points.point6.x, y: 80.5 },
+                            { ...TCapConfig.points.point6, y: 80.5 },
                             0,
                         )(base, val);
                     },

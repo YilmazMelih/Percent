@@ -66,12 +66,12 @@ export const MCapConfig = {
     points: {
         point1: {
             x: 129.9,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point2: {
             x: 60.08,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point3: {
@@ -80,12 +80,12 @@ export const MCapConfig = {
         },
         point4: {
             x: 15.97,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point5: {
             x: -14.34,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point6: {
@@ -94,22 +94,22 @@ export const MCapConfig = {
         },
         point7: {
             x: -58.99,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point8: {
             x: -129.89,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point9: {
             x: -115.28,
-            y: 81.04 - 80.5,
+            y: 81.04,
             attach: "cap",
         },
         point10: {
             x: -52.5,
-            y: 81.04 - 80.5,
+            y: 81.04,
             attach: "cap",
         },
         point11: {
@@ -118,12 +118,12 @@ export const MCapConfig = {
         },
         point12: {
             x: 51.96,
-            y: 81.04 - 80.5,
+            y: 81.04,
             attach: "cap",
         },
         point13: {
             x: 108.78,
-            y: 81.04 - 80.5,
+            y: 81.04,
             attach: "cap",
         },
     },
@@ -135,7 +135,7 @@ export const MCapConfig = {
             r: 34.2,
             pos: {
                 x: -92.52,
-                y: 231.25 - 267.76,
+                y: 231.25,
                 attach: "base",
             },
             affects: [
@@ -144,7 +144,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point6,
-                            { x: -67.97, y: 170.34 },
+                            { ...MCapConfig.points.point6, x: -67.97, y: 170.34 },
                             0,
                         )(base, val),
                 },
@@ -153,7 +153,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point7,
-                            { x: -72.08, y: 268.84 },
+                            { ...MCapConfig.points.point7, x: -72.08, y: 268.84 },
                             0,
                         )(base, val),
                 },
@@ -162,7 +162,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point8,
-                            { x: -95.93, y: 268.57 },
+                            { ...MCapConfig.points.point8, x: -95.93, y: 268.57 },
                             0,
                         )(base, val),
                 },
@@ -171,7 +171,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point9,
-                            { x: -84.55, y: 79.96 },
+                            { ...MCapConfig.points.point9, x: -84.55, y: 79.96 },
                             0,
                         )(base, val),
                 },
@@ -184,7 +184,7 @@ export const MCapConfig = {
             r: 33.42,
             pos: {
                 x: 92.05,
-                y: 231.25 - 267.76,
+                y: 231.25,
                 attach: "base",
             },
             affects: [
@@ -193,7 +193,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point13,
-                            { x: 81.57, y: 79.96 },
+                            { ...MCapConfig.points.point13, x: 81.57, y: 79.96 },
                             0,
                         )(base, val),
                 },
@@ -202,7 +202,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point1,
-                            { x: 95.93, y: 268.84 },
+                            { ...MCapConfig.points.point1, x: 95.93, y: 268.84 },
                             0,
                         )(base, val),
                 },
@@ -211,7 +211,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point2,
-                            { x: 71.01, y: 268.84 },
+                            { ...MCapConfig.points.point2, x: 71.01, y: 268.84 },
                             0,
                         )(base, val),
                 },
@@ -220,7 +220,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point3,
-                            { x: 66.35, y: 171.75 },
+                            { ...MCapConfig.points.point3, x: 66.35, y: 171.75 },
                             0,
                         )(base, val),
                 },
@@ -241,7 +241,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point10,
-                            { x: -69.38, y: 79.96 },
+                            { ...MCapConfig.points.point10, x: -69.38, y: 79.96 },
                             0,
                         )(base, val),
                 },
@@ -250,7 +250,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point11,
-                            { x: -11.29, y: 201.61 },
+                            { ...MCapConfig.points.point11, x: -11.29, y: 201.61 },
                             0,
                         )(base, val),
                 },
@@ -259,7 +259,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point5,
-                            { x: -2.72, y: 268.56 },
+                            { ...MCapConfig.points.point5, x: -2.72, y: 268.56 },
                             0,
                         )(base, val),
                 },
@@ -268,7 +268,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point6,
-                            { x: -57.1, y: 158.46 },
+                            { ...MCapConfig.points.point6, x: -57.1, y: 158.46 },
                             0,
                         )(base, val),
                 },
@@ -289,7 +289,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point12,
-                            { x: 65.86, y: 79.96 },
+                            { ...MCapConfig.points.point12, x: 65.86, y: 79.96 },
                             0,
                         )(base, val),
                 },
@@ -298,7 +298,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point11,
-                            { x: 9.62, y: 202.07 },
+                            { ...MCapConfig.points.point11, x: 9.62, y: 202.07 },
                             0,
                         )(base, val),
                 },
@@ -307,7 +307,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point4,
-                            { x: 0.81, y: 268.57 },
+                            { ...MCapConfig.points.point4, x: 0.81, y: 268.57 },
                             0,
                         )(base, val),
                 },
@@ -316,7 +316,7 @@ export const MCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             MCapConfig.points.point3,
-                            { x: 56.28, y: 155.74 },
+                            { ...MCapConfig.points.point3, x: 56.28, y: 155.74 },
                             0,
                         )(base, val),
                 },

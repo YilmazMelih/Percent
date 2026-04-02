@@ -30,22 +30,22 @@ export const ICapConfig = {
     points: {
         point1: {
             x: -38.02,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point2: {
             x: -38.02,
-            y: 81.04 - 80.5,
+            y: 81.04,
             attach: "cap",
         },
         point3: {
             x: 38.02,
-            y: 81.04 - 80.5,
+            y: 81.04,
             attach: "cap",
         },
         point4: {
             x: 38.02,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
     },
@@ -65,7 +65,7 @@ export const ICapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ICapConfig.points.point1,
-                            { x: 0, y: ICapConfig.points.point1.y },
+                            { ...ICapConfig.points.point1, x: 0 },
                             0,
                         )(base, val),
                 },
@@ -74,7 +74,7 @@ export const ICapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ICapConfig.points.point2,
-                            { x: 0, y: ICapConfig.points.point2.y },
+                            { ...ICapConfig.points.point2, x: 0 },
                             0,
                         )(base, val),
                 },
@@ -83,7 +83,7 @@ export const ICapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ICapConfig.points.point3,
-                            { x: 0, y: ICapConfig.points.point3.y },
+                            { ...ICapConfig.points.point3, x: 0 },
                             0,
                         )(base, val),
                 },
@@ -92,7 +92,7 @@ export const ICapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ICapConfig.points.point4,
-                            { x: 0, y: ICapConfig.points.point4.y },
+                            { ...ICapConfig.points.point4, x: 0 },
                             0,
                         )(base, val),
                 },

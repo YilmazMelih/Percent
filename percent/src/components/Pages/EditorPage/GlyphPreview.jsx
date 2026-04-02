@@ -13,6 +13,13 @@ const GlyphPreview = ({ config, nodeSize, nodeX, nodeY, showNodes, guideLines })
             <path fill={showNodes ? "#ccc" : "#333"} d={d}></path>
             {showNodes &&
                 config.nodes.map((node) => {
+                    const defaultGuideLines = {
+                        ascender: 30.5,
+                        cap_height: 80.5,
+                        x_height: 136.25,
+                        baseline: 267.76,
+                        descender: 320,
+                    };
                     const size = nodeSize[node.id] * node.r;
                     const tx = nodeX?.[node.id] ?? 0;
                     let ty = nodeY?.[node.id] ?? 0;
@@ -20,19 +27,23 @@ const GlyphPreview = ({ config, nodeSize, nodeX, nodeY, showNodes, guideLines })
                         const r = node.pos.ratio ?? 1;
                         switch (node.pos.attach) {
                             case "asc":
-                                ty = ty + guideLines.ascender * r;
+                                ty = ty + guideLines.ascender * r - defaultGuideLines.ascender * r;
                                 break;
                             case "cap":
-                                ty = ty + guideLines.cap_height * r;
+                                ty =
+                                    ty +
+                                    guideLines.cap_height * r -
+                                    defaultGuideLines.cap_height * r;
                                 break;
                             case "xh":
-                                ty = ty + guideLines.x_height * r;
+                                ty = ty + guideLines.x_height * r - defaultGuideLines.x_height * r;
                                 break;
                             case "base":
-                                ty = ty + guideLines.baseline * r;
+                                ty = ty + guideLines.baseline * r - defaultGuideLines.baseline * r;
                                 break;
                             case "desc":
-                                ty = ty + guideLines.descender * r;
+                                ty =
+                                    ty + guideLines.descender * r - defaultGuideLines.descender * r;
                                 break;
                             default:
                                 break;

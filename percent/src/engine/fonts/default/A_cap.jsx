@@ -21,17 +21,17 @@ export const ACapConfig = {
         { cmd: "Z" },
     ],
     points: {
-        rightBottomRight: { x: 105.14, y: 0, attach: "base" },
-        rightBottomLeft: { x: 29.1, y: 0, attach: "base" },
+        rightBottomRight: { x: 105.14, y: 267.76, attach: "base" },
+        rightBottomLeft: { x: 29.1, y: 267.76, attach: "base" },
         midBottomRight: { x: 21.52, y: 237.18 },
         midBottomLeft: { x: -22.06, y: 237.45 },
-        leftBottomRight: { x: -29.64, y: 0, attach: "base" },
-        leftBottomLeft: { x: -105.14, y: 0, attach: "base" },
-        leftTop: { x: -44.79, y: 0, attach: "cap" },
-        rightTop: { x: 43.71, y: 0, attach: "cap" },
+        leftBottomRight: { x: -29.64, y: 267.76, attach: "base" },
+        leftBottomLeft: { x: -105.14, y: 267.76, attach: "base" },
+        leftTop: { x: -44.79, y: 80.5, attach: "cap" },
+        rightTop: { x: 43.71, y: 80.5, attach: "cap" },
         centBottomRight: { x: 12.86, y: 193.89 },
-        centTopRight: { x: -0.41, y: 136.25 - 80.5, attach: "cap" },
-        centTopLeft: { x: -1.76, y: 136.25 - 80.5, attach: "cap" },
+        centTopRight: { x: -0.41, y: 136.25, attach: "cap" },
+        centTopLeft: { x: -1.76, y: 136.25, attach: "cap" },
         centBottomLeft: { x: -13.67, y: 193.89 },
     },
     nodes: [
@@ -47,7 +47,7 @@ export const ACapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ACapConfig.points.midBottomLeft,
-                            { x: -22.06, y: 215.535 },
+                            { ...ACapConfig.points.midBottomLeft, x: -22.06, y: 215.535 },
                             0,
                         )(base, val),
                 },
@@ -56,7 +56,7 @@ export const ACapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ACapConfig.points.midBottomRight,
-                            { x: 21.52, y: 215.535 },
+                            { ...ACapConfig.points.midBottomRight, x: 21.52, y: 215.535 },
                             0,
                         )(base, val),
                 },
@@ -65,7 +65,7 @@ export const ACapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ACapConfig.points.centBottomRight,
-                            { x: 12.86, y: 215.535 },
+                            { ...ACapConfig.points.centBottomRight, x: 12.86, y: 215.535 },
                             0,
                         )(base, val),
                 },
@@ -74,7 +74,7 @@ export const ACapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ACapConfig.points.centBottomLeft,
-                            { x: -13.67, y: 215.535 },
+                            { ...ACapConfig.points.centBottomLeft, x: -13.67, y: 215.535 },
                             0,
                         )(base, val),
                 },
@@ -95,7 +95,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.leftBottomLeft,
-                            { x: -29.64, y: 267.22 },
+                            { ...ACapConfig.points.leftBottomLeft, x: -29.64, y: 267.22 },
                             -1,
                         )(base, val);
                         return { ...out, y: base.y };
@@ -106,7 +106,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.leftBottomRight,
-                            { x: -105.14, y: 267.76 },
+                            { ...ACapConfig.points.leftBottomRight, x: -105.14, y: 267.76 },
                             -1,
                         )(base, val);
                         return { ...out, y: base.y };
@@ -117,7 +117,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.midBottomLeft,
-                            { x: -95.37, y: 237.45 },
+                            { ...ACapConfig.points.midBottomLeft, x: -95.37, y: 237.45 },
                             -1,
                         )(base, val);
                         return { ...out, y: base.y };
@@ -128,7 +128,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.centTopLeft,
-                            { x: -62.99, y: 136.25 },
+                            { ...ACapConfig.points.centTopLeft, x: -62.99, y: 136.25 },
                             -1,
                         )(base, val);
                         return { ...out, y: base.y };
@@ -139,7 +139,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.centBottomLeft,
-                            { x: -81.62, y: 193.89 },
+                            { ...ACapConfig.points.centBottomLeft, x: -81.62, y: 193.89 },
                             -1,
                         )(base, val);
                         return { ...out, y: base.y };
@@ -150,7 +150,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.leftTop,
-                            { x: 9.76, y: 80.5 },
+                            { ...ACapConfig.points.leftTop, x: 9.76, y: 80.5 },
                             -1,
                         )(base, val);
                         return { ...out, y: base.y };
@@ -173,7 +173,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.rightBottomLeft,
-                            { x: 105.14, y: 267.76 },
+                            { ...ACapConfig.points.rightBottomLeft, x: 105.14, y: 267.76 },
                             -1,
                         )(base, val);
                         return { ...out, y: base.y };
@@ -184,7 +184,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.rightBottomRight,
-                            { x: 29.1, y: 267.76 },
+                            { ...ACapConfig.points.rightBottomRight, x: 29.1, y: 267.76 },
                             -1,
                         )(base, val);
                         return { ...out, y: base.y };
@@ -195,7 +195,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.midBottomRight,
-                            { x: 95.11, y: 237.18 },
+                            { ...ACapConfig.points.midBottomRight, x: 95.11, y: 237.18 },
                             -1,
                         )(base, val);
                         return { ...out, y: base.y };
@@ -206,7 +206,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.centTopRight,
-                            { x: 61.99, y: 136.25 },
+                            { ...ACapConfig.points.centTopRight, x: 61.99, y: 136.25 },
                             -1,
                         )(base, val);
                         return { ...out, y: base.y };
@@ -217,7 +217,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.centBottomRight,
-                            { x: 80.9, y: 193.89 },
+                            { ...ACapConfig.points.centBottomRight, x: 80.9, y: 193.89 },
                             -1,
                         )(base, val);
                         return { ...out, y: base.y };
@@ -228,7 +228,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.rightTop,
-                            { x: -13.25, y: 80.5 },
+                            { ...ACapConfig.points.rightTop, x: -13.25, y: 80.5 },
                             -1,
                         )(base, val);
                         return { ...out, y: base.y };
@@ -243,7 +243,7 @@ export const ACapConfig = {
             r: 30.75,
             pos: {
                 x: 0,
-                y: 108.375 - 80.5,
+                y: 108.375,
                 attach: "cap",
             },
             affects: [
@@ -252,7 +252,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.centTopRight,
-                            { x: -0.41, y: 108.375 },
+                            { ...ACapConfig.points.centTopRight, x: -0.41, y: 108.375 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -263,7 +263,7 @@ export const ACapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ACapConfig.points.centTopLeft,
-                            { x: -1.76, y: 108.375 },
+                            { ...ACapConfig.points.centTopLeft, x: -1.76, y: 108.375 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };

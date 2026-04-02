@@ -348,25 +348,47 @@ export function buildPath(config, nodeVals, nodeX, nodeY, guideLines) {
 
 export function computeGlyphPoints(config, nodeVals, nodeX, nodeY, guideLines) {
     const computedPoints = { ...config.points };
+    const defaultGuideLines = {
+        ascender: 30.5,
+        cap_height: 80.5,
+        x_height: 136.25,
+        baseline: 267.76,
+        descender: 320,
+    };
     for (const key in computedPoints) {
         const value = computedPoints[key];
         if (value && value.attach) {
             const r = value.ratio ?? 1;
             switch (value.attach) {
                 case "asc":
-                    computedPoints[key] = { ...value, y: value.y + guideLines.ascender * r };
+                    computedPoints[key] = {
+                        ...value,
+                        y: value.y + guideLines.ascender * r - defaultGuideLines.ascender * r,
+                    };
                     break;
                 case "cap":
-                    computedPoints[key] = { ...value, y: value.y + guideLines.cap_height * r };
+                    computedPoints[key] = {
+                        ...value,
+                        y: value.y + guideLines.cap_height * r - defaultGuideLines.cap_height * r,
+                    };
                     break;
                 case "xh":
-                    computedPoints[key] = { ...value, y: value.y + guideLines.x_height * r };
+                    computedPoints[key] = {
+                        ...value,
+                        y: value.y + guideLines.x_height * r - defaultGuideLines.x_height * r,
+                    };
                     break;
                 case "base":
-                    computedPoints[key] = { ...value, y: value.y + guideLines.baseline * r };
+                    computedPoints[key] = {
+                        ...value,
+                        y: value.y + guideLines.baseline * r - defaultGuideLines.baseline * r,
+                    };
                     break;
                 case "desc":
-                    computedPoints[key] = { ...value, y: value.y + guideLines.descender * r };
+                    computedPoints[key] = {
+                        ...value,
+                        y: value.y + guideLines.descender * r - defaultGuideLines.descender * r,
+                    };
                     break;
                 default:
                     break;
@@ -422,6 +444,13 @@ export function buildNodes(
     onRingPointerDown,
     onRingPointerUp,
 ) {
+    const defaultGuideLines = {
+        ascender: 30.5,
+        cap_height: 80.5,
+        x_height: 136.25,
+        baseline: 267.76,
+        descender: 320,
+    };
     return config.nodes.map((node) => {
         const tx = nodeX?.[node.id] ?? 0;
         const ty = nodeY?.[node.id] ?? 0;
@@ -430,19 +459,19 @@ export function buildNodes(
             const r = node.pos.ratio ?? 1;
             switch (node.pos.attach) {
                 case "asc":
-                    y = y + guideLines.ascender * r;
+                    y = y + guideLines.ascender * r - defaultGuideLines.ascender * r;
                     break;
                 case "cap":
-                    y = y + guideLines.cap_height * r;
+                    y = y + guideLines.cap_height * r - defaultGuideLines.cap_height * r;
                     break;
                 case "xh":
-                    y = y + guideLines.x_height * r;
+                    y = y + guideLines.x_height * r - defaultGuideLines.x_height * r;
                     break;
                 case "base":
-                    y = y + guideLines.baseline * r;
+                    y = y + guideLines.baseline * r - defaultGuideLines.baseline * r;
                     break;
                 case "desc":
-                    y = y + guideLines.descender * r;
+                    y = y + guideLines.descender * r - defaultGuideLines.descender * r;
                     break;
                 default:
                     break;
@@ -516,11 +545,34 @@ export function makeCopyDeltaFromInterpolation(sourceBase, sourceSec, ratio = 0)
                 break;
         }
     }
+    let secY = sourceSec.y;
+    if (sourceSec.attach) {
+        const r = sourceSec.ratio ?? 1;
+        switch (sourceSec.attach) {
+            case "asc":
+                secY += guideLines.ascender * r;
+                break;
+            case "cap":
+                secY += guideLines.cap_height * r;
+                break;
+            case "xh":
+                secY += guideLines.x_height * r;
+                break;
+            case "base":
+                secY += guideLines.baseline * r;
+                break;
+            case "desc":
+                secY += guideLines.descender * r;
+                break;
+            default:
+                break;
+        }
+    }
     return (baseOther, val) => {
         const movedSource = interpolateFromBase(
             val,
             { x: sourceBase.x, y: baseY },
-            sourceSec,
+            { x: sourceSec.x, y: secY },
             ratio,
         );
         const dx = movedSource.x - sourceBase.x;

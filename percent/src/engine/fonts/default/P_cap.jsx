@@ -77,37 +77,37 @@ export const PCapConfig = {
         },
         point3: {
             x: -21.79,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point4: {
             x: -89.17,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point5: {
             x: -89.17,
-            y: 81.03 - 80.5,
+            y: 81.03,
             attach: "cap",
         },
         point6: {
             x: 20.43,
-            y: 80.76 - 80.5,
+            y: 80.76,
             attach: "cap",
         },
         point7: {
             x: 73.74,
-            y: 79.95 - 80.5,
+            y: 79.95,
             attach: "cap",
         },
         point8: {
             x: 89.17,
-            y: 111.89 - 80.5,
+            y: 111.89,
             attach: "cap",
         },
         point9: {
             x: 89.17,
-            y: 132.99 - 80.5 * 0.5,
+            y: 132.99,
             attach: "cap",
             ratio: 0.5,
         },
@@ -137,28 +137,28 @@ export const PCapConfig = {
         },
         point16: {
             x: 25.57,
-            y: 141.11 - 80.5 * 0.5,
+            y: 141.11,
             attach: "cap",
             ratio: 0.5,
         },
         point17: {
             x: 25.57,
-            y: 129.74 - 80.5,
+            y: 129.74,
             attach: "cap",
         },
         point18: {
             x: 20.7,
-            y: 117.57 - 80.5,
+            y: 117.57,
             attach: "cap",
         },
         point19: {
             x: 3.92,
-            y: 117.57 - 80.5,
+            y: 117.57,
             attach: "cap",
         },
         point20: {
             x: -21.79,
-            y: 117.57 - 80.5,
+            y: 117.57,
             attach: "cap",
         },
         point21: {
@@ -186,7 +186,7 @@ export const PCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point2,
-                            { x: -55.48, y: PCapConfig.points.point2.y },
+                            { ...PCapConfig.points.point2, x: -55.48 },
                             0,
                         )(base, val);
                     },
@@ -196,7 +196,7 @@ export const PCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point3,
-                            { x: -55.48, y: PCapConfig.points.point3.y },
+                            { ...PCapConfig.points.point3, x: -55.48 },
                             0,
                         )(base, val);
                     },
@@ -206,7 +206,7 @@ export const PCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point4,
-                            { x: -55.48, y: PCapConfig.points.point4.y },
+                            { ...PCapConfig.points.point4, x: -55.48 },
                             0,
                         )(base, val);
                     },
@@ -216,7 +216,7 @@ export const PCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point5,
-                            { x: -55.48, y: PCapConfig.points.point5.y },
+                            { ...PCapConfig.points.point5, x: -55.48 },
                             0,
                         )(base, val);
                     },
@@ -226,7 +226,7 @@ export const PCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point20,
-                            { x: -55.48, y: PCapConfig.points.point20.y },
+                            { ...PCapConfig.points.point20, x: -55.48 },
                             0,
                         )(base, val);
                     },
@@ -236,7 +236,7 @@ export const PCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point21,
-                            { x: -55.48, y: PCapConfig.points.point21.y },
+                            { ...PCapConfig.points.point21, x: -55.48 },
                             0,
                         )(base, val);
                     },
@@ -250,7 +250,7 @@ export const PCapConfig = {
             r: 31.8,
             pos: {
                 x: 57.36,
-                y: 141.11 - 80.5 * 0.5,
+                y: 141.11,
                 attach: "cap",
                 ratio: 0.5,
             },
@@ -260,7 +260,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point6,
-                            { x: 0.59, y: 79.83 },
+                            { ...PCapConfig.points.point6, x: 0.59, y: 79.83 },
                             0,
                         )(base, val),
                 },
@@ -269,7 +269,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point7,
-                            { x: 53.89, y: 79.02 },
+                            { ...PCapConfig.points.point7, x: 53.89, y: 79.02 },
                             0,
                         )(base, val),
                 },
@@ -278,7 +278,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point8,
-                            { x: 69.16, y: 106.32 },
+                            { ...PCapConfig.points.point8, x: 69.16, y: 106.32 },
                             0,
                         )(base, val),
                 },
@@ -287,7 +287,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point9,
-                            { x: 69.16, y: 134.92 },
+                            { ...PCapConfig.points.point9, x: 69.16, y: 134.92 },
                             0,
                         )(base, val),
                 },
@@ -296,7 +296,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point10,
-                            { x: 69.16, y: 179.18 },
+                            { ...PCapConfig.points.point10, x: 69.16, y: 179.18 },
                             0,
                         )(base, val),
                 },
@@ -305,7 +305,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point11,
-                            { x: 38.47, y: 194.18 },
+                            { ...PCapConfig.points.point11, x: 38.47, y: 194.18 },
                             0,
                         )(base, val),
                 },
@@ -314,7 +314,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point12,
-                            { x: 0.19, y: 194.18 },
+                            { ...PCapConfig.points.point12, x: 0.19, y: 194.18 },
                             0,
                         )(base, val),
                 },
@@ -323,7 +323,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point2,
-                            { x: -21.78, y: 194.18 },
+                            { ...PCapConfig.points.point2, x: -21.78, y: 194.18 },
                             0,
                         )(base, val),
                 },
@@ -332,7 +332,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point20,
-                            { x: -21.78, y: 100.7 },
+                            { ...PCapConfig.points.point20, x: -21.78, y: 100.7 },
                             0,
                         )(base, val),
                 },
@@ -341,7 +341,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point19,
-                            { x: 3.94, y: 100.7 },
+                            { ...PCapConfig.points.point19, x: 3.94, y: 100.7 },
                             0,
                         )(base, val),
                 },
@@ -350,7 +350,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point18,
-                            { x: 40.28, y: 100.7 },
+                            { ...PCapConfig.points.point18, x: 40.28, y: 100.7 },
                             0,
                         )(base, val),
                 },
@@ -359,7 +359,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point17,
-                            { x: 44.78, y: 125.37 },
+                            { ...PCapConfig.points.point17, x: 44.78, y: 125.37 },
                             0,
                         )(base, val),
                 },
@@ -368,7 +368,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point16,
-                            { x: 44.78, y: 136.74 },
+                            { ...PCapConfig.points.point16, x: 44.78, y: 136.74 },
                             0,
                         )(base, val),
                 },
@@ -377,7 +377,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point15,
-                            { x: 44.78, y: 145.13 },
+                            { ...PCapConfig.points.point15, x: 44.78, y: 145.13 },
                             0,
                         )(base, val),
                 },
@@ -386,7 +386,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point14,
-                            { x: 43.31, y: 173.05 },
+                            { ...PCapConfig.points.point14, x: 43.31, y: 173.05 },
                             0,
                         )(base, val),
                 },
@@ -395,7 +395,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point22,
-                            { x: 4.2, y: 173.06 },
+                            { ...PCapConfig.points.point22, x: 4.2, y: 173.06 },
                             0,
                         )(base, val),
                 },
@@ -404,7 +404,7 @@ export const PCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             PCapConfig.points.point21,
-                            { x: -21.78, y: 173.06 },
+                            { ...PCapConfig.points.point21, x: -21.78, y: 173.06 },
                             0,
                         )(base, val),
                 },

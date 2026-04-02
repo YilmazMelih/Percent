@@ -54,12 +54,12 @@ export const ZCapConfig = {
     points: {
         point1: {
             x: 1.9,
-            y: 221.21 - 267.76,
+            y: 221.21,
             attach: "base",
         },
         point2: {
             x: 84.71,
-            y: 220.67 - 267.76,
+            y: 220.67,
             attach: "base",
         },
         point3: {
@@ -68,47 +68,47 @@ export const ZCapConfig = {
         },
         point4: {
             x: 84.16,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point5: {
             x: -84.16,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point6: {
             x: -84.7,
-            y: 232.04 - 267.76,
+            y: 232.04,
             attach: "base",
         },
         point7: {
             x: 0,
-            y: 125.42 - 80.5,
+            y: 125.42,
             attach: "cap",
         },
         point8: {
             x: -84.7,
-            y: 125.42 - 80.5,
+            y: 125.42,
             attach: "cap",
         },
         point9: {
             x: -84.16,
-            y: 80.77 - 80.5,
+            y: 80.77,
             attach: "cap",
         },
         point10: {
             x: 84.69,
-            y: 80.77 - 80.5,
+            y: 80.77,
             attach: "cap",
         },
         point11: {
             x: 84.69,
-            y: 113.79 - 80.5,
+            y: 113.79,
             attach: "cap",
         },
         point12: {
             x: 1.89,
-            y: 221.22 - 267.76,
+            y: 221.22,
             attach: "base",
         },
     },
@@ -120,7 +120,7 @@ export const ZCapConfig = {
             r: 22.31,
             pos: {
                 x: -19.2,
-                y: 103.08 - 80.5,
+                y: 103.08,
                 attach: "cap",
             },
             affects: [
@@ -129,7 +129,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point7,
-                            { x: 19.37, y: 100.66 },
+                            { ...ZCapConfig.points.point7, x: 19.37, y: 100.66 },
                             0,
                         )(base, val),
                 },
@@ -138,7 +138,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point8,
-                            { x: -74.8, y: 101.36 },
+                            { ...ZCapConfig.points.point8, x: -74.8, y: 101.36 },
                             0,
                         )(base, val),
                 },
@@ -147,7 +147,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point9,
-                            { x: -74.8, y: 79.95 },
+                            { ...ZCapConfig.points.point9, x: -74.8, y: 79.95 },
                             0,
                         )(base, val),
                 },
@@ -160,7 +160,7 @@ export const ZCapConfig = {
             r: 23.34,
             pos: {
                 x: 38.97,
-                y: 244.42 - 267.76,
+                y: 244.42,
                 attach: "base",
             },
             affects: [
@@ -169,7 +169,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point12,
-                            { x: -18.79, y: 247.9 },
+                            { ...ZCapConfig.points.point12, x: -18.79, y: 247.9 },
                             0,
                         )(base, val),
                 },
@@ -178,7 +178,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point12,
-                            { x: -18.79, y: 247.9 },
+                            { ...ZCapConfig.points.point12, x: -18.79, y: 247.9 },
                             0,
                         )(base, val),
                 },
@@ -187,7 +187,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point2,
-                            { x: 74.8, y: 247.7 },
+                            { ...ZCapConfig.points.point2, x: 74.8, y: 247.7 },
                             0,
                         )(base, val),
                 },
@@ -196,7 +196,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point4,
-                            { x: 74.8, y: 268.57 },
+                            { ...ZCapConfig.points.point4, x: 74.8, y: 268.57 },
                             0,
                         )(base, val),
                 },
@@ -217,7 +217,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point10,
-                            { x: 69.98, y: 79.96 },
+                            { ...ZCapConfig.points.point10, x: 69.98, y: 79.96 },
                             0,
                         )(base, val),
                 },
@@ -226,7 +226,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point11,
-                            { x: 69.98, y: 97.85 },
+                            { ...ZCapConfig.points.point11, x: 69.98, y: 97.85 },
                             0,
                         )(base, val),
                 },
@@ -235,7 +235,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point7,
-                            { x: 19.42, y: 124.61 },
+                            { ...ZCapConfig.points.point7, x: 19.42, y: 124.61 },
                             0,
                         )(base, val),
                 },
@@ -244,7 +244,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point12,
-                            { x: -23.51, y: 220.41 },
+                            { ...ZCapConfig.points.point12, x: -23.51, y: 220.41 },
                             0,
                         )(base, val),
                 },
@@ -253,7 +253,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point12,
-                            { x: -23.51, y: 220.41 },
+                            { ...ZCapConfig.points.point12, x: -23.51, y: 220.41 },
                             0,
                         )(base, val),
                 },
@@ -262,7 +262,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point6,
-                            { x: -75.27, y: 249.59 },
+                            { ...ZCapConfig.points.point6, x: -75.27, y: 249.59 },
                             0,
                         )(base, val),
                 },
@@ -271,7 +271,7 @@ export const ZCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ZCapConfig.points.point5,
-                            { x: -75.27, y: 267.76 },
+                            { ...ZCapConfig.points.point5, x: -75.27, y: 267.76 },
                             0,
                         )(base, val),
                 },

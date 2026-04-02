@@ -54,92 +54,92 @@ export const UCapConfig = {
     points: {
         point1: {
             x: -2.47,
-            y: 271.28 - 267.76,
+            y: 271.28,
             attach: "base",
         },
         point2: {
             x: -76.18,
-            y: 271.28 - 267.76,
+            y: 271.28,
             attach: "base",
         },
         point3: {
             x: -91.33,
-            y: 221.76 - 267.76,
+            y: 221.76,
             attach: "base",
         },
         point4: {
             x: -91.06,
-            y: 190.1 - 267.76,
+            y: 190.1,
             attach: "base",
         },
         point5: {
             x: -91.33,
-            y: 80.5 - 80.5,
+            y: 80.5,
             attach: "cap",
         },
         point6: {
             x: -26.66,
-            y: 80.5 - 80.5,
+            y: 80.5,
             attach: "cap",
         },
         point7: {
             x: -25.84,
-            y: 179 - 267.76,
+            y: 179,
             attach: "base",
         },
         point8: {
             x: -25.31,
-            y: 200.11 - 267.76,
+            y: 200.11,
             attach: "base",
         },
         point9: {
             x: -25.84,
-            y: 226.09 - 267.76,
+            y: 226.09,
             attach: "base",
         },
         point10: {
             x: -0.13,
-            y: 225.82 - 267.76,
+            y: 225.82,
             attach: "base",
         },
         point11: {
             x: 26.66,
-            y: 225.55 - 267.76,
+            y: 225.55,
             attach: "base",
         },
         point12: {
             x: 25.58,
-            y: 197.95 - 267.76,
+            y: 197.95,
             attach: "base",
         },
         point13: {
             x: 25.84,
-            y: 178.46 - 267.76,
+            y: 178.46,
             attach: "base",
         },
         point14: {
             x: 25.58,
-            y: 80.5 - 80.5,
+            y: 80.5,
             attach: "cap",
         },
         point15: {
             x: 91.34,
-            y: 80.5 - 80.5,
+            y: 80.5,
             attach: "cap",
         },
         point16: {
             x: 91.34,
-            y: 190.64 - 267.76,
+            y: 190.64,
             attach: "base",
         },
         point17: {
             x: 91.34,
-            y: 221.76 - 267.76,
+            y: 221.76,
             attach: "base",
         },
         point18: {
             x: 84.25,
-            y: 271.28 - 267.76,
+            y: 271.28,
             attach: "base",
         },
     },
@@ -151,7 +151,7 @@ export const UCapConfig = {
             r: 32.62,
             pos: {
                 x: -58.72,
-                y: 137.46 - 80.5,
+                y: 137.46,
                 attach: "cap",
             },
             affects: [
@@ -160,7 +160,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point2,
-                            { x: -71.94, y: 266.69 },
+                            { ...UCapConfig.points.point2, x: -71.94, y: 266.69 },
                             0,
                         )(base, val),
                 },
@@ -169,7 +169,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point3,
-                            { x: -75.62, y: 220.89 },
+                            { ...UCapConfig.points.point3, x: -75.62, y: 220.89 },
                             0,
                         )(base, val),
                 },
@@ -178,7 +178,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point4,
-                            { x: -75.35, y: 189.23 },
+                            { ...UCapConfig.points.point4, x: -75.35, y: 189.23 },
                             0,
                         )(base, val),
                 },
@@ -187,7 +187,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point5,
-                            { x: -77.38, y: 80.2 },
+                            { ...UCapConfig.points.point5, x: -77.38, y: 80.2 },
                             0,
                         )(base, val),
                 },
@@ -196,7 +196,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point6,
-                            { x: -50.96, y: 80.2 },
+                            { ...UCapConfig.points.point6, x: -50.96, y: 80.2 },
                             0,
                         )(base, val),
                 },
@@ -205,7 +205,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point7,
-                            { x: -49.55, y: 178.81 },
+                            { ...UCapConfig.points.point7, x: -49.55, y: 178.81 },
                             0,
                         )(base, val),
                 },
@@ -214,7 +214,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point8,
-                            { x: -49.55, y: 214.26 },
+                            { ...UCapConfig.points.point8, x: -49.55, y: 214.26 },
                             0,
                         )(base, val),
                 },
@@ -223,7 +223,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point9,
-                            { x: -30.51, y: 227.7 },
+                            { ...UCapConfig.points.point9, x: -30.51, y: 227.7 },
                             0,
                         )(base, val),
                 },
@@ -236,7 +236,7 @@ export const UCapConfig = {
             r: 22.72,
             pos: {
                 x: -0.01,
-                y: 248.55 - 267.76,
+                y: 248.55,
                 attach: "base",
             },
             affects: [
@@ -245,7 +245,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point8,
-                            { x: -25.84, y: 231.44 },
+                            { ...UCapConfig.points.point8, x: -25.84, y: 231.44 },
                             0,
                         )(base, val),
                 },
@@ -254,7 +254,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point9,
-                            { x: -25.84, y: 249.57 },
+                            { ...UCapConfig.points.point9, x: -25.84, y: 249.57 },
                             0,
                         )(base, val),
                 },
@@ -263,7 +263,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point10,
-                            { x: -0.13, y: 249.57 },
+                            { ...UCapConfig.points.point10, x: -0.13, y: 249.57 },
                             0,
                         )(base, val),
                 },
@@ -272,7 +272,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point11,
-                            { x: 25.58, y: 249.57 },
+                            { ...UCapConfig.points.point11, x: 25.58, y: 249.57 },
                             0,
                         )(base, val),
                 },
@@ -281,7 +281,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point12,
-                            { x: 25.84, y: 235.07 },
+                            { ...UCapConfig.points.point12, x: 25.84, y: 235.07 },
                             0,
                         )(base, val),
                 },
@@ -294,7 +294,7 @@ export const UCapConfig = {
             r: 32.8,
             pos: {
                 x: 58.53,
-                y: 137.46 - 80.5,
+                y: 137.46,
                 attach: "cap",
             },
             affects: [
@@ -303,7 +303,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point18,
-                            { x: 77.24, y: 271.28 },
+                            { ...UCapConfig.points.point18, x: 77.24, y: 271.28 },
                             0,
                         )(base, val),
                 },
@@ -312,7 +312,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point17,
-                            { x: 76.23, y: 217.3 },
+                            { ...UCapConfig.points.point17, x: 76.23, y: 217.3 },
                             0,
                         )(base, val),
                 },
@@ -321,7 +321,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point16,
-                            { x: 76.23, y: 186.18 },
+                            { ...UCapConfig.points.point16, x: 76.23, y: 186.18 },
                             0,
                         )(base, val),
                 },
@@ -330,7 +330,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point15,
-                            { x: 77.24, y: 80.2 },
+                            { ...UCapConfig.points.point15, x: 77.24, y: 80.2 },
                             0,
                         )(base, val),
                 },
@@ -339,7 +339,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point14,
-                            { x: 51.22, y: 80.2 },
+                            { ...UCapConfig.points.point14, x: 51.22, y: 80.2 },
                             0,
                         )(base, val),
                 },
@@ -348,7 +348,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point13,
-                            { x: 50.51, y: 179.31 },
+                            { ...UCapConfig.points.point13, x: 50.51, y: 179.31 },
                             0,
                         )(base, val),
                 },
@@ -357,7 +357,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point12,
-                            { x: 50.51, y: 208.85 },
+                            { ...UCapConfig.points.point12, x: 50.51, y: 208.85 },
                             0,
                         )(base, val),
                 },
@@ -366,7 +366,7 @@ export const UCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             UCapConfig.points.point11,
-                            { x: 39.58, y: 230.78 },
+                            { ...UCapConfig.points.point11, x: 39.58, y: 230.78 },
                             0,
                         )(base, val),
                 },

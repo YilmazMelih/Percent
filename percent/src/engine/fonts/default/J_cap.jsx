@@ -46,7 +46,7 @@ export const JCapConfig = {
     points: {
         point1: {
             x: 89.44,
-            y: 80.5 - 80.5,
+            y: 80.5,
             attach: "cap",
         },
         point2: {
@@ -55,57 +55,57 @@ export const JCapConfig = {
         },
         point3: {
             x: 89.44,
-            y: 250.98 - 267.76,
+            y: 250.98,
             attach: "base",
         },
         point4: {
             x: 55.88,
-            y: 272.09 - 267.76,
+            y: 272.09,
             attach: "base",
         },
         point5: {
             x: 1.22,
-            y: 273.72 - 267.76,
+            y: 273.72,
             attach: "base",
         },
         point6: {
             x: -60.48,
-            y: 275.61 - 267.76,
+            y: 275.61,
             attach: "base",
         },
         point7: {
             x: -89.44,
-            y: 244.76 - 267.76,
+            y: 244.76,
             attach: "base",
         },
         point8: {
             x: -89.44,
-            y: 200.93 - 267.76,
+            y: 200.93,
             attach: "base",
         },
         point9: {
             x: -20.16,
-            y: 189.56 - 267.76,
+            y: 189.56,
             attach: "base",
         },
         point10: {
             x: -23.41,
-            y: 226.9 - 267.76,
+            y: 226.9,
             attach: "base",
         },
         point11: {
             x: -2.84,
-            y: 226.09 - 267.76,
+            y: 226.09,
             attach: "base",
         },
         point12: {
             x: 15.29,
-            y: 225.55 - 267.76,
+            y: 225.55,
             attach: "base",
         },
         point13: {
             x: 13.67,
-            y: 212.02 - 267.76,
+            y: 212.02,
             attach: "base",
         },
         point14: {
@@ -114,7 +114,7 @@ export const JCapConfig = {
         },
         point15: {
             x: 13.67,
-            y: 80.5 - 80.5,
+            y: 80.5,
             attach: "cap",
         },
     },
@@ -134,7 +134,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point12,
-                            { x: 22.7, y: 226.09 },
+                            { ...JCapConfig.points.point12, x: 22.7, y: 226.09 },
                             0,
                         )(base, val),
                 },
@@ -143,7 +143,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point13,
-                            { x: 26.69, y: 212.7 },
+                            { ...JCapConfig.points.point13, x: 26.69, y: 212.7 },
                             0,
                         )(base, val),
                 },
@@ -152,7 +152,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point14,
-                            { x: 26.69, y: 189.56 },
+                            { ...JCapConfig.points.point14, x: 26.69, y: 189.56 },
                             0,
                         )(base, val),
                 },
@@ -161,7 +161,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point15,
-                            { x: 26.69, y: 80.81 },
+                            { ...JCapConfig.points.point15, x: 26.69, y: 80.81 },
                             0,
                         )(base, val),
                 },
@@ -170,7 +170,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point1,
-                            { x: 49.72, y: 80.81 },
+                            { ...JCapConfig.points.point1, x: 49.72, y: 80.81 },
                             0,
                         )(base, val),
                 },
@@ -179,7 +179,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point2,
-                            { x: 49.73, y: 218.41 },
+                            { ...JCapConfig.points.point2, x: 49.73, y: 218.41 },
                             0,
                         )(base, val),
                 },
@@ -188,7 +188,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point3,
-                            { x: 49.73, y: 246.3 },
+                            { ...JCapConfig.points.point3, x: 49.73, y: 246.3 },
                             0,
                         )(base, val),
                 },
@@ -197,7 +197,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point4,
-                            { x: 40.13, y: 273.46 },
+                            { ...JCapConfig.points.point4, x: 40.13, y: 273.46 },
                             0,
                         )(base, val),
                 },
@@ -210,7 +210,7 @@ export const JCapConfig = {
             r: 28.42,
             pos: {
                 x: -34.23,
-                y: 241.13 - 267.76,
+                y: 241.13,
                 attach: "base",
             },
             affects: [
@@ -219,7 +219,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point6,
-                            { x: -36.18, y: 273.49 },
+                            { ...JCapConfig.points.point6, x: -36.18, y: 273.49 },
                             0,
                         )(base, val),
                 },
@@ -228,7 +228,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point7,
-                            { x: -45.19, y: 252.74 },
+                            { ...JCapConfig.points.point7, x: -45.19, y: 252.74 },
                             0,
                         )(base, val),
                 },
@@ -237,7 +237,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point8,
-                            { x: -49.73, y: 242.59 },
+                            { ...JCapConfig.points.point8, x: -49.73, y: 242.59 },
                             0,
                         )(base, val),
                 },
@@ -246,7 +246,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point9,
-                            { x: -26.42, y: 233.92 },
+                            { ...JCapConfig.points.point9, x: -26.42, y: 233.92 },
                             0,
                         )(base, val),
                 },
@@ -255,7 +255,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point10,
-                            { x: -22.09, y: 251.69 },
+                            { ...JCapConfig.points.point10, x: -22.09, y: 251.69 },
                             0,
                         )(base, val),
                 },
@@ -264,7 +264,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point11,
-                            { x: -2.35, y: 251.69 },
+                            { ...JCapConfig.points.point11, x: -2.35, y: 251.69 },
                             0,
                         )(base, val),
                 },
@@ -273,7 +273,7 @@ export const JCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             JCapConfig.points.point12,
-                            { x: 15.79, y: 251.69 },
+                            { ...JCapConfig.points.point12, x: 15.79, y: 251.69 },
                             0,
                         )(base, val),
                 },

@@ -54,54 +54,54 @@ export const NCapConfig = {
     points: {
         point1: {
             x: 95.94,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point2: {
             x: 25.57,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point3: {
             x: -29.64,
-            y: 180.62 - 80.5 * 0.5,
+            y: 180.62,
             attach: "cap",
             ratio: 0.5,
         },
         point4: {
             x: -29.37,
-            y: 267.22 - 267.76,
+            y: 267.22,
             attach: "base",
         },
         point5: {
             x: -95.94,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point6: {
             x: -95.94,
-            y: 80.76 - 80.5,
+            y: 80.76,
             attach: "cap",
         },
         point7: {
             x: -22.87,
-            y: 80.76 - 80.5,
+            y: 80.76,
             attach: "cap",
         },
         point8: {
             x: 31.79,
-            y: 170.88 - 267.76 * 0.5,
+            y: 170.88,
             attach: "base",
             ratio: 0.5,
         },
         point9: {
             x: 31.79,
-            y: 81.31 - 80.5,
+            y: 81.31,
             attach: "cap",
         },
         point10: {
             x: 95.94,
-            y: 80.77 - 80.5,
+            y: 80.77,
             attach: "cap",
         },
     },
@@ -113,7 +113,7 @@ export const NCapConfig = {
             r: 33.22,
             pos: {
                 x: -62.71,
-                y: 220.75 - 267.76,
+                y: 220.75,
                 attach: "base",
             },
             affects: [
@@ -122,7 +122,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point3,
-                            { x: -62.71, y: NCapConfig.points.point3.y },
+                            { ...NCapConfig.points.point3, x: -62.71 },
                             0,
                         )(base, val),
                 },
@@ -131,7 +131,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point4,
-                            { x: -62.71, y: NCapConfig.points.point4.y },
+                            { ...NCapConfig.points.point4, x: -62.71 },
                             0,
                         )(base, val),
                 },
@@ -140,7 +140,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point5,
-                            { x: -62.71, y: NCapConfig.points.point5.y },
+                            { ...NCapConfig.points.point5, x: -62.71 },
                             0,
                         )(base, val),
                 },
@@ -149,7 +149,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point6,
-                            { x: -62.71, y: NCapConfig.points.point6.y },
+                            { ...NCapConfig.points.point6, x: -62.71 },
                             0,
                         )(base, val),
                 },
@@ -158,7 +158,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point7,
-                            { x: -62.71, y: NCapConfig.points.point7.y },
+                            { ...NCapConfig.points.point7, x: -62.71 },
                             0,
                         )(base, val),
                 },
@@ -179,7 +179,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point3,
-                            { x: NCapConfig.points.point3.x, y: 130.69 },
+                            { ...NCapConfig.points.point3, y: 130.69 },
                             -0.25,
                         )(base, val),
                 },
@@ -188,7 +188,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point7,
-                            { x: -95.94, y: NCapConfig.points.point7.y },
+                            { ...NCapConfig.points.point7, x: -95.94 },
                             -0.25,
                         )(base, val),
                 },
@@ -197,7 +197,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point2,
-                            { x: 95.94, y: NCapConfig.points.point2.y },
+                            { ...NCapConfig.points.point2, x: 95.94 },
                             -0.25,
                         )(base, val),
                 },
@@ -206,7 +206,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point8,
-                            { x: NCapConfig.points.point8.x, y: 219.32 },
+                            { ...NCapConfig.points.point8, y: 219.32 },
                             -0.25,
                         )(base, val),
                 },
@@ -219,7 +219,7 @@ export const NCapConfig = {
             r: 32.02,
             pos: {
                 x: 63.91,
-                y: 123.58 - 80.5,
+                y: 123.58,
                 attach: "cap",
             },
             affects: [
@@ -228,7 +228,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point1,
-                            { x: 63.91, y: NCapConfig.points.point1.y },
+                            { ...NCapConfig.points.point1, x: 63.91 },
                             0,
                         )(base, val),
                 },
@@ -237,7 +237,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point2,
-                            { x: 63.91, y: NCapConfig.points.point2.y },
+                            { ...NCapConfig.points.point2, x: 63.91 },
                             0,
                         )(base, val),
                 },
@@ -246,7 +246,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point8,
-                            { x: 63.91, y: NCapConfig.points.point8.y },
+                            { ...NCapConfig.points.point8, x: 63.91 },
                             0,
                         )(base, val),
                 },
@@ -255,7 +255,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point9,
-                            { x: 63.91, y: NCapConfig.points.point9.y },
+                            { ...NCapConfig.points.point9, x: 63.91 },
                             0,
                         )(base, val),
                 },
@@ -264,7 +264,7 @@ export const NCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             NCapConfig.points.point10,
-                            { x: 63.91, y: NCapConfig.points.point10.y },
+                            { ...NCapConfig.points.point10, x: 63.91 },
                             0,
                         )(base, val),
                 },

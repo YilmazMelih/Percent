@@ -61,7 +61,7 @@ export const lConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             lConfig.points.point1,
-                            { x: 0, y: lConfig.points.point1.y },
+                            {...lConfig.points.point1, x: 0 },
                             0,
                         )(base, val),
                 },
@@ -70,7 +70,7 @@ export const lConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             lConfig.points.point2,
-                            { x: 0, y: lConfig.points.point2.y },
+                            {...lConfig.points.point2, x: 0 },
                             0,
                         )(base, val),
                 },
@@ -79,7 +79,7 @@ export const lConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             lConfig.points.point3,
-                            { x: 0, y: lConfig.points.point3.y },
+                            { ...lConfig.points.point3, x: 0 },
                             0,
                         )(base, val),
                 },
@@ -88,7 +88,7 @@ export const lConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             lConfig.points.point4,
-                            { x: 0, y: lConfig.points.point4.y },
+                            {...lConfig.points.point4, x: 0 },
                             0,
                         )(base, val),
                 },

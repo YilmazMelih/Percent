@@ -62,17 +62,17 @@ export const HCapConfig = {
     points: {
         point1: {
             x: 99.72,
-            y: 81.04 - 80.5,
+            y: 81.04,
             attach: "cap",
         },
         point2: {
             x: 99.72,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point3: {
             x: 23.68,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point4: {
@@ -85,22 +85,22 @@ export const HCapConfig = {
         },
         point6: {
             x: -23.68,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point7: {
             x: -99.72,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point8: {
             x: -99.72,
-            y: 81.04 - 80.5,
+            y: 81.04,
             attach: "cap",
         },
         point9: {
             x: -23.68,
-            y: 81.04 - 80.5,
+            y: 81.04,
             attach: "cap",
         },
         point10: {
@@ -113,7 +113,7 @@ export const HCapConfig = {
         },
         point12: {
             x: 23.68,
-            y: 81.04 - 80.5,
+            y: 81.04,
             attach: "cap",
         },
     },
@@ -125,7 +125,7 @@ export const HCapConfig = {
             r: 38,
             pos: {
                 x: -61.73,
-                y: 229.49 - 267.76,
+                y: 229.49,
                 attach: "base",
             },
             affects: [
@@ -134,7 +134,7 @@ export const HCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point5,
-                            { x: -61.73, y: HCapConfig.points.point5.y },
+                            { ...HCapConfig.points.point5, x: -61.73 },
                             0,
                         )(base, val),
                 },
@@ -143,7 +143,7 @@ export const HCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point6,
-                            { x: -61.73, y: HCapConfig.points.point6.y },
+                            { ...HCapConfig.points.point6, x: -61.73 },
                             0,
                         )(base, val),
                 },
@@ -152,7 +152,7 @@ export const HCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point7,
-                            { x: -61.73, y: HCapConfig.points.point7.y },
+                            { ...HCapConfig.points.point7, x: -61.73 },
                             0,
                         )(base, val),
                 },
@@ -161,7 +161,7 @@ export const HCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point8,
-                            { x: -61.73, y: HCapConfig.points.point8.y },
+                            { ...HCapConfig.points.point8, x: -61.73 },
                             0,
                         )(base, val),
                 },
@@ -170,7 +170,7 @@ export const HCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point9,
-                            { x: -61.73, y: HCapConfig.points.point9.y },
+                            { ...HCapConfig.points.point9, x: -61.73 },
                             0,
                         )(base, val),
                 },
@@ -179,7 +179,7 @@ export const HCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point10,
-                            { x: -61.73, y: HCapConfig.points.point10.y },
+                            { ...HCapConfig.points.point10, x: -61.73 },
                             0,
                         )(base, val),
                 },
@@ -200,7 +200,11 @@ export const HCapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point4,
-                            { x: HCapConfig.points.point4.x, y: 174.42 },
+                            {
+                                ...HCapConfig.points.point4,
+                                x: HCapConfig.points.point4.x,
+                                y: 174.42,
+                            },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -211,7 +215,7 @@ export const HCapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point5,
-                            { x: HCapConfig.points.point5.x, y: 174.42 },
+                            { ...HCapConfig.points.point5, y: 174.42 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -222,7 +226,7 @@ export const HCapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point10,
-                            { x: HCapConfig.points.point10.x, y: 174.42 },
+                            { ...HCapConfig.points.point10, y: 174.42 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -233,7 +237,7 @@ export const HCapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point11,
-                            { x: HCapConfig.points.point11.x, y: 174.42 },
+                            { ...HCapConfig.points.point11, y: 174.42 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -248,7 +252,7 @@ export const HCapConfig = {
             r: 38,
             pos: {
                 x: 61.71,
-                y: 229.49 - 267.76,
+                y: 229.49,
                 attach: "base",
             },
             affects: [
@@ -257,7 +261,7 @@ export const HCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point1,
-                            { x: 61.71, y: HCapConfig.points.point1.y },
+                            { ...HCapConfig.points.point1, x: 61.71 },
                             0,
                         )(base, val),
                 },
@@ -266,7 +270,7 @@ export const HCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point2,
-                            { x: 61.71, y: HCapConfig.points.point2.y },
+                            { ...HCapConfig.points.point2, x: 61.71 },
                             0,
                         )(base, val),
                 },
@@ -275,7 +279,7 @@ export const HCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point3,
-                            { x: 61.71, y: HCapConfig.points.point3.y },
+                            { ...HCapConfig.points.point3, x: 61.71 },
                             0,
                         )(base, val),
                 },
@@ -284,7 +288,7 @@ export const HCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point4,
-                            { x: 61.71, y: HCapConfig.points.point4.y },
+                            { ...HCapConfig.points.point4, x: 61.71 },
                             0,
                         )(base, val),
                 },
@@ -293,7 +297,7 @@ export const HCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point11,
-                            { x: 61.71, y: HCapConfig.points.point11.y },
+                            { ...HCapConfig.points.point11, x: 61.71 },
                             0,
                         )(base, val),
                 },
@@ -302,7 +306,7 @@ export const HCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             HCapConfig.points.point12,
-                            { x: 61.71, y: HCapConfig.points.point12.y },
+                            { ...HCapConfig.points.point12, x: 61.71 },
                             0,
                         )(base, val),
                 },

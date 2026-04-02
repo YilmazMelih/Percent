@@ -51,7 +51,7 @@ export const oConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             oConfig.points.leftOuter,
-                            { x: -57.975, y: oConfig.points.leftOuter.y },
+                            { ...oConfig.points.leftOuter, x: -57.975 },
                             0,
                         )(base, val),
                 },
@@ -60,7 +60,7 @@ export const oConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             oConfig.points.leftInner,
-                            { x: -57.975, y: oConfig.points.leftInner.y },
+                            { ...oConfig.points.leftInner, x: -57.975 },
                             0,
                         )(base, val),
                 },
@@ -69,7 +69,7 @@ export const oConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             oConfig.points.topLeftOCP,
-                            { x: -57.975, y: oConfig.points.topLeftOCP.y },
+                            { ...oConfig.points.topLeftOCP, x: -57.975 },
                             0,
                         )(base, val),
                 },
@@ -78,7 +78,7 @@ export const oConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             oConfig.points.bottomLeftOCP,
-                            { x: -57.975, y: oConfig.points.bottomLeftOCP.y },
+                            { ...oConfig.points.bottomLeftOCP, x: -57.975 },
                             0,
                         )(base, val),
                 },
@@ -87,7 +87,7 @@ export const oConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             oConfig.points.topLeftICP,
-                            { x: -57.975, y: oConfig.points.topLeftICP.y },
+                            { ...oConfig.points.topLeftICP, x: -57.975 },
                             0,
                         )(base, val),
                 },
@@ -96,7 +96,7 @@ export const oConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             oConfig.points.bottomLeftICP,
-                            { x: -57.975, y: oConfig.points.bottomLeftICP.y },
+                            { ...oConfig.points.bottomLeftICP, x: -57.975 },
                             0,
                         )(base, val),
                 },
@@ -114,7 +114,7 @@ export const oConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             oConfig.points.rightOuter,
-                            { x: 57.975, y: oConfig.points.rightOuter.y },
+                            { ...oConfig.points.rightOuter, x: 57.975 },
                             0,
                         )(base, val),
                 },
@@ -123,7 +123,7 @@ export const oConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             oConfig.points.rightInner,
-                            { x: 57.975, y: oConfig.points.rightInner.y },
+                            { ...oConfig.points.rightInner, x: 57.975 },
                             0,
                         )(base, val),
                 },
@@ -132,7 +132,7 @@ export const oConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             oConfig.points.topRightOCP,
-                            { x: 57.975, y: oConfig.points.topRightOCP.y },
+                            { ...oConfig.points.topRightOCP, x: 57.975 },
                             0,
                         )(base, val),
                 },
@@ -141,7 +141,7 @@ export const oConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             oConfig.points.bottomRightOCP,
-                            { x: 57.975, y: oConfig.points.bottomRightOCP.y },
+                            { ...oConfig.points.bottomRightOCP, x: 57.975 },
                             0,
                         )(base, val),
                 },
@@ -150,7 +150,7 @@ export const oConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             oConfig.points.topRightICP,
-                            { x: 57.975, y: oConfig.points.topRightICP.y },
+                            { ...oConfig.points.topRightICP, x: 57.975 },
                             0,
                         )(base, val),
                 },
@@ -159,7 +159,7 @@ export const oConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             oConfig.points.bottomRightICP,
-                            { x: 57.975, y: oConfig.points.bottomRightICP.y },
+                            { ...oConfig.points.bottomRightICP, x: 57.975 },
                             0,
                         )(base, val),
                 },
@@ -177,7 +177,7 @@ export const oConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             oConfig.points.topOuter,
-                            { x: oConfig.points.topOuter.x, y: 139.31 },
+                            { ...oConfig.points.topOuter, y: 139.31 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -188,7 +188,7 @@ export const oConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             oConfig.points.topInner,
-                            { x: oConfig.points.topInner.x, y: 139.31 },
+                            { ...oConfig.points.topInner, y: 139.31 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -199,7 +199,7 @@ export const oConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             oConfig.points.topRightOCP,
-                            { x: oConfig.points.topRightOCP.x, y: 139.31 },
+                            { ...oConfig.points.topRightOCP, y: 139.31 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -210,7 +210,7 @@ export const oConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             oConfig.points.topLeftOCP,
-                            { x: oConfig.points.topLeftOCP.x, y: 139.31 },
+                            { ...oConfig.points.topLeftOCP, y: 139.31 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -221,7 +221,7 @@ export const oConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             oConfig.points.topRightICP,
-                            { x: oConfig.points.topRightICP.x, y: 139.31 },
+                            { ...oConfig.points.topRightICP, y: 139.31 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -232,7 +232,7 @@ export const oConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             oConfig.points.topLeftICP,
-                            { x: oConfig.points.topLeftICP.x, y: 139.31 },
+                            { ...oConfig.points.topLeftICP, y: 139.31 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -252,7 +252,7 @@ export const oConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             oConfig.points.bottomOuter,
-                            { x: oConfig.points.bottomOuter.x, y: 255.76 },
+                            { ...oConfig.points.bottomOuter, y: 255.76 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -263,7 +263,7 @@ export const oConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             oConfig.points.bottomInner,
-                            { x: oConfig.points.bottomInner.x, y: 255.76 },
+                            { ...oConfig.points.bottomInner, y: 255.76 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -274,7 +274,7 @@ export const oConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             oConfig.points.bottomRightOCP,
-                            { x: oConfig.points.bottomRightOCP.x, y: 255.76 },
+                            { ...oConfig.points.bottomRightOCP, y: 255.76 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -285,7 +285,7 @@ export const oConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             oConfig.points.bottomLeftOCP,
-                            { x: oConfig.points.bottomLeftOCP.x, y: 255.76 },
+                            { ...oConfig.points.bottomLeftOCP, y: 255.76 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -296,7 +296,7 @@ export const oConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             oConfig.points.bottomRightICP,
-                            { x: oConfig.points.bottomRightICP.x, y: 255.76 },
+                            { ...oConfig.points.bottomRightICP, y: 255.76 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -307,7 +307,7 @@ export const oConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             oConfig.points.bottomLeftICP,
-                            { x: oConfig.points.bottomLeftICP.x, y: 255.76 },
+                            { ...oConfig.points.bottomLeftICP, y: 255.76 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };

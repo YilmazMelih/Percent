@@ -57,27 +57,27 @@ export const OCapConfig = {
         },
         point2: {
             x: 107.29,
-            y: 232.75 - 267.76,
+            y: 232.75,
             attach: "base",
         },
         point3: {
             x: 71.31,
-            y: 270.64 - 267.76,
+            y: 270.64,
             attach: "base",
         },
         point4: {
             x: -0.41,
-            y: 270.64 - 267.76,
+            y: 270.64,
             attach: "base",
         },
         point5: {
             x: -67.52,
-            y: 270.64 - 267.76,
+            y: 270.64,
             attach: "base",
         },
         point6: {
             x: -107.29,
-            y: 238.17 - 267.76,
+            y: 238.17,
             attach: "base",
         },
         point7: {
@@ -86,27 +86,27 @@ export const OCapConfig = {
         },
         point8: {
             x: -107.29,
-            y: 110.97 - 80.5,
+            y: 110.97,
             attach: "cap",
         },
         point9: {
             x: -61.83,
-            y: 78.5 - 80.5,
+            y: 78.5,
             attach: "cap",
         },
         point10: {
             x: -0.41,
-            y: 78.5 - 80.5,
+            y: 78.5,
             attach: "cap",
         },
         point11: {
             x: 69.15,
-            y: 78.5 - 80.5,
+            y: 78.5,
             attach: "cap",
         },
         point12: {
             x: 107.29,
-            y: 118.01 - 80.5,
+            y: 118.01,
             attach: "cap",
         },
         point13: {
@@ -115,27 +115,27 @@ export const OCapConfig = {
         },
         point14: {
             x: 35.05,
-            y: 141.01 - 80.5,
+            y: 141.01,
             attach: "cap",
         },
         point15: {
             x: 20.44,
-            y: 118.01 - 80.5,
+            y: 118.01,
             attach: "cap",
         },
         point16: {
             x: -1.22,
-            y: 118.01 - 80.5,
+            y: 118.01,
             attach: "cap",
         },
         point17: {
             x: -21.25,
-            y: 118.01 - 80.5,
+            y: 118.01,
             attach: "cap",
         },
         point18: {
             x: -36.94,
-            y: 138.85 - 80.5,
+            y: 138.85,
             attach: "cap",
         },
         point19: {
@@ -144,27 +144,27 @@ export const OCapConfig = {
         },
         point20: {
             x: -35.59,
-            y: 211.64 - 267.76,
+            y: 211.64,
             attach: "base",
         },
         point21: {
             x: -20.16,
-            y: 230.86 - 267.76,
+            y: 230.86,
             attach: "base",
         },
         point22: {
             x: 0.68,
-            y: 230.86 - 267.76,
+            y: 230.86,
             attach: "base",
         },
         point23: {
             x: 21.5,
-            y: 230.86 - 267.76,
+            y: 230.86,
             attach: "base",
         },
         point24: {
             x: 36.13,
-            y: 209.21 - 267.76,
+            y: 209.21,
             attach: "base",
         },
     },
@@ -184,7 +184,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point8,
-                            { x: -93.35, y: 110.97 },
+                            { ...OCapConfig.points.point8, x: -93.35, y: 110.97 },
                             0,
                         )(base, val),
                 },
@@ -193,7 +193,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point7,
-                            { x: -93.35, y: 174.57 },
+                            { ...OCapConfig.points.point7, x: -93.35, y: 174.57 },
                             0,
                         )(base, val),
                 },
@@ -202,7 +202,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point6,
-                            { x: -93.35, y: 238.17 },
+                            { ...OCapConfig.points.point6, x: -93.35, y: 238.17 },
                             0,
                         )(base, val),
                 },
@@ -211,7 +211,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point21,
-                            { x: -35.35, y: 230.86 },
+                            { ...OCapConfig.points.point21, x: -35.35, y: 230.86 },
                             0,
                         )(base, val),
                 },
@@ -220,7 +220,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point20,
-                            { x: -68.69, y: 226.52 },
+                            { ...OCapConfig.points.point20, x: -68.69, y: 226.52 },
                             0,
                         )(base, val),
                 },
@@ -229,7 +229,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point19,
-                            { x: -68.69, y: 174.57 },
+                            { ...OCapConfig.points.point19, x: -68.69, y: 174.57 },
                             0,
                         )(base, val),
                 },
@@ -238,7 +238,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point18,
-                            { x: -68.69, y: 122.62 },
+                            { ...OCapConfig.points.point18, x: -68.69, y: 122.62 },
                             0,
                         )(base, val),
                 },
@@ -247,7 +247,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point17,
-                            { x: -35.66, y: 118.01 },
+                            { ...OCapConfig.points.point17, x: -35.66, y: 118.01 },
                             0,
                         )(base, val),
                 },
@@ -268,7 +268,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point12,
-                            { x: 93.35, y: 127.19 },
+                            { ...OCapConfig.points.point12, x: 93.35, y: 127.19 },
                             0,
                         )(base, val),
                 },
@@ -277,7 +277,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point1,
-                            { x: 93.35, y: 174.7 },
+                            { ...OCapConfig.points.point1, x: 93.35, y: 174.7 },
                             0,
                         )(base, val),
                 },
@@ -286,7 +286,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point2,
-                            { x: 93.35, y: 217.99 },
+                            { ...OCapConfig.points.point2, x: 93.35, y: 217.99 },
                             0,
                         )(base, val),
                 },
@@ -295,7 +295,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point23,
-                            { x: 34.4, y: 230.87 },
+                            { ...OCapConfig.points.point23, x: 34.4, y: 230.87 },
                             0,
                         )(base, val),
                 },
@@ -304,7 +304,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point24,
-                            { x: 68.43, y: 226.83 },
+                            { ...OCapConfig.points.point24, x: 68.43, y: 226.83 },
                             0,
                         )(base, val),
                 },
@@ -313,7 +313,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point13,
-                            { x: 68.43, y: 174.45 },
+                            { ...OCapConfig.points.point13, x: 68.43, y: 174.45 },
                             0,
                         )(base, val),
                 },
@@ -322,7 +322,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point14,
-                            { x: 68.43, y: 119.88 },
+                            { ...OCapConfig.points.point14, x: 68.43, y: 119.88 },
                             0,
                         )(base, val),
                 },
@@ -331,7 +331,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point15,
-                            { x: 30.14, y: 118.02 },
+                            { ...OCapConfig.points.point15, x: 30.14, y: 118.02 },
                             0,
                         )(base, val),
                 },
@@ -344,7 +344,7 @@ export const OCapConfig = {
             r: 19.75,
             pos: {
                 x: -0.28,
-                y: 98.26 - 80.5,
+                y: 98.26,
                 attach: "cap",
             },
             affects: [
@@ -353,7 +353,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point18,
-                            { x: -36.13, y: 127.6 },
+                            { ...OCapConfig.points.point18, x: -36.13, y: 127.6 },
                             0,
                         )(base, val),
                 },
@@ -362,7 +362,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point17,
-                            { x: -35.32, y: 98.28 },
+                            { ...OCapConfig.points.point17, x: -35.32, y: 98.28 },
                             0,
                         )(base, val),
                 },
@@ -371,7 +371,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point16,
-                            { x: 0.14, y: 98.28 },
+                            { ...OCapConfig.points.point16, x: 0.14, y: 98.28 },
                             0,
                         )(base, val),
                 },
@@ -380,7 +380,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point15,
-                            { x: 35.59, y: 98.28 },
+                            { ...OCapConfig.points.point15, x: 35.59, y: 98.28 },
                             0,
                         )(base, val),
                 },
@@ -389,7 +389,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point14,
-                            { x: 35.59, y: 132.28 },
+                            { ...OCapConfig.points.point14, x: 35.59, y: 132.28 },
                             0,
                         )(base, val),
                 },
@@ -402,7 +402,7 @@ export const OCapConfig = {
             r: 19.75,
             pos: {
                 x: -0.01,
-                y: 250.89 - 267.76,
+                y: 250.89,
                 attach: "base",
             },
             affects: [
@@ -411,7 +411,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point20,
-                            { x: -36.13, y: 223.68 },
+                            { ...OCapConfig.points.point20, x: -36.13, y: 223.68 },
                             0,
                         )(base, val),
                 },
@@ -420,7 +420,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point21,
-                            { x: -36.16, y: 250.86 },
+                            { ...OCapConfig.points.point21, x: -36.16, y: 250.86 },
                             0,
                         )(base, val),
                 },
@@ -429,7 +429,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point22,
-                            { x: 0.14, y: 250.86 },
+                            { ...OCapConfig.points.point22, x: 0.14, y: 250.86 },
                             0,
                         )(base, val),
                 },
@@ -438,7 +438,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point23,
-                            { x: 36.43, y: 250.86 },
+                            { ...OCapConfig.points.point23, x: 36.43, y: 250.86 },
                             0,
                         )(base, val),
                 },
@@ -447,7 +447,7 @@ export const OCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             OCapConfig.points.point24,
-                            { x: 35.59, y: 225.74 },
+                            { ...OCapConfig.points.point24, x: 35.59, y: 225.74 },
                             0,
                         )(base, val),
                 },

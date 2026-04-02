@@ -85,22 +85,22 @@ export const RCapConfig = {
     points: {
         point1: {
             x: 95.66,
-            y: 267.49 - 267.76,
+            y: 267.49,
             attach: "base",
         },
         point2: {
             x: 23.41,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point3: {
             x: 19.62,
-            y: 262.08 - 267.76,
+            y: 262.08,
             attach: "base",
         },
         point4: {
             x: 16.64,
-            y: 242.86 - 267.76,
+            y: 242.86,
             attach: "base",
         },
         point5: {
@@ -113,37 +113,37 @@ export const RCapConfig = {
         },
         point7: {
             x: -26.12,
-            y: 267.21 - 267.76,
+            y: 267.21,
             attach: "base",
         },
         point8: {
             x: -94.04,
-            y: 267.48 - 267.76,
+            y: 267.48,
             attach: "base",
         },
         point9: {
             x: -95.66,
-            y: 80.49 - 80.5,
+            y: 80.49,
             attach: "cap",
         },
         point10: {
             x: -3.92,
-            y: 79.95 - 80.5,
+            y: 79.95,
             attach: "cap",
         },
         point11: {
             x: 58.86,
-            y: 77.79 - 80.5,
+            y: 77.79,
             attach: "cap",
         },
         point12: {
             x: 85.11,
-            y: 101.87 - 80.5,
+            y: 101.87,
             attach: "cap",
         },
         point13: {
             x: 84.84,
-            y: 134.61 - 80.5 * 0.5,
+            y: 134.61,
             attach: "cap",
             ratio: 0.5,
         },
@@ -169,38 +169,38 @@ export const RCapConfig = {
         },
         point19: {
             x: 88.09,
-            y: 253.14 - 267.76,
+            y: 253.14,
             attach: "base",
         },
         point20: {
             x: 95.66,
-            y: 267.48 - 267.76,
+            y: 267.48,
             attach: "base",
         },
         point21: {
             x: 21.51,
-            y: 137.33 - 80.5 * 0.5,
+            y: 137.33,
             attach: "cap",
             ratio: 0.5,
         },
         point22: {
             x: 21.51,
-            y: 124.61 - 80.5,
+            y: 124.61,
             attach: "cap",
         },
         point23: {
             x: 16.1,
-            y: 114.06 - 80.5,
+            y: 114.06,
             attach: "cap",
         },
         point24: {
             x: -2.57,
-            y: 114.33 - 80.5,
+            y: 114.33,
             attach: "cap",
         },
         point25: {
             x: -26.92,
-            y: 114.6 - 80.5,
+            y: 114.6,
             attach: "cap",
         },
         point26: {
@@ -221,7 +221,7 @@ export const RCapConfig = {
         },
         point30: {
             x: 21.52,
-            y: 137.33 - 80.5 * 0.5,
+            y: 137.33,
             attach: "cap",
             ratio: 0.5,
         },
@@ -234,7 +234,7 @@ export const RCapConfig = {
             r: 33.83,
             pos: {
                 x: -60.39,
-                y: 234.02 - 267.76,
+                y: 234.02,
                 attach: "base",
             },
             affects: [
@@ -243,7 +243,7 @@ export const RCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point6,
-                            { x: -60.39, y: RCapConfig.points.point6.y },
+                            { ...RCapConfig.points.point6, x: -60.39 },
                             0,
                         )(base, val);
                     },
@@ -253,7 +253,7 @@ export const RCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point7,
-                            { x: -60.39, y: RCapConfig.points.point7.y },
+                            { ...RCapConfig.points.point7, x: -60.39 },
                             0,
                         )(base, val);
                     },
@@ -263,7 +263,7 @@ export const RCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point8,
-                            { x: -60.39, y: RCapConfig.points.point8.y },
+                            { ...RCapConfig.points.point8, x: -60.39 },
                             0,
                         )(base, val);
                     },
@@ -273,7 +273,7 @@ export const RCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point9,
-                            { x: -60.39, y: RCapConfig.points.point9.y },
+                            { ...RCapConfig.points.point9, x: -60.39 },
                             0,
                         )(base, val);
                     },
@@ -283,7 +283,7 @@ export const RCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point26,
-                            { x: -60.39, y: RCapConfig.points.point26.y },
+                            { ...RCapConfig.points.point26, x: -60.39 },
                             0,
                         )(base, val);
                     },
@@ -293,7 +293,7 @@ export const RCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point25,
-                            { x: -60.39, y: RCapConfig.points.point25.y },
+                            { ...RCapConfig.points.point25, x: -60.39 },
                             0,
                         )(base, val);
                     },
@@ -307,7 +307,7 @@ export const RCapConfig = {
             r: 31.6,
             pos: {
                 x: 53.12,
-                y: 137.46 - 80.5 * 0.5,
+                y: 137.46,
                 attach: "cap",
                 ratio: 0.5,
             },
@@ -317,7 +317,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point11,
-                            { x: 38.02, y: 77.86 },
+                            { ...RCapConfig.points.point11, x: 38.02, y: 77.86 },
                             0,
                         )(base, val),
                 },
@@ -326,7 +326,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point12,
-                            { x: 62.46, y: 101.79 },
+                            { ...RCapConfig.points.point12, x: 62.46, y: 101.79 },
                             0,
                         )(base, val),
                 },
@@ -335,7 +335,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point13,
-                            { x: 62.56, y: 134.54 },
+                            { ...RCapConfig.points.point13, x: 62.56, y: 134.54 },
                             0,
                         )(base, val),
                 },
@@ -344,7 +344,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point15,
-                            { x: 14.77, y: 182.37 },
+                            { ...RCapConfig.points.point15, x: 14.77, y: 182.37 },
                             0,
                         )(base, val),
                 },
@@ -353,7 +353,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point28,
-                            { x: 18.55, y: 160.6 },
+                            { ...RCapConfig.points.point28, x: 18.55, y: 160.6 },
                             0,
                         )(base, val),
                 },
@@ -362,7 +362,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point29,
-                            { x: 35.71, y: 157 },
+                            { ...RCapConfig.points.point29, x: 35.71, y: 157 },
                             0,
                         )(base, val),
                 },
@@ -371,7 +371,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point30,
-                            { x: 36.87, y: 137.33 },
+                            { ...RCapConfig.points.point30, x: 36.87, y: 137.33 },
                             0,
                         )(base, val),
                 },
@@ -380,7 +380,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point30,
-                            { x: 36.87, y: 137.33 },
+                            { ...RCapConfig.points.point30, x: 36.87, y: 137.33 },
                             0,
                         )(base, val),
                 },
@@ -389,7 +389,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point22,
-                            { x: 38.46, y: 110.2 },
+                            { ...RCapConfig.points.point22, x: 38.46, y: 110.2 },
                             0,
                         )(base, val),
                 },
@@ -398,7 +398,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point14,
-                            { x: 62.71, y: 184.01 },
+                            { ...RCapConfig.points.point14, x: 62.71, y: 184.01 },
                             0,
                         )(base, val),
                 },
@@ -407,7 +407,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point16,
-                            { x: 33.44, y: 186.43 },
+                            { ...RCapConfig.points.point16, x: 33.44, y: 186.43 },
                             0,
                         )(base, val),
                 },
@@ -416,7 +416,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point23,
-                            { x: 14.38, y: 99.18 },
+                            { ...RCapConfig.points.point23, x: 14.38, y: 99.18 },
                             0,
                         )(base, val),
                 },
@@ -425,7 +425,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point24,
-                            { x: -2.57, y: 100.13 },
+                            { ...RCapConfig.points.point24, x: -2.57, y: 100.13 },
                             0,
                         )(base, val),
                 },
@@ -434,7 +434,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point25,
-                            { x: -26.92, y: 100.4 },
+                            { ...RCapConfig.points.point25, x: -26.92, y: 100.4 },
                             0,
                         )(base, val),
                 },
@@ -447,7 +447,7 @@ export const RCapConfig = {
             r: 32.72,
             pos: {
                 x: 49.12,
-                y: 235.13 - 267.76,
+                y: 235.13,
                 attach: "base",
             },
             affects: [
@@ -456,7 +456,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point5,
-                            { x: 17.5, y: 188.94 },
+                            { ...RCapConfig.points.point5, x: 17.5, y: 188.94 },
                             0,
                         )(base, val),
                 },
@@ -465,7 +465,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point4,
-                            { x: 29.9, y: 236.02 },
+                            { ...RCapConfig.points.point4, x: 29.9, y: 236.02 },
                             0,
                         )(base, val),
                 },
@@ -474,7 +474,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point3,
-                            { x: 35.53, y: 255.34 },
+                            { ...RCapConfig.points.point3, x: 35.53, y: 255.34 },
                             0,
                         )(base, val),
                 },
@@ -483,7 +483,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point2,
-                            { x: 42.68, y: 268.28 },
+                            { ...RCapConfig.points.point2, x: 42.68, y: 268.28 },
                             0,
                         )(base, val),
                 },
@@ -492,7 +492,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point20,
-                            { x: 74.39, y: 268.26 },
+                            { ...RCapConfig.points.point20, x: 74.39, y: 268.26 },
                             0,
                         )(base, val),
                 },
@@ -501,7 +501,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point20,
-                            { x: 74.39, y: 268.26 },
+                            { ...RCapConfig.points.point20, x: 74.39, y: 268.26 },
                             0,
                         )(base, val),
                 },
@@ -510,7 +510,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point19,
-                            { x: 68.81, y: 262.23 },
+                            { ...RCapConfig.points.point19, x: 68.81, y: 262.23 },
                             0,
                         )(base, val),
                 },
@@ -519,7 +519,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point18,
-                            { x: 60.85, y: 244.58 },
+                            { ...RCapConfig.points.point18, x: 60.85, y: 244.58 },
                             0,
                         )(base, val),
                 },
@@ -528,7 +528,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point17,
-                            { x: 52.33, y: 221.97 },
+                            { ...RCapConfig.points.point17, x: 52.33, y: 221.97 },
                             0,
                         )(base, val),
                 },
@@ -537,7 +537,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point16,
-                            { x: 43.81, y: 199.36 },
+                            { ...RCapConfig.points.point16, x: 43.81, y: 199.36 },
                             0,
                         )(base, val),
                 },
@@ -546,7 +546,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point15,
-                            { x: 28.38, y: 185.36 },
+                            { ...RCapConfig.points.point15, x: 28.38, y: 185.36 },
                             0,
                         )(base, val),
                 },
@@ -567,7 +567,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point6,
-                            { x: -27.01, y: 188.64 },
+                            { ...RCapConfig.points.point6, x: -27.01, y: 188.64 },
                             0,
                         )(base, val),
                 },
@@ -576,7 +576,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point5,
-                            { x: 14.46, y: 184.15 },
+                            { ...RCapConfig.points.point5, x: 14.46, y: 184.15 },
                             0,
                         )(base, val),
                 },
@@ -585,7 +585,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point26,
-                            { x: -26.28, y: 168.69 },
+                            { ...RCapConfig.points.point26, x: -26.28, y: 168.69 },
                             0,
                         )(base, val),
                 },
@@ -594,7 +594,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point27,
-                            { x: -1.75, y: 168.87 },
+                            { ...RCapConfig.points.point27, x: -1.75, y: 168.87 },
                             0,
                         )(base, val),
                 },
@@ -603,7 +603,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point28,
-                            { x: 18.55, y: 168.87 },
+                            { ...RCapConfig.points.point28, x: 18.55, y: 168.87 },
                             0,
                         )(base, val),
                 },
@@ -612,7 +612,7 @@ export const RCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             RCapConfig.points.point29,
-                            { x: 21.54, y: 155.35 },
+                            { ...RCapConfig.points.point29, x: 21.54, y: 155.35 },
                             0,
                         )(base, val),
                 },

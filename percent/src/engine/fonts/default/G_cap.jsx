@@ -86,37 +86,37 @@ export const GCapConfig = {
         },
         point2: {
             x: 103.61,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point3: {
             x: 61.66,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point4: {
             x: 53.81,
-            y: 225.81 - 267.76,
+            y: 225.81,
             attach: "base",
         },
         point5: {
             x: 42.86,
-            y: 274.86 - 267.76,
+            y: 274.86,
             attach: "base",
         },
         point6: {
             x: -18.67,
-            y: 274.86 - 267.76,
+            y: 274.86,
             attach: "base",
         },
         point7: {
             x: -73.06,
-            y: 274.86 - 267.76,
+            y: 274.86,
             attach: "base",
         },
         point8: {
             x: -103.61,
-            y: 227.08 - 267.76,
+            y: 227.08,
             attach: "base",
         },
         point9: {
@@ -125,82 +125,82 @@ export const GCapConfig = {
         },
         point10: {
             x: -103.61,
-            y: 107.64 - 80.5,
+            y: 107.64,
             attach: "cap",
         },
         point11: {
             x: -51.46,
-            y: 75.89 - 80.5,
+            y: 75.89,
             attach: "cap",
         },
         point12: {
             x: 2.93,
-            y: 75.62 - 80.5,
+            y: 75.62,
             attach: "cap",
         },
         point13: {
             x: 38.92,
-            y: 75.62 - 80.5,
+            y: 75.62,
             attach: "cap",
         },
         point14: {
             x: 62.74,
-            y: 86.99 - 80.5,
+            y: 86.99,
             attach: "cap",
         },
         point15: {
             x: 78.97,
-            y: 104.85 - 80.5,
+            y: 104.85,
             attach: "cap",
         },
         point16: {
             x: 94.94,
-            y: 122.44 - 80.5,
+            y: 122.44,
             attach: "cap",
         },
         point17: {
             x: 96.83,
-            y: 137.05 - 80.5,
+            y: 137.05,
             attach: "cap",
         },
         point18: {
             x: 32.15,
-            y: 151.93 - 80.5,
+            y: 151.93,
             attach: "cap",
         },
         point19: {
             x: 27.82,
-            y: 132.18 - 80.5,
+            y: 132.18,
             attach: "cap",
         },
         point20: {
             x: 19.7,
-            y: 123.79 - 80.5,
+            y: 123.79,
             attach: "cap",
         },
         point21: {
             x: 2.38,
-            y: 123.52 - 80.5,
+            y: 123.52,
             attach: "cap",
         },
         point22: {
             x: -10.34,
-            y: 123.52 - 80.5,
+            y: 123.52,
             attach: "cap",
         },
         point23: {
             x: -22.52,
-            y: 130.83 - 80.5,
+            y: 130.83,
             attach: "cap",
         },
         point24: {
             x: -29.82,
-            y: 145.44 - 80.5,
+            y: 145.44,
             attach: "cap",
         },
         point25: {
             x: -35.5,
-            y: 157.08 - 80.5,
+            y: 157.08,
             attach: "cap",
         },
         point26: {
@@ -209,27 +209,27 @@ export const GCapConfig = {
         },
         point27: {
             x: -22.24,
-            y: 214.45 - 267.76,
+            y: 214.45,
             attach: "base",
         },
         point28: {
             x: -9.79,
-            y: 229.6 - 267.76,
+            y: 229.6,
             attach: "base",
         },
         point29: {
             x: 15.92,
-            y: 225.82 - 267.76,
+            y: 225.82,
             attach: "base",
         },
         point30: {
             x: 24.85,
-            y: 218.24 - 267.76,
+            y: 218.24,
             attach: "base",
         },
         point31: {
             x: 33.51,
-            y: 210.93 - 267.76,
+            y: 210.93,
             attach: "base",
         },
         point32: {
@@ -265,7 +265,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point10,
-                            { x: -80.28, y: 115.83 },
+                            { ...GCapConfig.points.point10, x: -80.28, y: 115.83 },
                             0,
                         )(base, val),
                 },
@@ -274,7 +274,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point9,
-                            { x: -80.28, y: 177.57 },
+                            { ...GCapConfig.points.point9, x: -80.28, y: 177.57 },
                             0,
                         )(base, val),
                 },
@@ -283,7 +283,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point8,
-                            { x: -80.28, y: 196.69 },
+                            { ...GCapConfig.points.point8, x: -80.28, y: 196.69 },
                             0,
                         )(base, val),
                 },
@@ -292,7 +292,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point28,
-                            { x: -37.64, y: 241.3 },
+                            { ...GCapConfig.points.point28, x: -37.64, y: 241.3 },
                             0,
                         )(base, val),
                 },
@@ -301,7 +301,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point27,
-                            { x: -48.23, y: 214.39 },
+                            { ...GCapConfig.points.point27, x: -48.23, y: 214.39 },
                             0,
                         )(base, val),
                 },
@@ -310,7 +310,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point26,
-                            { x: -57.05, y: 188.66 },
+                            { ...GCapConfig.points.point26, x: -57.05, y: 188.66 },
                             0,
                         )(base, val),
                 },
@@ -319,7 +319,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point25,
-                            { x: -55.24, y: 154.36 },
+                            { ...GCapConfig.points.point25, x: -55.24, y: 154.36 },
                             0,
                         )(base, val),
                 },
@@ -328,7 +328,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point24,
-                            { x: -50.23, y: 142.42 },
+                            { ...GCapConfig.points.point24, x: -50.23, y: 142.42 },
                             0,
                         )(base, val),
                 },
@@ -337,7 +337,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point23,
-                            { x: -41.9, y: 122.56 },
+                            { ...GCapConfig.points.point23, x: -41.9, y: 122.56 },
                             0,
                         )(base, val),
                 },
@@ -350,7 +350,7 @@ export const GCapConfig = {
             r: 24.52,
             pos: {
                 x: 18.47,
-                y: 101.01 - 80.5,
+                y: 101.01,
                 attach: "cap",
             },
             affects: [
@@ -359,7 +359,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point11,
-                            { x: -52.43, y: 78.08 },
+                            { ...GCapConfig.points.point11, x: -52.43, y: 78.08 },
                             0,
                         )(base, val),
                 },
@@ -368,7 +368,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point12,
-                            { x: 1.97, y: 78.08 },
+                            { ...GCapConfig.points.point12, x: 1.97, y: 78.08 },
                             0,
                         )(base, val),
                 },
@@ -377,7 +377,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point13,
-                            { x: 20.64, y: 78.08 },
+                            { ...GCapConfig.points.point13, x: 20.64, y: 78.08 },
                             0,
                         )(base, val),
                 },
@@ -386,7 +386,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point14,
-                            { x: 44.04, y: 81.88 },
+                            { ...GCapConfig.points.point14, x: 44.04, y: 81.88 },
                             0,
                         )(base, val),
                 },
@@ -395,7 +395,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point15,
-                            { x: 59.31, y: 97.14 },
+                            { ...GCapConfig.points.point15, x: 59.31, y: 97.14 },
                             0,
                         )(base, val),
                 },
@@ -404,7 +404,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point16,
-                            { x: 75.54, y: 113.37 },
+                            { ...GCapConfig.points.point16, x: 75.54, y: 113.37 },
                             0,
                         )(base, val),
                 },
@@ -413,7 +413,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point17,
-                            { x: 77.91, y: 126.31 },
+                            { ...GCapConfig.points.point17, x: 77.91, y: 126.31 },
                             0,
                         )(base, val),
                 },
@@ -422,7 +422,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point18,
-                            { x: 54.88, y: 129.56 },
+                            { ...GCapConfig.points.point18, x: 54.88, y: 129.56 },
                             0,
                         )(base, val),
                 },
@@ -431,7 +431,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point19,
-                            { x: 50.55, y: 109.81 },
+                            { ...GCapConfig.points.point19, x: 50.55, y: 109.81 },
                             0,
                         )(base, val),
                 },
@@ -440,7 +440,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point20,
-                            { x: 27.17, y: 98.07 },
+                            { ...GCapConfig.points.point20, x: 27.17, y: 98.07 },
                             0,
                         )(base, val),
                 },
@@ -449,7 +449,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point21,
-                            { x: 9.85, y: 97.8 },
+                            { ...GCapConfig.points.point21, x: 9.85, y: 97.8 },
                             0,
                         )(base, val),
                 },
@@ -458,7 +458,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point22,
-                            { x: -2.87, y: 97.8 },
+                            { ...GCapConfig.points.point22, x: -2.87, y: 97.8 },
                             0,
                         )(base, val),
                 },
@@ -467,7 +467,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point23,
-                            { x: -22.16, y: 115.13 },
+                            { ...GCapConfig.points.point23, x: -22.16, y: 115.13 },
                             0,
                         )(base, val),
                 },
@@ -476,7 +476,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point24,
-                            { x: -30.96, y: 143.21 },
+                            { ...GCapConfig.points.point24, x: -30.96, y: 143.21 },
                             0,
                         )(base, val),
                 },
@@ -485,7 +485,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point25,
-                            { x: -34.83, y: 155.57 },
+                            { ...GCapConfig.points.point25, x: -34.83, y: 155.57 },
                             0,
                         )(base, val),
                 },
@@ -506,7 +506,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point26,
-                            { x: -36.01, y: 240.42 },
+                            { ...GCapConfig.points.point26, x: -36.01, y: 240.42 },
                             0,
                         )(base, val),
                 },
@@ -515,7 +515,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point27,
-                            { x: -21.21, y: 246.5 },
+                            { ...GCapConfig.points.point27, x: -21.21, y: 246.5 },
                             0,
                         )(base, val),
                 },
@@ -524,7 +524,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point28,
-                            { x: 31.71, y: 267.61 },
+                            { ...GCapConfig.points.point28, x: 31.71, y: 267.61 },
                             0,
                         )(base, val),
                 },
@@ -533,7 +533,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point29,
-                            { x: 57.84, y: 226.52 },
+                            { ...GCapConfig.points.point29, x: 57.84, y: 226.52 },
                             0,
                         )(base, val),
                 },
@@ -542,7 +542,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point30,
-                            { x: 57.84, y: 220.9 },
+                            { ...GCapConfig.points.point30, x: 57.84, y: 220.9 },
                             0,
                         )(base, val),
                 },
@@ -551,7 +551,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point31,
-                            { x: 57.84, y: 212.43 },
+                            { ...GCapConfig.points.point31, x: 57.84, y: 212.43 },
                             0,
                         )(base, val),
                 },
@@ -560,7 +560,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point32,
-                            { x: 57.57, y: 191.63 },
+                            { ...GCapConfig.points.point32, x: 57.57, y: 191.63 },
                             0,
                         )(base, val),
                 },
@@ -569,7 +569,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point33,
-                            { x: 7.44, y: 191.63 },
+                            { ...GCapConfig.points.point33, x: 7.44, y: 191.63 },
                             0,
                         )(base, val),
                 },
@@ -578,7 +578,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point34,
-                            { x: 7.17, y: 172.39 },
+                            { ...GCapConfig.points.point34, x: 7.17, y: 172.39 },
                             0,
                         )(base, val),
                 },
@@ -587,7 +587,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point35,
-                            { x: 80.07, y: 172.39 },
+                            { ...GCapConfig.points.point35, x: 80.07, y: 172.39 },
                             0,
                         )(base, val),
                 },
@@ -596,7 +596,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point1,
-                            { x: 80.07, y: 172.39 },
+                            { ...GCapConfig.points.point1, x: 80.07, y: 172.39 },
                             0,
                         )(base, val),
                 },
@@ -605,7 +605,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point2,
-                            { x: 80.34, y: 269.67 },
+                            { ...GCapConfig.points.point2, x: 80.34, y: 269.67 },
                             0,
                         )(base, val),
                 },
@@ -614,7 +614,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point3,
-                            { x: 60.83, y: 269.67 },
+                            { ...GCapConfig.points.point3, x: 60.83, y: 269.67 },
                             0,
                         )(base, val),
                 },
@@ -623,7 +623,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point4,
-                            { x: 58.12, y: 252.06 },
+                            { ...GCapConfig.points.point4, x: 58.12, y: 252.06 },
                             0,
                         )(base, val),
                 },
@@ -632,7 +632,7 @@ export const GCapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             GCapConfig.points.point5,
-                            { x: 40.69, y: 274.77 },
+                            { ...GCapConfig.points.point5, x: 40.69, y: 274.77 },
                             0,
                         )(base, val),
                 },

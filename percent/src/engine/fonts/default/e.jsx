@@ -184,7 +184,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point16,
-                            { x: -28.62, y: 122.81 },
+                            { ...eConfig.points.point16, x: -28.62, y: 122.81 },
                             0,
                         )(base, val),
                 },
@@ -193,7 +193,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point15,
-                            { x: -67.62, y: 136.39 },
+                            { ...eConfig.points.point15, x: -67.62, y: 136.39 },
                             0,
                         )(base, val),
                 },
@@ -202,7 +202,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point14,
-                            { x: -67.62, y: 192.66 },
+                            { ...eConfig.points.point14, x: -67.62, y: 192.66 },
                             0,
                         )(base, val),
                 },
@@ -211,7 +211,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point13,
-                            { x: -67.62, y: 252.15 },
+                            { ...eConfig.points.point13, x: -67.62, y: 252.15 },
                             0,
                         )(base, val),
                 },
@@ -220,7 +220,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point12,
-                            { x: -33.73, y: 266.6 },
+                            { ...eConfig.points.point12, x: -33.73, y: 266.6 },
                             0,
                         )(base, val),
                 },
@@ -229,7 +229,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point4,
-                            { x: -38.92, y: 232.25 },
+                            { ...eConfig.points.point4, x: -38.92, y: 232.25 },
                             0,
                         )(base, val),
                 },
@@ -238,7 +238,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point3,
-                            { x: -41.72, y: 218.11 },
+                            { ...eConfig.points.point3, x: -41.72, y: 218.11 },
                             0,
                         )(base, val),
                 },
@@ -247,7 +247,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point2,
-                            { x: -41.72, y: 206.68 },
+                            { ...eConfig.points.point2, x: -41.72, y: 206.68 },
                             0,
                         )(base, val),
                 },
@@ -256,7 +256,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point25,
-                            { x: -41.71, y: 178.54 },
+                            { ...eConfig.points.point25, x: -41.71, y: 178.54 },
                             0,
                         )(base, val),
                 },
@@ -265,7 +265,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point24,
-                            { x: -40.09, y: 165.55 },
+                            { ...eConfig.points.point24, x: -40.09, y: 165.55 },
                             0,
                         )(base, val),
                 },
@@ -274,7 +274,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point23,
-                            { x: -24.29, y: 156.62 },
+                            { ...eConfig.points.point23, x: -24.29, y: 156.62 },
                             0,
                         )(base, val),
                 },
@@ -283,7 +283,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point22,
-                            { x: -11.3, y: 155.81 },
+                            { ...eConfig.points.point22, x: -11.3, y: 155.81 },
                             0,
                         )(base, val),
                 },
@@ -292,7 +292,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point21,
-                            { x: 3.85, y: 155 },
+                            { ...eConfig.points.point21, x: 3.85, y: 155 },
                             0,
                         )(base, val),
                 },
@@ -313,7 +313,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point18,
-                            { x: 63.73, y: 122.81 },
+                            { ...eConfig.points.point18, x: 63.73, y: 122.81 },
                             0,
                         )(base, val),
                 },
@@ -322,7 +322,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point0,
-                            { x: 55.36, y: 200.04 },
+                            { ...eConfig.points.point0, x: 55.36, y: 200.04 },
                             0,
                         )(base, val),
                 },
@@ -331,7 +331,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point1,
-                            { x: 55.36, y: 205.16 },
+                            { ...eConfig.points.point1, x: 55.36, y: 205.16 },
                             0,
                         )(base, val),
                 },
@@ -340,7 +340,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point19,
-                            { x: 30.71, y: 177.02 },
+                            { ...eConfig.points.point19, x: 30.71, y: 177.02 },
                             0,
                         )(base, val),
                 },
@@ -349,7 +349,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point20,
-                            { x: 26.84, y: 157.52 },
+                            { ...eConfig.points.point20, x: 26.84, y: 157.52 },
                             0,
                         )(base, val),
                 },
@@ -358,7 +358,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point21,
-                            { x: 15.21, y: 154.29 },
+                            { ...eConfig.points.point21, x: 15.21, y: 154.29 },
                             0,
                         )(base, val),
                 },
@@ -367,7 +367,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point22,
-                            { x: -0.31, y: 154.29 },
+                            { ...eConfig.points.point22, x: -0.31, y: 154.29 },
                             0,
                         )(base, val),
                 },
@@ -376,7 +376,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point23,
-                            { x: -13.33, y: 154.29 },
+                            { ...eConfig.points.point23, x: -13.33, y: 154.29 },
                             0,
                         )(base, val),
                 },
@@ -397,7 +397,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point0,
-                            { x: eConfig.points.point0.x, y: 192.65 },
+                            { ...eConfig.points.point0, y: 192.65 },
                             0,
                         )(base, val),
                 },
@@ -406,7 +406,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point1,
-                            { x: eConfig.points.point1.x, y: 192.65 },
+                            { ...eConfig.points.point1, y: 192.65 },
                             0,
                         )(base, val),
                 },
@@ -415,7 +415,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point2,
-                            { x: eConfig.points.point2.x, y: 192.65 },
+                            { ...eConfig.points.point2, y: 192.65 },
                             0,
                         )(base, val),
                 },
@@ -424,7 +424,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point19,
-                            { x: eConfig.points.point19.x, y: 192.65 },
+                            { ...eConfig.points.point19, y: 192.65 },
                             0,
                         )(base, val),
                 },
@@ -433,7 +433,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point25,
-                            { x: eConfig.points.point25.x, y: 192.65 },
+                            { ...eConfig.points.point25, y: 192.65 },
                             0,
                         )(base, val),
                 },
@@ -454,7 +454,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point3,
-                            { x: -32.36, y: 231.66 },
+                            { ...eConfig.points.point3, x: -32.36, y: 231.66 },
                             0,
                         )(base, val),
                 },
@@ -463,7 +463,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point4,
-                            { x: -25.49, y: 247.57 },
+                            { ...eConfig.points.point4, x: -25.49, y: 247.57 },
                             0,
                         )(base, val),
                 },
@@ -472,7 +472,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point5,
-                            { x: -6.13, y: 247.57 },
+                            { ...eConfig.points.point5, x: -6.13, y: 247.57 },
                             0,
                         )(base, val),
                 },
@@ -481,7 +481,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point6,
-                            { x: 25.34, y: 247.57 },
+                            { ...eConfig.points.point6, x: 25.34, y: 247.57 },
                             0,
                         )(base, val),
                 },
@@ -490,7 +490,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point7,
-                            { x: 30.98, y: 227.58 },
+                            { ...eConfig.points.point7, x: 30.98, y: 227.58 },
                             0,
                         )(base, val),
                 },
@@ -499,7 +499,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point8,
-                            { x: 53.74, y: 234.08 },
+                            { ...eConfig.points.point8, x: 53.74, y: 234.08 },
                             0,
                         )(base, val),
                 },
@@ -508,7 +508,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point9,
-                            { x: 45.56, y: 249.18 },
+                            { ...eConfig.points.point9, x: 45.56, y: 249.18 },
                             0,
                         )(base, val),
                 },
@@ -517,7 +517,7 @@ export const eConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             eConfig.points.point10,
-                            { x: 33.52, y: 266.6 },
+                            { ...eConfig.points.point10, x: 33.52, y: 266.6 },
                             0,
                         )(base, val),
                 },

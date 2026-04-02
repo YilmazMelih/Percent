@@ -38,37 +38,37 @@ export const LCapConfig = {
     points: {
         point1: {
             x: 80.5,
-            y: 215.8 - 267.76,
+            y: 215.8,
             attach: "base",
         },
         point2: {
             x: 80.5,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point3: {
             x: -80.51,
-            y: 267.76 - 267.76,
+            y: 267.76,
             attach: "base",
         },
         point4: {
             x: -80.51,
-            y: 80.76 - 80.5,
+            y: 80.76,
             attach: "cap",
         },
         point5: {
             x: -3.11,
-            y: 80.76 - 80.5,
+            y: 80.76,
             attach: "cap",
         },
         point6: {
             x: -3.11,
-            y: 216.61 - 267.76,
+            y: 216.61,
             attach: "base",
         },
         point7: {
             x: 80.51,
-            y: 215.8 - 267.76,
+            y: 215.8,
             attach: "base",
         },
     },
@@ -88,7 +88,7 @@ export const LCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             LCapConfig.points.point3,
-                            { x: -41.82, y: LCapConfig.points.point3.y },
+                            { ...LCapConfig.points.point3, x: -41.82 },
                             0,
                         )(base, val);
                     },
@@ -98,7 +98,7 @@ export const LCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             LCapConfig.points.point4,
-                            { x: -41.82, y: LCapConfig.points.point4.y },
+                            { ...LCapConfig.points.point4, x: -41.82 },
                             0,
                         )(base, val);
                     },
@@ -108,7 +108,7 @@ export const LCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             LCapConfig.points.point5,
-                            { x: -41.82, y: LCapConfig.points.point5.y },
+                            { ...LCapConfig.points.point5, x: -41.82 },
                             0,
                         )(base, val);
                     },
@@ -118,7 +118,7 @@ export const LCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             LCapConfig.points.point6,
-                            { x: -41.82, y: LCapConfig.points.point6.y },
+                            { ...LCapConfig.points.point6, x: -41.82 },
                             0,
                         )(base, val);
                     },
@@ -132,7 +132,7 @@ export const LCapConfig = {
             r: 25.71,
             pos: {
                 x: 37.23,
-                y: 242.05 - 267.76,
+                y: 242.05,
                 attach: "base",
             },
             affects: [
@@ -141,7 +141,7 @@ export const LCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             LCapConfig.points.point1,
-                            { x: LCapConfig.points.point1.x, y: 267.76 },
+                            { ...LCapConfig.points.point1, y: 267.76 },
                             0,
                         )(base, val);
                     },
@@ -151,7 +151,7 @@ export const LCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             LCapConfig.points.point6,
-                            { x: LCapConfig.points.point6.x, y: 267.76 },
+                            { ...LCapConfig.points.point6, y: 267.76 },
                             0,
                         )(base, val);
                     },
@@ -161,7 +161,7 @@ export const LCapConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             LCapConfig.points.point7,
-                            { x: LCapConfig.points.point7.x, y: 267.76 },
+                            { ...LCapConfig.points.point7, y: 267.76 },
                             0,
                         )(base, val);
                     },
