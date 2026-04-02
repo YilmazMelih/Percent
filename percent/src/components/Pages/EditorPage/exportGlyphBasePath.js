@@ -1,7 +1,7 @@
 import { computeGlyphPoints } from "../../../engine/project";
 import opentype from "opentype.js";
 
-export function exportGlyphBasePaths(glyphData, glyphKeys) {
+export function exportGlyphBasePaths(glyphData, glyphKeys, guideLines) {
     const notdefGlyph = new opentype.Glyph({
         name: ".notdef",
         advanceWidth: 200, //to change?
@@ -10,7 +10,7 @@ export function exportGlyphBasePaths(glyphData, glyphKeys) {
     const openTypeGlyphs = glyphKeys.map((key) => {
         const savedGlyph = glyphData[key];
         const { config, nodeSize, nodeX, nodeY } = savedGlyph;
-        const prePoints = computeGlyphPoints(config, nodeSize, nodeX, nodeY);
+        const prePoints = computeGlyphPoints(config, nodeSize, nodeX, nodeY, guideLines);
         const defaultLSB = 20;
         const defaultRSB = 20;
         const xMin = Math.min(...Object.values(prePoints).map((pt) => pt.x));
@@ -18,7 +18,7 @@ export function exportGlyphBasePaths(glyphData, glyphKeys) {
         const points = Object.fromEntries(
             Object.entries(prePoints).map(([key, pt]) => [
                 key,
-                { x: pt.x - xMin + (config.lsb ?? defaultLSB), y: 267.76 - pt.y },
+                { x: pt.x - xMin + (config.lsb ?? defaultLSB), y: guideLines.baseline - pt.y },
             ]),
         );
         const curPath = new opentype.Path();
@@ -66,12 +66,13 @@ export function exportGlyphBasePaths(glyphData, glyphKeys) {
         });
         return GL;
     });
+    console.log(guideLines.descender, guideLines.baseline);
     const font = new opentype.Font({
         familyName: "Test Font",
         styleName: "Regular",
         unitsPerEm: 250, //TBD
-        ascender: 237.26, //TBD
-        descender: -52.24, //TBD
+        ascender: guideLines.ascender, //TBD
+        descender: guideLines.baseline - guideLines.descender, //TBD
         glyphs: [notdefGlyph, ...openTypeGlyphs],
     });
 

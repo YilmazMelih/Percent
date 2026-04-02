@@ -39,6 +39,7 @@ function SettingsPanelBody({
     isBottomPanelVisible,
     setBottomPanelVisible,
     onExport,
+    onResetGuidelines,
     showAdvanced = false,
     setShowAdvanced = () => {},
     /** TypeVisualizer only: viewBox zoom (see TypeVisualizerWorkspace). */
@@ -168,22 +169,33 @@ function SettingsPanelBody({
                     {...sliderCommon}
                 />
             )}
-            {onExport && (
+            {(onExport || onResetGuidelines) && (
                 <div
-                    className="control-group"
+                    className="flex flex-wrap gap-2"
                     style={{
                         marginTop: "1rem",
                         paddingTop: "1rem",
                         borderTop: "1px solid #e0e0e0",
                     }}
                 >
-                    <button
-                        type="button"
-                        onClick={onExport}
-                        className="px-3 py-1 text-xs rounded bg-purple-600 text-white hover:bg-purple-700"
-                    >
-                        Export
-                    </button>
+                    {onExport && (
+                        <button
+                            type="button"
+                            onClick={onExport}
+                            className="px-3 py-1 text-xs rounded bg-purple-600 text-white hover:bg-purple-700"
+                        >
+                            Export
+                        </button>
+                    )}
+                    {onResetGuidelines && (
+                        <button
+                            type="button"
+                            onClick={onResetGuidelines}
+                            className="px-3 py-1 text-xs rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
+                        >
+                            Reset Guidelines
+                        </button>
+                    )}
                 </div>
             )}
             <div

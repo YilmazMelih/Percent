@@ -15,7 +15,28 @@ const GlyphPreview = ({ config, nodeSize, nodeX, nodeY, showNodes, guideLines })
                 config.nodes.map((node) => {
                     const size = nodeSize[node.id] * node.r;
                     const tx = nodeX?.[node.id] ?? 0;
-                    const ty = nodeY?.[node.id] ?? 0;
+                    let ty = nodeY?.[node.id] ?? 0;
+                    if (node.pos.attach) {
+                        switch (node.pos.attach) {
+                            case "asc":
+                                ty = ty + guideLines.ascender;
+                                break;
+                            case "cap":
+                                ty = ty + guideLines.cap_height;
+                                break;
+                            case "xh":
+                                ty = ty + guideLines.x_height;
+                                break;
+                            case "base":
+                                ty = ty + guideLines.baseline;
+                                break;
+                            case "desc":
+                                ty = ty + guideLines.descender;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                     return (
                         <circle
                             key={node.id}

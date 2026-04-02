@@ -157,6 +157,15 @@ const SEE_GUIDELINES_STORAGE_KEY = "editor:seeGuidelines:v1";
 const SETTINGS_PANEL_OPEN_STORAGE_KEY = "editor:settingsPanelOpen:v1";
 const NODE_GROUP_LINKS_STORAGE_KEY = "editor:nodeGroupLinks:v1";
 const SHOW_ADVANCED_STORAGE_KEY = "editor:showAdvanced:v1";
+const GUIDELINES_STORAGE_KEY = "editor:guideLines:v1";
+
+const DEFAULT_GUIDELINES = {
+    ascender: 30.5,
+    cap_height: 80.5,
+    x_height: 136.25,
+    baseline: 267.76,
+    descender: 320,
+};
 
 const hydrateGlyphData = (configs) => {
     const baseData = initializeGlyphData(configs);
@@ -199,13 +208,10 @@ export default function Editor() {
     );
     const selectedGlyph = initialConfigs[selectedGlyphRaw] ? selectedGlyphRaw : "A";
     const setSelectedGlyph = (next) => setSelectedGlyphRaw(initialConfigs[next] ? next : "A");
-    const [guideLines, setGuideLines] = useState({
-        ascender: 30.5,
-        cap_height: 80.5,
-        x_height: 136.25,
-        baseline: 267.76,
-        descender: 320,
-    });
+    const [guideLines, setGuideLines] = useLocalStorageJson(
+        GUIDELINES_STORAGE_KEY,
+        DEFAULT_GUIDELINES,
+    );
 
     const [seeNodes, setSeeNodes] = useLocalStorageBoolean(SEE_NODES_STORAGE_KEY, true);
     const [seePathPoints, setSeePathPoints] = useLocalStorageBoolean(
@@ -351,38 +357,44 @@ export default function Editor() {
                                             setShowAdvanced,
                                             isBottomPanelVisible,
                                             setBottomPanelVisible,
+                                            onResetGuidelines: () =>
+                                                setGuideLines(DEFAULT_GUIDELINES),
                                             onExport: () =>
-                                                exportGlyphBasePaths(glyphData, [
-                                                    "A",
-                                                    "a",
-                                                    "B",
-                                                    "C",
-                                                    "D",
-                                                    "E",
-                                                    "e",
-                                                    "F",
-                                                    "G",
-                                                    "H",
-                                                    "I",
-                                                    "J",
-                                                    "K",
-                                                    "L",
-                                                    "l",
-                                                    "M",
-                                                    "N",
-                                                    "O",
-                                                    "P",
-                                                    "Q",
-                                                    "R",
-                                                    "S",
-                                                    "T",
-                                                    "U",
-                                                    "V",
-                                                    "W",
-                                                    "X",
-                                                    "Y",
-                                                    "Z",
-                                                ]),
+                                                exportGlyphBasePaths(
+                                                    glyphData,
+                                                    [
+                                                        "A",
+                                                        "a",
+                                                        "B",
+                                                        "C",
+                                                        "D",
+                                                        "E",
+                                                        "e",
+                                                        "F",
+                                                        "G",
+                                                        "H",
+                                                        "I",
+                                                        "J",
+                                                        "K",
+                                                        "L",
+                                                        "l",
+                                                        "M",
+                                                        "N",
+                                                        "O",
+                                                        "P",
+                                                        "Q",
+                                                        "R",
+                                                        "S",
+                                                        "T",
+                                                        "U",
+                                                        "V",
+                                                        "W",
+                                                        "X",
+                                                        "Y",
+                                                        "Z",
+                                                    ],
+                                                    guideLines,
+                                                ),
                                         })}
                                 </SidePanelGroup>
                             </div>

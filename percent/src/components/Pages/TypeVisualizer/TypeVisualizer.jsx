@@ -39,6 +39,7 @@ import TypeVisualizerWorkspace, {
     isTypeVisualizerSpaceEntry,
 } from "./TypeVisualizerWorkspace";
 import { applyGroupedNodeSizeChanges } from "../EditorPage/nodeGroups";
+import { exportGlyphBasePaths } from "../EditorPage/exportGlyphBasePath";
 import { useLocalStorageBoolean, useLocalStorageJson } from "../../../hooks/useLocalStorageState";
 
 const GLYPH_STATE_STORAGE_KEY = "editor:glyphData:v1";
@@ -48,6 +49,15 @@ const SEE_GUIDELINES_STORAGE_KEY = "editor:seeGuidelines:v1";
 const SETTINGS_PANEL_OPEN_STORAGE_KEY = "editor:settingsPanelOpen:v1";
 const NODE_GROUP_LINKS_STORAGE_KEY = "editor:nodeGroupLinks:v1";
 const SHOW_ADVANCED_STORAGE_KEY = "editor:showAdvanced:v1";
+const GUIDELINES_STORAGE_KEY = "editor:guideLines:v1";
+
+const DEFAULT_GUIDELINES = {
+    ascender: 30.5,
+    cap_height: 80.5,
+    x_height: 136.25,
+    baseline: 267.76,
+    descender: 320,
+};
 
 /** Maps editor glyph keys → config. Extend when adding glyphs dynamically. */
 export const TYPE_VISUALIZER_CONFIG_BY_KEY = {
@@ -165,13 +175,7 @@ function persistGlyphStatesSlice(glyphStates) {
 }
 
 export default function TypeVisualizer() {
-    const [guideLines, setGuideLines] = useState({
-        ascender: 30.5,
-        cap_height: 80.5,
-        x_height: 136.25,
-        baseline: 267.76,
-        descender: 320,
-    });
+    const [guideLines, setGuideLines] = useLocalStorageJson(GUIDELINES_STORAGE_KEY, DEFAULT_GUIDELINES);
     const [line, setLine] = useState([]);
     const [glyphStates, setGlyphStates] = useState(() => hydrateGlyphStates());
     const divRef = useRef(null);
@@ -418,6 +422,12 @@ export default function TypeVisualizer() {
                                         setBottomPanelVisible,
                                         typeVisualizerViewZoom: workspaceViewZoom,
                                         setTypeVisualizerViewZoom: setWorkspaceViewZoom,
+                                        onResetGuidelines: () => setGuideLines(DEFAULT_GUIDELINES),
+                                        onExport: () =>
+                                            exportGlyphBasePaths(
+                                                glyphStates,
+                                                Object.keys(TYPE_VISUALIZER_CONFIG_BY_KEY),
+                                            ),
                                     })}
                                 </SidePanelGroup>
                             </div>

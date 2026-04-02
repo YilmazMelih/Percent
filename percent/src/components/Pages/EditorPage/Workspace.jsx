@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
     buildPath,
     extractPathPoints,
@@ -20,6 +20,34 @@ export default function Workspace({
 }) {
     const [isDragging, setIsDragging] = useState(false);
     const [active, setActive] = useState(null);
+    const svgRef = useRef(null);
+    const draggingGuideline = useRef(null);
+    const dragOffset = useRef(0);
+
+    function clientToSvgY(clientY) {
+        const pt = svgRef.current.createSVGPoint();
+        pt.y = clientY;
+        return pt.matrixTransform(svgRef.current.getScreenCTM().inverse()).y;
+    }
+
+    function handleGuideLineChange(key) {
+        return (e) => {
+            e.preventDefault();
+            draggingGuideline.current = key;
+            dragOffset.current = clientToSvgY(e.clientY) - guideLines[key];
+        };
+    }
+
+    function handleGuidelineDrag(e) {
+        if (!draggingGuideline.current || !svgRef.current) return;
+        const key = draggingGuideline.current;
+        const svgY = clientToSvgY(e.clientY);
+        setGuideLines((prev) => ({ ...prev, [key]: svgY - dragOffset.current }));
+    }
+
+    function handleGuidelineRelease() {
+        draggingGuideline.current = null;
+    }
     const d = buildPath(config, nodeSize, nodeX, nodeY, guideLines);
     const computedPoints = computeGlyphPoints(config, nodeSize, nodeX, nodeY, guideLines);
     const { controlPoints, endpoints } = extractPathPoints(d);
@@ -33,7 +61,14 @@ export default function Workspace({
 
     return (
         <div className="aspect-[5/3] w-[min(90vw,1000px)] mx-auto mt-10">
-            <svg className="w-full h-full block" viewBox="-330 0 660 400">
+            <svg
+                ref={svgRef}
+                className="w-full h-full block"
+                viewBox="-330 0 660 400"
+                onMouseMove={handleGuidelineDrag}
+                onMouseUp={handleGuidelineRelease}
+                onMouseLeave={handleGuidelineRelease}
+            >
                 <defs>
                     <marker
                         id="skeleton-arrow"
@@ -48,82 +83,39 @@ export default function Workspace({
                     </marker>
                 </defs>
                 {seeGuidelines && (
-                    <g stroke="lightgray" strokeWidth="1.5">
-                        <text
-                            x={-330}
-                            y={guideLines.ascender - 8}
-                            fontSize="16"
-                            fill="lightgray"
-                            stroke="none"
-                        >
-                            Ascender
-                        </text>
-                        <line
-                            x1="-330"
-                            y1={guideLines.ascender}
-                            x2="330"
-                            y2={guideLines.ascender}
-                        />
-                        <text
-                            x={-330}
-                            y={guideLines.cap_height - 8}
-                            fontSize="16"
-                            fill="lightgray"
-                            stroke="none"
-                        >
-                            Cap Height
-                        </text>
-                        <line
-                            x1="-330"
-                            y1={guideLines.cap_height}
-                            x2="330"
-                            y2={guideLines.cap_height}
-                        />
-                        <text
-                            x={-330}
-                            y={guideLines.x_height - 8}
-                            fontSize="16"
-                            fill="lightgray"
-                            stroke="none"
-                        >
-                            X Height
-                        </text>
-                        <line
-                            x1="-330"
-                            y1={guideLines.x_height}
-                            x2="330"
-                            y2={guideLines.x_height}
-                        />
-                        <text
-                            x={-330}
-                            y={guideLines.baseline - 8}
-                            fontSize="16"
-                            fill="lightgray"
-                            stroke="none"
-                        >
-                            Baseline
-                        </text>
-                        <line
-                            x1="-330"
-                            y1={guideLines.baseline}
-                            x2="330"
-                            y2={guideLines.baseline}
-                        />
-                        <text
-                            x={-330}
-                            y={guideLines.descender - 8}
-                            fontSize="16"
-                            fill="lightgray"
-                            stroke="none"
-                        >
-                            Descender
-                        </text>
-                        <line
-                            x1="-330"
-                            y1={guideLines.descender}
-                            x2="330"
-                            y2={guideLines.descender}
-                        />
+                    <g stroke="lightgray" strokeWidth="2">
+                        {[
+                            { key: "ascender", label: "Ascender" },
+                            { key: "cap_height", label: "Cap Height" },
+                            { key: "x_height", label: "X Height" },
+                            { key: "baseline", label: "Baseline" },
+                            { key: "descender", label: "Descender" },
+                        ].map(({ key, label }) => (
+                            <g
+                                key={key}
+                                onMouseDown={handleGuideLineChange(key)}
+                                cursor="ns-resize"
+                            >
+                                <text
+                                    x={-330}
+                                    y={guideLines[key] - 8}
+                                    fontSize="16"
+                                    fill="lightgray"
+                                    stroke="none"
+                                >
+                                    {label}
+                                </text>
+                                <line x1="-330" y1={guideLines[key]} x2="330" y2={guideLines[key]} />
+                                <line
+                                    x1="-330"
+                                    y1={guideLines[key]}
+                                    x2="330"
+                                    y2={guideLines[key]}
+                                    stroke="transparent"
+                                    strokeWidth="10"
+                                />
+                            </g>
+                        ))}
                     </g>
                 )}
 
