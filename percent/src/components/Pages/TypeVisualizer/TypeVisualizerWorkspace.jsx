@@ -86,6 +86,34 @@ export default function TypeVisualizerWorkspace({
     const viewWidth = VIEWBOX_WIDTH / zoomClamped;
     const viewHeight = VIEWBOX_HEIGHT / zoomClamped;
     const [vbAdjust, setVbAdjust] = useState(0);
+    const svgRef = useRef(null);
+    const draggingGuideline = useRef(null);
+    const dragOffset = useRef(0);
+
+    function clientToSvgY(clientY) {
+        const pt = svgRef.current.createSVGPoint();
+        pt.y = clientY;
+        return pt.matrixTransform(svgRef.current.getScreenCTM().inverse()).y;
+    }
+
+    function handleGuideLineChange(key) {
+        return (e) => {
+            e.preventDefault();
+            draggingGuideline.current = key;
+            dragOffset.current = clientToSvgY(e.clientY) - guideLines[key];
+        };
+    }
+
+    function handleGuidelineDrag(e) {
+        if (!draggingGuideline.current || !svgRef.current) return;
+        const key = draggingGuideline.current;
+        const svgY = clientToSvgY(e.clientY);
+        setGuideLines((prev) => ({ ...prev, [key]: svgY - dragOffset.current }));
+    }
+
+    function handleGuidelineRelease() {
+        draggingGuideline.current = null;
+    }
 
     /** While non-null, peers sharing `stateKey` render at `frozenNodeSize`; active instance uses `previewNodeSize`. */
     const [ringIsolate, setRingIsolate] = useState(null);
@@ -207,86 +235,52 @@ export default function TypeVisualizerWorkspace({
     return (
         <div className="aspect-[5/3] w-[min(95vw,1500px)] max-w-[1500px] mx-auto mt-10">
             <svg
+                ref={svgRef}
                 className="w-full h-full block"
                 viewBox={`${vbAdjust - VIEWBOX_LEFT_PAD} ${viewMinY} ${viewWidth} ${viewHeight}`}
+                onMouseMove={handleGuidelineDrag}
+                onMouseUp={handleGuidelineRelease}
+                onMouseLeave={handleGuidelineRelease}
             >
                 {seeGuidelines && (
                     <g stroke="lightgray" strokeWidth="1.5">
-                        <text
-                            x={TYPE_VISUALIZER_GUIDELINE_LABEL_X}
-                            y={guideLines.ascender - 8}
-                            fontSize="16"
-                            fill="lightgray"
-                            stroke="none"
-                        >
-                            Ascender
-                        </text>
-                        <line
-                            x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
-                            y1={guideLines.ascender}
-                            x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
-                            y2={guideLines.ascender}
-                        />
-                        <text
-                            x={TYPE_VISUALIZER_GUIDELINE_LABEL_X}
-                            y={guideLines.cap_height - 8}
-                            fontSize="16"
-                            fill="lightgray"
-                            stroke="none"
-                        >
-                            Cap Height
-                        </text>
-                        <line
-                            x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
-                            y1={guideLines.cap_height}
-                            x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
-                            y2={guideLines.cap_height}
-                        />
-                        <text
-                            x={TYPE_VISUALIZER_GUIDELINE_LABEL_X}
-                            y={guideLines.x_height - 8}
-                            fontSize="16"
-                            fill="lightgray"
-                            stroke="none"
-                        >
-                            X Height
-                        </text>
-                        <line
-                            x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
-                            y1={guideLines.x_height}
-                            x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
-                            y2={guideLines.x_height}
-                        />
-                        <text
-                            x={TYPE_VISUALIZER_GUIDELINE_LABEL_X}
-                            y={guideLines.baseline - 8}
-                            fontSize="16"
-                            fill="lightgray"
-                            stroke="none"
-                        >
-                            Baseline
-                        </text>
-                        <line
-                            x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
-                            y1={guideLines.baseline}
-                            x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
-                            y2={guideLines.baseline}
-                        />
-                        <text
-                            x={TYPE_VISUALIZER_GUIDELINE_LABEL_X}
-                            y={guideLines.descender - 8}
-                            fontSize="16"
-                            fill="lightgray"
-                            stroke="none"
-                        >
-                            Descender
-                        </text>
-                        <line
-                            x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
-                            y1={guideLines.descender}
-                            x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
-                            y2={guideLines.descender}
-                        />
+                        {[
+                            { key: "ascender", label: "Ascender" },
+                            { key: "cap_height", label: "Cap Height" },
+                            { key: "x_height", label: "X Height" },
+                            { key: "baseline", label: "Baseline" },
+                            { key: "descender", label: "Descender" },
+                        ].map(({ key, label }) => (
+                            <g
+                                key={key}
+                                onMouseDown={handleGuideLineChange(key)}
+                                cursor="ns-resize"
+                            >
+                                <text
+                                    x={TYPE_VISUALIZER_GUIDELINE_LABEL_X}
+                                    y={guideLines[key] - 8}
+                                    fontSize="16"
+                                    fill="lightgray"
+                                    stroke="none"
+                                >
+                                    {label}
+                                </text>
+                                <line
+                                    x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
+                                    y1={guideLines[key]}
+                                    x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
+                                    y2={guideLines[key]}
+                                />
+                                <line
+                                    x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
+                                    y1={guideLines[key]}
+                                    x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
+                                    y2={guideLines[key]}
+                                    stroke="transparent"
+                                    strokeWidth="10"
+                                />
+                            </g>
+                        ))}
                     </g>
                 )}
 
