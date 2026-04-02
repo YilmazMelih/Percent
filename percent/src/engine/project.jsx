@@ -351,21 +351,22 @@ export function computeGlyphPoints(config, nodeVals, nodeX, nodeY, guideLines) {
     for (const key in computedPoints) {
         const value = computedPoints[key];
         if (value && value.attach) {
+            const r = value.ratio ?? 1;
             switch (value.attach) {
                 case "asc":
-                    computedPoints[key] = { ...value, y: value.y + guideLines.ascender };
+                    computedPoints[key] = { ...value, y: value.y + guideLines.ascender * r };
                     break;
                 case "cap":
-                    computedPoints[key] = { ...value, y: value.y + guideLines.cap_height };
+                    computedPoints[key] = { ...value, y: value.y + guideLines.cap_height * r };
                     break;
                 case "xh":
-                    computedPoints[key] = { ...value, y: value.y + guideLines.x_height };
+                    computedPoints[key] = { ...value, y: value.y + guideLines.x_height * r };
                     break;
                 case "base":
-                    computedPoints[key] = { ...value, y: value.y + guideLines.baseline };
+                    computedPoints[key] = { ...value, y: value.y + guideLines.baseline * r };
                     break;
                 case "desc":
-                    computedPoints[key] = { ...value, y: value.y + guideLines.descender };
+                    computedPoints[key] = { ...value, y: value.y + guideLines.descender * r };
                     break;
                 default:
                     break;
@@ -426,21 +427,22 @@ export function buildNodes(
         const ty = nodeY?.[node.id] ?? 0;
         let y = node.pos.y + ty;
         if (node.pos.attach) {
+            const r = node.pos.ratio ?? 1;
             switch (node.pos.attach) {
                 case "asc":
-                    y = y + guideLines.ascender;
+                    y = y + guideLines.ascender * r;
                     break;
                 case "cap":
-                    y = y + guideLines.cap_height;
+                    y = y + guideLines.cap_height * r;
                     break;
                 case "xh":
-                    y = y + guideLines.x_height;
+                    y = y + guideLines.x_height * r;
                     break;
                 case "base":
-                    y = y + guideLines.baseline;
+                    y = y + guideLines.baseline * r;
                     break;
                 case "desc":
-                    y = y + guideLines.descender;
+                    y = y + guideLines.descender * r;
                     break;
                 default:
                     break;
@@ -493,21 +495,22 @@ export function makeCopyDeltaFromInterpolation(sourceBase, sourceSec, ratio = 0)
     };
     let baseY = sourceBase.y;
     if (sourceBase.attach) {
+        const r = sourceBase.ratio ?? 1;
         switch (sourceBase.attach) {
             case "asc":
-                baseY += guideLines.ascender;
+                baseY += guideLines.ascender * r;
                 break;
             case "cap":
-                baseY += guideLines.cap_height;
+                baseY += guideLines.cap_height * r;
                 break;
             case "xh":
-                baseY += guideLines.x_height;
+                baseY += guideLines.x_height * r;
                 break;
             case "base":
-                baseY += guideLines.baseline;
+                baseY += guideLines.baseline * r;
                 break;
             case "desc":
-                baseY += guideLines.descender;
+                baseY += guideLines.descender * r;
                 break;
             default:
                 break;

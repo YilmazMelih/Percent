@@ -175,7 +175,10 @@ function persistGlyphStatesSlice(glyphStates) {
 }
 
 export default function TypeVisualizer() {
-    const [guideLines, setGuideLines] = useLocalStorageJson(GUIDELINES_STORAGE_KEY, DEFAULT_GUIDELINES);
+    const [guideLines, setGuideLines] = useLocalStorageJson(
+        GUIDELINES_STORAGE_KEY,
+        DEFAULT_GUIDELINES,
+    );
     const [line, setLine] = useState([]);
     const [glyphStates, setGlyphStates] = useState(() => hydrateGlyphStates());
     const divRef = useRef(null);
@@ -437,7 +440,7 @@ export default function TypeVisualizer() {
                             minSize={40}
                             preferredSize="33%"
                         >
-                            <BottomPanel glyphData={bottomGlyphData} />
+                            <BottomPanel glyphData={bottomGlyphData} guideLines={guideLines} />
                         </Allotment.Pane>
                     </Allotment>
                 </Allotment.Pane>

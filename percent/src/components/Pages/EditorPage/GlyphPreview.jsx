@@ -17,21 +17,22 @@ const GlyphPreview = ({ config, nodeSize, nodeX, nodeY, showNodes, guideLines })
                     const tx = nodeX?.[node.id] ?? 0;
                     let ty = nodeY?.[node.id] ?? 0;
                     if (node.pos.attach) {
+                        const r = node.pos.ratio ?? 1;
                         switch (node.pos.attach) {
                             case "asc":
-                                ty = ty + guideLines.ascender;
+                                ty = ty + guideLines.ascender * r;
                                 break;
                             case "cap":
-                                ty = ty + guideLines.cap_height;
+                                ty = ty + guideLines.cap_height * r;
                                 break;
                             case "xh":
-                                ty = ty + guideLines.x_height;
+                                ty = ty + guideLines.x_height * r;
                                 break;
                             case "base":
-                                ty = ty + guideLines.baseline;
+                                ty = ty + guideLines.baseline * r;
                                 break;
                             case "desc":
-                                ty = ty + guideLines.descender;
+                                ty = ty + guideLines.descender * r;
                                 break;
                             default:
                                 break;

@@ -404,7 +404,7 @@ export default function Editor() {
                             minSize={40}
                             preferredSize="33%"
                         >
-                            <BottomPanel glyphData={glyphData} />
+                            <BottomPanel glyphData={glyphData} guideLines={guideLines} />
                         </Allotment.Pane>
                     </Allotment>
                 </Allotment.Pane>

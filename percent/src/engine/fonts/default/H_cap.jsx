@@ -62,15 +62,18 @@ export const HCapConfig = {
     points: {
         point1: {
             x: 99.72,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
         point2: {
             x: 99.72,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point3: {
             x: 23.68,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point4: {
             x: 23.68,
@@ -82,19 +85,23 @@ export const HCapConfig = {
         },
         point6: {
             x: -23.68,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point7: {
             x: -99.72,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point8: {
             x: -99.72,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
         point9: {
             x: -23.68,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
         point10: {
             x: -23.41,
@@ -106,7 +113,8 @@ export const HCapConfig = {
         },
         point12: {
             x: 23.68,
-            y: 81.04,
+            y: 81.04 - 80.5,
+            attach: "cap",
         },
     },
     nodes: [
@@ -117,7 +125,8 @@ export const HCapConfig = {
             r: 38,
             pos: {
                 x: -61.73,
-                y: 229.49,
+                y: 229.49 - 267.76,
+                attach: "base",
             },
             affects: [
                 {
@@ -239,7 +248,8 @@ export const HCapConfig = {
             r: 38,
             pos: {
                 x: 61.71,
-                y: 229.49,
+                y: 229.49 - 267.76,
+                attach: "base",
             },
             affects: [
                 {

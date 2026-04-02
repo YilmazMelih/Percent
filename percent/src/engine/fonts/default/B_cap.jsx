@@ -96,31 +96,39 @@ export const BCapConfig = {
     points: {
         point1: {
             x: -3.93,
-            y: 267.77,
+            y: 267.77 - 267.76,
+            attach: "base",
         },
         point2: {
             x: -91.07,
-            y: 267.5,
+            y: 267.5 - 267.76,
+            attach: "base",
         },
         point3: {
             x: -91.07,
-            y: 80.51,
+            y: 80.51 - 80.5,
+            attach: "cap",
         },
         point4: {
             x: 5.27,
-            y: 80.51,
+            y: 80.51 - 80.5,
+            attach: "cap",
         },
         point5: {
             x: 59.4,
-            y: 80.51,
+            y: 80.51 - 80.5,
+            attach: "cap",
         },
         point6: {
             x: 74.01,
-            y: 98.64,
+            y: 98.64 - 80.5,
+            attach: "cap",
         },
         point7: {
             x: 74.82,
-            y: 126.51,
+            y: 126.51 - 40.25,
+            attach: "cap",
+            ratio: 0.5,
         },
         point8: {
             x: 75.9,
@@ -136,23 +144,29 @@ export const BCapConfig = {
         },
         point11: {
             x: 91.07,
-            y: 215.44,
+            y: 215.44 - 267.76 * 0.5,
+            attach: "base",
+            ratio: 0.5,
         },
         point12: {
             x: 91.07,
-            y: 250.71,
+            y: 250.71 - 267.76,
+            attach: "base",
         },
         point13: {
             x: 68.79,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point14: {
             x: -3.93,
-            y: 267.76,
+            y: 267.76 - 267.76,
+            attach: "base",
         },
         point15: {
             x: -25.04,
-            y: 116.5,
+            y: 116.5 - 80.5,
+            attach: "cap",
         },
         point16: {
             x: -25.04,
@@ -172,35 +186,45 @@ export const BCapConfig = {
         },
         point20: {
             x: 12.85,
-            y: 135.71,
+            y: 135.71 - 40.25,
+            attach: "cap",
+            ratio: 0.5,
         },
         point21: {
             x: 12.85,
-            y: 121.1,
+            y: 121.1 - 80.5,
+            attach: "cap",
         },
         point22: {
             x: 3.65,
-            y: 116.5,
+            y: 116.5 - 80.5,
+            attach: "cap",
         },
         point23: {
             x: -7.99,
-            y: 116.5,
+            y: 116.5 - 80.5,
+            attach: "cap",
         },
         point24: {
             x: -8.81,
-            y: 226.64,
+            y: 226.64 - 267.76,
+            attach: "base",
         },
         point25: {
             x: 11.49,
-            y: 226.91,
+            y: 226.91 - 267.76,
+            attach: "base",
         },
         point26: {
             x: 19.33,
-            y: 219.87,
+            y: 219.87 - 267.76,
+            attach: "base",
         },
         point27: {
             x: 17.98,
-            y: 205.53,
+            y: 205.53 - 267.76 * 0.5,
+            attach: "base",
+            ratio: 0.5,
         },
         point28: {
             x: 16.9,
@@ -220,11 +244,13 @@ export const BCapConfig = {
         },
         point32: {
             x: -25.05,
-            y: 226.63,
+            y: 226.63 - 267.76,
+            attach: "base",
         },
         point33: {
             x: -8.81,
-            y: 226.63,
+            y: 226.63 - 267.76,
+            attach: "base",
         },
     },
     nodes: [
@@ -307,7 +333,9 @@ export const BCapConfig = {
             r: 31.23,
             pos: {
                 x: 43.58,
-                y: 127.18,
+                y: 127.18 - 40.25,
+                attach: "cap",
+                ratio: 0.5,
             },
             affects: [
                 {
@@ -391,7 +419,9 @@ export const BCapConfig = {
             r: 36.46,
             pos: {
                 x: 54.6,
-                y: 215.09,
+                y: 215.09 - 267.76 * 0.5,
+                attach: "base",
+                ratio: 0.5,
             },
             affects: [
                 {

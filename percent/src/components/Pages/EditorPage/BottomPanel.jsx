@@ -4,7 +4,7 @@ import FontPreviewRenderer from "./FontPreviewRenderer";
 import iconSize from "../../../assets/images/icon_size.png";
 import iconSpacing from "../../../assets/images/icon_spacing.png";
 
-const BottomPanel = ({ glyphData }) => {
+const BottomPanel = ({ glyphData, guideLines }) => {
     const [previewText, setPreviewText] = useState("PERCENT");
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [fontSize, setFontSize] = useState(48);
@@ -278,6 +278,7 @@ const BottomPanel = ({ glyphData }) => {
                     fontSize={fontSize}
                     letterSpacing={letterSpacing}
                     lineHeight={lineHeight}
+                    guideLines={guideLines}
                 />
             </div>
         </div>
