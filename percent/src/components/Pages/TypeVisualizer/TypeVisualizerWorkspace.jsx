@@ -1,4 +1,12 @@
-import { Fragment, useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
+import {
+    Fragment,
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 import AdjustedGlyph from "./AdjustedGlyph";
 import { getAdjustedGlyphBoundsX } from "../../../engine/project";
 
@@ -18,6 +26,8 @@ export const TYPE_VISUALIZER_WORD_SPACE_WIDTH = 100;
 export const TYPE_VISUALIZER_MAX_LINE_CHARS = 50;
 /** How far past the visible viewBox edges guideline horizontals extend (feels “infinite”). */
 const GUIDELINE_LINE_OVERHANG = 800;
+/** Trackpad pinch / ctrl+wheel: exp factor per wheel deltaY unit (matches settings zoom slider range). */
+const WHEEL_ZOOM_SENSITIVITY = 0.01;
 
 export function isTypeVisualizerSpaceEntry(entry) {
     return entry?.kind === "space";
@@ -65,6 +75,8 @@ export function computeCaretWorldX(
  * @param {Record<string, { config: object, nodeSize: number[], nodeX: number[], nodeY: number[] }>} props.glyphStates
  * @param {number} props.caretIndex
  * @param {(stateKey: string) => (value: unknown) => void} props.setNodeSizeByKey
+ * @param {number} [props.caretFollowNonce] — increment when the user types or moves the caret; resumes caret-centered scrolling after manual pan.
+ * @param {(value: number | ((prev: number) => number)) => void} [props.setViewZoom] — pinch / ctrl+wheel zoom (same state as settings slider).
  */
 export default function TypeVisualizerWorkspace({
     line,
@@ -78,6 +90,8 @@ export default function TypeVisualizerWorkspace({
     setNodeSizeByKey,
     wordSpaceWidth = TYPE_VISUALIZER_WORD_SPACE_WIDTH,
     viewZoom = TYPE_VISUALIZER_VIEW_ZOOM_DEFAULT,
+    setViewZoom = null,
+    caretFollowNonce = 0,
 }) {
     const zoomClamped = Math.min(
         Math.max(viewZoom, TYPE_VISUALIZER_VIEW_ZOOM_MIN),
@@ -86,6 +100,8 @@ export default function TypeVisualizerWorkspace({
     const viewWidth = VIEWBOX_WIDTH / zoomClamped;
     const viewHeight = VIEWBOX_HEIGHT / zoomClamped;
     const [vbAdjust, setVbAdjust] = useState(0);
+    /** When true, skip caret-based viewBox updates (user is panning with the wheel). Typing bumps `caretFollowNonce` to clear this. */
+    const [manualPanActive, setManualPanActive] = useState(false);
     const svgRef = useRef(null);
     const draggingGuideline = useRef(null);
     const dragOffset = useRef(0);
@@ -199,8 +215,24 @@ export default function TypeVisualizerWorkspace({
                 wordSpaceWidth,
                 guideLines,
             ),
-        [line, glyphStates, caretIndex, resolveNodeSizeForLayout, wordSpaceWidth],
+        [line, glyphStates, caretIndex, resolveNodeSizeForLayout, wordSpaceWidth, guideLines],
     );
+
+    const lineEndX = useMemo(
+        () =>
+            computeCaretWorldX(
+                line,
+                glyphStates,
+                line.length,
+                RIGHT_SPACING,
+                resolveNodeSizeForLayout,
+                wordSpaceWidth,
+                guideLines,
+            ),
+        [line, glyphStates, resolveNodeSizeForLayout, wordSpaceWidth, guideLines],
+    );
+
+    const lastCaretFollowNonceRef = useRef(caretFollowNonce);
 
     const viewLeftNum = vbAdjust - VIEWBOX_LEFT_PAD;
     const viewRightNum = viewLeftNum + viewWidth;
@@ -213,22 +245,105 @@ export default function TypeVisualizerWorkspace({
     const viewMinY = viewVerticalCenterY - viewHeight / 2;
 
     useLayoutEffect(() => {
+        const typedSinceLastLayout =
+            caretFollowNonce !== lastCaretFollowNonceRef.current;
+        if (typedSinceLastLayout) lastCaretFollowNonceRef.current = caretFollowNonce;
+
         setVbAdjust((vb) => {
             const viewLeft = vb - VIEWBOX_LEFT_PAD;
-            const viewRight = viewLeft + viewWidth;
-            let next = vb;
-            if (caretX < viewLeft + CARET_VIEW_MARGIN) {
-                next = caretX - CARET_VIEW_MARGIN + VIEWBOX_LEFT_PAD;
-            } else if (caretX > viewRight - CARET_VIEW_MARGIN) {
-                next = caretX - viewWidth + CARET_VIEW_MARGIN + VIEWBOX_LEFT_PAD;
+            const minViewLeft = TYPE_VISUALIZER_GUIDELINE_LABEL_X;
+            const maxViewLeft = Math.max(
+                minViewLeft,
+                lineEndX + CARET_VIEW_MARGIN - viewWidth,
+            );
+
+            const clampViewLeft = (vl) =>
+                Math.min(Math.max(vl, minViewLeft), maxViewLeft);
+
+            const followCaret = typedSinceLastLayout || !manualPanActive;
+
+            if (followCaret) {
+                const viewRight = viewLeft + viewWidth;
+                let nextVb = vb;
+                if (caretX < viewLeft + CARET_VIEW_MARGIN) {
+                    nextVb = caretX - CARET_VIEW_MARGIN + VIEWBOX_LEFT_PAD;
+                } else if (caretX > viewRight - CARET_VIEW_MARGIN) {
+                    nextVb = caretX - viewWidth + CARET_VIEW_MARGIN + VIEWBOX_LEFT_PAD;
+                }
+                let viewLeftAfter = nextVb - VIEWBOX_LEFT_PAD;
+                if (caretIndex === 0 && viewLeftAfter > TYPE_VISUALIZER_GUIDELINE_LABEL_X) {
+                    nextVb = TYPE_VISUALIZER_GUIDELINE_LABEL_X + VIEWBOX_LEFT_PAD;
+                    viewLeftAfter = TYPE_VISUALIZER_GUIDELINE_LABEL_X;
+                }
+                const clamped = clampViewLeft(viewLeftAfter);
+                return clamped + VIEWBOX_LEFT_PAD;
             }
-            const viewLeftAfter = next - VIEWBOX_LEFT_PAD;
-            if (caretIndex === 0 && viewLeftAfter > TYPE_VISUALIZER_GUIDELINE_LABEL_X) {
-                next = TYPE_VISUALIZER_GUIDELINE_LABEL_X + VIEWBOX_LEFT_PAD;
-            }
-            return next;
+
+            return clampViewLeft(viewLeft) + VIEWBOX_LEFT_PAD;
         });
-    }, [caretX, caretIndex, viewWidth]);
+
+        if (typedSinceLastLayout) setManualPanActive(false);
+    }, [
+        caretFollowNonce,
+        caretX,
+        caretIndex,
+        viewWidth,
+        manualPanActive,
+        lineEndX,
+    ]);
+
+    useEffect(() => {
+        const svg = svgRef.current;
+        if (!svg) return;
+
+        const onWheel = (e) => {
+            const pinchOrZoomGesture = e.ctrlKey && setViewZoom && e.deltaY !== 0;
+
+            if (pinchOrZoomGesture) {
+                e.preventDefault();
+                setViewZoom((prev) => {
+                    const p = Math.min(
+                        Math.max(prev, TYPE_VISUALIZER_VIEW_ZOOM_MIN),
+                        TYPE_VISUALIZER_VIEW_ZOOM_MAX,
+                    );
+                    const next = p * Math.exp(-e.deltaY * WHEEL_ZOOM_SENSITIVITY);
+                    return Math.min(
+                        Math.max(next, TYPE_VISUALIZER_VIEW_ZOOM_MIN),
+                        TYPE_VISUALIZER_VIEW_ZOOM_MAX,
+                    );
+                });
+                return;
+            }
+
+            const rawDx = e.deltaX;
+            const rawDy = e.deltaY;
+            const dx = rawDx !== 0 ? rawDx : e.shiftKey ? rawDy : 0;
+            if (dx === 0) return;
+
+            e.preventDefault();
+            setManualPanActive(true);
+
+            const rect = svg.getBoundingClientRect();
+            if (rect.width <= 0) return;
+            const scale = viewWidth / rect.width;
+            const dViewLeft = dx * scale;
+
+            setVbAdjust((vb) => {
+                const viewLeft = vb - VIEWBOX_LEFT_PAD;
+                const minViewLeft = TYPE_VISUALIZER_GUIDELINE_LABEL_X;
+                const maxViewLeft = Math.max(
+                    minViewLeft,
+                    lineEndX + CARET_VIEW_MARGIN - viewWidth,
+                );
+                let next = viewLeft + dViewLeft;
+                next = Math.min(Math.max(next, minViewLeft), maxViewLeft);
+                return next + VIEWBOX_LEFT_PAD;
+            });
+        };
+
+        svg.addEventListener("wheel", onWheel, { passive: false });
+        return () => svg.removeEventListener("wheel", onWheel);
+    }, [viewWidth, lineEndX, setViewZoom]);
 
     let cursor = 0;
 

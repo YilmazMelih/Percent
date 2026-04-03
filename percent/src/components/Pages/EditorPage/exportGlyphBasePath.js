@@ -66,12 +66,12 @@ export function exportGlyphBasePaths(glyphData, glyphKeys, guideLines) {
         });
         return GL;
     });
-    console.log(guideLines.descender, guideLines.baseline);
+    console.log(guideLines);
     const font = new opentype.Font({
         familyName: "Test Font",
         styleName: "Regular",
         unitsPerEm: 250, //TBD
-        ascender: guideLines.ascender, //TBD
+        ascender: guideLines.baseline - guideLines.ascender, //TBD
         descender: guideLines.baseline - guideLines.descender, //TBD
         glyphs: [notdefGlyph, ...openTypeGlyphs],
     });

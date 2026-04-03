@@ -306,6 +306,8 @@ export default function TypeVisualizer() {
 
     /** 0 … line.length — index of gap before `line[index]`; `line.length` = after last glyph. */
     const [caretIndex, setCaretIndex] = useState(0);
+    /** Increment on typing, arrow keys, etc. so the workspace recenters on the caret after manual horizontal pan. */
+    const [caretFollowNonce, setCaretFollowNonce] = useState(0);
     /** ViewBox zoom: lower = more world units visible (smaller glyphs). See TypeVisualizerWorkspace. */
     const [workspaceViewZoom, setWorkspaceViewZoom] = useState(TYPE_VISUALIZER_VIEW_ZOOM_DEFAULT);
     const [showAdvanced, setShowAdvanced] = useLocalStorageBoolean(
@@ -333,15 +335,18 @@ export default function TypeVisualizer() {
                                         if (!allowedKeys.includes(e.key)) return;
                                         e.preventDefault();
                                         if (e.key === "ArrowLeft") {
+                                            setCaretFollowNonce((n) => n + 1);
                                             setCaretIndex((c) => Math.max(0, c - 1));
                                             return;
                                         }
                                         if (e.key === "ArrowRight") {
+                                            setCaretFollowNonce((n) => n + 1);
                                             setCaretIndex((c) => Math.min(line.length, c + 1));
                                             return;
                                         }
                                         if (e.key === "Backspace") {
                                             if (caretIndex <= 0) return;
+                                            setCaretFollowNonce((n) => n + 1);
                                             setLine((prev) =>
                                                 prev
                                                     .slice(0, caretIndex - 1)
@@ -351,6 +356,7 @@ export default function TypeVisualizer() {
                                             return;
                                         }
                                         if (e.key === "Delete") {
+                                            setCaretFollowNonce((n) => n + 1);
                                             setLine((prev) =>
                                                 prev
                                                     .slice(0, caretIndex)
@@ -361,6 +367,7 @@ export default function TypeVisualizer() {
                                         if (e.key === " ") {
                                             if (line.length >= TYPE_VISUALIZER_MAX_LINE_CHARS)
                                                 return;
+                                            setCaretFollowNonce((n) => n + 1);
                                             const entry = {
                                                 kind: "space",
                                                 instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
@@ -376,6 +383,7 @@ export default function TypeVisualizer() {
                                         if (e.key in TYPE_VISUALIZER_CONFIG_BY_KEY) {
                                             if (line.length >= TYPE_VISUALIZER_MAX_LINE_CHARS)
                                                 return;
+                                            setCaretFollowNonce((n) => n + 1);
                                             const entry = {
                                                 instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
                                                 stateKey: e.key,
@@ -393,6 +401,7 @@ export default function TypeVisualizer() {
                                         line={line}
                                         glyphStates={glyphStates}
                                         caretIndex={caretIndex}
+                                        caretFollowNonce={caretFollowNonce}
                                         seeNodes={seeNodes}
                                         seePathPoints={seePathPoints}
                                         seeGuidelines={seeGuidelines}
@@ -400,6 +409,7 @@ export default function TypeVisualizer() {
                                         setGuideLines={setGuideLines}
                                         setNodeSizeByKey={handleNodeSizeChange}
                                         viewZoom={workspaceViewZoom}
+                                        setViewZoom={setWorkspaceViewZoom}
                                     />
                                 </div>
                                 <SidePanelGroup
