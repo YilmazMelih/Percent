@@ -1,5 +1,5 @@
 # Percent
-percent.up.railway.app
+[type-percent.vercel.app](https://type-percent.vercel.app/)
 
 A web-app aimed to make designing typefaces more approachable and streamlined while educating beginners on best practices
 
@@ -14,7 +14,7 @@ A web-app aimed to make designing typefaces more approachable and streamlined wh
 - **Styling**: CSS / Tailwind
 - **Backend**: (To be finalized)
 - **Database**: (To be finalized)
-- **Hosting**: Railway
+- **Hosting**: Vercel
 
 ---
 
