@@ -1,6 +1,6 @@
 import { Allotment } from "allotment";
 import "allotment/dist/style.css";
-import { useCallback, useEffect, useMemo, useState, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import SidePanelGroup from "../EditorPage/SidePanelGroup";
 import SettingsPanel from "../EditorPage/SettingsPanel";
 import BottomPanel from "../EditorPage/BottomPanel";
@@ -209,6 +209,16 @@ export default function TypeVisualizer() {
         divRef.current?.focus();
     }, []);
 
+    const handleCaretPlacementFromSvg = useCallback(
+        (index) => {
+            const next = Math.max(0, Math.min(line.length, index));
+            setCaretFollowNonce((n) => n + 1);
+            setCaretIndex(next);
+            divRef.current?.focus();
+        },
+        [line.length],
+    );
+
     const handleNodeSizeChange = useCallback(
         (stateKey) => (value) => {
             setGlyphStates((prev) => {
@@ -402,6 +412,7 @@ export default function TypeVisualizer() {
                                         glyphStates={glyphStates}
                                         caretIndex={caretIndex}
                                         caretFollowNonce={caretFollowNonce}
+                                        onCaretPlacement={handleCaretPlacementFromSvg}
                                         seeNodes={seeNodes}
                                         seePathPoints={seePathPoints}
                                         seeGuidelines={seeGuidelines}

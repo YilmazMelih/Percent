@@ -90,6 +90,8 @@ export default function Node({
 
     return (
         <g
+            className="cursor-default"
+            data-skip-typeviz-caret="true"
             data-hovered={isHovered ? "true" : "false"}
             data-ring-hovered={isRingHovered ? "true" : "false"}
             data-selected={isSelected ? "true" : "false"}
@@ -142,7 +144,7 @@ export default function Node({
                 cx={x}
                 cy={y}
                 r={size}
-                className="node-circle"
+                className="node-circle cursor-pointer"
                 fillOpacity={isDragging ? 0.3 : 1}
                 onPointerEnter={() => setIsHovered(true)}
                 onPointerLeave={() => setIsHovered(false)}

@@ -40,7 +40,13 @@ export default function AdjustedGlyph({
 
     return (
         <>
-            <path fill="#ededed" stroke="none" strokeWidth="1" d={d} />
+            <path
+                className="cursor-default"
+                fill="#ededed"
+                stroke="none"
+                strokeWidth="1"
+                d={d}
+            />
 
             {seeNodes &&
                 buildNodes(
@@ -61,6 +67,7 @@ export default function AdjustedGlyph({
                 controlPoints.map((point, i) => (
                     <circle
                         key={`${i}_controlP`}
+                        className="cursor-default"
                         r={3}
                         cx={point.x}
                         cy={point.y}
@@ -72,6 +79,7 @@ export default function AdjustedGlyph({
                 endpoints.map((point, i) => (
                     <circle
                         key={`${i}_endpoint`}
+                        className="cursor-default"
                         r={4}
                         cx={point.x}
                         cy={point.y}

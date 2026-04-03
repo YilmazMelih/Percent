@@ -26,6 +26,19 @@ export const TYPE_VISUALIZER_WORD_SPACE_WIDTH = 100;
 export const TYPE_VISUALIZER_MAX_LINE_CHARS = 50;
 /** How far past the visible viewBox edges guideline horizontals extend (feels “infinite”). */
 const GUIDELINE_LINE_OVERHANG = 800;
+
+function closestCaretGapIndex(worldX, gapXs) {
+    let best = 0;
+    let bestDist = Infinity;
+    for (let i = 0; i < gapXs.length; i++) {
+        const d = Math.abs(worldX - gapXs[i]);
+        if (d < bestDist) {
+            bestDist = d;
+            best = i;
+        }
+    }
+    return best;
+}
 /** Trackpad pinch / ctrl+wheel: exp factor per wheel deltaY unit (matches settings zoom slider range). */
 const WHEEL_ZOOM_SENSITIVITY = 0.01;
 
@@ -77,6 +90,7 @@ export function computeCaretWorldX(
  * @param {(stateKey: string) => (value: unknown) => void} props.setNodeSizeByKey
  * @param {number} [props.caretFollowNonce] — increment when the user types or moves the caret; resumes caret-centered scrolling after manual pan.
  * @param {(value: number | ((prev: number) => number)) => void} [props.setViewZoom] — pinch / ctrl+wheel zoom (same state as settings slider).
+ * @param {(index: number) => void} [props.onCaretPlacement] — click on typing area: move caret to closest gap; should bump follow + focus editor.
  */
 export default function TypeVisualizerWorkspace({
     line,
@@ -92,6 +106,7 @@ export default function TypeVisualizerWorkspace({
     viewZoom = TYPE_VISUALIZER_VIEW_ZOOM_DEFAULT,
     setViewZoom = null,
     caretFollowNonce = 0,
+    onCaretPlacement = null,
 }) {
     const zoomClamped = Math.min(
         Math.max(viewZoom, TYPE_VISUALIZER_VIEW_ZOOM_MIN),
@@ -110,6 +125,17 @@ export default function TypeVisualizerWorkspace({
         const pt = svgRef.current.createSVGPoint();
         pt.y = clientY;
         return pt.matrixTransform(svgRef.current.getScreenCTM().inverse()).y;
+    }
+
+    function clientToSvgXY(clientX, clientY) {
+        if (!svgRef.current) return null;
+        const ctm = svgRef.current.getScreenCTM();
+        if (!ctm) return null;
+        const pt = svgRef.current.createSVGPoint();
+        pt.x = clientX;
+        pt.y = clientY;
+        const p = pt.matrixTransform(ctm.inverse());
+        return { x: p.x, y: p.y };
     }
 
     function handleGuideLineChange(key) {
@@ -232,6 +258,38 @@ export default function TypeVisualizerWorkspace({
         [line, glyphStates, resolveNodeSizeForLayout, wordSpaceWidth, guideLines],
     );
 
+    /** World X of each insertion gap `i` (before `line[i]`), length `line.length + 1`. */
+    const gapWorldXs = useMemo(() => {
+        const xs = [];
+        for (let i = 0; i <= line.length; i++) {
+            xs.push(
+                computeCaretWorldX(
+                    line,
+                    glyphStates,
+                    i,
+                    RIGHT_SPACING,
+                    resolveNodeSizeForLayout,
+                    wordSpaceWidth,
+                    guideLines,
+                ),
+            );
+        }
+        return xs;
+    }, [line, glyphStates, resolveNodeSizeForLayout, wordSpaceWidth, guideLines]);
+
+    const handleSvgMouseDown = useCallback(
+        (e) => {
+            if (e.button !== 0 || !onCaretPlacement) return;
+            if (e.defaultPrevented) return;
+            if (e.target.closest?.("[data-skip-typeviz-caret]")) return;
+            const xy = clientToSvgXY(e.clientX, e.clientY);
+            if (!xy) return;
+            const idx = closestCaretGapIndex(xy.x, gapWorldXs);
+            onCaretPlacement(idx);
+        },
+        [onCaretPlacement, gapWorldXs],
+    );
+
     const lastCaretFollowNonceRef = useRef(caretFollowNonce);
 
     const viewLeftNum = vbAdjust - VIEWBOX_LEFT_PAD;
@@ -351,8 +409,9 @@ export default function TypeVisualizerWorkspace({
         <div className="aspect-[5/3] w-[min(95vw,1500px)] max-w-[1500px] mx-auto mt-10">
             <svg
                 ref={svgRef}
-                className="w-full h-full block"
+                className="w-full h-full block cursor-text"
                 viewBox={`${vbAdjust - VIEWBOX_LEFT_PAD} ${viewMinY} ${viewWidth} ${viewHeight}`}
+                onMouseDown={handleSvgMouseDown}
                 onMouseMove={handleGuidelineDrag}
                 onMouseUp={handleGuidelineRelease}
                 onMouseLeave={handleGuidelineRelease}
@@ -456,7 +515,7 @@ export default function TypeVisualizerWorkspace({
                     y2={guideLines.ascender}
                     stroke="#B8B8B8"
                     strokeWidth="3"
-                    className="animate-[blink_1s_infinite]"
+                    className="animate-[blink_1s_infinite] cursor-default"
                 />
             </svg>
         </div>
