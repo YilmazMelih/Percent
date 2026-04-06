@@ -10,7 +10,7 @@ const GlyphPreview = ({ config, nodeSize, nodeX, nodeY, showNodes, guideLines })
 
     return (
         <svg viewBox="-165 0 330 400" style={{ width: "100%", height: "100%" }}>
-            <path fill={showNodes ? "#ccc" : "#333"} d={d}></path>
+            <path fill={showNodes ? "black" : "#333"} d={d}></path>
             {showNodes &&
                 config.nodes.map((node) => {
                     const defaultGuideLines = {
@@ -55,8 +55,8 @@ const GlyphPreview = ({ config, nodeSize, nodeX, nodeY, showNodes, guideLines })
                             cx={node.pos.x + tx}
                             cy={node.pos.y + ty}
                             r={size}
-                            fill="#167d48" // This is the green color from the main editor
-                            fillOpacity={0.8}
+                            fill="#beff00"
+                            fillOpacity={0.9}
                         />
                     );
                 })}

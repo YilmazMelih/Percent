@@ -132,6 +132,9 @@ export default function Node({
                         y={y}
                         fontSize="16"
                         fill="#beff00"
+                        fontWeight="bold"
+                        stroke="black"
+                        strokeWidth="0"
                         dominantBaseline="middle"
                         textAnchor="middle"
                     >

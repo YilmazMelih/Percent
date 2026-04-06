@@ -19,7 +19,7 @@ const AllGlyphs = ({
     const progress = ((gridCellSize - minSize) / (maxSize - minSize)) * 100;
 
     const sliderStyle = {
-        background: `linear-gradient(to right, #167d48 ${progress}%, #ddd ${progress}%)`,
+        background: `linear-gradient(to right, #7020BF ${progress}%, #ddd ${progress}%)`,
     };
 
     return (
