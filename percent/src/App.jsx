@@ -25,7 +25,7 @@ function App() {
                         <Route path="/*" element={<Home />} />
                     </Routes>
                 </main>
-                {isHomePage && <Footer />}
+                {/* {isHomePage && <Footer />} */}
             </div>
         </ModalProvider>
     );
