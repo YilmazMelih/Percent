@@ -1,4 +1,6 @@
 import { Allotment } from "allotment";
+import { Link } from "react-router-dom";
+import "./Editor.css";
 import "allotment/dist/style.css";
 import SidePanelGroup from "./SidePanelGroup";
 import SettingsPanel from "./SettingsPanel";
@@ -299,7 +301,8 @@ export default function Editor() {
     const currentGlyph = glyphData[selectedGlyph];
 
     return (
-        <div style={{ height: "calc(100vh - 60px)" }}>
+        <div style={{ height: "calc(100vh - 60px)", position: "relative" }}>
+            <Link to="/playground" className="test-workplace-link">Test Workplace</Link>
             <Allotment>
                 <Allotment.Pane minSize={200} preferredSize="280px" maxSize={maxPaneSize}>
                     <AllGlyphs

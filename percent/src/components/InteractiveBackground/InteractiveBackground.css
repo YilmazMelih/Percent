@@ -1,12 +1,11 @@
-
 .interactive-background {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%; /* This will be dynamically overridden */
-    z-index: 0; /* Changed from -1 to stack correctly */
+    height: 100%;
     overflow: hidden;
+    z-index: -1;
 }
 
 .bg-image {

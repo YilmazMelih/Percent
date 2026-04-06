@@ -1,45 +1,58 @@
 import { Link, useLocation } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
-import logoGif from "../../assets/images/Logo_fina.gif";
-import staticLogo from "../../assets/images/icon.png";
 import { useModal } from "../../contexts/ModalContext";
+import arrowLeft from "../../assets/images/arrow-left.svg";
+import arrowRight from "../../assets/images/arrow-right.svg";
 
 function Header() {
     const location = useLocation();
-    const { openExportModal } = useModal();
-    const [isLogoHovered, setIsLogoHovered] = useState(false);
-    const isPlayground = location.pathname === "/playground";
+    const isHomePage = location.pathname === '/';
+    const [isBarLoaded, setIsBarLoaded] = useState(!isHomePage);
+
+    useEffect(() => {
+        // This logic handles the animation when navigating from the home page.
+        if (!isHomePage && !isBarLoaded) {
+            const timer = setTimeout(() => setIsBarLoaded(true), 10);
+            return () => clearTimeout(timer);
+        } else if (isHomePage) {
+            setIsBarLoaded(false);
+        }
+    }, [isHomePage, isBarLoaded]);
+
     return (
         <header className="header">
             <div className="header-brand">
-                <img
-                    src={isLogoHovered ? logoGif : staticLogo}
-                    alt="Percent Logo"
-                    className="header-logo"
-                    onMouseEnter={() => setIsLogoHovered(true)}
-                    onMouseLeave={() => setIsLogoHovered(false)}
-                />
                 <Link to="/" className="header-title">
-                    Percent
+                    %
                 </Link>
             </div>
             <nav className="header-nav">
-                {isPlayground ? (
-                    <button onClick={openExportModal} className="header-link">
-                        Export
-                    </button>
-                ) : (
-                    <Link to="/playground" className="header-link">
-                        Playground
+                {isHomePage ? (
+                    <Link to="/classroom" className={`header-link home-start-button`}>
+                        Start
+                        <img src={arrowLeft} alt="" className="start-arrow" />
                     </Link>
+                ) : (
+                    <div className={`classroom-nav-container ${isBarLoaded ? 'loaded' : ''}`}>
+                        <span className="start-text">Start</span>
+                        <div className="classroom-links">
+                            <Link to="/classroom" className={location.pathname === '/classroom' ? 'active' : ''}>
+                                Classroom
+                                {location.pathname === '/classroom' && <img src={arrowRight} alt="" className="classroom-active-arrow" />}
+                            </Link>
+                            <Link to="/type-visualizer" className={location.pathname === '/type-visualizer' ? 'active' : ''}>
+                                Group
+                                {location.pathname === '/type-visualizer' && <img src={arrowRight} alt="" className="classroom-active-arrow" />}
+                            </Link>
+                            <Link to="/editor" className={location.pathname === '/editor' ? 'active' : ''}>
+                                Glyphs
+                                {location.pathname === '/editor' && <img src={arrowRight} alt="" className="classroom-active-arrow" />}
+                            </Link>
+                            <Link to="#">Export</Link>
+                        </div>
+                    </div>
                 )}
-                <Link to="/type-visualizer" className="header-link">
-                    Type Visualizer
-                </Link>
-                <Link to="/editor" className="header-link">
-                    Editor
-                </Link>
             </nav>
         </header>
     );

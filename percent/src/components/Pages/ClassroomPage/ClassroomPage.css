@@ -1,0 +1,21 @@
+.classroom-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.classroom-content {
+    position: relative;
+    z-index: 1;
+}
+
+.classroom-text {
+    font-size: 12rem;
+    font-weight: 700;
+    color: #000;
+    font-family: 'Space Grotesk', sans-serif;
+}

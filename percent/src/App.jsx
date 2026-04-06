@@ -7,6 +7,7 @@ import Testing from "./components/Pages/TestWorkplace/Testing";
 import { ModalProvider } from "./contexts/ModalContext";
 import Editor from "./components/Pages/EditorPage/Editor";
 import TypeVisualizer from "./components/Pages/TypeVisualizer/TypeVisualizer";
+import ClassroomPage from "./components/Pages/ClassroomPage/ClassroomPage";
 
 function App() {
     const location = useLocation();
@@ -22,6 +23,7 @@ function App() {
 
                         <Route path="/editor" element={<Editor />} />
                         <Route path="/type-visualizer" element={<TypeVisualizer />} />
+                        <Route path="/classroom" element={<ClassroomPage />} />
                         <Route path="/*" element={<Home />} />
                     </Routes>
                 </main>
