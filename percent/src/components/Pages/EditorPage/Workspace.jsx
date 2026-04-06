@@ -83,7 +83,7 @@ export default function Workspace({
                     </marker>
                 </defs>
                 {seeGuidelines && (
-                    <g stroke="lightgray" strokeWidth="2">
+                    <g stroke="#7020BF" strokeWidth="2">
                         {[
                             { key: "ascender", label: "Ascender" },
                             { key: "cap_height", label: "Cap Height" },
@@ -100,12 +100,17 @@ export default function Workspace({
                                     x={-330}
                                     y={guideLines[key] - 8}
                                     fontSize="16"
-                                    fill="lightgray"
+                                    fill="#7020BF"
                                     stroke="none"
                                 >
                                     {label}
                                 </text>
-                                <line x1="-330" y1={guideLines[key]} x2="330" y2={guideLines[key]} />
+                                <line
+                                    x1="-330"
+                                    y1={guideLines[key]}
+                                    x2="330"
+                                    y2={guideLines[key]}
+                                />
                                 <line
                                     x1="-330"
                                     y1={guideLines[key]}
@@ -119,7 +124,7 @@ export default function Workspace({
                     </g>
                 )}
 
-                <path fill="#ededed" stroke="none" strokeWidth="1" d={d}></path>
+                <path fill="black" stroke="none" strokeWidth="1" d={d}></path>
                 {/* <path
                     fill="none"
                     stroke="black"

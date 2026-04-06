@@ -44,7 +44,7 @@
     --card-background: #f8f9fa;
     --border-color: #e0e0e0;
 
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: "Space Grotesk", sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
@@ -106,18 +106,18 @@ button:focus-visible {
 }
 
 .node-circle {
-    fill: #1fa961;
+    fill: #beff00;
     transition:
         fill 0.2s ease,
         fill-opacity 0.4s ease;
 }
 
 .node-circle:hover {
-    fill: #2dbe73;
+    fill: #b4f000;
 }
 
 .node-circle:active {
-    fill: #30ae6d;
+    fill: #a5dd00;
 }
 
 .node-ring {

@@ -303,20 +303,15 @@ export default function TypeVisualizerWorkspace({
     const viewMinY = viewVerticalCenterY - viewHeight / 2;
 
     useLayoutEffect(() => {
-        const typedSinceLastLayout =
-            caretFollowNonce !== lastCaretFollowNonceRef.current;
+        const typedSinceLastLayout = caretFollowNonce !== lastCaretFollowNonceRef.current;
         if (typedSinceLastLayout) lastCaretFollowNonceRef.current = caretFollowNonce;
 
         setVbAdjust((vb) => {
             const viewLeft = vb - VIEWBOX_LEFT_PAD;
             const minViewLeft = TYPE_VISUALIZER_GUIDELINE_LABEL_X;
-            const maxViewLeft = Math.max(
-                minViewLeft,
-                lineEndX + CARET_VIEW_MARGIN - viewWidth,
-            );
+            const maxViewLeft = Math.max(minViewLeft, lineEndX + CARET_VIEW_MARGIN - viewWidth);
 
-            const clampViewLeft = (vl) =>
-                Math.min(Math.max(vl, minViewLeft), maxViewLeft);
+            const clampViewLeft = (vl) => Math.min(Math.max(vl, minViewLeft), maxViewLeft);
 
             const followCaret = typedSinceLastLayout || !manualPanActive;
 
@@ -341,14 +336,7 @@ export default function TypeVisualizerWorkspace({
         });
 
         if (typedSinceLastLayout) setManualPanActive(false);
-    }, [
-        caretFollowNonce,
-        caretX,
-        caretIndex,
-        viewWidth,
-        manualPanActive,
-        lineEndX,
-    ]);
+    }, [caretFollowNonce, caretX, caretIndex, viewWidth, manualPanActive, lineEndX]);
 
     useEffect(() => {
         const svg = svgRef.current;
@@ -389,10 +377,7 @@ export default function TypeVisualizerWorkspace({
             setVbAdjust((vb) => {
                 const viewLeft = vb - VIEWBOX_LEFT_PAD;
                 const minViewLeft = TYPE_VISUALIZER_GUIDELINE_LABEL_X;
-                const maxViewLeft = Math.max(
-                    minViewLeft,
-                    lineEndX + CARET_VIEW_MARGIN - viewWidth,
-                );
+                const maxViewLeft = Math.max(minViewLeft, lineEndX + CARET_VIEW_MARGIN - viewWidth);
                 let next = viewLeft + dViewLeft;
                 next = Math.min(Math.max(next, minViewLeft), maxViewLeft);
                 return next + VIEWBOX_LEFT_PAD;
@@ -417,7 +402,7 @@ export default function TypeVisualizerWorkspace({
                 onMouseLeave={handleGuidelineRelease}
             >
                 {seeGuidelines && (
-                    <g stroke="lightgray" strokeWidth="1.5">
+                    <g stroke="#7020BF" strokeWidth="1.5">
                         {[
                             { key: "ascender", label: "Ascender" },
                             { key: "cap_height", label: "Cap Height" },
@@ -434,7 +419,7 @@ export default function TypeVisualizerWorkspace({
                                     x={TYPE_VISUALIZER_GUIDELINE_LABEL_X}
                                     y={guideLines[key] - 8}
                                     fontSize="16"
-                                    fill="lightgray"
+                                    fill="#7020BF"
                                     stroke="none"
                                 >
                                     {label}
@@ -513,7 +498,7 @@ export default function TypeVisualizerWorkspace({
                     y1={guideLines.descender}
                     x2={caretX}
                     y2={guideLines.ascender}
-                    stroke="#B8B8B8"
+                    stroke="#7020BF"
                     strokeWidth="3"
                     className="animate-[blink_1s_infinite] cursor-default"
                 />

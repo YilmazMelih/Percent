@@ -120,7 +120,7 @@ export default function Node({
                         cy={y}
                         r={ringR}
                         className="node-ring cursor-pointer"
-                        stroke={isRingHovered ? "#0c532e" : "#167d48"}
+                        stroke={isRingHovered ? "#b4f000" : "#beff00"}
                         strokeOpacity={isDragging ? 0.5 : 1}
                         strokeDasharray={`${ringVisibleLen} ${ringGapLen}`}
                         strokeDashoffset={-ringVisibleLen}
@@ -131,7 +131,7 @@ export default function Node({
                         x={Number(x) + ringR + 20}
                         y={y}
                         fontSize="16"
-                        fill="black"
+                        fill="#beff00"
                         dominantBaseline="middle"
                         textAnchor="middle"
                     >

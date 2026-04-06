@@ -71,7 +71,7 @@ function SettingsPanelBody({
                         type="checkbox"
                         checked={seeNodes}
                         onChange={(e) => setSeeNodes(e.target.checked)}
-                        className="rounded border-gray-300"
+                        className="color-red-500"
                     />
                     See Nodes
                 </label>
@@ -103,32 +103,31 @@ function SettingsPanelBody({
                     Advanced
                 </label>
             </div>
-            {typeof setTypeVisualizerViewZoom === "function" &&
-                typeVisualizerViewZoom != null && (
-                    <div className="mb-4 pb-4 border-b border-gray-200 text-sm text-gray-700">
-                        <div className="flex items-center justify-between gap-2 mb-1">
-                            <span className="font-medium text-gray-800">Workspace zoom</span>
-                            <span className="tabular-nums text-gray-500 text-xs">
-                                {Math.round(typeVisualizerViewZoom * 100)}%
-                            </span>
-                        </div>
-                        <p className="text-xs text-gray-500 mb-2">
-                            Left: zoom out (smaller type, more line visible). Right: zoom in.
-                        </p>
-                        <input
-                            type="range"
-                            min={TYPE_VISUALIZER_VIEW_ZOOM_MIN}
-                            max={TYPE_VISUALIZER_VIEW_ZOOM_MAX}
-                            step={0.05}
-                            value={typeVisualizerViewZoom}
-                            onChange={(e) =>
-                                setTypeVisualizerViewZoom(Number.parseFloat(e.target.value))
-                            }
-                            className="w-full accent-[#1fa961]"
-                            aria-label="Workspace zoom"
-                        />
+            {typeof setTypeVisualizerViewZoom === "function" && typeVisualizerViewZoom != null && (
+                <div className="mb-4 pb-4 border-b border-gray-200 text-sm text-gray-700">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                        <span className="font-medium text-gray-800">Workspace zoom</span>
+                        <span className="tabular-nums text-gray-500 text-xs">
+                            {Math.round(typeVisualizerViewZoom * 100)}%
+                        </span>
                     </div>
-                )}
+                    <p className="text-xs text-gray-500 mb-2">
+                        Left: zoom out (smaller type, more line visible). Right: zoom in.
+                    </p>
+                    <input
+                        type="range"
+                        min={TYPE_VISUALIZER_VIEW_ZOOM_MIN}
+                        max={TYPE_VISUALIZER_VIEW_ZOOM_MAX}
+                        step={0.05}
+                        value={typeVisualizerViewZoom}
+                        onChange={(e) =>
+                            setTypeVisualizerViewZoom(Number.parseFloat(e.target.value))
+                        }
+                        className="w-full accent-[#1fa961]"
+                        aria-label="Workspace zoom"
+                    />
+                </div>
+            )}
             {isMulti ? (
                 glyphPanels.map((panel, idx) => (
                     <div
@@ -225,10 +224,10 @@ export default function SettingsPanel(props) {
             tabLabel="settings"
             title="Settings"
             tabText="Settings"
-            tabColor="#1fa961"
-            tabHoverColor="#2dbe73"
-            tabTextColor="#ffffff"
-            tabBorderColor="#1fa961"
+            tabColor="white"
+            tabHoverColor="white"
+            tabTextColor="black"
+            tabBorderColor="black"
         >
             <SettingsPanelBody {...props} />
         </SidePanelTab>

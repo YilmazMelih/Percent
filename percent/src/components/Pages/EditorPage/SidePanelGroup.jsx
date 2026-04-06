@@ -3,7 +3,7 @@ import { useState, Children, isValidElement } from "react";
 const HEADER_OFFSET = "5rem";
 const TAB_HEIGHT = "150px";
 const PANEL_WIDTH = "24rem";
-const DEFAULT_TAB_COLOR = "#d1d5db";
+const DEFAULT_TAB_COLOR = "#7020BF";
 const DEFAULT_TAB_HOVER_COLOR = "#9ca3af";
 const DEFAULT_TAB_TEXT_COLOR = "#1f2937";
 const DEFAULT_TAB_BORDER_COLOR = "#9ca3af";

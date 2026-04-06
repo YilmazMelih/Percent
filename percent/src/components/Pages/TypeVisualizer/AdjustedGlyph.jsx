@@ -40,13 +40,7 @@ export default function AdjustedGlyph({
 
     return (
         <>
-            <path
-                className="cursor-default"
-                fill="#ededed"
-                stroke="none"
-                strokeWidth="1"
-                d={d}
-            />
+            <path className="cursor-default" fill="black" stroke="none" strokeWidth="1" d={d} />
 
             {seeNodes &&
                 buildNodes(

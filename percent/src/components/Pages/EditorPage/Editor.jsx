@@ -302,7 +302,7 @@ export default function Editor() {
 
     return (
         <div style={{ height: "calc(100vh - 60px)", position: "relative" }}>
-            <Link to="/playground" className="test-workplace-link">Test Workplace</Link>
+            {/* <Link to="/playground" className="test-workplace-link">Test Workplace</Link> */}
             <Allotment>
                 <Allotment.Pane minSize={200} preferredSize="280px" maxSize={maxPaneSize}>
                     <AllGlyphs
