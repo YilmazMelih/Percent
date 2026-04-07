@@ -7,7 +7,7 @@ import arrowRight from "../../assets/images/arrow-right.svg";
 
 function Header() {
     const location = useLocation();
-    const isHomePage = location.pathname === '/';
+    const isHomePage = location.pathname === "/";
     const [isBarLoaded, setIsBarLoaded] = useState(!isHomePage);
 
     useEffect(() => {
@@ -34,20 +34,47 @@ function Header() {
                         <img src={arrowLeft} alt="" className="start-arrow" />
                     </Link>
                 ) : (
-                    <div className={`classroom-nav-container ${isBarLoaded ? 'loaded' : ''}`}>
+                    <div className={`classroom-nav-container ${isBarLoaded ? "loaded" : ""}`}>
                         <span className="start-text">Start</span>
                         <div className="classroom-links">
-                            <Link to="/classroom" className={location.pathname === '/classroom' ? 'active' : ''}>
+                            <Link
+                                to="/classroom"
+                                className={location.pathname === "/classroom" ? "active" : ""}
+                            >
                                 Classroom
-                                {location.pathname === '/classroom' && <img src={arrowRight} alt="" className="classroom-active-arrow" />}
+                                {location.pathname === "/classroom" && (
+                                    <img
+                                        src={arrowRight}
+                                        alt=""
+                                        className="classroom-active-arrow"
+                                    />
+                                )}
                             </Link>
-                            <Link to="/type-visualizer" className={location.pathname === '/type-visualizer' ? 'active' : ''}>
-                                Group
-                                {location.pathname === '/type-visualizer' && <img src={arrowRight} alt="" className="classroom-active-arrow" />}
+                            <Link
+                                to="/system"
+                                className={location.pathname === "/system" ? "active" : ""}
+                            >
+                                System
+                                {location.pathname === "/system" && (
+                                    <img
+                                        src={arrowRight}
+                                        alt=""
+                                        className="classroom-active-arrow"
+                                    />
+                                )}
                             </Link>
-                            <Link to="/editor" className={location.pathname === '/editor' ? 'active' : ''}>
-                                Glyphs
-                                {location.pathname === '/editor' && <img src={arrowRight} alt="" className="classroom-active-arrow" />}
+                            <Link
+                                to="/editor"
+                                className={location.pathname === "/editor" ? "active" : ""}
+                            >
+                                Editor
+                                {location.pathname === "/editor" && (
+                                    <img
+                                        src={arrowRight}
+                                        alt=""
+                                        className="classroom-active-arrow"
+                                    />
+                                )}
                             </Link>
                             <Link to="#">Export</Link>
                         </div>
