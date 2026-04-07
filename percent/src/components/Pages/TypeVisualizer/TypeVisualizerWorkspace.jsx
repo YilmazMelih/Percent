@@ -107,13 +107,22 @@ export default function TypeVisualizerWorkspace({
     setViewZoom = null,
     caretFollowNonce = 0,
     onCaretPlacement = null,
+    showCaret = true,
+    centerSingleGlyph = false,
+    compactMode = false,
+    compactMaxWidth = 1000,
+    expandedMaxWidth = 1500,
+    viewBaseWidth = VIEWBOX_WIDTH,
+    viewBaseHeight = VIEWBOX_HEIGHT,
+    guidelineLabelX = TYPE_VISUALIZER_GUIDELINE_LABEL_X,
+    guidelineLineOverhang = GUIDELINE_LINE_OVERHANG,
 }) {
     const zoomClamped = Math.min(
         Math.max(viewZoom, TYPE_VISUALIZER_VIEW_ZOOM_MIN),
         TYPE_VISUALIZER_VIEW_ZOOM_MAX,
     );
-    const viewWidth = VIEWBOX_WIDTH / zoomClamped;
-    const viewHeight = VIEWBOX_HEIGHT / zoomClamped;
+    const viewWidth = viewBaseWidth / zoomClamped;
+    const viewHeight = viewBaseHeight / zoomClamped;
     const [vbAdjust, setVbAdjust] = useState(0);
     /** When true, skip caret-based viewBox updates (user is panning with the wheel). Typing bumps `caretFollowNonce` to clear this. */
     const [manualPanActive, setManualPanActive] = useState(false);
@@ -294,6 +303,16 @@ export default function TypeVisualizerWorkspace({
 
     const viewLeftNum = vbAdjust - VIEWBOX_LEFT_PAD;
     const viewRightNum = viewLeftNum + viewWidth;
+    const singleGlyphCenterX = Math.max(0, (lineEndX - RIGHT_SPACING) / 2);
+    const singleGlyphGuidelineStartX = singleGlyphCenterX - viewBaseWidth / 2;
+    const singleGlyphGuidelineEndX = singleGlyphCenterX + viewBaseWidth / 2;
+    const guideLineStartX = centerSingleGlyph
+        ? singleGlyphGuidelineStartX
+        : viewLeftNum - guidelineLineOverhang;
+    const guideLineEndX = centerSingleGlyph
+        ? singleGlyphGuidelineEndX
+        : viewRightNum + guidelineLineOverhang;
+    const guideLineLabelX = centerSingleGlyph ? singleGlyphGuidelineStartX : guidelineLabelX;
 
     /** Keep the ascender–descender band in the vertical middle of the view as `viewHeight` changes. */
     const viewVerticalCenterY = useMemo(
@@ -301,14 +320,28 @@ export default function TypeVisualizerWorkspace({
         [guideLines.ascender, guideLines.descender],
     );
     const viewMinY = viewVerticalCenterY - viewHeight / 2;
+    const prevCenterSingleGlyphRef = useRef(centerSingleGlyph);
+
+    useEffect(() => {
+        const wasCentered = prevCenterSingleGlyphRef.current;
+        if (wasCentered && !centerSingleGlyph) {
+            setVbAdjust(guidelineLabelX + VIEWBOX_LEFT_PAD);
+        }
+        prevCenterSingleGlyphRef.current = centerSingleGlyph;
+    }, [centerSingleGlyph, guidelineLabelX]);
 
     useLayoutEffect(() => {
+        if (centerSingleGlyph) {
+            // Glyph mode: keep glyph and fixed guideline segment centered.
+            setVbAdjust(singleGlyphCenterX - viewWidth / 2 + VIEWBOX_LEFT_PAD);
+            return;
+        }
         const typedSinceLastLayout = caretFollowNonce !== lastCaretFollowNonceRef.current;
         if (typedSinceLastLayout) lastCaretFollowNonceRef.current = caretFollowNonce;
 
         setVbAdjust((vb) => {
             const viewLeft = vb - VIEWBOX_LEFT_PAD;
-            const minViewLeft = TYPE_VISUALIZER_GUIDELINE_LABEL_X;
+            const minViewLeft = guidelineLabelX;
             const maxViewLeft = Math.max(minViewLeft, lineEndX + CARET_VIEW_MARGIN - viewWidth);
 
             const clampViewLeft = (vl) => Math.min(Math.max(vl, minViewLeft), maxViewLeft);
@@ -324,9 +357,9 @@ export default function TypeVisualizerWorkspace({
                     nextVb = caretX - viewWidth + CARET_VIEW_MARGIN + VIEWBOX_LEFT_PAD;
                 }
                 let viewLeftAfter = nextVb - VIEWBOX_LEFT_PAD;
-                if (caretIndex === 0 && viewLeftAfter > TYPE_VISUALIZER_GUIDELINE_LABEL_X) {
-                    nextVb = TYPE_VISUALIZER_GUIDELINE_LABEL_X + VIEWBOX_LEFT_PAD;
-                    viewLeftAfter = TYPE_VISUALIZER_GUIDELINE_LABEL_X;
+                if (caretIndex === 0 && viewLeftAfter > guidelineLabelX) {
+                    nextVb = guidelineLabelX + VIEWBOX_LEFT_PAD;
+                    viewLeftAfter = guidelineLabelX;
                 }
                 const clamped = clampViewLeft(viewLeftAfter);
                 return clamped + VIEWBOX_LEFT_PAD;
@@ -336,7 +369,7 @@ export default function TypeVisualizerWorkspace({
         });
 
         if (typedSinceLastLayout) setManualPanActive(false);
-    }, [caretFollowNonce, caretX, caretIndex, viewWidth, manualPanActive, lineEndX]);
+    }, [caretFollowNonce, caretX, caretIndex, viewWidth, manualPanActive, lineEndX, centerSingleGlyph, guidelineLabelX, singleGlyphCenterX]);
 
     useEffect(() => {
         const svg = svgRef.current;
@@ -364,7 +397,7 @@ export default function TypeVisualizerWorkspace({
             const rawDx = e.deltaX;
             const rawDy = e.deltaY;
             const dx = rawDx !== 0 ? rawDx : e.shiftKey ? rawDy : 0;
-            if (dx === 0) return;
+            if (dx === 0 || centerSingleGlyph) return;
 
             e.preventDefault();
             setManualPanActive(true);
@@ -376,7 +409,7 @@ export default function TypeVisualizerWorkspace({
 
             setVbAdjust((vb) => {
                 const viewLeft = vb - VIEWBOX_LEFT_PAD;
-                const minViewLeft = TYPE_VISUALIZER_GUIDELINE_LABEL_X;
+                const minViewLeft = guidelineLabelX;
                 const maxViewLeft = Math.max(minViewLeft, lineEndX + CARET_VIEW_MARGIN - viewWidth);
                 let next = viewLeft + dViewLeft;
                 next = Math.min(Math.max(next, minViewLeft), maxViewLeft);
@@ -386,16 +419,25 @@ export default function TypeVisualizerWorkspace({
 
         svg.addEventListener("wheel", onWheel, { passive: false });
         return () => svg.removeEventListener("wheel", onWheel);
-    }, [viewWidth, lineEndX, setViewZoom]);
+    }, [viewWidth, lineEndX, setViewZoom, centerSingleGlyph, guidelineLabelX]);
 
     let cursor = 0;
 
     return (
-        <div className="aspect-[5/3] w-[min(95vw,1500px)] max-w-[1500px] mx-auto mt-10">
+        <div
+            className="aspect-[5/3] mx-auto mt-10"
+            style={{
+                width: compactMode
+                    ? `min(90vw, ${compactMaxWidth}px)`
+                    : `min(95vw, ${expandedMaxWidth}px)`,
+                maxWidth: compactMode ? `${compactMaxWidth}px` : `${expandedMaxWidth}px`,
+            }}
+        >
             <svg
                 ref={svgRef}
                 className="w-full h-full block cursor-text"
                 viewBox={`${vbAdjust - VIEWBOX_LEFT_PAD} ${viewMinY} ${viewWidth} ${viewHeight}`}
+                preserveAspectRatio="xMinYMid slice"
                 onMouseDown={handleSvgMouseDown}
                 onMouseMove={handleGuidelineDrag}
                 onMouseUp={handleGuidelineRelease}
@@ -414,9 +456,11 @@ export default function TypeVisualizerWorkspace({
                                 key={key}
                                 onMouseDown={handleGuideLineChange(key)}
                                 cursor="ns-resize"
+                                opacity="0.5"
+                                className="hover:opacity-100 transition-opacity duration-300"
                             >
                                 <text
-                                    x={TYPE_VISUALIZER_GUIDELINE_LABEL_X}
+                                    x={guideLineLabelX}
                                     y={guideLines[key] - 8}
                                     fontSize="16"
                                     fill="#7020BF"
@@ -425,15 +469,15 @@ export default function TypeVisualizerWorkspace({
                                     {label}
                                 </text>
                                 <line
-                                    x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
+                                    x1={guideLineStartX}
                                     y1={guideLines[key]}
-                                    x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
+                                    x2={guideLineEndX}
                                     y2={guideLines[key]}
                                 />
                                 <line
-                                    x1={viewLeftNum - GUIDELINE_LINE_OVERHANG}
+                                    x1={guideLineStartX}
                                     y1={guideLines[key]}
-                                    x2={viewRightNum + GUIDELINE_LINE_OVERHANG}
+                                    x2={guideLineEndX}
                                     y2={guideLines[key]}
                                     stroke="transparent"
                                     strokeWidth="10"
@@ -493,15 +537,17 @@ export default function TypeVisualizerWorkspace({
                         />
                     );
                 })}
-                <line
-                    x1={caretX}
-                    y1={guideLines.descender}
-                    x2={caretX}
-                    y2={guideLines.ascender}
-                    stroke="#7020BF"
-                    strokeWidth="3"
-                    className="animate-[blink_1s_infinite] cursor-default"
-                />
+                {showCaret && (
+                    <line
+                        x1={caretX}
+                        y1={guideLines.descender}
+                        x2={caretX}
+                        y2={guideLines.ascender}
+                        stroke="#7020BF"
+                        strokeWidth="3"
+                        className="animate-[blink_1s_infinite] cursor-default"
+                    />
+                )}
             </svg>
         </div>
     );

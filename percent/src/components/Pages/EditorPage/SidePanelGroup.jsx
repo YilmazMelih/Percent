@@ -2,7 +2,7 @@ import { useState, Children, isValidElement } from "react";
 
 const HEADER_OFFSET = "5rem";
 const TAB_HEIGHT = "150px";
-const PANEL_WIDTH = "24rem";
+const PANEL_WIDTH_PX = 384;
 const DEFAULT_TAB_COLOR = "white";
 const DEFAULT_TAB_HOVER_COLOR = "white";
 const DEFAULT_TAB_TEXT_COLOR = "black";
@@ -31,12 +31,20 @@ export default function SidePanelGroup({
     children,
     activeIndex: controlledActiveIndex,
     onActiveIndexChange,
+    panelWidth: controlledPanelWidth,
+    onPanelWidthChange,
+    minPanelWidth = 240,
+    maxPanelWidth = 640,
+    resizable = false,
 }) {
     const tabs = Children.toArray(children).map(getTabConfig).filter(Boolean);
     const [internalActiveIndex, setInternalActiveIndex] = useState(null);
     const [hoveredIndex, setHoveredIndex] = useState(null);
+    const [internalPanelWidth, setInternalPanelWidth] = useState(PANEL_WIDTH_PX);
     const isRight = side === "right";
-    const activeIndex = controlledActiveIndex ?? internalActiveIndex;
+    const isActiveControlled = controlledActiveIndex !== undefined;
+    const activeIndex = isActiveControlled ? controlledActiveIndex : internalActiveIndex;
+    const panelWidth = controlledPanelWidth ?? internalPanelWidth;
 
     const containerClass = isRight
         ? "fixed right-0 z-[700] flex flex-row-reverse items-stretch"
@@ -49,27 +57,56 @@ export default function SidePanelGroup({
 
     const handleTabClick = (index) => {
         const next = activeIndex === index ? null : index;
-        setInternalActiveIndex(next);
+        if (!isActiveControlled) {
+            setInternalActiveIndex(next);
+        }
         onActiveIndexChange?.(next);
     };
 
     const panelOpen = activeIndex !== null;
     const activeTab = panelOpen ? tabs[activeIndex] : null;
+    const clampedPanelWidth = Math.min(Math.max(panelWidth, minPanelWidth), maxPanelWidth);
+
+    const setPanelWidth = (next) => {
+        const clamped = Math.min(Math.max(next, minPanelWidth), maxPanelWidth);
+        setInternalPanelWidth(clamped);
+        onPanelWidthChange?.(clamped);
+    };
+
+    const handleResizeStart = (e) => {
+        if (!resizable || !panelOpen) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const startX = e.clientX;
+        const startWidth = clampedPanelWidth;
+        const onMove = (evt) => {
+            const dx = evt.clientX - startX;
+            const next = isRight ? startWidth - dx : startWidth + dx;
+            setPanelWidth(next);
+        };
+        const onUp = () => {
+            window.removeEventListener("mousemove", onMove);
+            window.removeEventListener("mouseup", onUp);
+        };
+        window.addEventListener("mousemove", onMove);
+        window.addEventListener("mouseup", onUp);
+    };
 
     return (
         <div className={containerClass} style={{ top: HEADER_OFFSET, bottom: 0 }}>
             <div
-                className={`bg-white shadow-lg overflow-hidden transition-[width] duration-200 ease-out ${panelBorderClass} ${
-                    panelOpen ? "w-96" : "w-0"
+                className={`relative bg-white shadow-lg overflow-hidden transition-[width] duration-200 ease-out ${panelBorderClass} ${
+                    panelOpen ? "" : "w-0"
                 }`}
                 style={{
+                    width: panelOpen ? `${clampedPanelWidth}px` : undefined,
                     borderColor: activeTab
                         ? (toHexColor(activeTab.panelBorderColor) ?? DEFAULT_PANEL_BORDER_COLOR)
                         : DEFAULT_PANEL_BORDER_COLOR,
                 }}
             >
                 {activeTab && (
-                    <div className="p-4 overflow-auto h-full" style={{ width: PANEL_WIDTH }}>
+                    <div className="p-4 overflow-auto h-full" style={{ width: "100%" }}>
                         {activeTab.title && (
                             <h2 className="text-sm font-medium text-gray-700 mb-3">
                                 {activeTab.title}
@@ -77,6 +114,13 @@ export default function SidePanelGroup({
                         )}
                         {activeTab.content}
                     </div>
+                )}
+                {resizable && panelOpen && (
+                    <div
+                        className={`absolute top-0 bottom-0 ${isRight ? "left-0 cursor-ew-resize" : "right-0 cursor-ew-resize"} w-2 z-10`}
+                        onMouseDown={handleResizeStart}
+                        aria-hidden="true"
+                    />
                 )}
             </div>
 

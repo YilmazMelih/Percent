@@ -2,12 +2,11 @@ import { Allotment } from "allotment";
 import { Link } from "react-router-dom";
 import "./Editor.css";
 import "allotment/dist/style.css";
-import SidePanelGroup from "./SidePanelGroup";
+import SidePanelGroup, { SidePanelTab } from "./SidePanelGroup";
 import SettingsPanel from "./SettingsPanel";
-import Workspace from "./Workspace";
 import AllGlyphs from "./AllGlyphs";
 import BottomPanel from "./BottomPanel";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { ACapConfig } from "../../../engine/fonts/default/A_cap";
 import { aConfig } from "../../../engine/fonts/default/a";
 import { BCapConfig } from "../../../engine/fonts/default/B_cap";
@@ -52,6 +51,11 @@ import {
     useLocalStorageJson,
     useLocalStorageString,
 } from "../../../hooks/useLocalStorageState";
+import TypeVisualizerWorkspace, {
+    TYPE_VISUALIZER_MAX_LINE_CHARS,
+    TYPE_VISUALIZER_VIEW_ZOOM_DEFAULT,
+    isTypeVisualizerSpaceEntry,
+} from "../TypeVisualizer/TypeVisualizerWorkspace";
 
 // Helper to initialize the full glyph data structure
 const initializeGlyphData = (configs) => {
@@ -160,6 +164,8 @@ const SETTINGS_PANEL_OPEN_STORAGE_KEY = "editor:settingsPanelOpen:v1";
 const NODE_GROUP_LINKS_STORAGE_KEY = "editor:nodeGroupLinks:v1";
 const SHOW_ADVANCED_STORAGE_KEY = "editor:showAdvanced:v1";
 const GUIDELINES_STORAGE_KEY = "editor:guideLines:v1";
+const GLYPH_PANEL_OPEN_STORAGE_KEY = "editor:glyphPanelOpen:v1";
+const GLYPH_PANEL_WIDTH_STORAGE_KEY = "editor:glyphPanelWidth:v1";
 
 const DEFAULT_GUIDELINES = {
     ascender: 30.5,
@@ -238,6 +244,21 @@ export default function Editor() {
         SHOW_ADVANCED_STORAGE_KEY,
         false,
     );
+    const [typingMode, setTypingMode] = useState(false);
+    const [preTypingCaret, setPreTypingCaret] = useState(false);
+    const [isGlyphPanelOpen, setIsGlyphPanelOpen] = useLocalStorageBoolean(
+        GLYPH_PANEL_OPEN_STORAGE_KEY,
+        true,
+    );
+    const [glyphPanelWidth, setGlyphPanelWidth] = useLocalStorageJson(
+        GLYPH_PANEL_WIDTH_STORAGE_KEY,
+        320,
+    );
+    const [line, setLine] = useState([]);
+    const [caretIndex, setCaretIndex] = useState(0);
+    const [caretFollowNonce, setCaretFollowNonce] = useState(0);
+    const [workspaceViewZoom, setWorkspaceViewZoom] = useState(TYPE_VISUALIZER_VIEW_ZOOM_DEFAULT);
+    const editorInputRef = useRef(null);
 
     useEffect(() => {
         const handleResize = () => {
@@ -254,6 +275,25 @@ export default function Editor() {
     useEffect(() => {
         window.localStorage.setItem(GLYPH_STATE_STORAGE_KEY, JSON.stringify(glyphData));
     }, [glyphData]);
+
+    const setNodeSizeByKey = useCallback(
+        (stateKey) => (value) => {
+            setGlyphData((prevData) => {
+                const prevSlice = prevData[stateKey];
+                if (!prevSlice) return prevData;
+                const newNodeSize = typeof value === "function" ? value(prevSlice.nodeSize) : value;
+                const nextData = {
+                    ...prevData,
+                    [stateKey]: {
+                        ...prevSlice,
+                        nodeSize: newNodeSize,
+                    },
+                };
+                return applyGroupedNodeSizeChanges(prevData, nextData, stateKey, nodeGroupLinks);
+            });
+        },
+        [nodeGroupLinks],
+    );
 
     const handleNodeSizeChange = (value) => {
         setGlyphData((prevData) => {
@@ -299,117 +339,327 @@ export default function Editor() {
     };
 
     const currentGlyph = glyphData[selectedGlyph];
+    const typingAllowedKeys = useMemo(
+        () =>
+            Object.keys(initialConfigs).concat([
+                "Backspace",
+                "Delete",
+                "ArrowLeft",
+                "ArrowRight",
+                " ",
+            ]),
+        [],
+    );
+
+    const workspaceLine = typingMode
+        ? line
+        : selectedGlyph
+          ? [{ instanceId: "selected-preview", stateKey: selectedGlyph }]
+          : [];
+    const workspaceCaret = typingMode ? caretIndex : preTypingCaret ? 1 : 0;
+
+    const activeStateKeys = useMemo(() => {
+        if (!typingMode) return selectedGlyph ? [selectedGlyph] : [];
+        return [
+            ...new Set(
+                line.filter((entry) => !isTypeVisualizerSpaceEntry(entry)).map((e) => e.stateKey),
+            ),
+        ];
+    }, [typingMode, selectedGlyph, line]);
+
+    const glyphPanels = useMemo(
+        () =>
+            activeStateKeys
+                .map((stateKey) => {
+                    const slice = glyphData[stateKey];
+                    if (!slice) return null;
+                    return {
+                        glyphKey: stateKey,
+                        title: `Glyph ${stateKey}`,
+                        config: slice.config,
+                        nodeSize: slice.nodeSize,
+                        setNodeSize: setNodeSizeByKey(stateKey),
+                        nodeX: slice.nodeX,
+                        nodeY: slice.nodeY,
+                        setNodeX: (value) =>
+                            setGlyphData((prev) => {
+                                const s = prev[stateKey];
+                                if (!s) return prev;
+                                const next = typeof value === "function" ? value(s.nodeX) : value;
+                                return { ...prev, [stateKey]: { ...s, nodeX: next } };
+                            }),
+                        setNodeY: (value) =>
+                            setGlyphData((prev) => {
+                                const s = prev[stateKey];
+                                if (!s) return prev;
+                                const next = typeof value === "function" ? value(s.nodeY) : value;
+                                return { ...prev, [stateKey]: { ...s, nodeY: next } };
+                            }),
+                    };
+                })
+                .filter(Boolean),
+        [activeStateKeys, glyphData, setNodeSizeByKey],
+    );
+
+    const handleCaretPlacementFromSvg = useCallback(
+        (index) => {
+            editorInputRef.current?.focus();
+            if (!typingMode) {
+                if (!selectedGlyph) return;
+                setPreTypingCaret(true);
+                setCaretFollowNonce((n) => n + 1);
+                return;
+            }
+            const next = Math.max(0, Math.min(line.length, index));
+            setCaretFollowNonce((n) => n + 1);
+            setCaretIndex(next);
+        },
+        [typingMode, selectedGlyph, line.length],
+    );
+
+    const closeGlyphPanel = useCallback(() => {
+        setIsGlyphPanelOpen(false);
+    }, [setIsGlyphPanelOpen]);
+    const glyphPanelWidthPx =
+        typeof glyphPanelWidth === "number" && Number.isFinite(glyphPanelWidth)
+            ? glyphPanelWidth
+            : 320;
+    const glyphPanelActiveIndex = isGlyphPanelOpen ? 0 : null;
+    const glyphModeWorkspaceLeftInset =
+        !typingMode && isGlyphPanelOpen ? Math.min(glyphPanelWidthPx + 40, 360) : 0;
+
+    useEffect(() => {
+        if (!typingMode) return;
+        closeGlyphPanel();
+    }, [typingMode, closeGlyphPanel]);
 
     return (
         <div style={{ height: "calc(100vh - 60px)", position: "relative" }}>
             {/* <Link to="/playground" className="test-workplace-link">Test Workplace</Link> */}
-            <Allotment>
-                <Allotment.Pane minSize={200} preferredSize="280px" maxSize={maxPaneSize}>
+            <SidePanelGroup
+                side="left"
+                activeIndex={glyphPanelActiveIndex}
+                onActiveIndexChange={(index) => setIsGlyphPanelOpen(index !== null)}
+                panelWidth={glyphPanelWidthPx}
+                onPanelWidthChange={setGlyphPanelWidth}
+                minPanelWidth={240}
+                maxPanelWidth={520}
+                resizable={true}
+            >
+                <SidePanelTab
+                    tabText="Glyphs"
+                    tabLabel="glyph grid"
+                    tabTopOffset={24}
+                    tabColor="#ffffff"
+                    tabHoverColor="#ffffff"
+                    tabTextColor="#000000"
+                    tabBorderColor="#000000"
+                    panelBorderColor="#000000"
+                >
                     <AllGlyphs
                         guideLines={guideLines}
                         glyphData={glyphData}
-                        selectedGlyph={selectedGlyph}
-                        onGlyphSelect={setSelectedGlyph}
+                        selectedGlyph={typingMode ? "" : selectedGlyph}
+                        onGlyphSelect={(next) => {
+                            setSelectedGlyph(next);
+                            setTypingMode(false);
+                            setPreTypingCaret(false);
+                            setIsGlyphPanelOpen(true);
+                            setLine([]);
+                            setCaretIndex(0);
+                            setCaretFollowNonce((n) => n + 1);
+                        }}
                         availableGlyphs={Object.keys(initialConfigs)}
                     />
-                </Allotment.Pane>
+                </SidePanelTab>
+            </SidePanelGroup>
+            <Allotment vertical={true}>
                 <Allotment.Pane>
-                    <Allotment vertical={true}>
-                        <Allotment.Pane>
-                            <div className="relative min-h-full flex">
-                                {currentGlyph && (
-                                    <Workspace
-                                        guideLines={guideLines}
-                                        setGuideLines={setGuideLines}
-                                        config={currentGlyph.config}
-                                        nodeSize={currentGlyph.nodeSize}
-                                        setNodeSize={handleNodeSizeChange}
-                                        nodeX={currentGlyph.nodeX}
-                                        nodeY={currentGlyph.nodeY}
-                                        seeNodes={seeNodes}
-                                        seePathPoints={seePathPoints}
-                                        seeGuidelines={seeGuidelines}
-                                    />
-                                )}
-                                <SidePanelGroup
-                                    side="right"
-                                    activeIndex={isSettingsPanelOpen ? 0 : null}
-                                    onActiveIndexChange={(index) =>
-                                        setIsSettingsPanelOpen(index !== null)
+                    <div className="relative min-h-full flex">
+                        <div
+                            tabIndex={0}
+                            ref={editorInputRef}
+                            className="absolute top-0 right-0 bottom-0 flex justify-center transition-[left] duration-200 ease-out outline-none focus:outline-none focus-visible:outline-none"
+                            style={{ left: `${glyphModeWorkspaceLeftInset}px` }}
+                            onClick={() => editorInputRef.current?.focus()}
+                            onKeyDown={(e) => {
+                                if (!typingAllowedKeys.includes(e.key)) return;
+
+                                if (!typingMode) {
+                                    if (!preTypingCaret) return;
+                                    if (e.key === "ArrowLeft" || e.key === "ArrowRight") return;
+                                    if (!selectedGlyph) return;
+                                    e.preventDefault();
+                                    const baseLine = [
+                                        {
+                                            instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                                            stateKey: selectedGlyph,
+                                        },
+                                    ];
+                                    let nextLine = baseLine;
+                                    let nextCaret = 1;
+
+                                    if (e.key === "Backspace") {
+                                        nextLine = [];
+                                        nextCaret = 0;
+                                    } else if (e.key === " ") {
+                                        nextLine = baseLine.concat([
+                                            {
+                                                kind: "space",
+                                                instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                                            },
+                                        ]);
+                                        nextCaret = 2;
+                                    } else if (e.key in initialConfigs) {
+                                        nextLine = baseLine.concat([
+                                            {
+                                                instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                                                stateKey: e.key,
+                                            },
+                                        ]);
+                                        nextCaret = 2;
+                                    } else if (e.key === "Delete") {
+                                        nextLine = baseLine;
+                                        nextCaret = 1;
+                                    } else {
+                                        return;
                                     }
-                                >
-                                    {currentGlyph &&
-                                        SettingsPanel({
-                                            config: currentGlyph.config,
-                                            glyphKey: selectedGlyph,
-                                            nodeSize: currentGlyph.nodeSize,
-                                            setNodeSize: handleNodeSizeChange,
-                                            nodeX: currentGlyph.nodeX,
-                                            nodeY: currentGlyph.nodeY,
-                                            setNodeX: handleNodeXChange,
-                                            setNodeY: handleNodeYChange,
-                                            nodeGroupLinks,
-                                            setNodeGroupLinks,
-                                            seeNodes,
-                                            setSeeNodes,
-                                            seePathPoints,
-                                            setSeePathPoints,
-                                            seeGuidelines,
-                                            setSeeGuidelines,
-                                            showAdvanced,
-                                            setShowAdvanced,
-                                            isBottomPanelVisible,
-                                            setBottomPanelVisible,
-                                            onResetGuidelines: () =>
-                                                setGuideLines(DEFAULT_GUIDELINES),
-                                            onExport: () =>
-                                                exportGlyphBasePaths(
-                                                    glyphData,
-                                                    [
-                                                        "A",
-                                                        "a",
-                                                        "B",
-                                                        "C",
-                                                        "D",
-                                                        "E",
-                                                        "e",
-                                                        "F",
-                                                        "G",
-                                                        "H",
-                                                        "I",
-                                                        "J",
-                                                        "K",
-                                                        "L",
-                                                        "l",
-                                                        "M",
-                                                        "N",
-                                                        "O",
-                                                        "P",
-                                                        "Q",
-                                                        "R",
-                                                        "S",
-                                                        "T",
-                                                        "U",
-                                                        "V",
-                                                        "W",
-                                                        "X",
-                                                        "Y",
-                                                        "Z",
-                                                    ],
-                                                    guideLines,
-                                                ),
-                                        })}
-                                </SidePanelGroup>
-                            </div>
-                        </Allotment.Pane>
-                        <Allotment.Pane
-                            visible={isBottomPanelVisible}
-                            minSize={40}
-                            preferredSize="33%"
+
+                                    setTypingMode(true);
+                                    setPreTypingCaret(false);
+                                    closeGlyphPanel();
+                                    setLine(nextLine);
+                                    setCaretIndex(nextCaret);
+                                    setCaretFollowNonce((n) => n + 1);
+                                    return;
+                                }
+                                if (!typingAllowedKeys.includes(e.key)) return;
+                                e.preventDefault();
+                                if (e.key === "ArrowLeft") {
+                                    setCaretFollowNonce((n) => n + 1);
+                                    setCaretIndex((c) => Math.max(0, c - 1));
+                                    return;
+                                }
+                                if (e.key === "ArrowRight") {
+                                    setCaretFollowNonce((n) => n + 1);
+                                    setCaretIndex((c) => Math.min(workspaceLine.length, c + 1));
+                                    return;
+                                }
+                                if (e.key === "Backspace") {
+                                    if (caretIndex <= 0) return;
+                                    setCaretFollowNonce((n) => n + 1);
+                                    setLine((prev) =>
+                                        prev
+                                            .slice(0, caretIndex - 1)
+                                            .concat(prev.slice(caretIndex)),
+                                    );
+                                    setCaretIndex((c) => c - 1);
+                                    setPreTypingCaret(false);
+                                    return;
+                                }
+                                if (e.key === "Delete") {
+                                    setCaretFollowNonce((n) => n + 1);
+                                    setLine((prev) =>
+                                        prev
+                                            .slice(0, caretIndex)
+                                            .concat(prev.slice(caretIndex + 1)),
+                                    );
+                                    return;
+                                }
+                                if (e.key === " ") {
+                                    if (workspaceLine.length >= TYPE_VISUALIZER_MAX_LINE_CHARS)
+                                        return;
+                                    setCaretFollowNonce((n) => n + 1);
+                                    const entry = {
+                                        kind: "space",
+                                        instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                                    };
+                                    setLine((prev) =>
+                                        prev
+                                            .slice(0, caretIndex)
+                                            .concat([entry], prev.slice(caretIndex)),
+                                    );
+                                    setCaretIndex((c) => c + 1);
+                                    setPreTypingCaret(false);
+                                    return;
+                                }
+                                if (e.key in initialConfigs) {
+                                    if (workspaceLine.length >= TYPE_VISUALIZER_MAX_LINE_CHARS)
+                                        return;
+                                    setCaretFollowNonce((n) => n + 1);
+                                    const entry = {
+                                        instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                                        stateKey: e.key,
+                                    };
+                                    setLine((prev) =>
+                                        prev
+                                            .slice(0, caretIndex)
+                                            .concat([entry], prev.slice(caretIndex)),
+                                    );
+                                    setCaretIndex((c) => c + 1);
+                                    setPreTypingCaret(false);
+                                }
+                            }}
                         >
-                            <BottomPanel glyphData={glyphData} guideLines={guideLines} />
-                        </Allotment.Pane>
-                    </Allotment>
+                            <TypeVisualizerWorkspace
+                                line={workspaceLine}
+                                glyphStates={glyphData}
+                                caretIndex={workspaceCaret}
+                                caretFollowNonce={caretFollowNonce}
+                                onCaretPlacement={handleCaretPlacementFromSvg}
+                                seeNodes={seeNodes}
+                                seePathPoints={seePathPoints}
+                                seeGuidelines={seeGuidelines}
+                                guideLines={guideLines}
+                                setGuideLines={setGuideLines}
+                                setNodeSizeByKey={setNodeSizeByKey}
+                                viewZoom={workspaceViewZoom}
+                                setViewZoom={setWorkspaceViewZoom}
+                                showCaret={typingMode || preTypingCaret}
+                                centerSingleGlyph={!typingMode}
+                                compactMode={!typingMode}
+                                expandedMaxWidth={1300}
+                                viewBaseWidth={typingMode ? 1000 : 660}
+                                viewBaseHeight={400}
+                                guidelineLabelX={typingMode ? -130 : -330}
+                                guidelineLineOverhang={typingMode ? 800 : 0}
+                            />
+                        </div>
+                        <SidePanelGroup
+                            side="right"
+                            activeIndex={isSettingsPanelOpen ? 0 : null}
+                            onActiveIndexChange={(index) => setIsSettingsPanelOpen(index !== null)}
+                        >
+                            {glyphPanels.length > 0 &&
+                                SettingsPanel({
+                                    glyphPanels,
+                                    nodeGroupLinks,
+                                    setNodeGroupLinks,
+                                    seeNodes,
+                                    setSeeNodes,
+                                    seePathPoints,
+                                    setSeePathPoints,
+                                    seeGuidelines,
+                                    setSeeGuidelines,
+                                    showAdvanced,
+                                    setShowAdvanced,
+                                    isBottomPanelVisible,
+                                    setBottomPanelVisible,
+                                    typeVisualizerViewZoom: workspaceViewZoom,
+                                    setTypeVisualizerViewZoom: setWorkspaceViewZoom,
+                                    onResetGuidelines: () => setGuideLines(DEFAULT_GUIDELINES),
+                                    onExport: () =>
+                                        exportGlyphBasePaths(
+                                            glyphData,
+                                            Object.keys(initialConfigs),
+                                            guideLines,
+                                        ),
+                                })}
+                        </SidePanelGroup>
+                    </div>
+                </Allotment.Pane>
+                <Allotment.Pane visible={isBottomPanelVisible} minSize={40} preferredSize="33%">
+                    <BottomPanel glyphData={glyphData} guideLines={guideLines} />
                 </Allotment.Pane>
             </Allotment>
         </div>
