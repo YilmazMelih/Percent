@@ -26,13 +26,16 @@
 }
 
 .hero-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: clamp(4rem, 15vw, 14rem); /* Responsive font size */
-    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0;
     position: relative; /* Ensure it can have a z-index */
     z-index: 1; /* Place it above the interactive background */
+}
+
+.hero-title svg {
+    overflow: visible;
 }
 
 .landing-page-container {

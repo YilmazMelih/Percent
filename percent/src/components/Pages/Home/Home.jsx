@@ -1,15 +1,15 @@
+import React from "react";
+import "./Home.css";
 
-import React from 'react';
-import './Home.css';
-
-
-import InteractiveBackground from '../../InteractiveBackground/InteractiveBackground';
-import imgArrowDown from '../../../assets/images/arrow-down.svg';
-import imgGroup55 from '../../../assets/images/Group 55.png';
+import InteractiveBackground from "../../InteractiveBackground/InteractiveBackground";
+import imgArrowDown from "../../../assets/images/arrow-down.svg";
+import imgGroup55 from "../../../assets/images/Group 55.png";
+import UserGlyphWord from "./UserGlyphWord";
 
 // Image assets from Figma design
 const imgMdiInstagram = "http://localhost:3845/assets/194b08594430527d340a6a48be88245548f087e6.svg";
-const imgIcOutlineEmail = "http://localhost:3845/assets/89936f7c0c89fcb0a9b9821e83267e239ff4cff0.svg";
+const imgIcOutlineEmail =
+    "http://localhost:3845/assets/89936f7c0c89fcb0a9b9821e83267e239ff4cff0.svg";
 const imgGroup12 = "http://localhost:3845/assets/046eed09da61fd3ba117d26b543b777567e312b5.svg";
 const imgGroup21 = "http://localhost:3845/assets/2b3876b01f008e994652268d1086cedf7fd2329e.svg";
 const imgGroup2 = "http://localhost:3845/assets/653b3d29830d4b9fd20833bbf2e884bd17132a32.svg";
@@ -19,66 +19,87 @@ const Home = () => {
     const [heroRect, setHeroRect] = React.useState(null);
 
     React.useEffect(() => {
-        const heroElement = document.getElementById('hero-title');
-        if (heroElement) {
-            setHeroRect(heroElement.getBoundingClientRect());
-        }
+        const heroElement = document.getElementById("hero-title");
+        if (!heroElement) return undefined;
+        const updateRect = () => setHeroRect(heroElement.getBoundingClientRect());
+        updateRect();
+        const observer = new ResizeObserver(updateRect);
+        observer.observe(heroElement);
+        window.addEventListener("resize", updateRect);
+        return () => {
+            observer.disconnect();
+            window.removeEventListener("resize", updateRect);
+        };
     }, []);
 
-  return (
-    <div className="home-container">
-      <InteractiveBackground heroRect={heroRect} />
+    return (
+        <div className="home-container">
+            <InteractiveBackground heroRect={heroRect} />
 
-      {/* Hero Section */}
-      <section className="hero-section">
-        <h1 id="hero-title" className="hero-title">PerCEnt</h1>
-        {/* Decorative images are hidden via CSS for now */}
-      </section>
+            {/* Hero Section */}
+            <section className="hero-section">
+                <div id="hero-title" className="hero-title">
+                    <UserGlyphWord
+                        text="PerceNT"
+                        width="clamp(18rem, 78vw, 72rem)"
+                        height={300}
+                        scale={1}
+                        letterSpacing={12}
+                        wordSpacing={96}
+                        nodePulseAmount={0.5}
+                    />
+                </div>
+                {/* Decorative images are hidden via CSS for now */}
+            </section>
 
-      {/* Landing Page Content */}
-      <div className="landing-page-container">
-        <div className="landing-page-text">
-          <h2 className="landing-title">Design fonts by shaping circles</h2>
-          <p className="landing-subtitle">Interactive tool for exploring letterforms through geometry and play</p>
+            {/* Landing Page Content */}
+            <div className="landing-page-container">
+                <div className="landing-page-text">
+                    <h2 className="landing-title">Design fonts by shaping circles</h2>
+                    <p className="landing-subtitle">
+                        Interactive tool for exploring letterforms through geometry and play
+                    </p>
+                </div>
+                <a href="#about" className="learn-button">
+                    <img alt="Scroll down" src={imgArrowDown} />
+                </a>
+            </div>
+
+            {/* Decorative Background is now a CSS background on home-container */}
+
+            {/* About Section */}
+            <section id="about" className="about-section-container">
+                <div className="about-content">
+                    <h2 className="about-title">About Percent</h2>
+                    <p className="about-text">
+                        Percent helps graphic designers to explore and learn typefaces and font
+                        creation. By allowing circle manipulation, the user is able to update glyph
+                        forms. Percent makes it less intimidating to try font design for designers
+                        and encourages creative exploration as well as learning.
+                    </p>
+                </div>
+                <div className="about-graphics">
+                    <img src={imgGroup55} alt="About Percent Visuals" />
+                </div>
+            </section>
+
+            {/* Footer */}
+            <footer className="footer-section">
+                <div className="footer-call-to-action">
+                    <h3 className="footer-cta-title">Easy. Intuitive. Fast.</h3>
+                    <p className="footer-cta-subtitle">Start creating your own font with ease</p>
+                </div>
+                <div className="footer-divider" />
+                <div className="footer-bottom">
+                    <p className="footer-copyright">© 2026 Percent. All Rights Reserved.</p>
+                    <div className="footer-socials">
+                        <img alt="Instagram" src={imgMdiInstagram} />
+                        <img alt="Email" src={imgIcOutlineEmail} />
+                    </div>
+                </div>
+            </footer>
         </div>
-        <a href="#about" className="learn-button">
-          <img alt="Scroll down" src={imgArrowDown} />
-        </a>
-      </div>
-
-      {/* Decorative Background is now a CSS background on home-container */}
-
-      {/* About Section */}
-      <section id="about" className="about-section-container">
-        <div className="about-content">
-            <h2 className="about-title">About Percent</h2>
-            <p className="about-text">
-            Percent helps graphic designers to explore and learn typefaces and font creation. By allowing circle manipulation, the user is able to update glyph forms. Percent makes it less intimidating to try font design for designers and encourages creative exploration as well as learning.
-            </p>
-        </div>
-        <div className="about-graphics">
-          <img src={imgGroup55} alt="About Percent Visuals" />
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="footer-section">
-        <div className="footer-call-to-action">
-          <h3 className="footer-cta-title">Easy. Intuitive. Fast.</h3>
-          <p className="footer-cta-subtitle">Start creating your own font with ease</p>
-        </div>
-        <div className="footer-divider" />
-        <div className="footer-bottom">
-          <p className="footer-copyright">© 2026 Percent. All Rights Reserved.</p>
-          <div className="footer-socials">
-            <img alt="Instagram" src={imgMdiInstagram} />
-            <img alt="Email" src={imgIcOutlineEmail} />
-          </div>
-        </div>
-      </footer>
-
-    </div>
-  );
+    );
 };
 
 export default Home;

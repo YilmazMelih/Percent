@@ -95,6 +95,8 @@ export default function Workspace({
                                 key={key}
                                 onMouseDown={handleGuideLineChange(key)}
                                 cursor="ns-resize"
+                                opacity="0.5"
+                                className="hover:opacity-100 transition-opacity duration-300"
                             >
                                 <text
                                     x={-330}
