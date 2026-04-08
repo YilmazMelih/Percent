@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Home.css";
 
 import InteractiveBackground from "../../InteractiveBackground/InteractiveBackground";
 import imgArrowDown from "../../../assets/images/arrow-down.svg";
+import arrowUp from "../../../assets/images/arrow-up.svg";
 import imgGroup55 from "../../../assets/images/Group 55.png";
 import UserGlyphWord from "./UserGlyphWord";
 
@@ -16,9 +18,12 @@ const imgGroup2 = "http://localhost:3845/assets/653b3d29830d4b9fd20833bbf2e884bd
 const imgVector = "http://localhost:3845/assets/2aaec60814be7a483d9c5e407e76c0cb31458592.svg";
 
 const Home = () => {
-    const [heroRect, setHeroRect] = React.useState(null);
+    const [heroRect, setHeroRect] = useState(null);
+    const [showScrollButton, setShowScrollButton] = useState(false);
+    const navigate = useNavigate();
+    const letsGoButtonRef = useRef(null);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const heroElement = document.getElementById("hero-title");
         if (!heroElement) return undefined;
         const updateRect = () => setHeroRect(heroElement.getBoundingClientRect());
@@ -31,6 +36,51 @@ const Home = () => {
             window.removeEventListener("resize", updateRect);
         };
     }, []);
+
+    useEffect(() => {
+        const checkScrollBottom = () => {
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
+                setShowScrollButton(true);
+            } else {
+                setShowScrollButton(false);
+            }
+        };
+
+        window.addEventListener('scroll', checkScrollBottom);
+        return () => {
+            window.removeEventListener('scroll', checkScrollBottom);
+        };
+    }, []);
+
+    useEffect(() => {
+        const button = letsGoButtonRef.current;
+        if (!button) return;
+
+        const jumpInterval = setInterval(() => {
+            if (button && !button.classList.contains('jumping')) {
+                if (Math.random() < 0.4) { // Increased probability
+                    button.classList.add('jumping');
+                    setTimeout(() => {
+                        button.classList.remove('jumping');
+                    }, 500); 
+                }
+            }
+        }, 1000); // Decreased interval
+
+        return () => clearInterval(jumpInterval);
+    }, []);
+
+    const handleScrollTopAndNavigate = (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+        setTimeout(() => {
+            navigate('/classroom');
+        }, 500);
+    };
 
     return (
         <div className="home-container">
@@ -89,6 +139,9 @@ const Home = () => {
                     <h3 className="footer-cta-title">Easy. Intuitive. Fast.</h3>
                     <p className="footer-cta-subtitle">Start creating your own font with ease</p>
                 </div>
+                <Link to="/classroom" className="scroll-to-top-button" onClick={handleScrollTopAndNavigate} ref={letsGoButtonRef}>
+                    <span>Let's go!</span>
+                </Link>
                 <div className="footer-divider" />
                 <div className="footer-bottom">
                     <p className="footer-copyright">© 2026 Percent. All Rights Reserved.</p>
