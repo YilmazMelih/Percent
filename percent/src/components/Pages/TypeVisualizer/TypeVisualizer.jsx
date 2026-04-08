@@ -31,8 +31,31 @@ import { XCapConfig } from "../../../engine/fonts/default/X_cap";
 import { YCapConfig } from "../../../engine/fonts/default/Y_cap";
 import { ZCapConfig } from "../../../engine/fonts/default/Z_cap";
 import { aConfig } from "../../../engine/fonts/default/a";
+import { bConfig } from "../../../engine/fonts/default/b";
+import { cConfig } from "../../../engine/fonts/default/c";
+import { dConfig } from "../../../engine/fonts/default/d";
 import { eConfig } from "../../../engine/fonts/default/e";
+import { fConfig } from "../../../engine/fonts/default/f";
+import { gConfig } from "../../../engine/fonts/default/g";
+import { hConfig } from "../../../engine/fonts/default/h";
+import { iConfig } from "../../../engine/fonts/default/i";
+import { jConfig } from "../../../engine/fonts/default/j";
+import { kConfig } from "../../../engine/fonts/default/k";
 import { lConfig } from "../../../engine/fonts/default/l";
+import { mConfig } from "../../../engine/fonts/default/m";
+import { nConfig } from "../../../engine/fonts/default/n";
+import { oConfig } from "../../../engine/fonts/default/o";
+import { pConfig } from "../../../engine/fonts/default/p";
+import { qConfig } from "../../../engine/fonts/default/q";
+import { rConfig } from "../../../engine/fonts/default/r";
+import { sConfig } from "../../../engine/fonts/default/s";
+import { tConfig } from "../../../engine/fonts/default/t";
+import { uConfig } from "../../../engine/fonts/default/u";
+import { vConfig } from "../../../engine/fonts/default/v";
+import { wConfig } from "../../../engine/fonts/default/w";
+import { xConfig } from "../../../engine/fonts/default/x";
+import { yConfig } from "../../../engine/fonts/default/y";
+import { zConfig } from "../../../engine/fonts/default/z";
 import TypeVisualizerWorkspace, {
     TYPE_VISUALIZER_MAX_LINE_CHARS,
     TYPE_VISUALIZER_VIEW_ZOOM_DEFAULT,
@@ -88,8 +111,31 @@ export const TYPE_VISUALIZER_CONFIG_BY_KEY = {
     Y: YCapConfig,
     Z: ZCapConfig,
     a: aConfig,
+    b: bConfig,
+    c: cConfig,
+    d: dConfig,
     e: eConfig,
+    f: fConfig,
+    g: gConfig,
+    h: hConfig,
+    i: iConfig,
+    j: jConfig,
+    k: kConfig,
     l: lConfig,
+    m: mConfig,
+    n: nConfig,
+    o: oConfig,
+    p: pConfig,
+    q: qConfig,
+    r: rConfig,
+    s: sConfig,
+    t: tConfig,
+    u: uConfig,
+    v: vConfig,
+    w: wConfig,
+    x: xConfig,
+    y: yConfig,
+    z: zConfig,
 };
 
 const allowedKeys = Object.keys(TYPE_VISUALIZER_CONFIG_BY_KEY).concat([

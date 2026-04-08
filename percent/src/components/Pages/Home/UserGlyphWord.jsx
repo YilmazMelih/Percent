@@ -1,36 +1,57 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { buildPath, getAdjustedGlyphBoundsX } from "../../../engine/project";
 import { ACapConfig } from "../../../engine/fonts/default/A_cap";
-import { BCapConfig } from "../../../engine/fonts/default/B_cap";
-import { CCapConfig } from "../../../engine/fonts/default/C_cap";
-import { DCapConfig } from "../../../engine/fonts/default/D_cap";
-import { ECapConfig } from "../../../engine/fonts/default/E_cap";
-import { FCapConfig } from "../../../engine/fonts/default/F_cap";
-import { GCapConfig } from "../../../engine/fonts/default/G_cap";
-import { HCapConfig } from "../../../engine/fonts/default/H_cap";
-import { ICapConfig } from "../../../engine/fonts/default/I_cap";
-import { JCapConfig } from "../../../engine/fonts/default/J_cap";
-import { KCapConfig } from "../../../engine/fonts/default/K_cap";
-import { LCapConfig } from "../../../engine/fonts/default/L_cap";
-import { MCapConfig } from "../../../engine/fonts/default/M_cap";
-import { NCapConfig } from "../../../engine/fonts/default/N_cap";
-import { OCapConfig } from "../../../engine/fonts/default/O_cap";
-import { PCapConfig } from "../../../engine/fonts/default/P_cap";
-import { QCapConfig } from "../../../engine/fonts/default/Q_cap";
-import { RCapConfig } from "../../../engine/fonts/default/R_cap";
-import { SCapConfig } from "../../../engine/fonts/default/S_cap";
-import { TCapConfig } from "../../../engine/fonts/default/T_cap";
-import { UCapConfig } from "../../../engine/fonts/default/U_cap";
-import { VCapConfig } from "../../../engine/fonts/default/V_cap";
-import { WCapConfig } from "../../../engine/fonts/default/W_cap";
-import { XCapConfig } from "../../../engine/fonts/default/X_cap";
-import { YCapConfig } from "../../../engine/fonts/default/Y_cap";
-import { ZCapConfig } from "../../../engine/fonts/default/Z_cap";
 import { aConfig } from "../../../engine/fonts/default/a";
+import { BCapConfig } from "../../../engine/fonts/default/B_cap";
+import { bConfig } from "../../../engine/fonts/default/b";
+import { CCapConfig } from "../../../engine/fonts/default/C_cap";
+import { cConfig } from "../../../engine/fonts/default/c";
+import { DCapConfig } from "../../../engine/fonts/default/D_cap";
+import { dConfig } from "../../../engine/fonts/default/d";
+import { ECapConfig } from "../../../engine/fonts/default/E_cap";
 import { eConfig } from "../../../engine/fonts/default/e";
+import { FCapConfig } from "../../../engine/fonts/default/F_cap";
+import { fConfig } from "../../../engine/fonts/default/f";
+import { GCapConfig } from "../../../engine/fonts/default/G_cap";
+import { gConfig } from "../../../engine/fonts/default/g";
+import { HCapConfig } from "../../../engine/fonts/default/H_cap";
+import { hConfig } from "../../../engine/fonts/default/h";
+import { ICapConfig } from "../../../engine/fonts/default/I_cap";
+import { iConfig } from "../../../engine/fonts/default/i";
+import { JCapConfig } from "../../../engine/fonts/default/J_cap";
+import { jConfig } from "../../../engine/fonts/default/j";
+import { KCapConfig } from "../../../engine/fonts/default/K_cap";
+import { kConfig } from "../../../engine/fonts/default/k";
+import { LCapConfig } from "../../../engine/fonts/default/L_cap";
 import { lConfig } from "../../../engine/fonts/default/l";
+import { MCapConfig } from "../../../engine/fonts/default/M_cap";
+import { mConfig } from "../../../engine/fonts/default/m";
+import { NCapConfig } from "../../../engine/fonts/default/N_cap";
 import { nConfig } from "../../../engine/fonts/default/n";
+import { OCapConfig } from "../../../engine/fonts/default/O_cap";
 import { oConfig } from "../../../engine/fonts/default/o";
+import { PCapConfig } from "../../../engine/fonts/default/P_cap";
+import { pConfig } from "../../../engine/fonts/default/p";
+import { QCapConfig } from "../../../engine/fonts/default/Q_cap";
+import { qConfig } from "../../../engine/fonts/default/q";
+import { RCapConfig } from "../../../engine/fonts/default/R_cap";
+import { rConfig } from "../../../engine/fonts/default/r";
+import { SCapConfig } from "../../../engine/fonts/default/S_cap";
+import { sConfig } from "../../../engine/fonts/default/s";
+import { TCapConfig } from "../../../engine/fonts/default/T_cap";
+import { tConfig } from "../../../engine/fonts/default/t";
+import { UCapConfig } from "../../../engine/fonts/default/U_cap";
+import { uConfig } from "../../../engine/fonts/default/u";
+import { VCapConfig } from "../../../engine/fonts/default/V_cap";
+import { vConfig } from "../../../engine/fonts/default/v";
+import { WCapConfig } from "../../../engine/fonts/default/W_cap";
+import { wConfig } from "../../../engine/fonts/default/w";
+import { XCapConfig } from "../../../engine/fonts/default/X_cap";
+import { xConfig } from "../../../engine/fonts/default/x";
+import { YCapConfig } from "../../../engine/fonts/default/Y_cap";
+import { yConfig } from "../../../engine/fonts/default/y";
+import { ZCapConfig } from "../../../engine/fonts/default/Z_cap";
+import { zConfig } from "../../../engine/fonts/default/z";
 
 const GLYPH_CONFIG_BY_KEY = {
     A: ACapConfig,
@@ -60,10 +81,31 @@ const GLYPH_CONFIG_BY_KEY = {
     Y: YCapConfig,
     Z: ZCapConfig,
     a: aConfig,
+    b: bConfig,
+    c: cConfig,
+    d: dConfig,
     e: eConfig,
+    f: fConfig,
+    g: gConfig,
+    h: hConfig,
+    i: iConfig,
+    j: jConfig,
+    k: kConfig,
     l: lConfig,
+    m: mConfig,
     n: nConfig,
     o: oConfig,
+    p: pConfig,
+    q: qConfig,
+    r: rConfig,
+    s: sConfig,
+    t: tConfig,
+    u: uConfig,
+    v: vConfig,
+    w: wConfig,
+    x: xConfig,
+    y: yConfig,
+    z: zConfig,
 };
 
 const GLYPH_STATE_STORAGE_KEY = "editor:glyphData:v1";

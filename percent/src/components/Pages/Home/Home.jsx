@@ -94,7 +94,7 @@ const Home = () => {
             <section className="hero-section">
                 <div id="hero-title" className="hero-title">
                     <UserGlyphWord
-                        text="PerceNT"
+                        text="Percent"
                         width="clamp(18rem, 78vw, 72rem)"
                         height={300}
                         scale={1}
