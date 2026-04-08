@@ -72,9 +72,9 @@ const GUIDELINES_STORAGE_KEY = "editor:guideLines:v1";
 const DEFAULT_GUIDELINES = {
     ascender: 30.5,
     cap_height: 80.5,
-    x_height: 136.25,
+    x_height: 131.38,
     baseline: 267.76,
-    descender: 320,
+    descender: 332.24,
 };
 
 const DEFAULTS = {
@@ -441,7 +441,9 @@ export default function UserGlyphWord({
                                 pointerEvents="visiblePainted"
                             />
                             {run.nodeCenters.map((node, i) => {
-                                const animatedNodeSize = clamp01(run.animatedNodeSize[node.id] ?? 0);
+                                const animatedNodeSize = clamp01(
+                                    run.animatedNodeSize[node.id] ?? 0,
+                                );
                                 const baseNodeSize = clamp01(run.baseNodeSize[node.id] ?? 0);
                                 const radius = (animatedNodeSize * 0.88 + 0.12) * node.r;
                                 const baseRadius = (baseNodeSize * 0.88 + 0.12) * node.r;
@@ -515,8 +517,7 @@ export default function UserGlyphWord({
                                                             ? elapsed - duration
                                                             : elapsed;
                                                         const cycle =
-                                                            ((loopElapsed %
-                                                                (2 * duration)) +
+                                                            ((loopElapsed % (2 * duration)) +
                                                                 2 * duration) %
                                                             (2 * duration);
                                                         if (cycle <= duration) {
@@ -526,8 +527,7 @@ export default function UserGlyphWord({
                                                                 (existing.min - existing.max) *
                                                                     easeInOutCos(t);
                                                         } else {
-                                                            const t =
-                                                                (cycle - duration) / duration;
+                                                            const t = (cycle - duration) / duration;
                                                             fromValue =
                                                                 existing.min +
                                                                 (existing.max - existing.min) *
@@ -604,8 +604,7 @@ export default function UserGlyphWord({
                                                             ? elapsed - duration
                                                             : elapsed;
                                                         const cycle =
-                                                            ((loopElapsed %
-                                                                (2 * duration)) +
+                                                            ((loopElapsed % (2 * duration)) +
                                                                 2 * duration) %
                                                             (2 * duration);
                                                         if (cycle <= duration) {
@@ -615,8 +614,7 @@ export default function UserGlyphWord({
                                                                 (existing.min - existing.max) *
                                                                     easeInOutCos(t);
                                                         } else {
-                                                            const t =
-                                                                (cycle - duration) / duration;
+                                                            const t = (cycle - duration) / duration;
                                                             fromValue =
                                                                 existing.min +
                                                                 (existing.max - existing.min) *

@@ -1,7 +1,6 @@
 import { makeCopyDeltaFromInterpolation } from "../../project";
 
 export const lConfig = {
-    unicode: 108,
     basePath: [
         {
             cmd: "M",
@@ -29,70 +28,33 @@ export const lConfig = {
     ],
     points: {
         point1: {
-            x: -38.02,
+            x: -31.12,
             y: 267.76,
         },
         point2: {
-            x: -38.02,
+            x: -31.12,
             y: 81.04,
         },
         point3: {
-            x: 38.02,
+            x: 31.12,
             y: 81.04,
         },
         point4: {
-            x: 38.02,
+            x: 31.12,
             y: 267.76,
         },
     },
     nodes: [
         {
             id: "0",
-            name: "middle",
+            name: "node1",
             default: 1,
-            r: 38.02,
+            r: 31.12,
             pos: {
                 x: 0,
-                y: 178.63,
+                y: 174.4,
             },
-            affects: [
-                {
-                    point: "point1",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            lConfig.points.point1,
-                            {...lConfig.points.point1, x: 0 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point2",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            lConfig.points.point2,
-                            {...lConfig.points.point2, x: 0 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point3",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            lConfig.points.point3,
-                            { ...lConfig.points.point3, x: 0 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point4",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            lConfig.points.point4,
-                            {...lConfig.points.point4, x: 0 },
-                            0,
-                        )(base, val),
-                },
-            ],
+            affects: [],
         },
     ],
 };

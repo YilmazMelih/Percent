@@ -1,7 +1,6 @@
 import { makeCopyDeltaFromInterpolation } from "../../project";
 
 export const eConfig = {
-    unicode: 101,
     basePath: [
         {
             cmd: "M",
@@ -37,7 +36,7 @@ export const eConfig = {
         },
         {
             cmd: "C",
-            points: ["point18", "point0", "point1"],
+            points: ["point18", "point1", "point1"],
         },
         {
             cmd: "Z",
@@ -63,465 +62,151 @@ export const eConfig = {
         },
     ],
     points: {
-        point0: {
-            x: 78.86,
-            y: 206.68,
-        },
         point1: {
             x: 78.86,
-            y: 206.68,
+            y: 208.84,
         },
         point2: {
             x: -32.36,
-            y: 206.68,
+            y: 208.84,
         },
         point3: {
             x: -32.36,
-            y: 218.11,
+            y: 220.27,
         },
         point4: {
             x: -25.49,
-            y: 232.25,
+            y: 234.41,
         },
         point5: {
             x: -6.13,
-            y: 232.25,
+            y: 234.41,
         },
         point6: {
             x: 16.22,
-            y: 232.25,
+            y: 234.41,
         },
         point7: {
             x: 18.78,
-            y: 216.69,
+            y: 218.85,
         },
         point8: {
             x: 78.05,
-            y: 225.08,
+            y: 227.24,
         },
         point9: {
             x: 69.88,
-            y: 240.18,
+            y: 242.34,
         },
         point10: {
             x: 62.47,
-            y: 267.76,
+            y: 269.92,
         },
         point11: {
             x: -6.13,
-            y: 267.76,
+            y: 269.92,
         },
         point12: {
             x: -50.78,
-            y: 267.76,
+            y: 269.92,
         },
         point13: {
             x: -91.4,
-            y: 252.15,
+            y: 254.31,
         },
         point14: {
             x: -91.4,
-            y: 192.66,
+            y: 194.82,
         },
         point15: {
             x: -91.4,
-            y: 133.17,
+            y: 135.33,
         },
         point16: {
             x: -25.05,
-            y: 122.81,
+            y: 124.97,
         },
         point17: {
             x: -6.13,
-            y: 122.81,
+            y: 124.97,
         },
         point18: {
             x: 91.41,
-            y: 122.81,
+            y: 124.97,
         },
         point19: {
             x: 20.95,
-            y: 178.54,
+            y: 180.7,
         },
         point20: {
             x: 17.97,
-            y: 163.66,
+            y: 165.82,
         },
         point21: {
             x: 9.03,
-            y: 155,
+            y: 157.16,
         },
         point22: {
             x: -6.11,
-            y: 155.81,
+            y: 157.97,
         },
         point23: {
             x: -19.1,
-            y: 156.62,
+            y: 158.78,
         },
         point24: {
             x: -29.11,
-            y: 165.55,
+            y: 167.71,
         },
         point25: {
             x: -30.74,
-            y: 178.54,
+            y: 180.7,
         },
     },
     nodes: [
         {
             id: "0",
-            name: "left",
+            name: "node1",
             default: 1,
             r: 26.67,
             pos: {
                 x: -54.73,
-                y: 227.2,
+                y: 229.36,
             },
-            affects: [
-                {
-                    point: "point16",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point16,
-                            { ...eConfig.points.point16, x: -28.62, y: 122.81 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point15",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point15,
-                            { ...eConfig.points.point15, x: -67.62, y: 136.39 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point14",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point14,
-                            { ...eConfig.points.point14, x: -67.62, y: 192.66 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point13",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point13,
-                            { ...eConfig.points.point13, x: -67.62, y: 252.15 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point12",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point12,
-                            { ...eConfig.points.point12, x: -33.73, y: 266.6 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point4",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point4,
-                            { ...eConfig.points.point4, x: -38.92, y: 232.25 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point3",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point3,
-                            { ...eConfig.points.point3, x: -41.72, y: 218.11 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point2",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point2,
-                            { ...eConfig.points.point2, x: -41.72, y: 206.68 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point25",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point25,
-                            { ...eConfig.points.point25, x: -41.71, y: 178.54 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point24",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point24,
-                            { ...eConfig.points.point24, x: -40.09, y: 165.55 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point23",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point23,
-                            { ...eConfig.points.point23, x: -24.29, y: 156.62 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point22",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point22,
-                            { ...eConfig.points.point22, x: -11.3, y: 155.81 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point21",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point21,
-                            { ...eConfig.points.point21, x: 3.85, y: 155 },
-                            0,
-                        )(base, val),
-                },
-            ],
+            affects: [],
         },
         {
             id: "1",
-            name: "top",
+            name: "node2",
             default: 1,
             r: 21.61,
             pos: {
                 x: 32.93,
-                y: 151.89,
+                y: 154.05,
             },
-            affects: [
-                {
-                    point: "point18",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point18,
-                            { ...eConfig.points.point18, x: 63.73, y: 122.81 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point0",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point0,
-                            { ...eConfig.points.point0, x: 55.36, y: 200.04 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point1",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point1,
-                            { ...eConfig.points.point1, x: 55.36, y: 205.16 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point19",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point19,
-                            { ...eConfig.points.point19, x: 30.71, y: 177.02 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point20",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point20,
-                            { ...eConfig.points.point20, x: 26.84, y: 157.52 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point21",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point21,
-                            { ...eConfig.points.point21, x: 15.21, y: 154.29 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point22",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point22,
-                            { ...eConfig.points.point22, x: -0.31, y: 154.29 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point23",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point23,
-                            { ...eConfig.points.point23, x: -13.33, y: 154.29 },
-                            0,
-                        )(base, val),
-                },
-            ],
+            affects: [],
         },
         {
             id: "2",
-            name: "middle",
+            name: "node3",
             default: 1,
             r: 14.11,
             pos: {
                 x: -6.13,
-                y: 192.65,
+                y: 194.81,
             },
-            affects: [
-                {
-                    point: "point0",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point0,
-                            { ...eConfig.points.point0, y: 192.65 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point1",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point1,
-                            { ...eConfig.points.point1, y: 192.65 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point2",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point2,
-                            { ...eConfig.points.point2, y: 192.65 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point19",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point19,
-                            { ...eConfig.points.point19, y: 192.65 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point25",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point25,
-                            { ...eConfig.points.point25, y: 192.65 },
-                            0,
-                        )(base, val),
-                },
-            ],
+            affects: [],
         },
         {
             id: "3",
-            name: "bottom",
+            name: "node4",
             default: 1,
             r: 21.79,
             pos: {
                 x: 26.85,
-                y: 243.31,
+                y: 245.47,
             },
-            affects: [
-                {
-                    point: "point3",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point3,
-                            { ...eConfig.points.point3, x: -32.36, y: 231.66 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point4",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point4,
-                            { ...eConfig.points.point4, x: -25.49, y: 247.57 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point5",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point5,
-                            { ...eConfig.points.point5, x: -6.13, y: 247.57 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point6",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point6,
-                            { ...eConfig.points.point6, x: 25.34, y: 247.57 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point7",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point7,
-                            { ...eConfig.points.point7, x: 30.98, y: 227.58 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point8",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point8,
-                            { ...eConfig.points.point8, x: 53.74, y: 234.08 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point9",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point9,
-                            { ...eConfig.points.point9, x: 45.56, y: 249.18 },
-                            0,
-                        )(base, val),
-                },
-                {
-                    point: "point10",
-                    formula: (base, val) =>
-                        makeCopyDeltaFromInterpolation(
-                            eConfig.points.point10,
-                            { ...eConfig.points.point10, x: 33.52, y: 266.6 },
-                            0,
-                        )(base, val),
-                },
-            ],
+            affects: [],
         },
     ],
 };

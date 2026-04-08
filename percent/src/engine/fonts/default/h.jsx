@@ -1,4 +1,6 @@
-export const nConfig = {
+import { makeCopyDeltaFromInterpolation } from "../../project";
+
+export const hConfig = {
     basePath: [
         {
             cmd: "M",
@@ -50,11 +52,7 @@ export const nConfig = {
         },
         {
             cmd: "C",
-            points: ["point20", "point21", "point22"],
-        },
-        {
-            cmd: "L",
-            points: ["point23"],
+            points: ["point20", "point21", "point21"],
         },
         {
             cmd: "Z",
@@ -62,96 +60,88 @@ export const nConfig = {
     ],
     points: {
         point1: {
-            x: 85.1,
+            x: 84.58,
             y: 267.22,
         },
         point2: {
-            x: 23.13,
+            x: 22.61,
             y: 267.22,
         },
         point3: {
-            x: 22.59,
-            y: 211.2,
+            x: 21.91,
+            y: 210.58,
         },
         point4: {
-            x: 23.13,
-            y: 172.23,
+            x: 21.91,
+            y: 184.65,
         },
         point5: {
-            x: 11.77,
-            y: 171.42,
+            x: 17.09,
+            y: 174.26,
         },
         point6: {
-            x: 4.46,
-            y: 170.88,
+            x: 3.62,
+            y: 174.26,
         },
         point7: {
-            x: -11.78,
-            y: 169.26,
+            x: -11.45,
+            y: 174.26,
         },
         point8: {
-            x: -22.87,
-            y: 180.89,
+            x: -23.12,
+            y: 183.57,
         },
         point9: {
-            x: -22.87,
-            y: 199.02,
+            x: -23.12,
+            y: 211.47,
         },
         point10: {
-            x: -22.6,
+            x: -23.12,
             y: 267.76,
         },
         point11: {
-            x: -85.11,
+            x: -85.63,
             y: 267.76,
         },
         point12: {
-            x: -85.11,
-            y: 132.19,
+            x: -85.63,
+            y: 80.76,
         },
         point13: {
-            x: -23.68,
-            y: 132.19,
+            x: -24.2,
+            y: 80.76,
         },
         point14: {
-            x: -23.68,
-            y: 154.38,
+            x: -24.2,
+            y: 158.7,
         },
         point15: {
-            x: -3.93,
-            y: 129.48,
+            x: -5.53,
+            y: 129.74,
         },
         point16: {
-            x: 28.82,
-            y: 129.48,
+            x: 28.3,
+            y: 129.47,
         },
         point17: {
-            x: 58.59,
-            y: 129.48,
+            x: 58.07,
+            y: 129.2,
         },
         point18: {
-            x: 76.45,
-            y: 139.49,
+            x: 75.93,
+            y: 139.48,
         },
         point19: {
-            x: 82.4,
-            y: 165.74,
+            x: 81.88,
+            y: 165.73,
         },
         point20: {
-            x: 84.57,
-            y: 174.67,
+            x: 85.63,
+            y: 185.76,
         },
         point21: {
-            x: 85.11,
-            y: 191.72,
-        },
-        point22: {
-            x: 85.11,
-            y: 207.96,
-        },
-        point23: {
-            x: 85.11,
-            y: 267.22,
+            x: 84.59,
+            y: 267.21,
         },
     },
     nodes: [
@@ -159,10 +149,10 @@ export const nConfig = {
             id: "0",
             name: "node1",
             default: 1,
-            r: 31.12,
+            r: 31.26,
             pos: {
-                x: -54,
-                y: 223.68,
+                x: -54.38,
+                y: 216,
             },
             affects: [],
         },
@@ -170,10 +160,10 @@ export const nConfig = {
             id: "1",
             name: "node2",
             default: 1,
-            r: 32.32,
+            r: 31.26,
             pos: {
-                x: 47.89,
-                y: 166.3,
+                x: 53.46,
+                y: 216,
             },
             affects: [],
         },

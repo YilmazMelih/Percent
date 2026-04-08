@@ -10,34 +10,55 @@ import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { ACapConfig } from "../../../engine/fonts/default/A_cap";
 import { aConfig } from "../../../engine/fonts/default/a";
 import { BCapConfig } from "../../../engine/fonts/default/B_cap";
+import { bConfig } from "../../../engine/fonts/default/b";
 import { CCapConfig } from "../../../engine/fonts/default/C_cap";
+import { cConfig } from "../../../engine/fonts/default/c";
 import { DCapConfig } from "../../../engine/fonts/default/D_cap";
+import { dConfig } from "../../../engine/fonts/default/d";
 import { ECapConfig } from "../../../engine/fonts/default/E_cap";
 import { eConfig } from "../../../engine/fonts/default/e";
 import { FCapConfig } from "../../../engine/fonts/default/F_cap";
+import { fConfig } from "../../../engine/fonts/default/f";
 import { GCapConfig } from "../../../engine/fonts/default/G_cap";
+import { gConfig } from "../../../engine/fonts/default/g";
 import { HCapConfig } from "../../../engine/fonts/default/H_cap";
+import { hConfig } from "../../../engine/fonts/default/h";
 import { ICapConfig } from "../../../engine/fonts/default/I_cap";
+import { iConfig } from "../../../engine/fonts/default/i";
 import { JCapConfig } from "../../../engine/fonts/default/J_cap";
+import { jConfig } from "../../../engine/fonts/default/j";
 import { KCapConfig } from "../../../engine/fonts/default/K_cap";
+import { kConfig } from "../../../engine/fonts/default/k";
 import { LCapConfig } from "../../../engine/fonts/default/L_cap";
 import { lConfig } from "../../../engine/fonts/default/l";
 import { MCapConfig } from "../../../engine/fonts/default/M_cap";
+import { mConfig } from "../../../engine/fonts/default/m";
 import { NCapConfig } from "../../../engine/fonts/default/N_cap";
 import { nConfig } from "../../../engine/fonts/default/n";
 import { OCapConfig } from "../../../engine/fonts/default/O_cap";
 import { oConfig } from "../../../engine/fonts/default/o";
 import { PCapConfig } from "../../../engine/fonts/default/P_cap";
+import { pConfig } from "../../../engine/fonts/default/p";
 import { QCapConfig } from "../../../engine/fonts/default/Q_cap";
+import { qConfig } from "../../../engine/fonts/default/q";
 import { RCapConfig } from "../../../engine/fonts/default/R_cap";
+import { rConfig } from "../../../engine/fonts/default/r";
 import { SCapConfig } from "../../../engine/fonts/default/S_cap";
+import { sConfig } from "../../../engine/fonts/default/s";
 import { TCapConfig } from "../../../engine/fonts/default/T_cap";
+import { tConfig } from "../../../engine/fonts/default/t";
 import { UCapConfig } from "../../../engine/fonts/default/U_cap";
+import { uConfig } from "../../../engine/fonts/default/u";
 import { VCapConfig } from "../../../engine/fonts/default/V_cap";
+import { vConfig } from "../../../engine/fonts/default/v";
 import { WCapConfig } from "../../../engine/fonts/default/W_cap";
+import { wConfig } from "../../../engine/fonts/default/w";
 import { XCapConfig } from "../../../engine/fonts/default/X_cap";
+import { xConfig } from "../../../engine/fonts/default/x";
 import { YCapConfig } from "../../../engine/fonts/default/Y_cap";
+import { yConfig } from "../../../engine/fonts/default/y";
 import { ZCapConfig } from "../../../engine/fonts/default/Z_cap";
+import { zConfig } from "../../../engine/fonts/default/z";
 import { exportGlyphBasePaths } from "./exportGlyphBasePath";
 import { applyGroupedNodeSizeChanges } from "./nodeGroups";
 import {
@@ -74,12 +95,23 @@ const initializeGlyphData = (configs) => {
 
 // Ascender 30.5
 // Cap Height 80.5
-// X Height 136.25
+// X Height 131.38
 // Baseline 267.76
-// Descender 320
+// Descender 332.24
 
 let testFullInnerHTML = `
-
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 332.45 348.26">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #39b54a;
+      }
+    </style>
+  </defs>
+  <path d="M228.87,255.55c-31.12,19.21-84.43,17.59-97.42-1.89-7.85-12.18-7.58-25.44-7.58-47.63l.54-38.43-20.84.54v-38.97l20.57.27-.27-34.37,62.78-15.97-.81,50.33,16.51-.54h14.88v39.24h-16.51l-14.88-.54.54,28.14c0,15.15-.54,25.98,14.61,25.44,7.85-.27,18.67-6.77,18.67-6.77l9.2,41.13Z"/>
+  <circle class="cls-1" cx="155" cy="202.84" r="31.1"/>
+  <circle class="cls-1" cx="190.47" cy="148.54" r="19.19"/>
+</svg>
 `;
 let testD = `
 M147.44,247.76l93.58-.19v20.87H80.83l.69-36.53,84.7-106.62h-84.7l.54-44.65h168.86v33.02l-103.48,134.11Z
@@ -108,9 +140,9 @@ const extractTestInputsFromInnerHTML = (innerHTML) => {
         testFromPoint: extractedFromPoint,
     };
 };
-// ({ testD, testSVGStr, testFromPoint } = extractTestInputsFromInnerHTML(testFullInnerHTML));
+({ testD, testSVGStr, testFromPoint } = extractTestInputsFromInnerHTML(testFullInnerHTML));
 const testP = convertPathToGlyphObject(testD);
-const testPoints = shiftPointsToAnchor(testP.points, "point8", -84.16, 80.77);
+const testPoints = shiftPointsToAnchor(testP.points, "point10", null, 132.18);
 const testToPoint = testPoints.point1;
 const testNodes = generateNodesFromCircles(testFromPoint, testToPoint, testSVGStr);
 const testConfig = {
@@ -125,34 +157,55 @@ const initialConfigs = {
     A: ACapConfig,
     a: aConfig,
     B: BCapConfig,
+    b: bConfig,
     C: CCapConfig,
+    c: cConfig,
     D: DCapConfig,
+    d: dConfig,
     E: ECapConfig,
     e: eConfig,
     F: FCapConfig,
+    f: fConfig,
     G: GCapConfig,
+    g: gConfig,
     H: HCapConfig,
+    h: hConfig,
     I: ICapConfig,
+    i: iConfig,
     J: JCapConfig,
+    j: jConfig,
     K: KCapConfig,
+    k: kConfig,
     L: LCapConfig,
     l: lConfig,
     M: MCapConfig,
+    m: mConfig,
     N: NCapConfig,
-    // n: nConfig,
+    n: nConfig,
     O: OCapConfig,
-    // o: oConfig,
+    o: oConfig,
     P: PCapConfig,
+    p: pConfig,
     Q: QCapConfig,
+    q: qConfig,
     R: RCapConfig,
+    r: rConfig,
     S: SCapConfig,
+    s: sConfig,
     T: TCapConfig,
+    t: tConfig,
     U: UCapConfig,
+    u: uConfig,
     V: VCapConfig,
+    v: vConfig,
     W: WCapConfig,
+    w: wConfig,
     X: XCapConfig,
+    x: xConfig,
     Y: YCapConfig,
+    y: yConfig,
     Z: ZCapConfig,
+    z: zConfig,
 };
 
 const GLYPH_STATE_STORAGE_KEY = "editor:glyphData:v1";
@@ -170,9 +223,9 @@ const GLYPH_PANEL_WIDTH_STORAGE_KEY = "editor:glyphPanelWidth:v1";
 const DEFAULT_GUIDELINES = {
     ascender: 30.5,
     cap_height: 80.5,
-    x_height: 136.25,
+    x_height: 131.38,
     baseline: 267.76,
-    descender: 320,
+    descender: 332.24,
 };
 
 const hydrateGlyphData = (configs) => {

@@ -39,16 +39,19 @@ const Home = () => {
 
     useEffect(() => {
         const checkScrollBottom = () => {
-            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
+            if (
+                window.innerHeight + window.scrollY >=
+                document.documentElement.scrollHeight - 100
+            ) {
                 setShowScrollButton(true);
             } else {
                 setShowScrollButton(false);
             }
         };
 
-        window.addEventListener('scroll', checkScrollBottom);
+        window.addEventListener("scroll", checkScrollBottom);
         return () => {
-            window.removeEventListener('scroll', checkScrollBottom);
+            window.removeEventListener("scroll", checkScrollBottom);
         };
     }, []);
 
@@ -57,12 +60,13 @@ const Home = () => {
         if (!button) return;
 
         const jumpInterval = setInterval(() => {
-            if (button && !button.classList.contains('jumping')) {
-                if (Math.random() < 0.4) { // Increased probability
-                    button.classList.add('jumping');
+            if (button && !button.classList.contains("jumping")) {
+                if (Math.random() < 0.4) {
+                    // Increased probability
+                    button.classList.add("jumping");
                     setTimeout(() => {
-                        button.classList.remove('jumping');
-                    }, 500); 
+                        button.classList.remove("jumping");
+                    }, 500);
                 }
             }
         }, 1000); // Decreased interval
@@ -74,11 +78,11 @@ const Home = () => {
         e.preventDefault();
         window.scrollTo({
             top: 0,
-            behavior: 'smooth'
+            behavior: "smooth",
         });
 
         setTimeout(() => {
-            navigate('/classroom');
+            navigate("/classroom");
         }, 500);
     };
 
@@ -139,7 +143,12 @@ const Home = () => {
                     <h3 className="footer-cta-title">Easy. Intuitive. Fast.</h3>
                     <p className="footer-cta-subtitle">Start creating your own font with ease</p>
                 </div>
-                <Link to="/classroom" className="scroll-to-top-button" onClick={handleScrollTopAndNavigate} ref={letsGoButtonRef}>
+                <Link
+                    to="/classroom"
+                    className="scroll-to-top-button"
+                    onClick={handleScrollTopAndNavigate}
+                    ref={letsGoButtonRef}
+                >
                     <span>Let's go!</span>
                 </Link>
                 <div className="footer-divider" />

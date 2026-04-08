@@ -21,21 +21,21 @@ const GUIDELINE_LABEL_FONT_SIZE = 22;
 const GUIDELINE_LABEL_VGAP = 4;
 
 // ─── derived constants (don't edit these directly) ───────────────────────────
-const VIEWBOX_WIDTH  = 1000;
+const VIEWBOX_WIDTH = 1000;
 const VIEWBOX_HEIGHT = 400;
-const VIEW_WIDTH  = VIEWBOX_WIDTH  / WORKSPACE_ZOOM;
+const VIEW_WIDTH = VIEWBOX_WIDTH / WORKSPACE_ZOOM;
 const VIEW_HEIGHT = VIEWBOX_HEIGHT / WORKSPACE_ZOOM;
 
 const DEFAULT_GUIDELINES = {
-    ascender:   30.5,
+    ascender: 30.5,
     cap_height: 80.5,
-    x_height:   136.25,
-    baseline:   267.76,
-    descender:  320,
+    x_height: 131.38,
+    baseline: 267.76,
+    descender: 332.24,
 };
 
 const GLYPH_STATE_STORAGE_KEY = "editor:glyphData:v1";
-const GUIDELINES_STORAGE_KEY  = "editor:guideLines:v1";
+const GUIDELINES_STORAGE_KEY = "editor:guideLines:v1";
 
 // ─── helpers ─────────────────────────────────────────────────────────────────
 function hydrateGlyphData(initialConfigs) {
@@ -46,7 +46,9 @@ function hydrateGlyphData(initialConfigs) {
             const parsed = JSON.parse(raw);
             if (parsed && typeof parsed === "object") saved = parsed;
         }
-    } catch { /* ignore */ }
+    } catch {
+        /* ignore */
+    }
 
     const out = {};
     for (const key in initialConfigs) {
@@ -55,9 +57,14 @@ function hydrateGlyphData(initialConfigs) {
         const s = saved?.[key];
         out[key] = {
             config: cfg,
-            nodeSize: Array.isArray(s?.nodeSize) && s.nodeSize.length === n ? s.nodeSize : cfg.nodes.map((nd) => nd.default),
-            nodeX:    Array.isArray(s?.nodeX)    && s.nodeX.length    === n ? s.nodeX    : cfg.nodes.map(() => 0),
-            nodeY:    Array.isArray(s?.nodeY)    && s.nodeY.length    === n ? s.nodeY    : cfg.nodes.map(() => 0),
+            nodeSize:
+                Array.isArray(s?.nodeSize) && s.nodeSize.length === n
+                    ? s.nodeSize
+                    : cfg.nodes.map((nd) => nd.default),
+            nodeX:
+                Array.isArray(s?.nodeX) && s.nodeX.length === n ? s.nodeX : cfg.nodes.map(() => 0),
+            nodeY:
+                Array.isArray(s?.nodeY) && s.nodeY.length === n ? s.nodeY : cfg.nodes.map(() => 0),
         };
     }
     return out;
@@ -102,16 +109,20 @@ function InteractiveGlyph({
 }) {
     const { config, nodeSize, nodeX, nodeY } = glyphState;
 
-    const localActive = (globalActive?.glyphKey === glyphKey) ? globalActive.nodeId : null;
+    const localActive = globalActive?.glyphKey === glyphKey ? globalActive.nodeId : null;
     const setLocalActive = useCallback(
         (nodeId) => setGlobalActive(nodeId === null ? null : { glyphKey, nodeId }),
         [glyphKey, setGlobalActive],
     );
 
     const adjustedPoints = useMemo(
-        () => Object.fromEntries(
-            Object.entries(config.points ?? {}).map(([k, pt]) => [k, { ...pt, x: pt.x + xAdjust }]),
-        ),
+        () =>
+            Object.fromEntries(
+                Object.entries(config.points ?? {}).map(([k, pt]) => [
+                    k,
+                    { ...pt, x: pt.x + xAdjust },
+                ]),
+            ),
         [config.points, xAdjust],
     );
 
@@ -120,13 +131,14 @@ function InteractiveGlyph({
         [config, adjustedPoints],
     );
 
-    const adjustedConfigFiltered = useMemo(() => ({
-        ...config,
-        points: adjustedPoints,
-        nodes: visibleNodeName
-            ? config.nodes.filter((n) => n.name === visibleNodeName)
-            : [],
-    }), [config, adjustedPoints, visibleNodeName]);
+    const adjustedConfigFiltered = useMemo(
+        () => ({
+            ...config,
+            points: adjustedPoints,
+            nodes: visibleNodeName ? config.nodes.filter((n) => n.name === visibleNodeName) : [],
+        }),
+        [config, adjustedPoints, visibleNodeName],
+    );
 
     const adjustedNodesX = useMemo(
         () => (nodeX ?? config.nodes.map(() => 0)).map((v) => v + xAdjust),
@@ -163,20 +175,23 @@ function InteractiveGlyph({
 // ─── SystemWorkspace ─────────────────────────────────────────────────────────
 export default function SystemWorkspace({ activeMode, selectedVariant = 0, initialConfigs }) {
     const [glyphData, setGlyphData] = useState(() => hydrateGlyphData(initialConfigs));
-    const [guideLines, setGuideLines] = useLocalStorageJson(GUIDELINES_STORAGE_KEY, DEFAULT_GUIDELINES);
+    const [guideLines, setGuideLines] = useLocalStorageJson(
+        GUIDELINES_STORAGE_KEY,
+        DEFAULT_GUIDELINES,
+    );
 
     // Cross-glyph active / dragging state
-    const [globalActive, setGlobalActive]           = useState(null); // { glyphKey, nodeId } | null
-    const [globalIsDragging, setGlobalIsDragging]   = useState(false);
+    const [globalActive, setGlobalActive] = useState(null); // { glyphKey, nodeId } | null
+    const [globalIsDragging, setGlobalIsDragging] = useState(false);
 
     // Anchor state: during drag, the glyphKey being edited is fixed at anchorXAdjust
     // so surrounding glyphs shift around it instead of the whole group re-centering.
     const [anchorState, setAnchorState] = useState(null); // { glyphKey, xAdjust } | null
     const prevIsDraggingRef = useRef(false);
 
-    const svgRef             = useRef(null);
-    const draggingGuideline  = useRef(null);
-    const dragOffset         = useRef(0);
+    const svgRef = useRef(null);
+    const draggingGuideline = useRef(null);
+    const dragOffset = useRef(0);
 
     // Persist glyph data to localStorage (same key + pattern as Editor)
     useEffect(() => {
@@ -212,9 +227,14 @@ export default function SystemWorkspace({ activeMode, selectedVariant = 0, initi
     const handleSvgMouseMove = (e) => {
         if (!draggingGuideline.current) return;
         const svgY = clientToSvgY(e.clientY);
-        setGuideLines((prev) => ({ ...prev, [draggingGuideline.current]: svgY - dragOffset.current }));
+        setGuideLines((prev) => ({
+            ...prev,
+            [draggingGuideline.current]: svgY - dragOffset.current,
+        }));
     };
-    const handleSvgMouseUp = () => { draggingGuideline.current = null; };
+    const handleSvgMouseUp = () => {
+        draggingGuideline.current = null;
+    };
 
     // ─── Resolve active display group + visible node names ───────────────────
     const displayGroup = useMemo(
@@ -243,13 +263,15 @@ export default function SystemWorkspace({ activeMode, selectedVariant = 0, initi
             const slice = glyphData[key];
             const cfg = initialConfigs[key];
             if (!cfg) return [];
-            return [{
-                key,
-                config: cfg,
-                nodeSize: slice?.nodeSize ?? cfg.nodes.map((n) => n.default),
-                nodeX:    slice?.nodeX    ?? cfg.nodes.map(() => 0),
-                nodeY:    slice?.nodeY    ?? cfg.nodes.map(() => 0),
-            }];
+            return [
+                {
+                    key,
+                    config: cfg,
+                    nodeSize: slice?.nodeSize ?? cfg.nodes.map((n) => n.default),
+                    nodeX: slice?.nodeX ?? cfg.nodes.map(() => 0),
+                    nodeY: slice?.nodeY ?? cfg.nodes.map(() => 0),
+                },
+            ];
         });
     }, [allMembersForMode, glyphData, initialConfigs]);
 
@@ -260,7 +282,11 @@ export default function SystemWorkspace({ activeMode, selectedVariant = 0, initi
         let cursor = 0;
         const raw = glyphSlices.map((slice) => {
             const { minX, maxX } = getAdjustedGlyphBoundsX(
-                slice.config, slice.nodeSize, slice.nodeX, slice.nodeY, guideLines,
+                slice.config,
+                slice.nodeSize,
+                slice.nodeX,
+                slice.nodeY,
+                guideLines,
             );
             const xAdjust = cursor - minX;
             const width = maxX - minX;
@@ -268,8 +294,8 @@ export default function SystemWorkspace({ activeMode, selectedVariant = 0, initi
             return { ...slice, xAdjust, width };
         });
 
-        const totalWidth = raw.reduce((s, r) => s + r.width, 0)
-            + Math.max(0, raw.length - 1) * GLYPH_GAP;
+        const totalWidth =
+            raw.reduce((s, r) => s + r.width, 0) + Math.max(0, raw.length - 1) * GLYPH_GAP;
         const shift = -totalWidth / 2;
 
         return raw.map((s) => ({ ...s, xAdjust: s.xAdjust + shift }));
@@ -278,7 +304,7 @@ export default function SystemWorkspace({ activeMode, selectedVariant = 0, initi
     // ─── Capture anchor position at drag start, clear on drag end ─────────────
     useLayoutEffect(() => {
         const dragStarted = globalIsDragging && !prevIsDraggingRef.current;
-        const dragEnded   = !globalIsDragging && prevIsDraggingRef.current;
+        const dragEnded = !globalIsDragging && prevIsDraggingRef.current;
         prevIsDraggingRef.current = globalIsDragging;
 
         if (dragStarted) {
@@ -317,7 +343,11 @@ export default function SystemWorkspace({ activeMode, selectedVariant = 0, initi
         const raw = glyphSlices.map((slice) => {
             const maxNodeSize = slice.config.nodes.map(() => 1.0);
             const { minX, maxX } = getAdjustedGlyphBoundsX(
-                slice.config, maxNodeSize, slice.nodeX, slice.nodeY, guideLines,
+                slice.config,
+                maxNodeSize,
+                slice.nodeX,
+                slice.nodeY,
+                guideLines,
             );
             const width = maxX - minX;
             const xAdjust = cursor - minX;
@@ -325,11 +355,12 @@ export default function SystemWorkspace({ activeMode, selectedVariant = 0, initi
             return { xAdjust, width, minX, maxX };
         });
 
-        const totalWidth = raw.reduce((s, r) => s + r.width, 0)
-            + Math.max(0, raw.length - 1) * GLYPH_GAP;
+        const totalWidth =
+            raw.reduce((s, r) => s + r.width, 0) + Math.max(0, raw.length - 1) * GLYPH_GAP;
         const shift = -totalWidth / 2;
 
-        let minX = Infinity, maxX = -Infinity;
+        let minX = Infinity,
+            maxX = -Infinity;
         for (const r of raw) {
             minX = Math.min(minX, r.xAdjust + shift + r.minX);
             maxX = Math.max(maxX, r.xAdjust + shift + r.maxX);
@@ -342,13 +373,13 @@ export default function SystemWorkspace({ activeMode, selectedVariant = 0, initi
 
     // ─── Guideline geometry ───────────────────────────────────────────────────
     const guideLineStartX = contentMinX - GUIDELINE_SIDE_PAD;
-    const guideLineEndX   = contentMaxX + GUIDELINE_SIDE_PAD;
+    const guideLineEndX = contentMaxX + GUIDELINE_SIDE_PAD;
     // Label starts just inside the left end of the guideline line, sitting above it
     const guideLineLabelX = guideLineStartX + GUIDELINE_LABEL_INSET;
 
     const vertCenterY = (guideLines.ascender + guideLines.descender) / 2;
-    const viewMinY    = vertCenterY - VIEW_HEIGHT / 2;
-    const viewMinX    = -VIEW_WIDTH / 2;
+    const viewMinY = vertCenterY - VIEW_HEIGHT / 2;
+    const viewMinX = -VIEW_WIDTH / 2;
 
     return (
         <div
@@ -374,11 +405,11 @@ export default function SystemWorkspace({ activeMode, selectedVariant = 0, initi
                 {/* Guidelines */}
                 <g stroke="#7020BF" strokeWidth="2">
                     {[
-                        { key: "ascender",   label: "Ascender"   },
+                        { key: "ascender", label: "Ascender" },
                         { key: "cap_height", label: "Cap Height" },
-                        { key: "x_height",   label: "X Height"   },
-                        { key: "baseline",   label: "Baseline"   },
-                        { key: "descender",  label: "Descender"  },
+                        { key: "x_height", label: "X Height" },
+                        { key: "baseline", label: "Baseline" },
+                        { key: "descender", label: "Descender" },
                     ].map(({ key, label }) => (
                         <g
                             key={key}
@@ -399,9 +430,21 @@ export default function SystemWorkspace({ activeMode, selectedVariant = 0, initi
                             >
                                 {label}
                             </text>
-                            <line x1={guideLineStartX} y1={guideLines[key]} x2={guideLineEndX} y2={guideLines[key]} />
+                            <line
+                                x1={guideLineStartX}
+                                y1={guideLines[key]}
+                                x2={guideLineEndX}
+                                y2={guideLines[key]}
+                            />
                             {/* Wider invisible hit area */}
-                            <line x1={guideLineStartX} y1={guideLines[key]} x2={guideLineEndX} y2={guideLines[key]} stroke="transparent" strokeWidth="10" />
+                            <line
+                                x1={guideLineStartX}
+                                y1={guideLines[key]}
+                                x2={guideLineEndX}
+                                y2={guideLines[key]}
+                                stroke="transparent"
+                                strokeWidth="10"
+                            />
                         </g>
                     ))}
                 </g>
