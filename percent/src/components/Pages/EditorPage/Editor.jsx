@@ -214,6 +214,7 @@ const SELECTED_GLYPH_STORAGE_KEY = "editor:selectedGlyph:v1";
 const SEE_NODES_STORAGE_KEY = "editor:seeNodes:v1";
 const SEE_PATH_POINTS_STORAGE_KEY = "editor:seePathPoints:v1";
 const SEE_GUIDELINES_STORAGE_KEY = "editor:seeGuidelines:v1";
+const BOTTOM_PANEL_VISIBLE_STORAGE_KEY = "editor:bottomPanelVisible:v1";
 const SETTINGS_PANEL_OPEN_STORAGE_KEY = "editor:settingsPanelOpen:v1";
 const NODE_GROUP_LINKS_STORAGE_KEY = "editor:nodeGroupLinks:v1";
 const SHOW_ADVANCED_STORAGE_KEY = "editor:showAdvanced:v1";
@@ -284,7 +285,10 @@ export default function Editor() {
         SEE_GUIDELINES_STORAGE_KEY,
         true,
     );
-    const [isBottomPanelVisible, setBottomPanelVisible] = useState(false);
+    const [isBottomPanelVisible, setBottomPanelVisible] = useLocalStorageBoolean(
+        BOTTOM_PANEL_VISIBLE_STORAGE_KEY,
+        false,
+    );
 
     const [nodeGroupLinks, setNodeGroupLinks] = useLocalStorageJson(
         NODE_GROUP_LINKS_STORAGE_KEY,
@@ -292,8 +296,9 @@ export default function Editor() {
     );
     const [isSettingsPanelOpen, setIsSettingsPanelOpen] = useLocalStorageBoolean(
         SETTINGS_PANEL_OPEN_STORAGE_KEY,
-        false,
+        true,
     );
+    const [sizes, setSizes] = useState([]);
     const [maxPaneSize, setMaxPaneSize] = useState((window.innerWidth * 2) / 3);
     const [showAdvanced, setShowAdvanced] = useLocalStorageBoolean(
         SHOW_ADVANCED_STORAGE_KEY,
@@ -472,25 +477,14 @@ export default function Editor() {
         [typingMode, selectedGlyph, line.length],
     );
 
-    const closeGlyphPanel = useCallback(() => {
-        setIsGlyphPanelOpen(false);
-    }, [setIsGlyphPanelOpen]);
-    const glyphPanelWidthPx =
-        typeof glyphPanelWidth === "number" && Number.isFinite(glyphPanelWidth)
-            ? glyphPanelWidth
-            : 320;
-    const glyphPanelActiveIndex = isGlyphPanelOpen ? 0 : null;
-    const isSidePanelVisible = isGlyphPanelOpen;
-    const glyphModeWorkspaceLeftInset =
-        !typingMode && isGlyphPanelOpen ? Math.min(glyphPanelWidthPx + 40, 360) : 0;
-
     useEffect(() => {
         if (!typingMode) return;
+        const closeGlyphPanel = () => setIsGlyphPanelOpen(false);
         closeGlyphPanel();
-    }, [typingMode, closeGlyphPanel]);
+    }, [typingMode, setIsGlyphPanelOpen]);
 
     return (
-        <div className="editor-container">
+        <div className="editor-container bg-gray-100">
             <button
                 className={`settings-toggle-button ${isSettingsPanelOpen ? "active" : ""}`}
                 onClick={() => setIsSettingsPanelOpen(!isSettingsPanelOpen)}
@@ -498,27 +492,8 @@ export default function Editor() {
                 <img src={slidersIcon} alt="Settings" />
             </button>
             {/* <Link to="/playground" className="test-workplace-link">Test Workplace</Link> */}
-            <SidePanelGroup
-                side="left"
-                visible={isSidePanelVisible}
-                activeIndex={glyphPanelActiveIndex}
-                onActiveIndexChange={(index) => setIsGlyphPanelOpen(index !== null)}
-                panelWidth={glyphPanelWidthPx}
-                onPanelWidthChange={setGlyphPanelWidth}
-                minPanelWidth={240}
-                maxPanelWidth={520}
-                resizable={true}
-            >
-                <SidePanelTab
-                    tabText="Glyphs"
-                    tabLabel="glyph grid"
-                    tabTopOffset={24}
-                    tabColor="#ffffff"
-                    tabHoverColor="#ffffff"
-                    tabTextColor="#000000"
-                    tabBorderColor="#000000"
-                    panelBorderColor="#000000"
-                >
+            <Allotment sizes={sizes} onChange={setSizes}>
+                <Allotment.Pane preferredSize={350} minSize={100} maxSize={350}>
                     <AllGlyphs
                         guideLines={guideLines}
                         glyphData={glyphData}
@@ -527,202 +502,207 @@ export default function Editor() {
                             setSelectedGlyph(next);
                             setTypingMode(false);
                             setPreTypingCaret(false);
-                            setIsGlyphPanelOpen(true);
                             setLine([]);
                             setCaretIndex(0);
                             setCaretFollowNonce((n) => n + 1);
                         }}
                         availableGlyphs={Object.keys(initialConfigs)}
                     />
-                </SidePanelTab>
-            </SidePanelGroup>
-            <Allotment vertical={true}>
+                </Allotment.Pane>
                 <Allotment.Pane>
-                    <div className="relative min-h-full flex">
-                        <div
-                            tabIndex={0}
-                            ref={editorInputRef}
-                            className="absolute top-0 right-0 bottom-0 flex justify-center transition-[left] duration-200 ease-out outline-none focus:outline-none focus-visible:outline-none"
-                            style={{ left: `${glyphModeWorkspaceLeftInset}px` }}
-                            onClick={() => editorInputRef.current?.focus()}
-                            onKeyDown={(e) => {
-                                if (!typingAllowedKeys.includes(e.key)) return;
+                    <Allotment vertical={true}>
+                            <Allotment.Pane>
+                                <div className="relative min-h-full flex bg-white rounded-r-md">
+                                    <div
+                                        tabIndex={0}
+                                    ref={editorInputRef}
+                                    className="absolute inset-0 flex justify-center outline-none focus:outline-none focus-visible:outline-none"
+                                    onClick={() => editorInputRef.current?.focus()}
+                                    onKeyDown={(e) => {
+                                        if (!typingAllowedKeys.includes(e.key)) return;
 
-                                if (!typingMode) {
-                                    if (!preTypingCaret) return;
-                                    if (e.key === "ArrowLeft" || e.key === "ArrowRight") return;
-                                    if (!selectedGlyph) return;
-                                    e.preventDefault();
-                                    const baseLine = [
-                                        {
-                                            instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
-                                            stateKey: selectedGlyph,
-                                        },
-                                    ];
-                                    let nextLine = baseLine;
-                                    let nextCaret = 1;
+                                        if (!typingMode) {
+                                            if (!preTypingCaret) return;
+                                            if (e.key === "ArrowLeft" || e.key === "ArrowRight") return;
+                                            if (!selectedGlyph) return;
+                                            e.preventDefault();
+                                            const baseLine = [
+                                                {
+                                                    instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                                                    stateKey: selectedGlyph,
+                                                },
+                                            ];
+                                            let nextLine = baseLine;
+                                            let nextCaret = 1;
 
-                                    if (e.key === "Backspace") {
-                                        nextLine = [];
-                                        nextCaret = 0;
-                                    } else if (e.key === " ") {
-                                        nextLine = baseLine.concat([
-                                            {
+                                            if (e.key === "Backspace") {
+                                                nextLine = [];
+                                                nextCaret = 0;
+                                            } else if (e.key === " ") {
+                                                nextLine = baseLine.concat([
+                                                    {
+                                                        kind: "space",
+                                                        instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                                                    },
+                                                ]);
+                                                nextCaret = 2;
+                                            } else if (e.key in initialConfigs) {
+                                                nextLine = baseLine.concat([
+                                                    {
+                                                        instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                                                        stateKey: e.key,
+                                                    },
+                                                ]);
+                                                nextCaret = 2;
+                                            } else if (e.key === "Delete") {
+                                                nextLine = baseLine;
+                                                nextCaret = 1;
+                                            } else {
+                                                return;
+                                            }
+
+                                            setTypingMode(true);
+                                            setPreTypingCaret(false);
+
+                                            // Shrink glyphs panel when typing starts
+                                            if (sizes && sizes.length === 2 && sizes[0] > 100) {
+                                                const totalSize = sizes[0] + sizes[1];
+                                                setSizes([100, totalSize - 100]);
+                                            }
+                                            setLine(nextLine);
+                                            setCaretIndex(nextCaret);
+                                            setCaretFollowNonce((n) => n + 1);
+                                            return;
+                                        }
+                                        if (!typingAllowedKeys.includes(e.key)) return;
+                                        e.preventDefault();
+                                        if (e.key === "ArrowLeft") {
+                                            setCaretFollowNonce((n) => n + 1);
+                                            setCaretIndex((c) => Math.max(0, c - 1));
+                                            return;
+                                        }
+                                        if (e.key === "ArrowRight") {
+                                            setCaretFollowNonce((n) => n + 1);
+                                            setCaretIndex((c) => Math.min(workspaceLine.length, c + 1));
+                                            return;
+                                        }
+                                        if (e.key === "Backspace") {
+                                            if (caretIndex <= 0) return;
+                                            setCaretFollowNonce((n) => n + 1);
+                                            setLine((prev) =>
+                                                prev
+                                                    .slice(0, caretIndex - 1)
+                                                    .concat(prev.slice(caretIndex)),
+                                            );
+                                            setCaretIndex((c) => c - 1);
+                                            setPreTypingCaret(false);
+                                            return;
+                                        }
+                                        if (e.key === "Delete") {
+                                            setCaretFollowNonce((n) => n + 1);
+                                            setLine((prev) =>
+                                                prev
+                                                    .slice(0, caretIndex)
+                                                    .concat(prev.slice(caretIndex + 1)),
+                                            );
+                                            return;
+                                        }
+                                        if (e.key === " ") {
+                                            if (workspaceLine.length >= TYPE_VISUALIZER_MAX_LINE_CHARS)
+                                                return;
+                                            setCaretFollowNonce((n) => n + 1);
+                                            const entry = {
                                                 kind: "space",
                                                 instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
-                                            },
-                                        ]);
-                                        nextCaret = 2;
-                                    } else if (e.key in initialConfigs) {
-                                        nextLine = baseLine.concat([
-                                            {
+                                            };
+                                            setLine((prev) =>
+                                                prev
+                                                    .slice(0, caretIndex)
+                                                    .concat([entry], prev.slice(caretIndex)),
+                                            );
+                                            setCaretIndex((c) => c + 1);
+                                            setPreTypingCaret(false);
+                                            return;
+                                        }
+                                        if (e.key in initialConfigs) {
+                                            if (workspaceLine.length >= TYPE_VISUALIZER_MAX_LINE_CHARS)
+                                                return;
+                                            setCaretFollowNonce((n) => n + 1);
+                                            const entry = {
                                                 instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
                                                 stateKey: e.key,
-                                            },
-                                        ]);
-                                        nextCaret = 2;
-                                    } else if (e.key === "Delete") {
-                                        nextLine = baseLine;
-                                        nextCaret = 1;
-                                    } else {
-                                        return;
-                                    }
-
-                                    setTypingMode(true);
-                                    setPreTypingCaret(false);
-                                    closeGlyphPanel();
-                                    setLine(nextLine);
-                                    setCaretIndex(nextCaret);
-                                    setCaretFollowNonce((n) => n + 1);
-                                    return;
-                                }
-                                if (!typingAllowedKeys.includes(e.key)) return;
-                                e.preventDefault();
-                                if (e.key === "ArrowLeft") {
-                                    setCaretFollowNonce((n) => n + 1);
-                                    setCaretIndex((c) => Math.max(0, c - 1));
-                                    return;
-                                }
-                                if (e.key === "ArrowRight") {
-                                    setCaretFollowNonce((n) => n + 1);
-                                    setCaretIndex((c) => Math.min(workspaceLine.length, c + 1));
-                                    return;
-                                }
-                                if (e.key === "Backspace") {
-                                    if (caretIndex <= 0) return;
-                                    setCaretFollowNonce((n) => n + 1);
-                                    setLine((prev) =>
-                                        prev
-                                            .slice(0, caretIndex - 1)
-                                            .concat(prev.slice(caretIndex)),
-                                    );
-                                    setCaretIndex((c) => c - 1);
-                                    setPreTypingCaret(false);
-                                    return;
-                                }
-                                if (e.key === "Delete") {
-                                    setCaretFollowNonce((n) => n + 1);
-                                    setLine((prev) =>
-                                        prev
-                                            .slice(0, caretIndex)
-                                            .concat(prev.slice(caretIndex + 1)),
-                                    );
-                                    return;
-                                }
-                                if (e.key === " ") {
-                                    if (workspaceLine.length >= TYPE_VISUALIZER_MAX_LINE_CHARS)
-                                        return;
-                                    setCaretFollowNonce((n) => n + 1);
-                                    const entry = {
-                                        kind: "space",
-                                        instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
-                                    };
-                                    setLine((prev) =>
-                                        prev
-                                            .slice(0, caretIndex)
-                                            .concat([entry], prev.slice(caretIndex)),
-                                    );
-                                    setCaretIndex((c) => c + 1);
-                                    setPreTypingCaret(false);
-                                    return;
-                                }
-                                if (e.key in initialConfigs) {
-                                    if (workspaceLine.length >= TYPE_VISUALIZER_MAX_LINE_CHARS)
-                                        return;
-                                    setCaretFollowNonce((n) => n + 1);
-                                    const entry = {
-                                        instanceId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
-                                        stateKey: e.key,
-                                    };
-                                    setLine((prev) =>
-                                        prev
-                                            .slice(0, caretIndex)
-                                            .concat([entry], prev.slice(caretIndex)),
-                                    );
-                                    setCaretIndex((c) => c + 1);
-                                    setPreTypingCaret(false);
-                                }
-                            }}
-                        >
-                            <TypeVisualizerWorkspace
-                                line={workspaceLine}
-                                glyphStates={glyphData}
-                                caretIndex={workspaceCaret}
-                                caretFollowNonce={caretFollowNonce}
-                                onCaretPlacement={handleCaretPlacementFromSvg}
-                                seeNodes={seeNodes}
-                                seePathPoints={seePathPoints}
-                                seeGuidelines={seeGuidelines}
-                                guideLines={guideLines}
-                                setGuideLines={setGuideLines}
-                                setNodeSizeByKey={setNodeSizeByKey}
-                                viewZoom={workspaceViewZoom}
-                                setViewZoom={setWorkspaceViewZoom}
-                                showCaret={typingMode || preTypingCaret}
-                                centerSingleGlyph={!typingMode}
-                                compactMode={!typingMode}
-                                expandedMaxWidth={1300}
-                                viewBaseWidth={typingMode ? 1000 : 660}
-                                viewBaseHeight={400}
-                                guidelineLabelX={typingMode ? -130 : -330}
-                                guidelineLineOverhang={typingMode ? 800 : 0}
-                            />
-                        </div>
-                        <SidePanelGroup
-                            side="right"
-                            activeIndex={isSettingsPanelOpen ? 0 : null}
-                            onActiveIndexChange={(index) => setIsSettingsPanelOpen(index !== null)}
-                        >
-                            {glyphPanels.length > 0 &&
-                                SettingsPanel({
-                                    glyphPanels,
-                                    nodeGroupLinks,
-                                    setNodeGroupLinks,
-                                    seeNodes,
-                                    setSeeNodes,
-                                    seePathPoints,
-                                    setSeePathPoints,
-                                    seeGuidelines,
-                                    setSeeGuidelines,
-                                    showAdvanced,
-                                    setShowAdvanced,
-                                    isBottomPanelVisible,
-                                    setBottomPanelVisible,
-                                    typeVisualizerViewZoom: workspaceViewZoom,
-                                    setTypeVisualizerViewZoom: setWorkspaceViewZoom,
-                                    onResetGuidelines: () => setGuideLines(DEFAULT_GUIDELINES),
-                                    onExport: () =>
-                                        exportGlyphBasePaths(
-                                            glyphData,
-                                            Object.keys(initialConfigs),
-                                            guideLines,
-                                        ),
-                                })}
-                        </SidePanelGroup>
-                    </div>
-                </Allotment.Pane>
-                <Allotment.Pane visible={isBottomPanelVisible} minSize={40} preferredSize="25%">
-                    <BottomPanel glyphData={glyphData} guideLines={guideLines} />
+                                            };
+                                            setLine((prev) =>
+                                                prev
+                                                    .slice(0, caretIndex)
+                                                    .concat([entry], prev.slice(caretIndex)),
+                                            );
+                                            setCaretIndex((c) => c + 1);
+                                            setPreTypingCaret(false);
+                                        }
+                                    }}
+                                >
+                                    <TypeVisualizerWorkspace
+                                        line={workspaceLine}
+                                        glyphStates={glyphData}
+                                        caretIndex={workspaceCaret}
+                                        caretFollowNonce={caretFollowNonce}
+                                        onCaretPlacement={handleCaretPlacementFromSvg}
+                                        seeNodes={seeNodes}
+                                        seePathPoints={seePathPoints}
+                                        seeGuidelines={seeGuidelines}
+                                        guideLines={guideLines}
+                                        setGuideLines={setGuideLines}
+                                        setNodeSizeByKey={setNodeSizeByKey}
+                                        viewZoom={workspaceViewZoom}
+                                        setViewZoom={setWorkspaceViewZoom}
+                                        showCaret={typingMode || preTypingCaret}
+                                        centerSingleGlyph={!typingMode}
+                                        compactMode={!typingMode}
+                                        expandedMaxWidth={1300}
+                                        viewBaseWidth={typingMode ? 1000 : 660}
+                                        viewBaseHeight={400}
+                                        guidelineLabelX={typingMode ? -130 : -330}
+                                        guidelineLineOverhang={typingMode ? 800 : 0}
+                                    />
+                                </div>
+                                <SidePanelGroup
+                                    side="right"
+                                    activeIndex={isSettingsPanelOpen ? 0 : null}
+                                    onActiveIndexChange={(index) => setIsSettingsPanelOpen(index !== null)}
+                                >
+                                    {glyphPanels.length > 0 &&
+                                        SettingsPanel({
+                                            glyphPanels,
+                                            nodeGroupLinks,
+                                            setNodeGroupLinks,
+                                            seeNodes,
+                                            setSeeNodes,
+                                            seePathPoints,
+                                            setSeePathPoints,
+                                            seeGuidelines,
+                                            setSeeGuidelines,
+                                            showAdvanced,
+                                            setShowAdvanced,
+                                            isBottomPanelVisible,
+                                            setBottomPanelVisible,
+                                            typeVisualizerViewZoom: workspaceViewZoom,
+                                            setTypeVisualizerViewZoom: setWorkspaceViewZoom,
+                                            onResetGuidelines: () => setGuideLines(DEFAULT_GUIDELINES),
+                                            onExport: () =>
+                                                exportGlyphBasePaths(
+                                                    glyphData,
+                                                    Object.keys(initialConfigs),
+                                                    guideLines,
+                                                ),
+                                        })}
+                                </SidePanelGroup>
+                            </div>
+                        </Allotment.Pane>
+                        <Allotment.Pane visible={isBottomPanelVisible} minSize={40} preferredSize="25%">
+                            <BottomPanel glyphData={glyphData} guideLines={guideLines} />
+                        </Allotment.Pane>
+                    </Allotment>
                 </Allotment.Pane>
             </Allotment>
         </div>

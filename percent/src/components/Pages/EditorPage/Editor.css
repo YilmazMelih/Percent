@@ -3,6 +3,10 @@
     height: calc(100vh - 60px); /* Assuming header height is approx 60px */
 }
 
+.allotment-sash {
+    background-color: white;
+}
+
 .settings-toggle-button {
     position: fixed;
     top: 1.5rem;
