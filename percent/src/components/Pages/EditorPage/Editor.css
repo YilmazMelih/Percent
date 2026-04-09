@@ -1,13 +1,42 @@
-.test-workplace-link {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
-  background-color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  border: 1px solid black;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
-  color: black;
+.editor-container {
+    position: relative;
+    height: calc(100vh - 60px); /* Assuming header height is approx 60px */
+}
+
+.allotment-sash {
+    background-color: white;
+}
+
+.settings-toggle-button {
+    position: fixed;
+    top: 1.5rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    padding: 0;
+    height: 1.5em; /* 50% of original 2em */
+    display: flex;
+    align-items: center;
+    color: #888; /* Default gray color */
+    transition: color 0.2s ease-in-out;
+    outline: none; /* Remove focus outline */
+}
+
+/* Ensure no focus outline on active/focus states either */
+.settings-toggle-button:focus,
+.settings-toggle-button:active {
+    outline: none;
+}
+
+.settings-toggle-button.active,
+.settings-toggle-button:hover {
+    color: black; /* Active/hover black color */
+}
+
+.settings-toggle-button img {
+    width: 1.5em; /* 50% of original 2em */
+    height: 1.5em; /* 50% of original 2em */
+    transform: rotate(90deg);
 }

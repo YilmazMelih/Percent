@@ -11,43 +11,19 @@ const AllGlyphs = ({
     setGuideLines,
 }) => {
     const [hoveredGlyph, setHoveredGlyph] = useState(null);
-    const [gridCellSize, setGridCellSize] = useState(50);
+    const gridCellSize = 50;
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split("");
-
-    const minSize = 40;
-    const maxSize = 300;
-    const progress = ((gridCellSize - minSize) / (maxSize - minSize)) * 100;
-
-    const sliderStyle = {
-        background: `linear-gradient(to right, #7020BF ${progress}%, #ddd ${progress}%)`,
-    };
 
     return (
         <div className="all-glyphs-container">
-            <div className="glyphs-grid-header">
-                <h3 className="all-glyphs-title">Glyphs Grid</h3>
-                <div className="slider-container">
-                    <div
-                        className={`size-indicator-small ${gridCellSize === minSize ? "active" : ""}`}
-                    ></div>
-                    <input
-                        type="range"
-                        min={minSize}
-                        max={maxSize}
-                        value={gridCellSize}
-                        onChange={(e) => setGridCellSize(Number(e.target.value))}
-                        className="grid-size-slider"
-                        style={sliderStyle}
-                    />
-                    <div
-                        className={`size-indicator-large ${gridCellSize === maxSize ? "active" : ""}`}
-                    ></div>
+            <div className="p-4 flex flex-col h-full">
+                <div className="glyphs-grid-header">
+                    <h3 className="all-glyphs-title">Glyphs</h3>
                 </div>
-            </div>
-            <div
-                className="all-glyphs-grid"
-                style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${gridCellSize}px, 1fr))` }}
-            >
+                <div
+                    className="all-glyphs-grid flex-grow"
+                    style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${gridCellSize}px, 1fr))` }}
+                >
                 {letters.map((letter) => {
                     const isAvailable = availableGlyphs.includes(letter);
                     const isSelected = letter === selectedGlyph;
@@ -95,6 +71,7 @@ const AllGlyphs = ({
                     );
                 })}
             </div>
+        </div>
         </div>
     );
 };
