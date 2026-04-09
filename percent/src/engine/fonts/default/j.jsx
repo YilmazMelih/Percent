@@ -150,36 +150,219 @@ export const jConfig = {
     nodes: [
         {
             id: "0",
-            name: "node1",
+            name: "dot",
             default: 1,
             r: 22.33,
             pos: {
                 x: 30.97,
                 y: 103.1,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point18",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point18,
+                            { ...jConfig.points.point18, x: -0.96, y: 80.77 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point17",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point17,
+                            { ...jConfig.points.point17, x: -0.96, y: 104.62 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point20",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point20,
+                            { ...jConfig.points.point20, x: 22.63, y: 104.62 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point19",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point19,
+                            { ...jConfig.points.point19, x: 22.63, y: 80.77 },
+                            0,
+                        )(base, val);
+                    },
+                },
+            ],
         },
         {
             id: "1",
-            name: "node2",
+            name: "bar",
             default: 1,
             r: 32.3,
             pos: {
                 x: 30.6,
                 y: 194.82,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point2",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point2,
+                            { ...jConfig.points.point2, x: 22.63 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point3",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point3,
+                            { ...jConfig.points.point3, x: 22.17, y: 253.95 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point4",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point4,
+                            { ...jConfig.points.point4, x: 22.71, y: 299.14 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point5",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point5,
+                            { ...jConfig.points.point5, x: 19.15, y: 327.3 },
+                            0,
+                        )(base, val);
+                    },
+                },
+            ],
         },
         {
             id: "2",
-            name: "node3",
+            name: "tail",
             default: 1,
             r: 22.36,
             pos: {
                 x: -22.58,
                 y: 302.82,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point4",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point4,
+                            { ...jConfig.points.point4, x: 62.69, y: 294.23 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point5",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point5,
+                            { ...jConfig.points.point5, x: 32.39, y: 312.73 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point6",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point6,
+                            { ...jConfig.points.point6, x: -9.01, y: 322.31 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point7",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point7,
+                            { ...jConfig.points.point7, x: -17.32, y: 324.23 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point8",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point8,
+                            { ...jConfig.points.point8, x: -26.22, y: 324.23 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point9",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point9,
+                            { ...jConfig.points.point9, x: -29.55, y: 324.23 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point10",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point10,
+                            { ...jConfig.points.point10, x: -29.55, y: 300.92 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point11",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point11,
+                            { ...jConfig.points.point11, x: -20.47, y: 302.82 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point12",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point12,
+                            { ...jConfig.points.point12, x: -10.97, y: 298.59 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point13",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            jConfig.points.point13,
+                            { ...jConfig.points.point13, x: -3.54, y: 295.28 },
+                            0,
+                        )(base, val);
+                    },
+                },
+            ],
         },
     ],
 };

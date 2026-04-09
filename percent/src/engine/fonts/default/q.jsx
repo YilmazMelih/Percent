@@ -4,7 +4,7 @@ export const qConfig = {
     basePath: [
         {
             cmd: "M",
-            points: ["point1"],
+            points: ["point16"],
         },
         {
             cmd: "C",
@@ -186,25 +186,237 @@ export const qConfig = {
     nodes: [
         {
             id: "0",
-            name: "node1",
+            name: "bowl",
             default: 1,
             r: 30.99,
             pos: {
                 x: -57.65,
                 y: 198.85,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point8",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point8,
+                            { ...qConfig.points.point8, x: 26.39, y: 267.97 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point9",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point9,
+                            { ...qConfig.points.point9, x: 9.77, y: 286.42 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point10",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point10,
+                            { ...qConfig.points.point10, x: -23.17, y: 277.37 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point11",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point11,
+                            { ...qConfig.points.point11, x: -45.1, y: 271.69 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point12",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point12,
+                            { ...qConfig.points.point12, x: -60.03, y: 248.89 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point13",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point13,
+                            { ...qConfig.points.point13, x: -60.03, y: 209.38 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point14",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point14,
+                            { ...qConfig.points.point14, x: -60.03, y: 169.87 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point15",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point15,
+                            { ...qConfig.points.point15, x: -46.17, y: 140.03 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point16",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point16,
+                            { ...qConfig.points.point16, x: -8.76, y: 137.57 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point2",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point2,
+                            { ...qConfig.points.point2, x: 15.99, y: 135.94 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point22",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point22,
+                            { ...qConfig.points.point22, x: 20.39, y: 157.16 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point23",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point23,
+                            { ...qConfig.points.point23, x: 4.06, y: 156.2 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point24",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point24,
+                            { ...qConfig.points.point24, x: -23.79, y: 154.57 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point25",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point25,
+                            { ...qConfig.points.point25, x: -37.26, y: 174.85 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point26",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point26,
+                            { ...qConfig.points.point26, x: -37.26, y: 209.92 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point27",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point27,
+                            { ...qConfig.points.point27, x: -37.26, y: 241.83 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point28",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point28,
+                            { ...qConfig.points.point28, x: -26.29, y: 261.14 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point17",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point17,
+                            { ...qConfig.points.point17, x: 0.67, y: 261.14 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point18",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point18,
+                            { ...qConfig.points.point18, x: 28.39, y: 261.14 },
+                            0,
+                        )(base, val);
+                    },
+                },
+            ],
         },
         {
             id: "1",
-            name: "node2",
+            name: "stem",
             default: 1,
             r: 31.16,
             pos: {
                 x: 57.46,
                 y: 285.43,
             },
-            affects: [],
+            affects: [
+                {
+                    point: "point5",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point5,
+                            { ...qConfig.points.point5, x: 49.42, y: 131.17 },
+                            0,
+                        )(base, val);
+                    },
+                },
+                {
+                    point: "point6",
+                    formula: (base, val) => {
+                        return makeCopyDeltaFromInterpolation(
+                            qConfig.points.point6,
+                            { ...qConfig.points.point6, x: 49.42, y: 332.24 },
+                            0,
+                        )(base, val);
+                    },
+                },
+            ],
         },
     ],
 };
