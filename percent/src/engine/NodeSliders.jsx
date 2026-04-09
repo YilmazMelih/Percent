@@ -11,6 +11,7 @@ export default function SliderPanel({
     glyphKey,
     /** When true (e.g. Settings panel), global + Advanced toggles are omitted — parent renders them. */
     hideGlobalToolbar = false,
+    showLockButton = true,
     /** Required when hideGlobalToolbar is true; optional otherwise (uses local state). */
     showAdvanced: showAdvancedProp,
     setShowAdvanced: setShowAdvancedProp,
@@ -172,11 +173,11 @@ export default function SliderPanel({
                     </label>
                 </div>
             )}
-            <div className="flex flex-col gap-4 p-4 bg-gray-100 rounded-lg w-full">
+            <div className="flex flex-col gap-4 w-full">
                 {names.map((name, i) => (
                     <div key={i} className="flex flex-col gap-1">
-                        <div className="flex items-center gap-2">
-                            <span className="w-14 mr-6">{name}</span>
+                        <div className="flex items-center gap-2 text-sm">
+                            <span className="w-14 flex-shrink-0">{name}</span>
                             <input
                                 type="range"
                                 min={0}
@@ -184,14 +185,14 @@ export default function SliderPanel({
                                 step={0.01}
                                 value={nodeSize[i]}
                                 onChange={(e) => handleSizeChange(i, e.target.value)}
-                                className="flex-1 max-w-30 min-w-0"
+                                className="flex-1 min-w-0"
                             />
                             <span className="flex items-center gap-2 flex-shrink-0">
                                 <span className="w-8 text-right tabular-nums">
                                     {(nodeSize[i] ?? 1).toFixed(2)}
                                 </span>
-                                <span className="relative ml-6 w-8 flex justify-end">
-                                    {glyphKey && isNodeInAnyGroup(glyphKey, name) ? (
+                                <span className="relative w-8 flex justify-end">
+                                    {showLockButton && glyphKey && isNodeInAnyGroup(glyphKey, name) ? (
                                         <>
                                             <button
                                                 type="button"

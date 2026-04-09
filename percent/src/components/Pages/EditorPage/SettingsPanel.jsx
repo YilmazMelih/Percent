@@ -4,6 +4,7 @@ import {
 } from "../TypeVisualizer/TypeVisualizerWorkspace";
 import { SidePanelTab } from "./SidePanelGroup";
 import SliderPanel from "../../../engine/NodeSliders";
+import { isNodeInAnyGroup, nodeGroupMemberKey } from "./nodeGroups";
 
 /**
  * @typedef {Object} GlyphPanel
@@ -40,7 +41,7 @@ function SettingsPanelBody({
     setBottomPanelVisible,
     onExport,
     onResetGuidelines,
-    showAdvanced = false,
+    showAdvanced = true,
     setShowAdvanced = () => {},
     /** TypeVisualizer only: viewBox zoom (see TypeVisualizerWorkspace). */
     typeVisualizerViewZoom,
@@ -134,10 +135,47 @@ function SettingsPanelBody({
                         key={`${panel.glyphKey}-${idx}`}
                         className={idx ? "mt-6 pt-4 border-t border-gray-200" : ""}
                     >
-                        <h3 className="text-sm font-medium text-gray-800 mb-2">
-                            {panel.title ?? `Glyph ${panel.glyphKey}`}
-                        </h3>
+                        <div className="flex justify-between items-center mb-2">
+                            <h3 className="text-sm font-medium text-gray-800">
+                                {panel.title ?? `Glyph ${panel.glyphKey}`}
+                            </h3>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    const newLinks = { ...(nodeGroupLinks || {}) };
+                                    let allLocked = true;
+                                    panel.config.nodes.forEach(node => {
+                                        if (isNodeInAnyGroup(panel.glyphKey, node.name)) {
+                                            const key = nodeGroupMemberKey(panel.glyphKey, node.name);
+                                            if (newLinks[key] !== false) {
+                                                allLocked = false;
+                                            }
+                                        }
+                                    });
+
+                                    panel.config.nodes.forEach(node => {
+                                        if (isNodeInAnyGroup(panel.glyphKey, node.name)) {
+                                            const key = nodeGroupMemberKey(panel.glyphKey, node.name);
+                                            if (allLocked) {
+                                                delete newLinks[key];
+                                            } else {
+                                                newLinks[key] = false;
+                                            }
+                                        }
+                                    });
+                                    setNodeGroupLinks(newLinks);
+                                }}
+                                className="px-2 py-0.5 text-xs border border-gray-300 rounded bg-white hover:bg-gray-50"
+                            >
+                                {panel.config.nodes.every(node => {
+                                    if (!isNodeInAnyGroup(panel.glyphKey, node.name)) return true;
+                                    const key = nodeGroupMemberKey(panel.glyphKey, node.name);
+                                    return nodeGroupLinks && nodeGroupLinks[key] === false;
+                                }) ? "Unlock All" : "Lock All"}
+                            </button>
+                        </div>
                         <SliderPanel
+                            showLockButton={false}
                             names={panel.config.nodes.map((node) => node.name)}
                             glyphKey={panel.glyphKey}
                             nodeSize={panel.nodeSize}
@@ -156,17 +194,59 @@ function SettingsPanelBody({
                     apply.
                 </p>
             ) : (
-                <SliderPanel
-                    names={config.nodes.map((node) => node.name)}
-                    glyphKey={glyphKey}
-                    nodeSize={nodeSize}
-                    setNodeSize={setNodeSize}
-                    nodeX={nodeX}
-                    setNodeX={setNodeX}
-                    nodeY={nodeY}
-                    setNodeY={setNodeY}
-                    {...sliderCommon}
-                />
+                <div>
+                    <div className="flex justify-between items-center mb-2">
+                        <h3 className="text-sm font-medium text-gray-800">
+                            Glyph
+                        </h3>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                const newLinks = { ...(nodeGroupLinks || {}) };
+                                let allLocked = true;
+                                config.nodes.forEach(node => {
+                                    if (isNodeInAnyGroup(glyphKey, node.name)) {
+                                        const key = nodeGroupMemberKey(glyphKey, node.name);
+                                        if (newLinks[key] !== false) {
+                                            allLocked = false;
+                                        }
+                                    }
+                                });
+
+                                config.nodes.forEach(node => {
+                                    if (isNodeInAnyGroup(glyphKey, node.name)) {
+                                        const key = nodeGroupMemberKey(glyphKey, node.name);
+                                        if (allLocked) {
+                                            delete newLinks[key];
+                                        } else {
+                                            newLinks[key] = false;
+                                        }
+                                    }
+                                });
+                                setNodeGroupLinks(newLinks);
+                            }}
+                            className="px-2 py-0.5 text-xs border border-gray-300 rounded bg-white hover:bg-gray-50"
+                        >
+                            {config.nodes.every(node => {
+                                if (!isNodeInAnyGroup(glyphKey, node.name)) return true;
+                                const key = nodeGroupMemberKey(glyphKey, node.name);
+                                return nodeGroupLinks && nodeGroupLinks[key] === false;
+                            }) ? "Unlock All" : "Lock All"}
+                        </button>
+                    </div>
+                    <SliderPanel
+                        showLockButton={false}
+                        names={config.nodes.map((node) => node.name)}
+                        glyphKey={glyphKey}
+                        nodeSize={nodeSize}
+                        setNodeSize={setNodeSize}
+                        nodeX={nodeX}
+                        setNodeX={setNodeX}
+                        nodeY={nodeY}
+                        setNodeY={setNodeY}
+                        {...sliderCommon}
+                    />
+                </div>
             )}
             {(onExport || onResetGuidelines) && (
                 <div

@@ -34,7 +34,7 @@ export default function SidePanelGroup({
     panelWidth: controlledPanelWidth,
     onPanelWidthChange,
     minPanelWidth = 160,
-    maxPanelWidth = 280,
+    maxPanelWidth = 320,
     resizable = false,
 }) {
     const tabs = Children.toArray(children).map(getTabConfig).filter(Boolean);
