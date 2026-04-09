@@ -74,8 +74,9 @@
 }
 
 .classroom-nav-container .classroom-links a.active,
-.classroom-nav-container .classroom-links a:hover {
+.classroom-nav-container .classroom-links a.active {
     color: black;
+    font-weight: bold;
 }
 
 .classroom-active-arrow {
@@ -87,6 +88,16 @@
     transition:
         right 0.4s ease-out 0.4s,
         opacity 0.4s ease-out 0.4s;
+}
+
+.editor-active-arrow {
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    transition: opacity 0.2s ease-in-out;
 }
 
 .classroom-nav-container.loaded .active .classroom-active-arrow {

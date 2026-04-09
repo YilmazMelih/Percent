@@ -1,6 +1,6 @@
 import { useState, Children, isValidElement } from "react";
 
-const HEADER_OFFSET = "5rem";
+const HEADER_OFFSET = "0rem";
 const TAB_HEIGHT = "150px";
 const PANEL_WIDTH_PX = 384;
 const DEFAULT_TAB_COLOR = "white";
@@ -33,8 +33,8 @@ export default function SidePanelGroup({
     onActiveIndexChange,
     panelWidth: controlledPanelWidth,
     onPanelWidthChange,
-    minPanelWidth = 240,
-    maxPanelWidth = 640,
+    minPanelWidth = 160,
+    maxPanelWidth = 280,
     resizable = false,
 }) {
     const tabs = Children.toArray(children).map(getTabConfig).filter(Boolean);
@@ -95,7 +95,7 @@ export default function SidePanelGroup({
     return (
         <div className={containerClass} style={{ top: HEADER_OFFSET, bottom: 0 }}>
             <div
-                className={`relative bg-white shadow-lg overflow-hidden transition-[width] duration-200 ease-out ${panelBorderClass} ${
+                className={`relative bg-white shadow-lg overflow-hidden transition-[width] duration-200 ease-out border rounded-md ${
                     panelOpen ? "" : "w-0"
                 }`}
                 style={{
@@ -106,7 +106,7 @@ export default function SidePanelGroup({
                 }}
             >
                 {activeTab && (
-                    <div className="p-4 overflow-auto h-full" style={{ width: "100%" }}>
+                    <div className="px-6 pt-6 pb-6 overflow-auto h-full" style={{ width: "100%" }}>
                         {activeTab.title && (
                             <h2 className="text-sm font-medium text-gray-700 mb-3">
                                 {activeTab.title}

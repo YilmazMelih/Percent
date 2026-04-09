@@ -7,6 +7,7 @@ import SettingsPanel from "./SettingsPanel";
 import AllGlyphs from "./AllGlyphs";
 import BottomPanel from "./BottomPanel";
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import slidersIcon from "../../../assets/images/sliders-icon.svg";
 import { ACapConfig } from "../../../engine/fonts/default/A_cap";
 import { aConfig } from "../../../engine/fonts/default/a";
 import { BCapConfig } from "../../../engine/fonts/default/B_cap";
@@ -284,6 +285,7 @@ export default function Editor() {
         true,
     );
     const [isBottomPanelVisible, setBottomPanelVisible] = useState(false);
+
     const [nodeGroupLinks, setNodeGroupLinks] = useLocalStorageJson(
         NODE_GROUP_LINKS_STORAGE_KEY,
         {},
@@ -478,6 +480,7 @@ export default function Editor() {
             ? glyphPanelWidth
             : 320;
     const glyphPanelActiveIndex = isGlyphPanelOpen ? 0 : null;
+    const isSidePanelVisible = isGlyphPanelOpen;
     const glyphModeWorkspaceLeftInset =
         !typingMode && isGlyphPanelOpen ? Math.min(glyphPanelWidthPx + 40, 360) : 0;
 
@@ -487,10 +490,17 @@ export default function Editor() {
     }, [typingMode, closeGlyphPanel]);
 
     return (
-        <div style={{ height: "calc(100vh - 60px)", position: "relative" }}>
+        <div className="editor-container">
+            <button
+                className={`settings-toggle-button ${isSettingsPanelOpen ? "active" : ""}`}
+                onClick={() => setIsSettingsPanelOpen(!isSettingsPanelOpen)}
+            >
+                <img src={slidersIcon} alt="Settings" />
+            </button>
             {/* <Link to="/playground" className="test-workplace-link">Test Workplace</Link> */}
             <SidePanelGroup
                 side="left"
+                visible={isSidePanelVisible}
                 activeIndex={glyphPanelActiveIndex}
                 onActiveIndexChange={(index) => setIsGlyphPanelOpen(index !== null)}
                 panelWidth={glyphPanelWidthPx}
@@ -711,7 +721,7 @@ export default function Editor() {
                         </SidePanelGroup>
                     </div>
                 </Allotment.Pane>
-                <Allotment.Pane visible={isBottomPanelVisible} minSize={40} preferredSize="33%">
+                <Allotment.Pane visible={isBottomPanelVisible} minSize={40} preferredSize="25%">
                     <BottomPanel glyphData={glyphData} guideLines={guideLines} />
                 </Allotment.Pane>
             </Allotment>

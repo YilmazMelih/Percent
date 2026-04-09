@@ -65,8 +65,8 @@ function SettingsPanelBody({
 
     return (
         <>
-            <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
-                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
+            <div className="flex flex-col gap-2 text-sm text-gray-600 mb-4">
+                <label className="flex items-center justify-start gap-1 whitespace-nowrap">
                     <input
                         type="checkbox"
                         checked={seeNodes}
@@ -75,7 +75,7 @@ function SettingsPanelBody({
                     />
                     See Nodes
                 </label>
-                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
+                <label className="flex items-center justify-start gap-1 whitespace-nowrap">
                     <input
                         type="checkbox"
                         checked={seePathPoints}
@@ -84,7 +84,7 @@ function SettingsPanelBody({
                     />
                     See Path Points
                 </label>
-                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
+                <label className="flex items-center justify-start gap-1 whitespace-nowrap">
                     <input
                         type="checkbox"
                         checked={!!seeGuidelines}
@@ -93,7 +93,7 @@ function SettingsPanelBody({
                     />
                     See Guidelines
                 </label>
-                <label className="flex items-center justify-center gap-1 whitespace-nowrap">
+                <label className="flex items-center justify-start gap-1 whitespace-nowrap">
                     <input
                         type="checkbox"
                         checked={showAdvanced}
@@ -198,16 +198,17 @@ function SettingsPanelBody({
                 </div>
             )}
             <div
-                className="control-group"
                 style={{ marginTop: "1rem", borderTop: "1px solid #e0e0e0", paddingTop: "1rem" }}
             >
-                <label htmlFor="display-toggle">Display</label>
-                <input
-                    id="display-toggle"
-                    type="checkbox"
-                    checked={isBottomPanelVisible}
-                    onChange={(e) => setBottomPanelVisible(e.target.checked)}
-                />
+                <label className="flex items-center justify-start gap-1 whitespace-nowrap">
+                    <input
+                        type="checkbox"
+                        checked={isBottomPanelVisible}
+                        onChange={(e) => setBottomPanelVisible(e.target.checked)}
+                        className="rounded border-gray-300"
+                    />
+                    Display
+                </label>
             </div>
         </>
     );
@@ -221,13 +222,12 @@ function SettingsPanelBody({
 export default function SettingsPanel(props) {
     return (
         <SidePanelTab
-            tabLabel="settings"
             title="Settings"
-            tabText="Settings"
+            tabText=" "
             tabColor="white"
             tabHoverColor="white"
             tabTextColor="black"
-            tabBorderColor="black"
+            tabBorderColor="transparent"
         >
             <SettingsPanelBody {...props} />
         </SidePanelTab>

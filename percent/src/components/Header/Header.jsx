@@ -67,6 +67,9 @@ function Header() {
                                 to="/editor"
                                 className={location.pathname === "/editor" ? "active" : ""}
                             >
+                                {location.pathname === "/editor" && (
+                                    <img src={arrowLeft} alt="" className="editor-active-arrow" />
+                                )}
                                 Editor
                                 {location.pathname === "/editor" && (
                                     <img
