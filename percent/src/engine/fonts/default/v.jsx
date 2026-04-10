@@ -46,38 +46,47 @@ export const vConfig = {
         point1: {
             x: 86.45,
             y: 131.64,
+            attach: "base",
         },
         point2: {
             x: 35.85,
             y: 268.03,
+            attach: "base",
         },
         point3: {
             x: -36.67,
             y: 267.76,
+            attach: "base",
         },
         point4: {
             x: -86.46,
             y: 131.64,
+            attach: "xh",
         },
         point5: {
             x: -17.18,
             y: 131.64,
+            attach: "xh",
         },
         point6: {
             x: -0.67,
             y: 218.51,
+            attach: "base",
         },
         point7: {
             x: 0.68,
             y: 218.51,
+            attach: "base",
         },
         point8: {
             x: 18.27,
             y: 131.64,
+            attach: "xh",
         },
         point9: {
             x: 86.46,
             y: 131.64,
+            attach: "xh",
         },
     },
     nodes: [

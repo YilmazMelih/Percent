@@ -66,10 +66,12 @@ export const xConfig = {
         point2: {
             x: -90.39,
             y: 131.38,
+            attach: "xh",
         },
         point3: {
             x: -15.43,
             y: 131.38,
+            attach: "xh",
         },
         point4: {
             x: 0,
@@ -78,10 +80,12 @@ export const xConfig = {
         point5: {
             x: 16.24,
             y: 131.38,
+            attach: "xh",
         },
         point6: {
             x: 90.39,
             y: 131.38,
+            attach: "xh",
         },
         point7: {
             x: 36.54,
@@ -90,10 +94,12 @@ export const xConfig = {
         point8: {
             x: 90.39,
             y: 267.76,
+            attach: "base",
         },
         point9: {
             x: 13.54,
             y: 267.76,
+            attach: "base",
         },
         point10: {
             x: 0.28,
@@ -102,10 +108,12 @@ export const xConfig = {
         point11: {
             x: -13.25,
             y: 267.76,
+            attach: "base",
         },
         point12: {
             x: -90.37,
             y: 267.76,
+            attach: "base",
         },
         point13: {
             x: -36.79,
@@ -121,6 +129,8 @@ export const xConfig = {
             pos: {
                 x: -30.56,
                 y: 163.58,
+                attach: "xh",
+                ratio: 0.33,
             },
             affects: [
                 {
@@ -173,6 +183,8 @@ export const xConfig = {
             pos: {
                 x: -30.76,
                 y: 238.08,
+                attach: "base",
+                ratio: 0.33,
             },
             affects: [
                 {
@@ -225,6 +237,8 @@ export const xConfig = {
             pos: {
                 x: 30.9,
                 y: 238.08,
+                attach: "base",
+                ratio: 0.33,
             },
             affects: [
                 {
@@ -277,6 +291,8 @@ export const xConfig = {
             pos: {
                 x: 30.39,
                 y: 163.83,
+                attach: "xh",
+                ratio: 0.33,
             },
             affects: [
                 {

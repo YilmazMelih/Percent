@@ -62,78 +62,97 @@ export const nConfig = {
         point1: {
             x: 85.1,
             y: 267.22,
+            attach: "base",
         },
         point2: {
             x: 23.13,
             y: 267.22,
+            attach: "base",
         },
         point3: {
             x: 22.59,
             y: 211.2,
+            attach: "xh",
         },
         point4: {
             x: 23.13,
             y: 172.23,
+            attach: "xh",
         },
         point5: {
             x: 11.77,
             y: 171.42,
+            attach: "xh",
         },
         point6: {
             x: 4.46,
             y: 170.88,
+            attach: "xh",
         },
         point7: {
             x: -11.78,
             y: 169.26,
+            attach: "xh",
         },
         point8: {
             x: -22.87,
             y: 180.89,
+            attach: "xh",
         },
         point9: {
             x: -22.87,
             y: 199.02,
+            attach: "xh",
         },
         point10: {
             x: -22.6,
             y: 267.76,
+            attach: "base",
         },
         point11: {
             x: -85.11,
             y: 267.76,
+            attach: "base",
         },
         point12: {
             x: -85.11,
             y: 132.19,
+            attach: "xh",
         },
         point13: {
             x: -23.68,
             y: 132.19,
+            attach: "xh",
         },
         point14: {
             x: -23.68,
             y: 154.38,
+            attach: "xh",
         },
         point15: {
             x: -3.93,
             y: 129.48,
+            attach: "xh",
         },
         point16: {
             x: 28.82,
             y: 129.48,
+            attach: "xh",
         },
         point17: {
             x: 79.03,
             y: 129.48,
+            attach: "xh",
         },
         point18: {
             x: 85.11,
             y: 156.5,
+            attach: "xh",
         },
         point19: {
             x: 85.11,
             y: 207.96,
+            attach: "base",
         },
         point20: {
             x: 84.57,
@@ -150,6 +169,7 @@ export const nConfig = {
         point23: {
             x: 85.11,
             y: 267.22,
+            attach: "base",
         },
     },
     nodes: [
@@ -263,6 +283,7 @@ export const nConfig = {
             pos: {
                 x: 47.89,
                 y: 166.3,
+                attach: "xh",
             },
             affects: [
                 {

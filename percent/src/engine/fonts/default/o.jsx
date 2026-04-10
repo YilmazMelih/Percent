@@ -57,22 +57,27 @@ export const oConfig = {
         point2: {
             x: 87.41,
             y: 241.78,
+            attach: "base",
         },
         point3: {
             x: 58.18,
             y: 269.92,
+            attach: "base",
         },
         point4: {
             x: -0.27,
             y: 269.92,
+            attach: "base",
         },
         point5: {
             x: -54.93,
             y: 269.92,
+            attach: "base",
         },
         point6: {
             x: -87.41,
             y: 245.84,
+            attach: "base",
         },
         point7: {
             x: -87.41,
@@ -81,22 +86,27 @@ export const oConfig = {
         point8: {
             x: -87.41,
             y: 151.66,
+            attach: "xh",
         },
         point9: {
             x: -50.34,
             y: 127.58,
+            attach: "xh",
         },
         point10: {
             x: -0.27,
             y: 127.58,
+            attach: "xh",
         },
         point11: {
             x: 56.29,
             y: 127.58,
+            attach: "xh",
         },
         point12: {
             x: 87.41,
             y: 156.81,
+            attach: "xh",
         },
         point13: {
             x: 27.88,
@@ -105,22 +115,27 @@ export const oConfig = {
         point14: {
             x: 27.34,
             y: 177.91,
+            attach: "xh",
         },
         point15: {
             x: 15.97,
             y: 163.84,
+            attach: "xh",
         },
         point16: {
             x: -0.81,
             y: 163.84,
+            attach: "xh",
         },
         point17: {
             x: -16.51,
             y: 163.84,
+            attach: "xh",
         },
         point18: {
             x: -28.68,
             y: 176.83,
+            attach: "xh",
         },
         point19: {
             x: -28.14,
@@ -129,22 +144,27 @@ export const oConfig = {
         point20: {
             x: -27.87,
             y: 221.48,
+            attach: "base",
         },
         point21: {
             x: -15.69,
             y: 233.39,
+            attach: "base",
         },
         point22: {
             x: 0.55,
             y: 233.39,
+            attach: "base",
         },
         point23: {
             x: 16.79,
             y: 233.39,
+            attach: "base",
         },
         point24: {
             x: 28.15,
             y: 219.86,
+            attach: "base",
         },
     },
     nodes: [
@@ -340,6 +360,7 @@ export const oConfig = {
             pos: {
                 x: 0,
                 y: 251.66,
+                attach: "base",
             },
             affects: [
                 {
@@ -382,6 +403,7 @@ export const oConfig = {
             pos: {
                 x: -1.96,
                 y: 145.85,
+                attach: "xh",
             },
             affects: [
                 {

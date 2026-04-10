@@ -77,46 +77,57 @@ export const qConfig = {
         point2: {
             x: 13.13,
             y: 131.71,
+            attach: "xh",
         },
         point3: {
             x: 26.39,
             y: 153.09,
+            attach: "xh",
         },
         point4: {
             x: 26.39,
             y: 130.9,
+            attach: "xh",
         },
         point5: {
             x: 88.63,
             y: 131.17,
+            attach: "xh",
         },
         point6: {
             x: 88.63,
             y: 332.24,
+            attach: "desc",
         },
         point7: {
             x: 26.39,
             y: 332.24,
+            attach: "desc",
         },
         point8: {
             x: 26.39,
             y: 247,
+            attach: "base",
         },
         point9: {
             x: 7.18,
             y: 278.66,
+            attach: "base",
         },
         point10: {
             x: -43.97,
             y: 265.94,
+            attach: "base",
         },
         point11: {
             x: -65.89,
             y: 260.26,
+            attach: "base",
         },
         point12: {
             x: -88.63,
             y: 242.12,
+            attach: "base",
         },
         point13: {
             x: -88.63,
@@ -125,26 +136,32 @@ export const qConfig = {
         point14: {
             x: -88.63,
             y: 142.54,
+            attach: "xh",
         },
         point15: {
             x: -52.91,
             y: 121.16,
+            attach: "xh",
         },
         point16: {
             x: -8.53,
             y: 128.2,
+            attach: "xh",
         },
         point17: {
             x: 4.19,
             y: 232.38,
+            attach: "base",
         },
         point18: {
             x: 18.53,
             y: 230.49,
+            attach: "base",
         },
         point19: {
             x: 25.31,
             y: 215.87,
+            attach: "base",
         },
         point20: {
             x: 25.31,
@@ -153,22 +170,27 @@ export const qConfig = {
         point21: {
             x: 25.31,
             y: 179.88,
+            attach: "xh",
         },
         point22: {
             x: 16.91,
             y: 165.81,
+            attach: "xh",
         },
         point23: {
             x: 5,
             y: 163.1,
+            attach: "xh",
         },
         point24: {
             x: -13.13,
             y: 159.31,
+            attach: "xh",
         },
         point25: {
             x: -26.66,
             y: 174.74,
+            attach: "xh",
         },
         point26: {
             x: -26.66,
@@ -177,10 +199,12 @@ export const qConfig = {
         point27: {
             x: -26.66,
             y: 219.93,
+            attach: "base",
         },
         point28: {
             x: -15.28,
             y: 235.09,
+            attach: "base",
         },
     },
     nodes: [

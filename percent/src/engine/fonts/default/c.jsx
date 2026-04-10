@@ -58,22 +58,27 @@ export const cConfig = {
         point2: {
             x: 85.66,
             y: 216.88,
+            attach: "base",
         },
         point3: {
             x: 70.22,
             y: 269.92,
+            attach: "base",
         },
         point4: {
             x: -2.83,
             y: 269.92,
+            attach: "base",
         },
         point5: {
             x: -48.84,
             y: 269.92,
+            attach: "base",
         },
         point6: {
             x: -85.67,
             y: 244.89,
+            attach: "base",
         },
         point7: {
             x: -85.67,
@@ -82,42 +87,52 @@ export const cConfig = {
         point8: {
             x: -85.67,
             y: 134.36,
+            attach: "xh",
         },
         point9: {
             x: -19.82,
             y: 124.74,
+            attach: "xh",
         },
         point10: {
             x: -0.01,
             y: 124.74,
+            attach: "xh",
         },
         point11: {
             x: 70.83,
             y: 124.74,
+            attach: "xh",
         },
         point12: {
             x: 83.22,
             y: 171.15,
+            attach: "xh",
         },
         point13: {
             x: 27.2,
             y: 180.62,
+            attach: "xh",
         },
         point14: {
             x: 25.03,
             y: 161.14,
+            attach: "xh",
         },
         point15: {
             x: 2.03,
             y: 162.49,
+            attach: "xh",
         },
         point16: {
             x: -7.71,
             y: 163.3,
+            attach: "xh",
         },
         point17: {
             x: -26.87,
             y: 167.64,
+            attach: "xh",
         },
         point18: {
             x: -26.87,
@@ -126,22 +141,27 @@ export const cConfig = {
         point19: {
             x: -26.87,
             y: 225.1,
+            attach: "base",
         },
         point20: {
             x: -4.39,
             y: 229.67,
+            attach: "base",
         },
         point21: {
             x: 1.8,
             y: 229.67,
+            attach: "base",
         },
         point22: {
             x: 26.36,
             y: 229.67,
+            attach: "base",
         },
         point23: {
             x: 30.18,
             y: 208.77,
+            attach: "base",
         },
     },
     nodes: [
@@ -225,6 +245,7 @@ export const cConfig = {
             pos: {
                 x: -0.02,
                 y: 143.63,
+                attach: "xh",
             },
             affects: [
                 {
@@ -317,6 +338,7 @@ export const cConfig = {
             pos: {
                 x: 1.82,
                 y: 249.89,
+                attach: "base",
             },
             affects: [
                 {

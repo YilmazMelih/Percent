@@ -50,34 +50,42 @@ export const yConfig = {
         point1: {
             x: 28.01,
             y: 277.23,
+            attach: "desc",
         },
         point2: {
             x: -1.22,
             y: 344.61,
+            attach: "desc",
         },
         point3: {
             x: -74.82,
             y: 321.61,
+            attach: "desc",
         },
         point4: {
             x: -61.83,
             y: 281.02,
+            attach: "desc",
         },
         point5: {
             x: -42.35,
             y: 293.74,
+            attach: "desc",
         },
         point6: {
             x: -27.19,
             y: 265.05,
+            attach: "base",
         },
         point7: {
             x: -83.48,
             y: 131.64,
+            attach: "xh",
         },
         point8: {
             x: -19.62,
             y: 131.64,
+            attach: "xh",
         },
         point9: {
             x: 1.22,
@@ -86,14 +94,17 @@ export const yConfig = {
         point10: {
             x: 19.62,
             y: 131.64,
+            attach: "xh",
         },
         point11: {
             x: 83.48,
             y: 131.64,
+            attach: "xh",
         },
         point12: {
             x: 28,
             y: 277.23,
+            attach: "base",
         },
     },
     nodes: [
@@ -229,6 +240,7 @@ export const yConfig = {
             pos: {
                 x: -38.81,
                 y: 303.67,
+                attach: "desc",
             },
             affects: [
                 {

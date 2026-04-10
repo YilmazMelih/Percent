@@ -66,18 +66,22 @@ export const kConfig = {
         point3: {
             x: -23.96,
             y: 267.49,
+            attach: "base",
         },
         point4: {
             x: -87.82,
             y: 267.49,
+            attach: "base",
         },
         point5: {
             x: -87.82,
             y: 80.77,
+            attach: "cap",
         },
         point6: {
             x: -23.96,
             y: 80.77,
+            attach: "cap",
         },
         point7: {
             x: -24.23,
@@ -86,10 +90,12 @@ export const kConfig = {
         point8: {
             x: 4.73,
             y: 131.91,
+            attach: "xh",
         },
         point9: {
             x: 82.13,
             y: 131.91,
+            attach: "xh",
         },
         point10: {
             x: 31.53,
@@ -98,10 +104,12 @@ export const kConfig = {
         point11: {
             x: 87.82,
             y: 267.49,
+            attach: "base",
         },
         point12: {
             x: 6.64,
             y: 267.49,
+            attach: "base",
         },
     },
     nodes: [
@@ -185,6 +193,8 @@ export const kConfig = {
             pos: {
                 x: 18.09,
                 y: 164.95,
+                attach: "xh",
+                ratio: 0.33,
             },
             affects: [
                 {
@@ -237,6 +247,8 @@ export const kConfig = {
             pos: {
                 x: 23.84,
                 y: 234.34,
+                attach: "base",
+                ratio: 0.33,
             },
             affects: [
                 {

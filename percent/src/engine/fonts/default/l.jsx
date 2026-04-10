@@ -30,18 +30,22 @@ export const lConfig = {
         point1: {
             x: -31.12,
             y: 267.76,
+            attach: "base",
         },
         point2: {
             x: -31.12,
             y: 81.04,
+            attach: "cap",
         },
         point3: {
             x: 31.12,
             y: 81.04,
+            attach: "cap",
         },
         point4: {
             x: 31.12,
             y: 267.76,
+            attach: "base",
         },
     },
     nodes: [

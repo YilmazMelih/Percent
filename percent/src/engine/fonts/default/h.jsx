@@ -62,86 +62,107 @@ export const hConfig = {
         point1: {
             x: 84.58,
             y: 267.22,
+            attach: "base",
         },
         point2: {
             x: 22.61,
             y: 267.22,
+            attach: "base",
         },
         point3: {
             x: 21.91,
             y: 210.58,
+            attach: "xh",
         },
         point4: {
             x: 21.91,
             y: 184.65,
+            attach: "xh",
         },
         point5: {
             x: 17.09,
             y: 174.26,
+            attach: "xh",
         },
         point6: {
             x: 3.62,
             y: 174.26,
+            attach: "xh",
         },
         point7: {
             x: -11.45,
             y: 174.26,
+            attach: "xh",
         },
         point8: {
             x: -23.12,
             y: 183.57,
+            attach: "xh",
         },
         point9: {
             x: -23.12,
             y: 211.47,
+            attach: "xh",
         },
         point10: {
             x: -23.12,
             y: 267.76,
+            attach: "base",
         },
         point11: {
             x: -85.63,
             y: 267.76,
+            attach: "base",
         },
         point12: {
             x: -85.63,
             y: 80.76,
+            attach: "cap",
         },
         point13: {
             x: -24.2,
             y: 80.76,
+            attach: "cap",
         },
         point14: {
             x: -24.2,
             y: 158.7,
+            attach: "xh",
         },
         point15: {
             x: -5.53,
             y: 129.74,
+            attach: "xh",
         },
         point16: {
             x: 28.3,
             y: 129.47,
+            attach: "xh",
         },
         point17: {
             x: 58.07,
             y: 129.2,
+            attach: "xh",
         },
         point18: {
             x: 75.93,
             y: 139.48,
+            attach: "xh",
         },
         point19: {
             x: 81.88,
             y: 165.73,
+            attach: "xh",
         },
         point20: {
             x: 85.63,
             y: 185.76,
+            attach: "xh",
         },
         point21: {
             x: 84.59,
             y: 267.21,
+            attach: "base",
         },
     },
     nodes: [

@@ -53,34 +53,42 @@ export const iConfig = {
         point1: {
             x: -32.06,
             y: 132.45,
+            attach: "xh",
         },
         point2: {
             x: 31.53,
             y: 132.45,
+            attach: "xh",
         },
         point3: {
             x: 30.44,
             y: 267.76,
+            attach: "base",
         },
         point4: {
             x: -32.06,
             y: 267.76,
+            attach: "base",
         },
         point5: {
             x: -31.53,
             y: 125.69,
+            attach: "cap",
         },
         point6: {
             x: -31.53,
             y: 80.77,
+            attach: "cap",
         },
         point7: {
             x: 32.06,
             y: 80.77,
+            attach: "cap",
         },
         point8: {
             x: 32.06,
             y: 125.69,
+            attach: "cap",
         },
     },
     nodes: [
@@ -144,6 +152,7 @@ export const iConfig = {
             pos: {
                 x: 0,
                 y: 103.23,
+                attach: "cap",
             },
             affects: [
                 {

@@ -77,58 +77,72 @@ export const bConfig = {
         point2: {
             x: 88.63,
             y: 243.14,
+            attach: "base",
         },
         point3: {
             x: 65.9,
             y: 261,
+            attach: "base",
         },
         point4: {
             x: 43.97,
             y: 266.68,
+            attach: "base",
         },
         point5: {
             x: -7.17,
             y: 279.4,
+            attach: "base",
         },
         point6: {
             x: -26.38,
             y: 250.71,
+            attach: "base",
         },
         point7: {
             x: -26.38,
             y: 267.76,
+            attach: "base",
         },
         point8: {
             x: -88.63,
             y: 267.76,
+            attach: "base",
         },
         point9: {
             x: -88.63,
             y: 81.04,
+            attach: "cap",
         },
         point10: {
             x: -26.38,
             y: 80.77,
+            attach: "cap",
         },
         point11: {
             x: -26.38,
             y: 151.4,
+            attach: "xh",
         },
         point12: {
             x: -15.28,
             y: 132.73,
+            attach: "xh",
         },
         point13: {
             x: 8.53,
             y: 128.94,
+            attach: "xh",
         },
         point14: {
             x: 52.91,
             y: 122.17,
+            attach: "xh",
         },
         point15: {
             x: 88.63,
             y: 143.28,
+            attach: "xh",
         },
         point16: {
             x: 26.66,
@@ -137,22 +151,27 @@ export const bConfig = {
         point17: {
             x: 26.66,
             y: 178.73,
+            attach: "xh",
         },
         point18: {
             x: 13.13,
             y: 163.3,
+            attach: "xh",
         },
         point19: {
             x: -5,
             y: 167.09,
+            attach: "xh",
         },
         point20: {
             x: -16.91,
             y: 169.8,
+            attach: "xh",
         },
         point21: {
             x: -25.31,
             y: 183.6,
+            attach: "xh",
         },
         point22: {
             x: -25.31,
@@ -161,22 +180,27 @@ export const bConfig = {
         point23: {
             x: -25.31,
             y: 219.86,
+            attach: "base",
         },
         point24: {
             x: -18.53,
             y: 234.21,
+            attach: "base",
         },
         point25: {
             x: -4.19,
             y: 236.1,
+            attach: "base",
         },
         point26: {
             x: 15.28,
             y: 238.81,
+            attach: "base",
         },
         point27: {
             x: 26.66,
             y: 223.65,
+            attach: "base",
         },
     },
     nodes: [

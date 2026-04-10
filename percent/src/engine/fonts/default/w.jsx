@@ -66,14 +66,17 @@ export const wConfig = {
         point1: {
             x: 139.5,
             y: 131.64,
+            attach: "xh",
         },
         point2: {
             x: 88.9,
             y: 268.03,
+            attach: "base",
         },
         point3: {
             x: 16.38,
             y: 267.76,
+            attach: "base",
         },
         point4: {
             x: -0.13,
@@ -82,18 +85,22 @@ export const wConfig = {
         point5: {
             x: -17.18,
             y: 268.03,
+            attach: "base",
         },
         point6: {
             x: -89.7,
             y: 267.76,
+            attach: "base",
         },
         point7: {
             x: -139.51,
             y: 131.64,
+            attach: "xh",
         },
         point8: {
             x: -70.23,
             y: 131.64,
+            attach: "xh",
         },
         point9: {
             x: -55.62,
@@ -102,10 +109,12 @@ export const wConfig = {
         point10: {
             x: -34.78,
             y: 131.64,
+            attach: "xh",
         },
         point11: {
             x: 35.85,
             y: 131.64,
+            attach: "xh",
         },
         point12: {
             x: 56.15,
@@ -114,6 +123,7 @@ export const wConfig = {
         point13: {
             x: 71.03,
             y: 131.64,
+            attach: "xh",
         },
     },
     nodes: [

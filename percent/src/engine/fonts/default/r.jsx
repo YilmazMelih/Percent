@@ -50,58 +50,72 @@ export const rConfig = {
         point1: {
             x: 39.91,
             y: 190.91,
+            attach: "xh",
         },
         point2: {
             x: 22.87,
             y: 174.94,
+            attach: "xh",
         },
         point3: {
             x: 6.63,
             y: 188.47,
+            attach: "xh",
         },
         point4: {
             x: -6.45,
             y: 201.55,
+            attach: "xh",
         },
         point5: {
             x: 1.49,
             y: 267.76,
+            attach: "base",
         },
         point6: {
             x: -61.56,
             y: 267.76,
+            attach: "base",
         },
         point7: {
             x: -61.56,
             y: 132.45,
+            attach: "xh",
         },
         point8: {
             x: 0.14,
             y: 132.45,
+            attach: "xh",
         },
         point9: {
             x: 0.41,
             y: 160.59,
+            attach: "xh",
         },
         point10: {
             x: 11.5,
             y: 131.63,
+            attach: "xh",
         },
         point11: {
             x: 41.53,
             y: 131.63,
+            attach: "xh",
         },
         point12: {
             x: 56.41,
             y: 131.63,
+            attach: "xh",
         },
         point13: {
             x: 61.56,
             y: 135.42,
+            attach: "xh",
         },
         point14: {
             x: 39.91,
             y: 190.9,
+            attach: "xh",
         },
     },
     nodes: [
@@ -205,6 +219,7 @@ export const rConfig = {
             pos: {
                 x: 27.33,
                 y: 160.53,
+                attach: "xh",
             },
             affects: [
                 {

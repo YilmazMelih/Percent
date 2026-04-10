@@ -90,146 +90,182 @@ export const mConfig = {
         point1: {
             x: 137.95,
             y: 267.49,
+            attach: "base",
         },
         point2: {
             x: 75.72,
             y: 267.49,
+            attach: "base",
         },
         point3: {
             x: 75.44,
             y: 209.43,
+            attach: "xh",
         },
         point4: {
             x: 75.44,
             y: 179.54,
+            attach: "xh",
         },
         point5: {
             x: 68.23,
             y: 170.07,
+            attach: "xh",
         },
         point6: {
             x: 53.85,
             y: 170.07,
+            attach: "xh",
         },
         point7: {
             x: 37.45,
             y: 170.07,
+            attach: "xh",
         },
         point8: {
             x: 30.78,
             y: 189.61,
+            attach: "xh",
         },
         point9: {
             x: 30.78,
             y: 205.52,
+            attach: "xh",
         },
         point10: {
             x: 31.59,
             y: 267.22,
+            attach: "base",
         },
         point11: {
             x: -30.65,
             y: 267.22,
+            attach: "base",
         },
         point12: {
             x: -30.92,
             y: 211.2,
+            attach: "xh",
         },
         point13: {
             x: -30.92,
             y: 178.8,
+            attach: "xh",
         },
         point14: {
             x: -38.34,
             y: 170.88,
+            attach: "xh",
         },
         point15: {
             x: -51.49,
             y: 170.88,
+            attach: "xh",
         },
         point16: {
             x: -65.85,
             y: 170.88,
+            attach: "xh",
         },
         point17: {
             x: -76.39,
             y: 181.66,
+            attach: "xh",
         },
         point18: {
             x: -76.39,
             y: 198.75,
+            attach: "xh",
         },
         point19: {
             x: -76.12,
             y: 267.76,
+            attach: "base",
         },
         point20: {
             x: -138.62,
             y: 267.76,
+            attach: "base",
         },
         point21: {
             x: -138.62,
             y: 132.18,
+            attach: "xh",
         },
         point22: {
             x: -77.19,
             y: 131.91,
+            attach: "xh",
         },
         point23: {
             x: -77.19,
             y: 151.39,
+            attach: "xh",
         },
         point24: {
             x: -60.96,
             y: 129.47,
+            attach: "xh",
         },
         point25: {
             x: -24.69,
             y: 129.47,
+            attach: "xh",
         },
         point26: {
             x: 16.45,
             y: 129.47,
+            attach: "xh",
         },
         point27: {
             x: 23.75,
             y: 150.04,
+            attach: "xh",
         },
         point28: {
             x: 25.64,
             y: 155.99,
+            attach: "xh",
         },
         point29: {
             x: 37.82,
             y: 138.67,
+            attach: "xh",
         },
         point30: {
             x: 60.56,
             y: 130.28,
+            attach: "xh",
         },
         point31: {
             x: 81.66,
             y: 129.74,
+            attach: "xh",
         },
         point32: {
             x: 111.44,
             y: 129.2,
+            attach: "xh",
         },
         point33: {
             x: 130.56,
             y: 138.91,
+            attach: "xh",
         },
         point34: {
             x: 135.25,
             y: 166,
+            attach: "xh",
         },
         point35: {
             x: 138.62,
             y: 189.79,
+            attach: "xh",
         },
         point36: {
             x: 137.95,
             y: 267.48,
+            attach: "base",
         },
     },
     nodes: [

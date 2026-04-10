@@ -69,82 +69,102 @@ export const jConfig = {
         point1: {
             x: -1.77,
             y: 132.46,
+            attach: "xh",
         },
         point2: {
             x: 62.91,
             y: 132.46,
+            attach: "xh",
         },
         point3: {
             x: 62.1,
             y: 256.67,
+            attach: "desc",
         },
         point4: {
             x: 62.64,
             y: 301.86,
+            attach: "desc",
         },
         point5: {
             x: 32.88,
             y: 326.49,
+            attach: "desc",
         },
         point6: {
             x: -9.61,
             y: 326.49,
+            attach: "desc",
         },
         point7: {
             x: -26.93,
             y: 326.49,
+            attach: "desc",
         },
         point8: {
             x: -44.52,
             y: 322.43,
+            attach: "desc",
         },
         point9: {
             x: -62.92,
             y: 304.84,
+            attach: "desc",
         },
         point10: {
             x: -37.48,
             y: 271.01,
+            attach: "desc",
         },
         point11: {
             x: -30.44,
             y: 279.67,
+            attach: "desc",
         },
         point12: {
             x: -21.51,
             y: 280.48,
+            attach: "desc",
         },
         point13: {
             x: -13.39,
             y: 281.02,
+            attach: "desc",
         },
         point14: {
             x: -2.3,
             y: 280.48,
+            attach: "desc",
         },
         point15: {
             x: -1.75,
             y: 258.56,
+            attach: "desc",
         },
         point16: {
             x: -1.75,
             y: 132.45,
+            attach: "xh",
         },
         point17: {
             x: -0.96,
             y: 125.42,
+            attach: "cap",
         },
         point18: {
             x: -0.96,
             y: 80.77,
+            attach: "cap",
         },
         point19: {
             x: 62.9,
             y: 80.77,
+            attach: "cap",
         },
         point20: {
             x: 62.9,
             y: 125.42,
+            attach: "cap",
         },
     },
     nodes: [
@@ -156,6 +176,7 @@ export const jConfig = {
             pos: {
                 x: 30.97,
                 y: 103.1,
+                attach: "cap",
             },
             affects: [
                 {
@@ -260,6 +281,7 @@ export const jConfig = {
             pos: {
                 x: -22.58,
                 y: 302.82,
+                attach: "desc",
             },
             affects: [
                 {

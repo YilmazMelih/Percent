@@ -73,46 +73,57 @@ export const eConfig = {
         point3: {
             x: -32.36,
             y: 220.27,
+            attach: "base",
         },
         point4: {
             x: -25.49,
             y: 234.41,
+            attach: "base",
         },
         point5: {
             x: -6.13,
             y: 234.41,
+            attach: "base",
         },
         point6: {
             x: 16.22,
             y: 234.41,
+            attach: "base",
         },
         point7: {
             x: 18.78,
             y: 218.85,
+            attach: "base",
         },
         point8: {
             x: 78.05,
             y: 227.24,
+            attach: "base",
         },
         point9: {
             x: 69.88,
             y: 242.34,
+            attach: "base",
         },
         point10: {
             x: 62.47,
             y: 269.92,
+            attach: "base",
         },
         point11: {
             x: -6.13,
             y: 269.92,
+            attach: "base",
         },
         point12: {
             x: -50.78,
             y: 269.92,
+            attach: "base",
         },
         point13: {
             x: -91.4,
             y: 254.31,
+            attach: "base",
         },
         point14: {
             x: -91.4,
@@ -121,18 +132,22 @@ export const eConfig = {
         point15: {
             x: -91.4,
             y: 135.33,
+            attach: "xh",
         },
         point16: {
             x: -25.05,
             y: 124.97,
+            attach: "xh",
         },
         point17: {
             x: -6.13,
             y: 124.97,
+            attach: "xh",
         },
         point18: {
             x: 91.41,
             y: 124.97,
+            attach: "xh",
         },
         point19: {
             x: 20.95,
@@ -141,22 +156,27 @@ export const eConfig = {
         point20: {
             x: 17.97,
             y: 165.82,
+            attach: "xh",
         },
         point21: {
             x: 9.03,
             y: 157.16,
+            attach: "xh",
         },
         point22: {
             x: -6.11,
             y: 157.97,
+            attach: "xh",
         },
         point23: {
             x: -19.1,
             y: 158.78,
+            attach: "xh",
         },
         point24: {
             x: -29.11,
             y: 167.71,
+            attach: "xh",
         },
         point25: {
             x: -30.74,
@@ -172,6 +192,8 @@ export const eConfig = {
             pos: {
                 x: -54.73,
                 y: 229.36,
+                attach: "base",
+                ratio: 0.75,
             },
             affects: [
                 {
@@ -294,6 +316,8 @@ export const eConfig = {
             pos: {
                 x: 32.93,
                 y: 154.05,
+                attach: "xh",
+                ratio: 0.9,
             },
             affects: [
                 {
@@ -380,12 +404,13 @@ export const eConfig = {
         },
         {
             id: "2",
-            name: "middle",
+            name: "bottom",
             default: 1,
             r: 21.79,
             pos: {
                 x: 26.85,
                 y: 245.47,
+                attach: "base",
             },
             affects: [
                 {
@@ -472,7 +497,7 @@ export const eConfig = {
         },
         {
             id: "3",
-            name: "bottom",
+            name: "middle",
             default: 1,
             r: 14.11,
             pos: {

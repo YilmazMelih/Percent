@@ -54,42 +54,52 @@ export const zConfig = {
         point1: {
             x: -70.36,
             y: 131.91,
+            attach: "xh",
         },
         point2: {
             x: 67.65,
             y: 131.91,
+            attach: "xh",
         },
         point3: {
             x: 67.92,
             y: 163.3,
+            attach: "xh",
         },
         point4: {
             x: 10.28,
             y: 224.73,
+            attach: "base",
         },
         point5: {
             x: 70.36,
             y: 224.73,
+            attach: "base",
         },
         point6: {
             x: 70.36,
             y: 267.76,
+            attach: "base",
         },
         point7: {
             x: -70.36,
             y: 267.76,
+            attach: "base",
         },
         point8: {
             x: -70.36,
             y: 237.72,
+            attach: "base",
         },
         point9: {
             x: -7.85,
             y: 172.5,
+            attach: "xh",
         },
         point10: {
             x: -70.09,
             y: 172.77,
+            attach: "xh",
         },
     },
     nodes: [
@@ -173,6 +183,7 @@ export const zConfig = {
             pos: {
                 x: -39.23,
                 y: 152.2,
+                attach: "xh",
             },
             affects: [
                 {
@@ -215,6 +226,7 @@ export const zConfig = {
             pos: {
                 x: 41.53,
                 y: 246.08,
+                attach: "base",
             },
             affects: [
                 {

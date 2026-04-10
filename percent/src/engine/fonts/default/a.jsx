@@ -291,6 +291,8 @@ export const aConfig = {
             pos: {
                 x: -54.08,
                 y: 234.5,
+                attach: "base",
+                ratio: 0.5,
             },
             affects: [
                 {
@@ -438,6 +440,7 @@ export const aConfig = {
             pos: {
                 x: 2.04,
                 y: 144.58,
+                attach: "xh",
             },
             affects: [
                 {
@@ -870,6 +873,7 @@ export const aConfig = {
             pos: {
                 x: -3.69,
                 y: 250.17,
+                attach: "base",
             },
             affects: [
                 {
