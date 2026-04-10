@@ -1,6 +1,7 @@
 import { useState, Children, isValidElement } from "react";
 
-const HEADER_OFFSET = "0rem";
+/** Below sticky header (Header.css z-index 800) so panel controls receive clicks. */
+const HEADER_OFFSET = "4.75rem";
 const TAB_HEIGHT = "150px";
 const PANEL_WIDTH_PX = 384;
 const DEFAULT_TAB_COLOR = "white";
@@ -47,8 +48,8 @@ export default function SidePanelGroup({
     const panelWidth = controlledPanelWidth ?? internalPanelWidth;
 
     const containerClass = isRight
-        ? "fixed right-0 z-[700] flex flex-row-reverse items-stretch"
-        : "fixed left-0 z-[700] flex flex-row items-stretch";
+        ? "fixed right-0 z-[850] flex flex-row-reverse items-stretch"
+        : "fixed left-0 z-[850] flex flex-row items-stretch";
 
     const panelBorderClass = isRight ? "border-l" : "border-r";
 

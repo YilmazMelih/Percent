@@ -87,34 +87,42 @@ export const aConfig = {
         point1: {
             x: 87.57,
             y: 267.76,
+            attach: "base",
         },
         point2: {
             x: 19.1,
             y: 267.76,
+            attach: "base",
         },
         point3: {
             x: 16.94,
             y: 248.82,
+            attach: "base",
         },
         point4: {
             x: 6.94,
             y: 264.79,
+            attach: "base",
         },
         point5: {
             x: -24.19,
             y: 269.93,
+            attach: "base",
         },
         point6: {
             x: -39.34,
             y: 272.64,
+            attach: "base",
         },
         point7: {
             x: -86.36,
             y: 270.68,
+            attach: "base",
         },
         point8: {
             x: -86.97,
             y: 236.37,
+            attach: "base",
         },
         point9: {
             x: -87.58,
@@ -135,70 +143,87 @@ export const aConfig = {
         point13: {
             x: 8.28,
             y: 188.48,
+            attach: "xh",
         },
         point14: {
             x: 12.88,
             y: 180.63,
+            attach: "xh",
         },
         point15: {
             x: 14.77,
             y: 177.38,
+            attach: "xh",
         },
         point16: {
             x: 13.96,
             y: 171.43,
+            attach: "xh",
         },
         point17: {
             x: 10.71,
             y: 167.64,
+            attach: "xh",
         },
         point18: {
             x: 4.22,
             y: 160.06,
+            attach: "xh",
         },
         point19: {
             x: -15.54,
             y: 159.52,
+            attach: "xh",
         },
         point20: {
             x: -17.43,
             y: 178.46,
+            attach: "xh",
         },
         point21: {
             x: -78.86,
             y: 170.07,
+            attach: "xh",
         },
         point22: {
             x: -77.24,
             y: 154.92,
+            attach: "xh",
         },
         point23: {
             x: -68.31,
             y: 144.63,
+            attach: "xh",
         },
         point24: {
             x: -56.94,
             y: 138.41,
+            attach: "xh",
         },
         point25: {
             x: -19.05,
             y: 118.11,
+            attach: "xh",
         },
         point26: {
             x: 43.19,
             y: 127.59,
+            attach: "xh",
         },
         point27: {
             x: 56.72,
             y: 136.52,
+            attach: "xh",
         },
         point28: {
             x: 80.53,
             y: 152.76,
+            attach: "xh",
         },
         point29: {
             x: 80.8,
             y: 175.22,
+            attach: "xh",
         },
         point30: {
             x: 80.8,
@@ -207,10 +232,12 @@ export const aConfig = {
         point31: {
             x: 79.72,
             y: 246.39,
+            attach: "base",
         },
         point32: {
             x: 82.42,
             y: 252.61,
+            attach: "base",
         },
         point34: {
             x: 14.51,
@@ -227,22 +254,28 @@ export const aConfig = {
         point37: {
             x: -20.13,
             y: 218.51,
+            attach: "base",
+            ratio: 0.5,
         },
         point38: {
             x: -27.44,
             y: 232.04,
+            attach: "base",
         },
         point39: {
             x: -11.74,
             y: 243.68,
+            attach: "base",
         },
         point40: {
             x: 5.58,
             y: 234.21,
+            attach: "base",
         },
         point41: {
             x: 16.13,
             y: 228.26,
+            attach: "base",
         },
         point42: {
             x: 14.51,

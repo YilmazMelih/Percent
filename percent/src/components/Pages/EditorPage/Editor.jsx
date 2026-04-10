@@ -492,7 +492,10 @@ export default function Editor() {
                 <img src={slidersIcon} alt="Settings" />
             </button>
             {/* <Link to="/playground" className="test-workplace-link">Test Workplace</Link> */}
-            <Allotment sizes={sizes} onChange={setSizes}>
+            <Allotment
+                defaultSizes={sizes.length > 0 ? sizes : undefined}
+                onChange={setSizes}
+            >
                 <Allotment.Pane preferredSize={350} minSize={100} maxSize={350}>
                     <AllGlyphs
                         guideLines={guideLines}
