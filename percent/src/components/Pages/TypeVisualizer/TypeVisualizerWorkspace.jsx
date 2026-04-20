@@ -109,6 +109,7 @@ export default function TypeVisualizerWorkspace({
     onCaretPlacement = null,
     showCaret = true,
     centerSingleGlyph = false,
+    normalizeGlyphX = true,
     compactMode = false,
     compactMaxWidth = 1000,
     expandedMaxWidth = 1500,
@@ -506,8 +507,10 @@ export default function TypeVisualizerWorkspace({
                         guideLines,
                     );
                     const width = maxX - minX;
-                    const xAdjust = cursor - minX;
-                    cursor += width + RIGHT_SPACING;
+                    const xAdjust = normalizeGlyphX ? cursor - minX : 0;
+                    if (normalizeGlyphX) {
+                        cursor += width + RIGHT_SPACING;
+                    }
 
                     const isLiveDragTarget =
                         ringIsolate && instance.instanceId === ringIsolate.instanceId;

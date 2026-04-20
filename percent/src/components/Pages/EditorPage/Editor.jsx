@@ -221,6 +221,7 @@ const SHOW_ADVANCED_STORAGE_KEY = "editor:showAdvanced:v1";
 const GUIDELINES_STORAGE_KEY = "editor:guideLines:v1";
 const GLYPH_PANEL_OPEN_STORAGE_KEY = "editor:glyphPanelOpen:v1";
 const GLYPH_PANEL_WIDTH_STORAGE_KEY = "editor:glyphPanelWidth:v1";
+const GLYPH_MODE_PANE_WIDTHS_STORAGE_KEY = "editor:glyphModePaneWidths:v1";
 
 const DEFAULT_GUIDELINES = {
     ascender: 30.5,
@@ -264,6 +265,8 @@ const hydrateGlyphData = (configs) => {
 };
 
 export default function Editor() {
+    const GLYPH_PANE_MIN_SIZE = 100;
+    const GLYPH_PANE_MAX_SIZE = 350;
     const [glyphData, setGlyphData] = useState(() => hydrateGlyphData(initialConfigs));
     const [selectedGlyphRaw, setSelectedGlyphRaw] = useLocalStorageString(
         SELECTED_GLYPH_STORAGE_KEY,
@@ -298,7 +301,34 @@ export default function Editor() {
         SETTINGS_PANEL_OPEN_STORAGE_KEY,
         true,
     );
-    const [sizes, setSizes] = useState([]);
+    const [sizes, setSizes] = useState(() => {
+        let rawGlyphWidth = GLYPH_PANE_MAX_SIZE;
+        if (typeof window !== "undefined") {
+            try {
+                const raw = window.localStorage.getItem(GLYPH_MODE_PANE_WIDTHS_STORAGE_KEY);
+                const parsed = raw ? JSON.parse(raw) : null;
+                if (parsed && Number.isFinite(parsed.glyph)) {
+                    rawGlyphWidth = parsed.glyph;
+                }
+            } catch {
+                // Ignore malformed persisted value.
+            }
+        }
+
+        const clampedLeft = Math.min(
+            Math.max(rawGlyphWidth, GLYPH_PANE_MIN_SIZE),
+            GLYPH_PANE_MAX_SIZE,
+        );
+        const totalSize =
+            typeof window !== "undefined"
+                ? Math.max(window.innerWidth - 160, clampedLeft + 320)
+                : clampedLeft + 320;
+        return [clampedLeft, Math.max(totalSize - clampedLeft, 100)];
+    });
+    const sizesRef = useRef([]);
+    const allotmentRef = useRef(null);
+    const allotmentReadyRef = useRef(false);
+    const paneAnimationFrameRef = useRef(null);
     const [maxPaneSize, setMaxPaneSize] = useState((window.innerWidth * 2) / 3);
     const [showAdvanced, setShowAdvanced] = useLocalStorageBoolean(
         SHOW_ADVANCED_STORAGE_KEY,
@@ -313,6 +343,13 @@ export default function Editor() {
     const [glyphPanelWidth, setGlyphPanelWidth] = useLocalStorageJson(
         GLYPH_PANEL_WIDTH_STORAGE_KEY,
         320,
+    );
+    const [glyphModePaneWidths, setGlyphModePaneWidths] = useLocalStorageJson(
+        GLYPH_MODE_PANE_WIDTHS_STORAGE_KEY,
+        {
+            typing: GLYPH_PANE_MIN_SIZE,
+            glyph: GLYPH_PANE_MAX_SIZE,
+        },
     );
     const [line, setLine] = useState([]);
     const [caretIndex, setCaretIndex] = useState(0);
@@ -335,6 +372,110 @@ export default function Editor() {
     useEffect(() => {
         window.localStorage.setItem(GLYPH_STATE_STORAGE_KEY, JSON.stringify(glyphData));
     }, [glyphData]);
+
+    const resizeGlyphPane = useCallback((targetLeftSize, commitState = true) => {
+        if (!allotmentReadyRef.current || !allotmentRef.current?.resize) return;
+        const currentSizes = sizesRef.current;
+        let totalSize = 0;
+        if (Array.isArray(currentSizes) && currentSizes.length === 2) {
+            totalSize = currentSizes[0] + currentSizes[1];
+        } else if (typeof window !== "undefined") {
+            totalSize = Math.max(window.innerWidth - 160, targetLeftSize + 320);
+        } else {
+            totalSize = targetLeftSize + 320;
+        }
+
+        const clampedLeft = Math.min(
+            Math.max(targetLeftSize, GLYPH_PANE_MIN_SIZE),
+            GLYPH_PANE_MAX_SIZE,
+        );
+        const nextSizes = [clampedLeft, Math.max(totalSize - clampedLeft, 100)];
+        try {
+            allotmentRef.current.resize(nextSizes);
+            sizesRef.current = nextSizes;
+            if (commitState) setSizes(nextSizes);
+        } catch {
+            // Ignore transient resize attempts before Allotment internals are fully ready.
+        }
+    }, []);
+
+    const animateGlyphPaneResize = useCallback(
+        (targetLeftSize) => {
+            if (paneAnimationFrameRef.current !== null) {
+                window.cancelAnimationFrame(paneAnimationFrameRef.current);
+                paneAnimationFrameRef.current = null;
+            }
+
+            const startLeftRaw =
+                Array.isArray(sizesRef.current) && sizesRef.current.length === 2
+                    ? sizesRef.current[0]
+                    : targetLeftSize;
+            const startLeft = Math.min(
+                Math.max(startLeftRaw, GLYPH_PANE_MIN_SIZE),
+                GLYPH_PANE_MAX_SIZE,
+            );
+            const endLeft = Math.min(
+                Math.max(targetLeftSize, GLYPH_PANE_MIN_SIZE),
+                GLYPH_PANE_MAX_SIZE,
+            );
+
+            if (Math.abs(endLeft - startLeft) < 0.5) {
+                resizeGlyphPane(endLeft);
+                return;
+            }
+
+            const durationMs = 120;
+            const startTime = performance.now();
+            const easeInOutQuad = (t) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
+
+            const step = (now) => {
+                const t = Math.min((now - startTime) / durationMs, 1);
+                const easedT = easeInOutQuad(t);
+                const currentLeft = startLeft + (endLeft - startLeft) * easedT;
+                resizeGlyphPane(currentLeft, false);
+
+                if (t < 1) {
+                    paneAnimationFrameRef.current = window.requestAnimationFrame(step);
+                    return;
+                }
+
+                paneAnimationFrameRef.current = null;
+                resizeGlyphPane(endLeft, true);
+            };
+
+            paneAnimationFrameRef.current = window.requestAnimationFrame(step);
+        },
+        [resizeGlyphPane],
+    );
+
+    const getStoredPaneWidthForMode = useCallback(
+        (isTypingMode) => {
+            const rawWidth = isTypingMode
+                ? glyphModePaneWidths?.typing
+                : glyphModePaneWidths?.glyph;
+            const fallback = isTypingMode ? GLYPH_PANE_MIN_SIZE : GLYPH_PANE_MAX_SIZE;
+            const numericWidth = Number.isFinite(rawWidth) ? rawWidth : fallback;
+            return Math.min(Math.max(numericWidth, GLYPH_PANE_MIN_SIZE), GLYPH_PANE_MAX_SIZE);
+        },
+        [glyphModePaneWidths],
+    );
+
+    useEffect(() => {
+        const raf = window.requestAnimationFrame(() => {
+            allotmentReadyRef.current = true;
+            animateGlyphPaneResize(getStoredPaneWidthForMode(typingMode));
+        });
+        return () => window.cancelAnimationFrame(raf);
+    }, [typingMode, animateGlyphPaneResize, getStoredPaneWidthForMode]);
+
+    useEffect(
+        () => () => {
+            if (paneAnimationFrameRef.current !== null) {
+                window.cancelAnimationFrame(paneAnimationFrameRef.current);
+            }
+        },
+        [],
+    );
 
     const setNodeSizeByKey = useCallback(
         (stateKey) => (value) => {
@@ -493,10 +634,34 @@ export default function Editor() {
             </button>
             {/* <Link to="/playground" className="test-workplace-link">Test Workplace</Link> */}
             <Allotment
+                ref={allotmentRef}
                 defaultSizes={sizes.length > 0 ? sizes : undefined}
-                onChange={setSizes}
+                onChange={(nextSizes) => {
+                    sizesRef.current = nextSizes;
+                }}
+                onDragEnd={(finalSizes) => {
+                    if (!Array.isArray(finalSizes) || finalSizes.length !== 2) return;
+                    if (paneAnimationFrameRef.current !== null) {
+                        window.cancelAnimationFrame(paneAnimationFrameRef.current);
+                        paneAnimationFrameRef.current = null;
+                    }
+                    sizesRef.current = finalSizes;
+                    setSizes(finalSizes);
+                    const finalLeftSize = Math.min(
+                        Math.max(finalSizes[0], GLYPH_PANE_MIN_SIZE),
+                        GLYPH_PANE_MAX_SIZE,
+                    );
+                    setGlyphModePaneWidths((prev) => ({
+                        ...(prev && typeof prev === "object" ? prev : {}),
+                        [typingMode ? "typing" : "glyph"]: finalLeftSize,
+                    }));
+                }}
             >
-                <Allotment.Pane preferredSize={350} minSize={100} maxSize={350}>
+                <Allotment.Pane
+                    preferredSize={GLYPH_PANE_MAX_SIZE}
+                    minSize={GLYPH_PANE_MIN_SIZE}
+                    maxSize={GLYPH_PANE_MAX_SIZE}
+                >
                     <AllGlyphs
                         guideLines={guideLines}
                         glyphData={glyphData}
@@ -514,10 +679,10 @@ export default function Editor() {
                 </Allotment.Pane>
                 <Allotment.Pane>
                     <Allotment vertical={true}>
-                            <Allotment.Pane>
-                                <div className="relative min-h-full flex bg-white rounded-r-md">
-                                    <div
-                                        tabIndex={0}
+                        <Allotment.Pane>
+                            <div className="relative min-h-full flex bg-white rounded-r-md">
+                                <div
+                                    tabIndex={0}
                                     ref={editorInputRef}
                                     className="absolute inset-0 flex justify-center outline-none focus:outline-none focus-visible:outline-none"
                                     onClick={() => editorInputRef.current?.focus()}
@@ -526,7 +691,8 @@ export default function Editor() {
 
                                         if (!typingMode) {
                                             if (!preTypingCaret) return;
-                                            if (e.key === "ArrowLeft" || e.key === "ArrowRight") return;
+                                            if (e.key === "ArrowLeft" || e.key === "ArrowRight")
+                                                return;
                                             if (!selectedGlyph) return;
                                             e.preventDefault();
                                             const baseLine = [
@@ -567,11 +733,6 @@ export default function Editor() {
                                             setTypingMode(true);
                                             setPreTypingCaret(false);
 
-                                            // Shrink glyphs panel when typing starts
-                                            if (sizes && sizes.length === 2 && sizes[0] > 100) {
-                                                const totalSize = sizes[0] + sizes[1];
-                                                setSizes([100, totalSize - 100]);
-                                            }
                                             setLine(nextLine);
                                             setCaretIndex(nextCaret);
                                             setCaretFollowNonce((n) => n + 1);
@@ -586,7 +747,9 @@ export default function Editor() {
                                         }
                                         if (e.key === "ArrowRight") {
                                             setCaretFollowNonce((n) => n + 1);
-                                            setCaretIndex((c) => Math.min(workspaceLine.length, c + 1));
+                                            setCaretIndex((c) =>
+                                                Math.min(workspaceLine.length, c + 1),
+                                            );
                                             return;
                                         }
                                         if (e.key === "Backspace") {
@@ -611,7 +774,10 @@ export default function Editor() {
                                             return;
                                         }
                                         if (e.key === " ") {
-                                            if (workspaceLine.length >= TYPE_VISUALIZER_MAX_LINE_CHARS)
+                                            if (
+                                                workspaceLine.length >=
+                                                TYPE_VISUALIZER_MAX_LINE_CHARS
+                                            )
                                                 return;
                                             setCaretFollowNonce((n) => n + 1);
                                             const entry = {
@@ -628,7 +794,10 @@ export default function Editor() {
                                             return;
                                         }
                                         if (e.key in initialConfigs) {
-                                            if (workspaceLine.length >= TYPE_VISUALIZER_MAX_LINE_CHARS)
+                                            if (
+                                                workspaceLine.length >=
+                                                TYPE_VISUALIZER_MAX_LINE_CHARS
+                                            )
                                                 return;
                                             setCaretFollowNonce((n) => n + 1);
                                             const entry = {
@@ -660,7 +829,7 @@ export default function Editor() {
                                         viewZoom={workspaceViewZoom}
                                         setViewZoom={setWorkspaceViewZoom}
                                         showCaret={typingMode || preTypingCaret}
-                                        centerSingleGlyph={!typingMode}
+                                        normalizeGlyphX={typingMode}
                                         compactMode={!typingMode}
                                         expandedMaxWidth={1300}
                                         viewBaseWidth={typingMode ? 1000 : 660}
@@ -672,7 +841,9 @@ export default function Editor() {
                                 <SidePanelGroup
                                     side="right"
                                     activeIndex={isSettingsPanelOpen ? 0 : null}
-                                    onActiveIndexChange={(index) => setIsSettingsPanelOpen(index !== null)}
+                                    onActiveIndexChange={(index) =>
+                                        setIsSettingsPanelOpen(index !== null)
+                                    }
                                 >
                                     {glyphPanels.length > 0 &&
                                         SettingsPanel({
@@ -691,7 +862,8 @@ export default function Editor() {
                                             setBottomPanelVisible,
                                             typeVisualizerViewZoom: workspaceViewZoom,
                                             setTypeVisualizerViewZoom: setWorkspaceViewZoom,
-                                            onResetGuidelines: () => setGuideLines(DEFAULT_GUIDELINES),
+                                            onResetGuidelines: () =>
+                                                setGuideLines(DEFAULT_GUIDELINES),
                                             onExport: () =>
                                                 exportGlyphBasePaths(
                                                     glyphData,
@@ -702,7 +874,11 @@ export default function Editor() {
                                 </SidePanelGroup>
                             </div>
                         </Allotment.Pane>
-                        <Allotment.Pane visible={isBottomPanelVisible} minSize={40} preferredSize="25%">
+                        <Allotment.Pane
+                            visible={isBottomPanelVisible}
+                            minSize={40}
+                            preferredSize="25%"
+                        >
                             <BottomPanel glyphData={glyphData} guideLines={guideLines} />
                         </Allotment.Pane>
                     </Allotment>
