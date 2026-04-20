@@ -11,6 +11,8 @@ export default function AdjustedGlyph({
     setNodeSize,
     nodeX,
     nodeY,
+    setNodeX,
+    setNodeY,
     seeNodes,
     seePathPoints,
     xAdjust = 0,
@@ -56,6 +58,10 @@ export default function AdjustedGlyph({
                     setIsDragging,
                     ringDragHooks?.onRingPointerDown,
                     ringDragHooks?.onRingPointerUp,
+                    setNodeX,
+                    setNodeY,
+                    nodeX,
+                    nodeY,
                 )}
             {seePathPoints &&
                 controlPoints.map((point, i) => (

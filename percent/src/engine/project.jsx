@@ -443,6 +443,10 @@ export function buildNodes(
     setIsDragging,
     onRingPointerDown,
     onRingPointerUp,
+    setNodeX,
+    setNodeY,
+    baselineNodeX,
+    baselineNodeY,
 ) {
     const defaultGuideLines = {
         ascender: 30.5,
@@ -492,6 +496,10 @@ export function buildNodes(
                 setNodeSize={setNodeSize}
                 onRingPointerDown={onRingPointerDown}
                 onRingPointerUp={onRingPointerUp}
+                setNodeX={setNodeX}
+                setNodeY={setNodeY}
+                baselineNodeX={baselineNodeX ?? nodeX}
+                baselineNodeY={baselineNodeY ?? nodeY}
             />
         );
     });

@@ -11,6 +11,9 @@ function clientToSvgPoint(e) {
     return { x: p.x, y: p.y };
 }
 
+// Max ms between first click release and second click press to register a double-click.
+const DOUBLE_CLICK_WINDOW_MS = 100;
+
 export default function Node({
     x,
     y,
@@ -28,15 +31,25 @@ export default function Node({
     /** TypeVisualizer: commit isolation for shared glyph state (pointer on ring). */
     onRingPointerDown,
     onRingPointerUp,
+    /** Optional: enable double-click-and-hold drag to translate this node (Editor only). */
+    setNodeX,
+    setNodeY,
+    /** Per-glyph raw nodeX/nodeY arrays (without any layout xAdjust); used as drag baselines. */
+    baselineNodeX,
+    baselineNodeY,
 }) {
     const [isHovered, setIsHovered] = useState(false);
     const [isRingHovered, setIsRingHovered] = useState(false);
-    const [dragMode, setDragMode] = useState(null); // null | "ring"
+    const [dragMode, setDragMode] = useState(null); // null | "ring" | "translate"
     const [isEditingPercent, setIsEditingPercent] = useState(false);
     const [percentInput, setPercentInput] = useState("");
     const size = (nodeVals[id] * 0.88 + 0.12) * r;
 
-    const dragRef = useRef(null); // { pointerId }
+    const dragRef = useRef(null); // { pointerId } — ring drag
+    const translateDragRef = useRef(null); // { pointerId, startSvgX, startSvgY, startTx, startTy }
+    const lastClickTimeRef = useRef(0);
+    const singleClickTimeoutRef = useRef(null);
+    const ignoreNextClickRef = useRef(false);
     const percentInputRef = useRef(null);
 
     const ringR = size + ringPadding;
@@ -45,12 +58,23 @@ export default function Node({
     const ringGapLen = Math.max(0, ringCirc - ringVisibleLen);
 
     const isSelected = active === id;
+    const supportsTranslate = typeof setNodeX === "function" && typeof setNodeY === "function";
 
     useEffect(() => {
         if (!isEditingPercent) return;
         percentInputRef.current?.focus();
         percentInputRef.current?.select();
     }, [isEditingPercent]);
+
+    useEffect(
+        () => () => {
+            if (singleClickTimeoutRef.current) {
+                clearTimeout(singleClickTimeoutRef.current);
+                singleClickTimeoutRef.current = null;
+            }
+        },
+        [],
+    );
 
     function commitPercentInput(value) {
         if (value.trim() === "") {
@@ -116,6 +140,105 @@ export default function Node({
         }
     }
 
+    // ── Translate drag (double-click + hold on the node body) ────────────────
+    function handleNodePointerDown(e) {
+        if (!supportsTranslate) return;
+        if (e.button !== 0) return;
+        if (isEditingPercent) return;
+
+        const now = performance.now();
+        const sinceLast = now - lastClickTimeRef.current;
+        const isSecondClick = lastClickTimeRef.current > 0 && sinceLast <= DOUBLE_CLICK_WINDOW_MS;
+        if (!isSecondClick) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (singleClickTimeoutRef.current) {
+            clearTimeout(singleClickTimeoutRef.current);
+            singleClickTimeoutRef.current = null;
+        }
+
+        const pt = clientToSvgPoint(e);
+        translateDragRef.current = {
+            pointerId: e.pointerId,
+            startSvgX: pt.x,
+            startSvgY: pt.y,
+            startTx: baselineNodeX?.[id] ?? 0,
+            startTy: baselineNodeY?.[id] ?? 0,
+        };
+        setDragMode("translate");
+        setIsDragging(true);
+        ignoreNextClickRef.current = true;
+        lastClickTimeRef.current = 0;
+        try {
+            e.currentTarget.setPointerCapture(e.pointerId);
+        } catch {
+            // ignore
+        }
+    }
+
+    function handleNodePointerMove(e) {
+        if (!translateDragRef.current) return;
+        if (translateDragRef.current.pointerId !== e.pointerId) return;
+
+        const pt = clientToSvgPoint(e);
+        const dx = pt.x - translateDragRef.current.startSvgX;
+        const dy = pt.y - translateDragRef.current.startSvgY;
+        const newTx = translateDragRef.current.startTx + dx;
+        const newTy = translateDragRef.current.startTy + dy;
+
+        setNodeX?.((prev) => {
+            const arr = Array.isArray(prev) ? [...prev] : [];
+            arr[id] = newTx;
+            return arr;
+        });
+        setNodeY?.((prev) => {
+            const arr = Array.isArray(prev) ? [...prev] : [];
+            arr[id] = newTy;
+            return arr;
+        });
+    }
+
+    function handleNodePointerUp(e) {
+        if (translateDragRef.current?.pointerId !== e.pointerId) return;
+        translateDragRef.current = null;
+        setDragMode(null);
+        setIsDragging(false);
+        try {
+            e.currentTarget.releasePointerCapture(e.pointerId);
+        } catch {
+            // ignore
+        }
+    }
+
+    function handleNodeClick(e) {
+        if (ignoreNextClickRef.current) {
+            ignoreNextClickRef.current = false;
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!supportsTranslate) {
+            setActive(active === id ? null : id);
+            return;
+        }
+
+        // Translate is enabled → defer the activate-toggle so a quick second
+        // pointerdown can be claimed as a double-click-hold drag instead.
+        if (singleClickTimeoutRef.current) clearTimeout(singleClickTimeoutRef.current);
+        lastClickTimeRef.current = performance.now();
+        const wasActive = active === id;
+        singleClickTimeoutRef.current = setTimeout(() => {
+            singleClickTimeoutRef.current = null;
+            lastClickTimeRef.current = 0;
+            setActive(wasActive ? null : id);
+        }, DOUBLE_CLICK_WINDOW_MS);
+    }
+
     return (
         <g
             className="cursor-default"
@@ -156,12 +279,7 @@ export default function Node({
                         pointerEvents="none"
                     />
                     {isEditingPercent ? (
-                        <foreignObject
-                            x={Number(x) + ringR + 4}
-                            y={y - 12}
-                            width="52"
-                            height="24"
-                        >
+                        <foreignObject x={Number(x) + ringR + 4} y={y - 12} width="52" height="24">
                             <input
                                 ref={percentInputRef}
                                 type="text"
@@ -231,15 +349,17 @@ export default function Node({
                 cx={x}
                 cy={y}
                 r={size}
-                className="node-circle cursor-pointer"
+                className={`node-circle ${
+                    dragMode === "translate" ? "cursor-grabbing" : "cursor-pointer"
+                }`}
                 fillOpacity={isDragging ? 0.3 : 1}
                 onPointerEnter={() => setIsHovered(true)}
                 onPointerLeave={() => setIsHovered(false)}
-                onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setActive(active === id ? null : id);
-                }}
+                onPointerDown={handleNodePointerDown}
+                onPointerMove={handleNodePointerMove}
+                onPointerUp={handleNodePointerUp}
+                onPointerCancel={handleNodePointerUp}
+                onClick={handleNodeClick}
             />
         </g>
     );

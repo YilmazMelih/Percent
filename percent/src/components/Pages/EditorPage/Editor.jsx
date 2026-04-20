@@ -496,6 +496,36 @@ export default function Editor() {
         [nodeGroupLinks],
     );
 
+    const setNodeXByKey = useCallback(
+        (stateKey) => (value) => {
+            setGlyphData((prevData) => {
+                const prevSlice = prevData[stateKey];
+                if (!prevSlice) return prevData;
+                const next = typeof value === "function" ? value(prevSlice.nodeX) : value;
+                return {
+                    ...prevData,
+                    [stateKey]: { ...prevSlice, nodeX: next },
+                };
+            });
+        },
+        [],
+    );
+
+    const setNodeYByKey = useCallback(
+        (stateKey) => (value) => {
+            setGlyphData((prevData) => {
+                const prevSlice = prevData[stateKey];
+                if (!prevSlice) return prevData;
+                const next = typeof value === "function" ? value(prevSlice.nodeY) : value;
+                return {
+                    ...prevData,
+                    [stateKey]: { ...prevSlice, nodeY: next },
+                };
+            });
+        },
+        [],
+    );
+
     const handleNodeSizeChange = (value) => {
         setGlyphData((prevData) => {
             const oldNodeSize = prevData[selectedGlyph].nodeSize;
@@ -826,6 +856,8 @@ export default function Editor() {
                                         guideLines={guideLines}
                                         setGuideLines={setGuideLines}
                                         setNodeSizeByKey={setNodeSizeByKey}
+                                        setNodeXByKey={setNodeXByKey}
+                                        setNodeYByKey={setNodeYByKey}
                                         viewZoom={workspaceViewZoom}
                                         setViewZoom={setWorkspaceViewZoom}
                                         showCaret={typingMode || preTypingCaret}

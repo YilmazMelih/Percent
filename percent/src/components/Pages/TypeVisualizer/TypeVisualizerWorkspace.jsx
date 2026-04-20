@@ -102,6 +102,8 @@ export default function TypeVisualizerWorkspace({
     guideLines,
     setGuideLines,
     setNodeSizeByKey,
+    setNodeXByKey = null,
+    setNodeYByKey = null,
     wordSpaceWidth = TYPE_VISUALIZER_WORD_SPACE_WIDTH,
     viewZoom = TYPE_VISUALIZER_VIEW_ZOOM_DEFAULT,
     setViewZoom = null,
@@ -532,6 +534,12 @@ export default function TypeVisualizerWorkspace({
                             }
                             nodeX={slice.nodeX}
                             nodeY={slice.nodeY}
+                            setNodeX={
+                                setNodeXByKey ? setNodeXByKey(instance.stateKey) : undefined
+                            }
+                            setNodeY={
+                                setNodeYByKey ? setNodeYByKey(instance.stateKey) : undefined
+                            }
                             seeNodes={seeNodes}
                             seePathPoints={seePathPoints}
                             xAdjust={xAdjust}
