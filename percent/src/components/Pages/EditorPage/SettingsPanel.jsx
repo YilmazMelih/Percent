@@ -4,7 +4,7 @@ import {
 } from "../TypeVisualizer/TypeVisualizerWorkspace";
 import { SidePanelTab } from "./SidePanelGroup";
 import SliderPanel from "../../../engine/NodeSliders";
-import { isNodeInAnyGroup, nodeGroupMemberKey } from "./nodeGroups";
+import { isNodeInAnyGroup, isNodeGroupMemberLinked, nodeGroupMemberKey } from "./nodeGroups";
 
 /**
  * @typedef {Object} GlyphPanel
@@ -47,6 +47,42 @@ function SettingsPanelBody({
     typeVisualizerViewZoom,
     setTypeVisualizerViewZoom,
 }) {
+    const getGroupedNodeNames = (targetGlyphKey, targetConfig) => {
+        return (targetConfig?.nodes ?? [])
+            .map((node) => node?.name)
+            .filter((nodeName) => isNodeInAnyGroup(targetGlyphKey, nodeName));
+    };
+
+    const areAllGlyphGroupNodesLinked = (targetGlyphKey, targetConfig) => {
+        const groupedNodeNames = getGroupedNodeNames(targetGlyphKey, targetConfig);
+        if (groupedNodeNames.length === 0) return false;
+        return groupedNodeNames.every((nodeName) =>
+            isNodeGroupMemberLinked(nodeGroupLinks, targetGlyphKey, nodeName),
+        );
+    };
+
+    const toggleGlyphSystemLinks = (targetGlyphKey, targetConfig) => {
+        const groupedNodeNames = getGroupedNodeNames(targetGlyphKey, targetConfig);
+        if (groupedNodeNames.length === 0) return;
+
+        const shouldUnlink = groupedNodeNames.every((nodeName) =>
+            isNodeGroupMemberLinked(nodeGroupLinks, targetGlyphKey, nodeName),
+        );
+
+        setNodeGroupLinks((prev) => {
+            const next = { ...(prev || {}) };
+            groupedNodeNames.forEach((nodeName) => {
+                const key = nodeGroupMemberKey(targetGlyphKey, nodeName);
+                if (shouldUnlink) {
+                    next[key] = false;
+                } else {
+                    delete next[key];
+                }
+            });
+            return next;
+        });
+    };
+
     const glyphPanelsIsArray = Array.isArray(glyphPanels);
     const isMulti = glyphPanelsIsArray && glyphPanels.length > 0;
     const isMultiEmptyLine = glyphPanelsIsArray && glyphPanels.length === 0;
@@ -139,40 +175,19 @@ function SettingsPanelBody({
                             <h3 className="text-sm font-medium text-gray-800">
                                 {panel.title ?? `Glyph ${panel.glyphKey}`}
                             </h3>
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    const newLinks = { ...(nodeGroupLinks || {}) };
-                                    let allLocked = true;
-                                    panel.config.nodes.forEach(node => {
-                                        if (isNodeInAnyGroup(panel.glyphKey, node.name)) {
-                                            const key = nodeGroupMemberKey(panel.glyphKey, node.name);
-                                            if (newLinks[key] !== false) {
-                                                allLocked = false;
-                                            }
-                                        }
-                                    });
-
-                                    panel.config.nodes.forEach(node => {
-                                        if (isNodeInAnyGroup(panel.glyphKey, node.name)) {
-                                            const key = nodeGroupMemberKey(panel.glyphKey, node.name);
-                                            if (allLocked) {
-                                                delete newLinks[key];
-                                            } else {
-                                                newLinks[key] = false;
-                                            }
-                                        }
-                                    });
-                                    setNodeGroupLinks(newLinks);
-                                }}
-                                className="px-2 py-0.5 text-xs border border-gray-300 rounded bg-white hover:bg-gray-50"
-                            >
-                                {panel.config.nodes.every(node => {
-                                    if (!isNodeInAnyGroup(panel.glyphKey, node.name)) return true;
-                                    const key = nodeGroupMemberKey(panel.glyphKey, node.name);
-                                    return nodeGroupLinks && nodeGroupLinks[key] === false;
-                                }) ? "Unlock All" : "Lock All"}
-                            </button>
+                            {getGroupedNodeNames(panel.glyphKey, panel.config).length > 0 && (
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        toggleGlyphSystemLinks(panel.glyphKey, panel.config)
+                                    }
+                                    className="px-2 py-0.5 text-xs border border-gray-300 rounded bg-white hover:bg-gray-50"
+                                >
+                                    {areAllGlyphGroupNodesLinked(panel.glyphKey, panel.config)
+                                        ? "Unlink System"
+                                        : "Link System"}
+                                </button>
+                            )}
                         </div>
                         <SliderPanel
                             showLockButton={false}
@@ -199,40 +214,17 @@ function SettingsPanelBody({
                         <h3 className="text-sm font-medium text-gray-800">
                             Glyph
                         </h3>
-                        <button
-                            type="button"
-                            onClick={() => {
-                                const newLinks = { ...(nodeGroupLinks || {}) };
-                                let allLocked = true;
-                                config.nodes.forEach(node => {
-                                    if (isNodeInAnyGroup(glyphKey, node.name)) {
-                                        const key = nodeGroupMemberKey(glyphKey, node.name);
-                                        if (newLinks[key] !== false) {
-                                            allLocked = false;
-                                        }
-                                    }
-                                });
-
-                                config.nodes.forEach(node => {
-                                    if (isNodeInAnyGroup(glyphKey, node.name)) {
-                                        const key = nodeGroupMemberKey(glyphKey, node.name);
-                                        if (allLocked) {
-                                            delete newLinks[key];
-                                        } else {
-                                            newLinks[key] = false;
-                                        }
-                                    }
-                                });
-                                setNodeGroupLinks(newLinks);
-                            }}
-                            className="px-2 py-0.5 text-xs border border-gray-300 rounded bg-white hover:bg-gray-50"
-                        >
-                            {config.nodes.every(node => {
-                                if (!isNodeInAnyGroup(glyphKey, node.name)) return true;
-                                const key = nodeGroupMemberKey(glyphKey, node.name);
-                                return nodeGroupLinks && nodeGroupLinks[key] === false;
-                            }) ? "Unlock All" : "Lock All"}
-                        </button>
+                        {getGroupedNodeNames(glyphKey, config).length > 0 && (
+                            <button
+                                type="button"
+                                onClick={() => toggleGlyphSystemLinks(glyphKey, config)}
+                                className="px-2 py-0.5 text-xs border border-gray-300 rounded bg-white hover:bg-gray-50"
+                            >
+                                {areAllGlyphGroupNodesLinked(glyphKey, config)
+                                    ? "Unlink System"
+                                    : "Link System"}
+                            </button>
+                        )}
                     </div>
                     <SliderPanel
                         showLockButton={false}
