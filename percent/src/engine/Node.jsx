@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function clientToSvgPoint(e) {
     const svg = e.currentTarget.ownerSVGElement;
@@ -32,9 +32,12 @@ export default function Node({
     const [isHovered, setIsHovered] = useState(false);
     const [isRingHovered, setIsRingHovered] = useState(false);
     const [dragMode, setDragMode] = useState(null); // null | "ring"
+    const [isEditingPercent, setIsEditingPercent] = useState(false);
+    const [percentInput, setPercentInput] = useState("");
     const size = (nodeVals[id] * 0.88 + 0.12) * r;
 
     const dragRef = useRef(null); // { pointerId }
+    const percentInputRef = useRef(null);
 
     const ringR = size + ringPadding;
     const ringCirc = 2 * Math.PI * ringR;
@@ -42,6 +45,31 @@ export default function Node({
     const ringGapLen = Math.max(0, ringCirc - ringVisibleLen);
 
     const isSelected = active === id;
+
+    useEffect(() => {
+        if (!isEditingPercent) return;
+        percentInputRef.current?.focus();
+        percentInputRef.current?.select();
+    }, [isEditingPercent]);
+
+    function commitPercentInput(value) {
+        if (value.trim() === "") {
+            setIsEditingPercent(false);
+            return;
+        }
+        const parsed = Number.parseInt(value, 10);
+        if (Number.isNaN(parsed)) {
+            setIsEditingPercent(false);
+            return;
+        }
+        const clampedPercent = Math.min(100, Math.max(0, parsed));
+        setNodeSize((prev) => {
+            const newVals = [...prev];
+            newVals[id] = clampedPercent / 100;
+            return newVals;
+        });
+        setIsEditingPercent(false);
+    }
 
     function beginDrag(e) {
         e.preventDefault();
@@ -127,19 +155,75 @@ export default function Node({
                         transform={`rotate(80 ${x} ${y})`}
                         pointerEvents="none"
                     />
-                    <text
-                        x={Number(x) + ringR + 20}
-                        y={y}
-                        fontSize="16"
-                        fill="#beff00"
-                        fontWeight="bold"
-                        stroke="black"
-                        strokeWidth="0"
-                        dominantBaseline="middle"
-                        textAnchor="middle"
-                    >
-                        {Math.round(nodeVals[id] * 100)}%
-                    </text>
+                    {isEditingPercent ? (
+                        <foreignObject
+                            x={Number(x) + ringR + 4}
+                            y={y - 12}
+                            width="52"
+                            height="24"
+                        >
+                            <input
+                                ref={percentInputRef}
+                                type="text"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                value={percentInput}
+                                onChange={(e) => setPercentInput(e.target.value)}
+                                onPointerDown={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                }}
+                                onBlur={() => commitPercentInput(percentInput)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        e.preventDefault();
+                                        commitPercentInput(percentInput);
+                                    } else if (e.key === "Escape") {
+                                        e.preventDefault();
+                                        setIsEditingPercent(false);
+                                    }
+                                }}
+                                style={{
+                                    width: "48px",
+                                    height: "22px",
+                                    padding: "0 4px",
+                                    border: "1px solid #beff00",
+                                    borderRadius: "4px",
+                                    background: "rgba(0,0,0,0.7)",
+                                    color: "#beff00",
+                                    fontSize: "16px",
+                                    fontWeight: "bold",
+                                    textAlign: "center",
+                                    outline: "none",
+                                }}
+                            />
+                        </foreignObject>
+                    ) : (
+                        <text
+                            x={Number(x) + ringR + 20}
+                            y={y}
+                            fontSize="16"
+                            fill="#beff00"
+                            fontWeight="bold"
+                            stroke="black"
+                            strokeWidth="0"
+                            dominantBaseline="middle"
+                            textAnchor="middle"
+                            className="cursor-text"
+                            onPointerDown={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                            }}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setPercentInput(String(Math.round(nodeVals[id] * 100)));
+                                setIsEditingPercent(true);
+                            }}
+                        >
+                            {Math.round(nodeVals[id] * 100)}%
+                        </text>
+                    )}
                 </>
             )}
 
