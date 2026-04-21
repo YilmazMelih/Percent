@@ -23,6 +23,12 @@
     transform: translateY(-3px);
 }
 
+.header-logo {
+    height: 1.3em; /* Match the font size of the title */
+    width: auto;
+    display: block;
+}
+
 .header-nav a {
     color: var(--secondary-color);
     text-decoration: none;

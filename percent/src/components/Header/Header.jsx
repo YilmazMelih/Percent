@@ -4,6 +4,7 @@ import "./Header.css";
 import { useModal } from "../../contexts/ModalContext";
 import arrowLeft from "../../assets/images/arrow-left.svg";
 import arrowRight from "../../assets/images/arrow-right.svg";
+import icon from "../../assets/images/icon.png";
 
 function Header() {
     const location = useLocation();
@@ -24,7 +25,7 @@ function Header() {
         <header className="header">
             <div className="header-brand">
                 <Link to="/" className="header-title">
-                    %
+                    <img src={icon} alt="Logo" className="header-logo" />
                 </Link>
             </div>
             <nav className="header-nav">
