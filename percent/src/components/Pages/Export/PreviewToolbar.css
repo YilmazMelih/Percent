@@ -34,7 +34,6 @@
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 0.9rem;
-  line-height: 1.4; /* Align arrow vertically */
 }
 
 .dropdown-button.active {

@@ -16,10 +16,14 @@ function ExportPage() {
 
   const renderPreviewContent = () => {
     if (previewMode === 'waterfall') {
-      return [72, 48, 36, 24, 18, 14].map(size => (
-        <p key={size} className="preview-text" style={{ fontSize: `${size}px` }}>
-          {previewText}
-        </p>
+      const waterfallSizes = [72, 48, 36, 24, 18, 14];
+      return waterfallSizes.map(size => (
+        <div key={size} className="waterfall-item">
+          <p className="preview-text" style={{ fontSize: `${size}px` }}>
+            {previewText}
+          </p>
+          <span className="waterfall-size-label">{size}px</span>
+        </div>
       ));
     }
     return (
