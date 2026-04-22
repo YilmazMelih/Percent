@@ -1,0 +1,107 @@
+
+.preview-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.custom-combobox {
+  position: relative;
+  display: flex; /* Changed to flex for alignment */
+}
+
+.combobox-input-group {
+  display: flex;
+  align-items: center;
+}
+
+.preview-text-input {
+  padding: 0.5rem;
+  width: 300px; /* Increased width */
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px; /* Rounded corners only on the left */
+  border-right: none; /* Remove right border to merge with button */
+  font-size: 0.9rem;
+}
+
+.dropdown-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 0 5px 5px 0; /* Rounded corners only on the right */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  line-height: 1.4; /* Align arrow vertically */
+}
+
+.dropdown-button.active {
+  background-color: #BEFF00;
+  color: black;
+  border-color: #BEFF00;
+  font-weight: bold;
+  outline: 1px solid black;
+}
+
+.options-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: calc(300px + 3rem); /* Match the width of input + button */
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  background: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.options-list li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.options-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.font-size-control input[type="range"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.font-size-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.mode-switcher {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.mode-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.mode-button.active {
+  background-color: #BEFF00;
+  color: black;
+  border-color: #BEFF00;
+  font-weight: bold;
+  outline: 1px solid black;
+}
