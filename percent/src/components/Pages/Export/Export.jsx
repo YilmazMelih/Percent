@@ -1,18 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle, useRef } from 'react';
 import './Export.css';
 import { exportGlyphBasePaths } from '../EditorPage/exportGlyphBasePath';
 import PreviewToolbar from './PreviewToolbar';
 
-function ExportPage() {
+const ExportPage = forwardRef((props, ref) => {
   const [filename, setFilename] = useState('my-font');
   const [format, setFormat] = useState('otf');
   const [previewMode, setPreviewMode] = useState('single');
   const [previewText, setPreviewText] = useState('The quick brown fox jumps over the lazy dog');
   const [previewFontSize, setPreviewFontSize] = useState(32);
+  const exportButtonRef = useRef(null);
 
   const handleExport = () => {
     exportGlyphBasePaths(filename, format);
   };
+
+  useImperativeHandle(ref, () => ({
+    triggerExport: () => {
+      if (exportButtonRef.current) {
+        exportButtonRef.current.click();
+      }
+    },
+  }));
 
   const renderPreviewContent = () => {
     if (previewMode === 'waterfall') {
@@ -76,12 +85,12 @@ function ExportPage() {
       </div>
 
       <div className="export-button-container">
-        <button onClick={handleExport} className="export-button">
+        <button ref={exportButtonRef} onClick={handleExport} className="export-button">
           {`Export ${filename}.${format}`}
         </button>
       </div>
     </div>
   );
-}
+});
 
 export default ExportPage;

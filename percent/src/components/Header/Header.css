@@ -43,20 +43,43 @@
 .classroom-nav-container {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-25px); /* Adjusted for new height */
     right: 2rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     background-color: white;
     border: 1px solid black;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 0.7em 1.2em;
+    padding: 1em 1.2em; /* Increased vertical padding */
     border-radius: 10px;
     width: auto;
     white-space: nowrap;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition:
+        all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+        max-height 0.7s cubic-bezier(0.25, 0.8, 0.25, 1),
+        padding 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+    max-height: 50px; /* Increased max-height for collapsed state */
+}
+
+.classroom-nav-container.expanded {
+    max-height: 80vh; /* Increased height */
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.classroom-nav-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    flex-shrink: 0; /* Prevent this from shrinking */
+}
+
+.export-panel-content {
+    flex-grow: 1; /* Allow this to fill available space */
+    min-height: 0; /* Important for flexbox scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 1rem; /* Add some padding to prevent scrollbar from overlapping content */
 }
 
 .classroom-nav-container .start-text {
@@ -115,7 +138,7 @@
     width: 500px;
     border-radius: 10px;
     right: 50%;
-    transform: translate(50%, -50%);
+    transform: translate(50%, -25px); /* Adjusted for new height */
 }
 
 .classroom-nav-container.loaded .start-text {
@@ -156,6 +179,36 @@
     left: 1em;
     opacity: 1;
 }
+
+.export-button-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    position: relative;
+    padding: 0 1em;
+    font-size: inherit;
+    font-family: inherit;
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically center the items */
+}
+
+
+
+
+.export-button-toggle.active {
+    color: #7020BF;
+}
+
+.download-icon {
+    margin-left: 8px; /* Add some space between text and icon */
+    width: 16px;
+    height: 16px;
+    vertical-align: middle; /* Align icon with the text */
+}
+
 
 @media (max-width: 768px) {
     .header {

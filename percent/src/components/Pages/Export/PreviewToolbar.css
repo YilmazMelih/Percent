@@ -10,16 +10,19 @@
 .custom-combobox {
   position: relative;
   display: flex; /* Changed to flex for alignment */
+  flex-grow: 1; /* Allow the combobox to grow */
+  min-width: 150px; /* Prevent it from becoming too small */
 }
 
 .combobox-input-group {
   display: flex;
   align-items: center;
+  width: 100%; /* Make the group take the full width of the parent */
 }
 
 .preview-text-input {
   padding: 0.5rem;
-  width: 300px; /* Increased width */
+  width: 100%; /* Make input take full width of its container */
   border: 1px solid #ccc;
   border-radius: 5px 0 0 5px; /* Rounded corners only on the left */
   border-right: none; /* Remove right border to merge with button */
@@ -48,7 +51,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  width: calc(300px + 3rem); /* Match the width of input + button */
+  right: 0; /* Make the dropdown list span the full width */
   border: 1px solid #ccc;
   border-top: none;
   border-radius: 0 0 5px 5px;
@@ -79,7 +82,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  flex-grow: 1;
+  /* Removed flex-grow: 1 to prevent unwanted space occupation */
 }
 
 .mode-switcher {

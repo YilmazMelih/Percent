@@ -1,6 +1,7 @@
 .export-container {
-  padding: 2rem 4rem; /* Align with header logo */
-  height: 100%;
+  padding: 1rem 2rem; /* Reduced horizontal padding */
+  width: 100%;
+  box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
 .preview-section {
@@ -60,10 +61,12 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
 }
 
 .filename-input {
-  width: 300px; /* Match the width of the preview input */
+  flex-grow: 1; /* Allow input to take available space */
+  min-width: 100px; /* Prevent it from becoming too small */
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 5px;
