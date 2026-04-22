@@ -10,7 +10,7 @@
 }
 
 .preview-title {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: #6A0DAD; /* Purple */
   margin-bottom: 1rem;
@@ -29,6 +29,7 @@
   color: #333;
   overflow-wrap: break-word; /* Allow long words to break and wrap */
   word-break: break-word;     /* For better browser compatibility */
+  white-space: normal;        /* Ensure text wraps, overriding potential parent styles */
   margin: 0; /* Remove default margin from p tag */
 }
 
@@ -50,7 +51,7 @@
 }
 
 .export-title {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: #6A0DAD; /* Purple */
   margin-bottom: 1rem;
@@ -65,12 +66,14 @@
 }
 
 .filename-input {
-  flex-grow: 1; /* Allow input to take available space */
-  min-width: 100px; /* Prevent it from becoming too small */
-  padding: 0.5rem;
+  flex: 1 1 200px; /* Allow growing and shrinking, with a base size */
+  min-width: 150px; /* Prevent it from becoming too small */
+  padding: 0 0.5rem; /* Horizontal padding, vertical is controlled by height */
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 0.9rem;
+  height: 2.5rem; /* Explicit height */
+  box-sizing: border-box; /* Ensure padding and border are included in height */
 }
 
 .format-options {

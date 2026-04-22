@@ -73,6 +73,7 @@
     justify-content: space-between;
     width: 100%;
     flex-shrink: 0; /* Prevent this from shrinking */
+    padding-bottom: 1.5em; /* Add padding to the bottom */
 }
 
 .export-panel-content {
@@ -200,6 +201,8 @@
 
 .export-button-toggle.active {
     color: #7020BF;
+    font-weight: bold; /* Add bold font weight */
+    outline: none; /* Remove the default outline */
 }
 
 .download-icon {

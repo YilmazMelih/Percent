@@ -5,38 +5,46 @@
   gap: 1rem;
   margin-bottom: 1rem;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .custom-combobox {
   position: relative;
-  display: flex; /* Changed to flex for alignment */
-  flex-grow: 1; /* Allow the combobox to grow */
-  min-width: 150px; /* Prevent it from becoming too small */
+  display: flex;
+  flex: 1 1 200px;
+  min-width: 150px;
 }
 
 .combobox-input-group {
   display: flex;
   align-items: center;
-  width: 100%; /* Make the group take the full width of the parent */
+  width: 100%;
 }
 
 .preview-text-input {
-  padding: 0.5rem;
-  width: 100%; /* Make input take full width of its container */
+  flex-grow: 1;
+  width: 0;
+  padding: 0 0.5rem;
   border: 1px solid #ccc;
-  border-radius: 5px 0 0 5px; /* Rounded corners only on the left */
-  border-right: none; /* Remove right border to merge with button */
+  border-radius: 5px 0 0 5px;
+  border-right: none;
   font-size: 0.9rem;
+  height: 2.5rem; /* Explicit height */
+  box-sizing: border-box; /* Ensure padding and border are included in height */
 }
 
 .dropdown-button {
-  padding: 0.5rem 1rem;
+  width: 3rem;
+  padding: 0;
+  text-align: center;
   border: 1px solid #ccc;
   background: white;
-  border-radius: 0 5px 5px 0; /* Rounded corners only on the right */
+  border-radius: 0 5px 5px 0;
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 0.9rem;
+  height: 2.5rem; /* Explicit height */
+  box-sizing: border-box; /* Ensure padding and border are included in height */
 }
 
 .dropdown-button.active {
@@ -51,7 +59,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  right: 0; /* Make the dropdown list span the full width */
+  right: 0;
   border: 1px solid #ccc;
   border-top: none;
   border-radius: 0 0 5px 5px;
@@ -73,16 +81,15 @@
   background-color: #f0f0f0;
 }
 
-.font-size-control input[type="range"]:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 .font-size-control {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  /* Removed flex-grow: 1 to prevent unwanted space occupation */
+}
+
+.font-size-control input[type="range"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .mode-switcher {
