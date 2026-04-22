@@ -80,7 +80,15 @@ function Header() {
                                     />
                                 )}
                             </Link>
-                            <Link to="#">Export</Link>
+                            <Link
+                                to="/export"
+                                className={location.pathname === "/export" ? "active" : ""}
+                            >
+                                {location.pathname === "/export" && (
+                                    <img src={arrowLeft} alt="" className="editor-active-arrow" />
+                                )}
+                                Export
+                            </Link>
                         </div>
                     </div>
                 )}
