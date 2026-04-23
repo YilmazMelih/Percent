@@ -120,52 +120,52 @@ export const fConfig = {
         point11: {
             x: -40.92,
             y: 106.66,
-            attach: "cap",
+            attach: "asc",
         },
         point12: {
             x: -23.14,
             y: 88.88,
-            attach: "cap",
+            attach: "asc",
         },
         point13: {
             x: -9.47,
             y: 75.21,
-            attach: "cap",
+            attach: "asc",
         },
         point14: {
             x: 28.28,
             y: 68.04,
-            attach: "cap",
+            attach: "asc",
         },
         point15: {
             x: 56.42,
             y: 80.76,
-            attach: "cap",
+            attach: "asc",
         },
         point16: {
             x: 51.01,
             y: 120,
-            attach: "cap",
+            attach: "asc",
         },
         point17: {
             x: 44.24,
             y: 114.59,
-            attach: "cap",
+            attach: "asc",
         },
         point18: {
             x: 37.36,
             y: 114.21,
-            attach: "cap",
+            attach: "asc",
         },
         point19: {
             x: 31.8,
             y: 115.7,
-            attach: "cap",
+            attach: "asc",
         },
         point20: {
             x: 19.16,
             y: 119.09,
-            attach: "cap",
+            attach: "asc",
         },
         point21: {
             x: 20.98,

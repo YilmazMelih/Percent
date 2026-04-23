@@ -27,7 +27,7 @@ const VIEW_WIDTH = VIEWBOX_WIDTH / WORKSPACE_ZOOM;
 const VIEW_HEIGHT = VIEWBOX_HEIGHT / WORKSPACE_ZOOM;
 
 const DEFAULT_GUIDELINES = {
-    ascender: 30.5,
+    ascender: 55.5,
     cap_height: 80.5,
     x_height: 131.38,
     baseline: 267.76,

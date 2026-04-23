@@ -75,7 +75,7 @@ const SHOW_ADVANCED_STORAGE_KEY = "editor:showAdvanced:v1";
 const GUIDELINES_STORAGE_KEY = "editor:guideLines:v1";
 
 const DEFAULT_GUIDELINES = {
-    ascender: 30.5,
+    ascender: 55.5,
     cap_height: 80.5,
     x_height: 131.38,
     baseline: 267.76,

@@ -72,23 +72,23 @@ export const iConfig = {
         },
         point5: {
             x: -31.53,
-            y: 125.69,
-            attach: "cap",
+            y: 100.69,
+            attach: "asc",
         },
         point6: {
             x: -31.53,
-            y: 80.77,
-            attach: "cap",
+            y: 55.77,
+            attach: "asc",
         },
         point7: {
             x: 32.06,
-            y: 80.77,
-            attach: "cap",
+            y: 55.77,
+            attach: "asc",
         },
         point8: {
             x: 32.06,
-            y: 125.69,
-            attach: "cap",
+            y: 100.69,
+            attach: "asc",
         },
     },
     nodes: [
@@ -151,8 +151,8 @@ export const iConfig = {
             r: 22.46,
             pos: {
                 x: 0,
-                y: 103.23,
-                attach: "cap",
+                y: 78.23,
+                attach: "asc",
             },
             affects: [
                 {

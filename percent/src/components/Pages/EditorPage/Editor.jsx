@@ -94,7 +94,7 @@ const initializeGlyphData = (configs) => {
     return data;
 };
 
-// Ascender 30.5
+// Ascender 55.5
 // Cap Height 80.5
 // X Height 131.38
 // Baseline 267.76
@@ -224,7 +224,7 @@ const GLYPH_PANEL_WIDTH_STORAGE_KEY = "editor:glyphPanelWidth:v1";
 const GLYPH_MODE_PANE_WIDTHS_STORAGE_KEY = "editor:glyphModePaneWidths:v1";
 
 const DEFAULT_GUIDELINES = {
-    ascender: 30.5,
+    ascender: 55.5,
     cap_height: 80.5,
     x_height: 131.38,
     baseline: 267.76,

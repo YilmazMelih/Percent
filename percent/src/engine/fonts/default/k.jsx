@@ -75,13 +75,13 @@ export const kConfig = {
         },
         point5: {
             x: -87.82,
-            y: 80.77,
-            attach: "cap",
+            y: 55.77,
+            attach: "asc",
         },
         point6: {
             x: -23.96,
-            y: 80.77,
-            attach: "cap",
+            y: 55.77,
+            attach: "asc",
         },
         point7: {
             x: -24.23,

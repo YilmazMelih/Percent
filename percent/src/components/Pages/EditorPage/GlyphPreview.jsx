@@ -14,7 +14,7 @@ const GlyphPreview = ({ config, nodeSize, nodeX, nodeY, showNodes, guideLines })
             {showNodes &&
                 config.nodes.map((node) => {
                     const defaultGuideLines = {
-                        ascender: 30.5,
+                        ascender: 55.5,
                         cap_height: 80.5,
                         x_height: 131.38,
                         baseline: 267.76,

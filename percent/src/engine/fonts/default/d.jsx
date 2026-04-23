@@ -87,13 +87,13 @@ export const dConfig = {
         },
         point4: {
             x: 26.39,
-            y: 80.77,
-            attach: "cap",
+            y: 55.77,
+            attach: "asc",
         },
         point5: {
             x: 88.63,
-            y: 81.04,
-            attach: "cap",
+            y: 56.04,
+            attach: "asc",
         },
         point6: {
             x: 88.63,

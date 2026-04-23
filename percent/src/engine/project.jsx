@@ -349,7 +349,7 @@ export function buildPath(config, nodeVals, nodeX, nodeY, guideLines) {
 export function computeGlyphPoints(config, nodeVals, nodeX, nodeY, guideLines) {
     const computedPoints = { ...config.points };
     const defaultGuideLines = {
-        ascender: 30.5,
+        ascender: 55.5,
         cap_height: 80.5,
         x_height: 131.38,
         baseline: 267.76,
@@ -449,7 +449,7 @@ export function buildNodes(
     baselineNodeY,
 ) {
     const defaultGuideLines = {
-        ascender: 30.5,
+        ascender: 55.5,
         cap_height: 80.5,
         x_height: 131.38,
         baseline: 267.76,
@@ -524,7 +524,7 @@ export function pointBetween(p1, p2, t) {
 
 export function makeCopyDeltaFromInterpolation(sourceBase, sourceSec, ratio = 0) {
     const guideLines = {
-        ascender: 30.5,
+        ascender: 55.5,
         cap_height: 80.5,
         x_height: 131.38,
         baseline: 267.76,

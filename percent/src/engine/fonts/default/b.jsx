@@ -111,13 +111,13 @@ export const bConfig = {
         },
         point9: {
             x: -88.63,
-            y: 81.04,
-            attach: "cap",
+            y: 56.04,
+            attach: "asc",
         },
         point10: {
             x: -26.38,
-            y: 80.77,
-            attach: "cap",
+            y: 55.77,
+            attach: "asc",
         },
         point11: {
             x: -26.38,

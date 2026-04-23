@@ -34,13 +34,13 @@ export const lConfig = {
         },
         point2: {
             x: -31.12,
-            y: 81.04,
-            attach: "cap",
+            y: 56.04,
+            attach: "asc",
         },
         point3: {
             x: 31.12,
-            y: 81.04,
-            attach: "cap",
+            y: 56.04,
+            attach: "asc",
         },
         point4: {
             x: 31.12,

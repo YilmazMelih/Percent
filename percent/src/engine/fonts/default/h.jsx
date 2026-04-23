@@ -116,13 +116,13 @@ export const hConfig = {
         },
         point12: {
             x: -85.63,
-            y: 80.76,
-            attach: "cap",
+            y: 55.76,
+            attach: "asc",
         },
         point13: {
             x: -24.2,
-            y: 80.76,
-            attach: "cap",
+            y: 55.76,
+            attach: "asc",
         },
         point14: {
             x: -24.2,
