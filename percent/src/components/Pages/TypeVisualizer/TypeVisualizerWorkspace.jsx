@@ -58,7 +58,12 @@ export function computeCaretWorldX(
     resolveNodeSize = null,
     wordSpaceWidth = TYPE_VISUALIZER_WORD_SPACE_WIDTH,
     guideLines,
+    normalizeGlyphX = true,
 ) {
+    // Mirror the same horizontal placement model used by rendering.
+    // In typing mode (normalizeGlyphX=true), glyphs are packed by width.
+    // In glyph mode (normalizeGlyphX=false), glyphs keep their native x coords,
+    // so the caret after a glyph should follow that glyph's native right edge.
     let x = 0;
     for (let i = 0; i < caretIndex; i++) {
         const inst = line[i];
@@ -77,7 +82,12 @@ export function computeCaretWorldX(
             slice.nodeY,
             guideLines,
         );
-        x += maxX - minX + gap;
+        const width = maxX - minX;
+        if (normalizeGlyphX) {
+            x += width + gap;
+        } else {
+            x = Math.max(x, maxX + gap);
+        }
     }
     return x;
 }
@@ -130,6 +140,7 @@ export default function TypeVisualizerWorkspace({
     /** When true, skip caret-based viewBox updates (user is panning with the wheel). Typing bumps `caretFollowNonce` to clear this. */
     const [manualPanActive, setManualPanActive] = useState(false);
     const svgRef = useRef(null);
+    const [svgViewportAspect, setSvgViewportAspect] = useState(5 / 3);
     const draggingGuideline = useRef(null);
     const dragOffset = useRef(0);
 
@@ -149,6 +160,32 @@ export default function TypeVisualizerWorkspace({
         const p = pt.matrixTransform(ctm.inverse());
         return { x: p.x, y: p.y };
     }
+
+    // Track the rendered SVG aspect ratio once and on element resize.
+    // Kept outside wheel handling so listeners are not re-bound on every
+    // typing/pan/zoom-related render.
+    useLayoutEffect(() => {
+        const svg = svgRef.current;
+        if (!svg) return undefined;
+
+        const updateViewportAspect = () => {
+            const rect = svg.getBoundingClientRect();
+            if (rect.width > 0 && rect.height > 0) {
+                setSvgViewportAspect(rect.width / rect.height);
+            }
+        };
+
+        updateViewportAspect();
+
+        if (typeof ResizeObserver !== "undefined") {
+            const observer = new ResizeObserver(updateViewportAspect);
+            observer.observe(svg);
+            return () => observer.disconnect();
+        }
+
+        window.addEventListener("resize", updateViewportAspect);
+        return () => window.removeEventListener("resize", updateViewportAspect);
+    }, []);
 
     function handleGuideLineChange(key) {
         return (e) => {
@@ -252,8 +289,17 @@ export default function TypeVisualizerWorkspace({
                 resolveNodeSizeForLayout,
                 wordSpaceWidth,
                 guideLines,
+                normalizeGlyphX,
             ),
-        [line, glyphStates, caretIndex, resolveNodeSizeForLayout, wordSpaceWidth, guideLines],
+        [
+            line,
+            glyphStates,
+            caretIndex,
+            resolveNodeSizeForLayout,
+            wordSpaceWidth,
+            guideLines,
+            normalizeGlyphX,
+        ],
     );
 
     const lineEndX = useMemo(
@@ -266,9 +312,49 @@ export default function TypeVisualizerWorkspace({
                 resolveNodeSizeForLayout,
                 wordSpaceWidth,
                 guideLines,
+                normalizeGlyphX,
             ),
-        [line, glyphStates, resolveNodeSizeForLayout, wordSpaceWidth, guideLines],
+        [line, glyphStates, resolveNodeSizeForLayout, wordSpaceWidth, guideLines, normalizeGlyphX],
     );
+
+    /**
+     * Exact rendered right-most x of visible glyph content.
+     * This mirrors the same placement math used during rendering (cursor + xAdjust),
+     * so pan clamping can be based on true geometry rather than inferred caret width.
+     */
+    const renderedRightX = useMemo(() => {
+        let cursorX = 0;
+        let maxRight = 0;
+
+        for (const instance of line) {
+            if (isTypeVisualizerSpaceEntry(instance)) {
+                cursorX += wordSpaceWidth + RIGHT_SPACING;
+                continue;
+            }
+
+            const slice = glyphStates[instance?.stateKey];
+            if (!slice) continue;
+
+            const nodeSizeRendered = resolveNodeSizeForLayout(instance, slice);
+            const { minX, maxX } = getAdjustedGlyphBoundsX(
+                slice.config,
+                nodeSizeRendered,
+                slice.nodeX,
+                slice.nodeY,
+                guideLines,
+            );
+
+            const width = maxX - minX;
+            const xAdjust = normalizeGlyphX ? cursorX - minX : 0;
+            maxRight = Math.max(maxRight, xAdjust + maxX);
+
+            if (normalizeGlyphX) {
+                cursorX += width + RIGHT_SPACING;
+            }
+        }
+
+        return maxRight;
+    }, [line, glyphStates, resolveNodeSizeForLayout, wordSpaceWidth, guideLines, normalizeGlyphX]);
 
     /** World X of each insertion gap `i` (before `line[i]`), length `line.length + 1`. */
     const gapWorldXs = useMemo(() => {
@@ -283,11 +369,12 @@ export default function TypeVisualizerWorkspace({
                     resolveNodeSizeForLayout,
                     wordSpaceWidth,
                     guideLines,
+                    normalizeGlyphX,
                 ),
             );
         }
         return xs;
-    }, [line, glyphStates, resolveNodeSizeForLayout, wordSpaceWidth, guideLines]);
+    }, [line, glyphStates, resolveNodeSizeForLayout, wordSpaceWidth, guideLines, normalizeGlyphX]);
 
     const handleSvgMouseDown = useCallback(
         (e) => {
@@ -305,7 +392,11 @@ export default function TypeVisualizerWorkspace({
     const lastCaretFollowNonceRef = useRef(caretFollowNonce);
 
     const viewLeftNum = vbAdjust - VIEWBOX_LEFT_PAD;
-    const viewRightNum = viewLeftNum + viewWidth;
+    // With preserveAspectRatio="xMinYMid slice", only a subset of the viewBox
+    // may be visible horizontally when the viewport is narrower than the viewBox ratio.
+    // Use this effective visible width for all horizontal clamp/pan math.
+    const visibleWorldWidth = Math.min(viewWidth, viewHeight * svgViewportAspect);
+    const viewRightNum = viewLeftNum + visibleWorldWidth;
     const singleGlyphCenterX = Math.max(0, (lineEndX - RIGHT_SPACING) / 2);
     const singleGlyphGuidelineStartX = singleGlyphCenterX - viewBaseWidth / 2;
     const singleGlyphGuidelineEndX = singleGlyphCenterX + viewBaseWidth / 2;
@@ -345,19 +436,24 @@ export default function TypeVisualizerWorkspace({
         setVbAdjust((vb) => {
             const viewLeft = vb - VIEWBOX_LEFT_PAD;
             const minViewLeft = guidelineLabelX;
-            const maxViewLeft = Math.max(minViewLeft, lineEndX + CARET_VIEW_MARGIN - viewWidth);
+            const rightEdgeTarget = Math.max(renderedRightX, lineEndX, caretX);
+            const maxViewLeft = Math.max(
+                minViewLeft,
+                rightEdgeTarget + CARET_VIEW_MARGIN - visibleWorldWidth,
+            );
 
             const clampViewLeft = (vl) => Math.min(Math.max(vl, minViewLeft), maxViewLeft);
 
             const followCaret = typedSinceLastLayout || !manualPanActive;
 
             if (followCaret) {
-                const viewRight = viewLeft + viewWidth;
+                const viewRight = viewLeft + visibleWorldWidth;
                 let nextVb = vb;
                 if (caretX < viewLeft + CARET_VIEW_MARGIN) {
                     nextVb = caretX - CARET_VIEW_MARGIN + VIEWBOX_LEFT_PAD;
                 } else if (caretX > viewRight - CARET_VIEW_MARGIN) {
-                    nextVb = caretX - viewWidth + CARET_VIEW_MARGIN + VIEWBOX_LEFT_PAD;
+                    nextVb =
+                        caretX - visibleWorldWidth + CARET_VIEW_MARGIN + VIEWBOX_LEFT_PAD;
                 }
                 let viewLeftAfter = nextVb - VIEWBOX_LEFT_PAD;
                 if (caretIndex === 0 && viewLeftAfter > guidelineLabelX) {
@@ -372,7 +468,18 @@ export default function TypeVisualizerWorkspace({
         });
 
         if (typedSinceLastLayout) setManualPanActive(false);
-    }, [caretFollowNonce, caretX, caretIndex, viewWidth, manualPanActive, lineEndX, centerSingleGlyph, guidelineLabelX, singleGlyphCenterX]);
+    }, [
+        caretFollowNonce,
+        caretX,
+        caretIndex,
+        visibleWorldWidth,
+        manualPanActive,
+        lineEndX,
+        renderedRightX,
+        centerSingleGlyph,
+        guidelineLabelX,
+        singleGlyphCenterX,
+    ]);
 
     useEffect(() => {
         const svg = svgRef.current;
@@ -407,13 +514,17 @@ export default function TypeVisualizerWorkspace({
 
             const rect = svg.getBoundingClientRect();
             if (rect.width <= 0) return;
-            const scale = viewWidth / rect.width;
+            const scale = visibleWorldWidth / rect.width;
             const dViewLeft = dx * scale;
 
             setVbAdjust((vb) => {
                 const viewLeft = vb - VIEWBOX_LEFT_PAD;
                 const minViewLeft = guidelineLabelX;
-                const maxViewLeft = Math.max(minViewLeft, lineEndX + CARET_VIEW_MARGIN - viewWidth);
+                const rightEdgeTarget = Math.max(renderedRightX, lineEndX, caretX);
+                const maxViewLeft = Math.max(
+                    minViewLeft,
+                    rightEdgeTarget + CARET_VIEW_MARGIN - visibleWorldWidth,
+                );
                 let next = viewLeft + dViewLeft;
                 next = Math.min(Math.max(next, minViewLeft), maxViewLeft);
                 return next + VIEWBOX_LEFT_PAD;
@@ -422,7 +533,15 @@ export default function TypeVisualizerWorkspace({
 
         svg.addEventListener("wheel", onWheel, { passive: false });
         return () => svg.removeEventListener("wheel", onWheel);
-    }, [viewWidth, lineEndX, setViewZoom, centerSingleGlyph, guidelineLabelX]);
+    }, [
+        visibleWorldWidth,
+        lineEndX,
+        renderedRightX,
+        caretX,
+        setViewZoom,
+        centerSingleGlyph,
+        guidelineLabelX,
+    ]);
 
     let cursor = 0;
 
