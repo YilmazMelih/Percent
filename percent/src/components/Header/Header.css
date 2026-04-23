@@ -43,28 +43,29 @@
 .classroom-nav-container {
     position: absolute;
     top: 50%;
-    transform: translateY(-25px); /* Adjusted for new height */
+    /* Anchor the collapsed bar's vertical center to the header's vertical
+       center. The collapsed max-height is 50px, so -25px centers the bar
+       vertically while still giving a fixed top anchor to grow down from
+       when the export panel expands. */
+    transform: translateY(-25px);
     right: 2rem;
     display: flex;
     flex-direction: column;
     background-color: white;
     border: 1px solid black;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1em 1.2em; /* Increased vertical padding */
+    padding: 0 1.2em;
     border-radius: 10px;
     width: auto;
     white-space: nowrap;
-    transition:
-        all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-        max-height 0.7s cubic-bezier(0.25, 0.8, 0.25, 1),
-        padding 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+    transition: max-height 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
     max-height: 50px; /* Increased max-height for collapsed state */
+    z-index: 2;
 }
 
 .classroom-nav-container.expanded {
-    max-height: 80vh; /* Increased height */
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    max-height: 80vh;
 }
 
 .classroom-nav-main {
@@ -72,8 +73,10 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    flex-shrink: 0; /* Prevent this from shrinking */
-    padding-bottom: 1.5em; /* Add padding to the bottom */
+    flex-shrink: 0;
+    /* Give the row the full collapsed height so flex centering actually
+       positions the links on the container's vertical center. */
+    min-height: 50px;
 }
 
 .export-panel-content {
@@ -83,13 +86,22 @@
     padding-right: 1rem; /* Add some padding to prevent scrollbar from overlapping content */
 }
 
+.classroom-nav-container.expanded .export-panel-content {
+    padding-top: 1.5em;
+    padding-bottom: 1.5rem;
+}
+
 .classroom-nav-container .start-text {
     transition: opacity 0.2s ease-in-out;
 }
 
 .classroom-nav-container .classroom-links {
     display: flex;
-    justify-content: space-around;
+    /* space-evenly gives equal gaps on both sides of every link, which
+       reads as truly uniform spacing regardless of the individual label
+       widths. */
+    justify-content: space-evenly;
+    align-items: center;
     width: 100%;
     opacity: 0;
     transition: opacity 0.3s ease-in-out 0.4s;
@@ -100,7 +112,10 @@
     text-decoration: none;
     transition: color 0.2s ease;
     position: relative;
-    padding: 0 1em;
+    padding: 0 0.25em;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
 }
 
 .classroom-nav-container .classroom-links a.active,
@@ -142,6 +157,30 @@
     transform: translate(50%, -25px); /* Adjusted for new height */
 }
 
+.export-mode-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    background: rgba(255, 255, 255, 0);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        backdrop-filter 0.35s ease,
+        -webkit-backdrop-filter 0.35s ease,
+        background 0.35s ease,
+        opacity 0.35s ease;
+}
+
+.export-mode-backdrop.visible {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background: rgba(255, 255, 255, 0.15);
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .classroom-nav-container.loaded .start-text {
     opacity: 0;
     position: absolute;
@@ -181,35 +220,25 @@
     opacity: 1;
 }
 
-.export-button-toggle {
-    background: none;
-    border: none;
+/* The Export trigger is a plain <a role="button"> so it picks up the same
+   .classroom-nav-container .classroom-links a styling as the other links.
+   Only the cursor hint and the trailing download icon need their own rules. */
+.classroom-nav-container .classroom-links a.export-link {
     cursor: pointer;
-    color: #888;
-    text-decoration: none;
-    transition: color 0.2s ease;
-    position: relative;
-    padding: 0 1em;
-    font-size: inherit;
-    font-family: inherit;
-    display: flex; /* Use flexbox for alignment */
-    align-items: center; /* Vertically center the items */
-}
-
-
-
-
-.export-button-toggle.active {
-    color: #7020BF;
-    font-weight: bold; /* Add bold font weight */
-    outline: none; /* Remove the default outline */
 }
 
 .download-icon {
-    margin-left: 8px; /* Add some space between text and icon */
-    width: 16px;
-    height: 16px;
-    vertical-align: middle; /* Align icon with the text */
+    margin-left: 0.4em;
+    width: 0.9em;
+    height: 0.9em;
+    vertical-align: -0.1em; /* Nudge to sit on the text baseline. */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.download-icon.visible {
+    opacity: 1;
 }
 
 

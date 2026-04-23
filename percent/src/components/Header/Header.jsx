@@ -13,7 +13,9 @@ function Header() {
     const isHomePage = location.pathname === "/";
     const [isBarLoaded, setIsBarLoaded] = useState(!isHomePage);
     const [isExportPanelOpen, setExportPanelOpen] = useState(false);
+    const [isExportPanelVisible, setExportPanelVisible] = useState(false);
     const exportPageRef = useRef(null);
+    const navContainerRef = useRef(null);
 
     useEffect(() => {
         // This logic handles the animation when navigating from the home page.
@@ -25,12 +27,17 @@ function Header() {
         }
     }, [isHomePage, isBarLoaded]);
 
+    const closeExportPanel = () => {
+        setExportPanelOpen(false);
+    };
+
     const handleExportButtonClick = () => {
         if (isExportPanelOpen) {
             // If panel is open, trigger the download
             exportPageRef.current?.triggerExport();
         } else {
             // If panel is closed, open it
+            setExportPanelVisible(true);
             setExportPanelOpen(true);
         }
     };
@@ -49,70 +56,113 @@ function Header() {
                         <img src={arrowLeft} alt="" className="start-arrow" />
                     </Link>
                 ) : (
-                    <div className={`classroom-nav-container ${isBarLoaded ? "loaded" : ""} ${isExportPanelOpen ? "expanded" : ""}`}>
-                        <div className="classroom-nav-main">
-                            <span className="start-text">Start</span>
-                            <div className="classroom-links">
-                                <Link
-                                    to="/classroom"
-                                    className={location.pathname === "/classroom" ? "active" : ""}
-                                    onClick={() => setExportPanelOpen(false)}
-                                >
-                                    Classroom
-                                    {location.pathname === "/classroom" && !isExportPanelOpen && (
+                    <>
+                        {isExportPanelVisible && (
+                            <div
+                                className={`export-mode-backdrop${isExportPanelOpen ? " visible" : ""}`}
+                                onClick={closeExportPanel}
+                                aria-hidden="true"
+                            />
+                        )}
+                        <div
+                            ref={navContainerRef}
+                            className={`classroom-nav-container ${isBarLoaded ? "loaded" : ""} ${isExportPanelOpen ? "expanded" : ""}`}
+                            onTransitionEnd={(event) => {
+                                if (
+                                    event.target === navContainerRef.current &&
+                                    event.propertyName === "max-height" &&
+                                    !isExportPanelOpen
+                                ) {
+                                    setExportPanelVisible(false);
+                                }
+                            }}
+                        >
+                            <div className="classroom-nav-main">
+                                <span className="start-text">Start</span>
+                                <div className="classroom-links">
+                                    <Link
+                                        to="/classroom"
+                                        className={
+                                            location.pathname === "/classroom" && !isExportPanelOpen
+                                                ? "active"
+                                                : ""
+                                        }
+                                        onClick={closeExportPanel}
+                                    >
+                                        Classroom
+                                        {location.pathname === "/classroom" && !isExportPanelOpen && (
+                                            <img
+                                                src={arrowRight}
+                                                alt=""
+                                                className="classroom-active-arrow"
+                                            />
+                                        )}
+                                    </Link>
+                                    <Link
+                                        to="/system"
+                                        className={
+                                            location.pathname === "/system" && !isExportPanelOpen
+                                                ? "active"
+                                                : ""
+                                        }
+                                        onClick={closeExportPanel}
+                                    >
+                                        System
+                                        {location.pathname === "/system" && !isExportPanelOpen && (
+                                            <img
+                                                src={arrowRight}
+                                                alt=""
+                                                className="classroom-active-arrow"
+                                            />
+                                        )}
+                                    </Link>
+                                    <Link
+                                        to="/editor"
+                                        className={
+                                            location.pathname === "/editor" && !isExportPanelOpen
+                                                ? "active"
+                                                : ""
+                                        }
+                                        onClick={closeExportPanel}
+                                    >
+                                        {location.pathname === "/editor" && !isExportPanelOpen && (
+                                            <img src={arrowLeft} alt="" className="editor-active-arrow" />
+                                        )}
+                                        Editor
+                                        {location.pathname === "/editor" && !isExportPanelOpen && (
+                                            <img
+                                                src={arrowRight}
+                                                alt=""
+                                                className="classroom-active-arrow"
+                                            />
+                                        )}
+                                    </Link>
+                                    {/* Rendered as an anchor (not a button) so it
+                                        inherits the same typography, padding, and
+                                        spacing as the sibling <Link>s. */}
+                                    <a
+                                        href="#"
+                                        role="button"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            handleExportButtonClick();
+                                        }}
+                                        className={`export-link${isExportPanelOpen ? " active" : ""}`}
+                                    >
+                                        Export
                                         <img
-                                            src={arrowRight}
-                                            alt=""
-                                            className="classroom-active-arrow"
+                                            src={downloadIcon}
+                                            alt="Download"
+                                            className={`download-icon${isExportPanelOpen ? " visible" : ""}`}
                                         />
-                                    )}
-                                </Link>
-                                <Link
-                                    to="/system"
-                                    className={location.pathname === "/system" ? "active" : ""}
-                                    onClick={() => setExportPanelOpen(false)}
-                                >
-                                    System
-                                    {location.pathname === "/system" && !isExportPanelOpen && (
-                                        <img
-                                            src={arrowRight}
-                                            alt=""
-                                            className="classroom-active-arrow"
-                                        />
-                                    )}
-                                </Link>
-                                <Link
-                                    to="/editor"
-                                    className={location.pathname === "/editor" ? "active" : ""}
-                                    onClick={() => setExportPanelOpen(false)}
-                                >
-                                    {location.pathname === "/editor" && !isExportPanelOpen && (
-                                        <img src={arrowLeft} alt="" className="editor-active-arrow" />
-                                    )}
-                                    Editor
-                                    {location.pathname === "/editor" && !isExportPanelOpen && (
-                                        <img
-                                            src={arrowRight}
-                                            alt=""
-                                            className="classroom-active-arrow"
-                                        />
-                                    )}
-                                </Link>
-                                <button
-                                    onClick={handleExportButtonClick}
-                                    className={`export-button-toggle ${isExportPanelOpen ? "active" : ""}`}
-                                >
-                                    Export
-                                    {isExportPanelOpen && (
-                                        <img src={downloadIcon} alt="Download" className="download-icon" />
-                                    )}
-                                </button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="export-panel-content">
+                                {isExportPanelVisible && <ExportPage ref={exportPageRef} />}
                             </div>
                         </div>
-                        <div className="export-panel-content">
-                            {isExportPanelOpen && <ExportPage ref={exportPageRef} />}
-                        </div>
-                    </div>
+                    </>
                 )}
             </nav>
         </header>
