@@ -5,7 +5,7 @@ import { useModal } from "../../contexts/ModalContext";
 import arrowLeft from "../../assets/images/arrow-left.svg";
 import arrowRight from "../../assets/images/arrow-right.svg";
 import icon from "../../assets/images/icon.png";
-import downloadIcon from "../../assets/images/download.svg"; // Import the new icon
+import downloadIcon from "../../assets/images/download.svg";
 import ExportPage from "../Pages/Export/Export";
 
 function Header() {
@@ -33,10 +33,8 @@ function Header() {
 
     const handleExportButtonClick = () => {
         if (isExportPanelOpen) {
-            // If panel is open, trigger the download
             exportPageRef.current?.triggerExport();
         } else {
-            // If panel is closed, open it
             setExportPanelVisible(true);
             setExportPanelOpen(true);
         }
@@ -137,9 +135,6 @@ function Header() {
                                             />
                                         )}
                                     </Link>
-                                    {/* Rendered as an anchor (not a button) so it
-                                        inherits the same typography, padding, and
-                                        spacing as the sibling <Link>s. */}
                                     <a
                                         href="#"
                                         role="button"

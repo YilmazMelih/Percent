@@ -1,8 +1,8 @@
+import { useState } from "react";
 import {
     TYPE_VISUALIZER_VIEW_ZOOM_MAX,
     TYPE_VISUALIZER_VIEW_ZOOM_MIN,
 } from "../TypeVisualizer/TypeVisualizerWorkspace";
-import { SidePanelTab } from "./SidePanelGroup";
 import SliderPanel from "../../../engine/NodeSliders";
 import { isNodeInAnyGroup, isNodeGroupMemberLinked, nodeGroupMemberKey } from "./nodeGroups";
 
@@ -39,7 +39,6 @@ function SettingsPanelBody({
     setSeeGuidelines,
     isBottomPanelVisible,
     setBottomPanelVisible,
-    onExport,
     onResetGuidelines,
     showAdvanced = true,
     setShowAdvanced = () => {},
@@ -47,6 +46,7 @@ function SettingsPanelBody({
     typeVisualizerViewZoom,
     setTypeVisualizerViewZoom,
 }) {
+    const [openGlyphDropdowns, setOpenGlyphDropdowns] = useState({});
     const getGroupedNodeNames = (targetGlyphKey, targetConfig) => {
         return (targetConfig?.nodes ?? [])
             .map((node) => node?.name)
@@ -102,53 +102,141 @@ function SettingsPanelBody({
 
     return (
         <>
-            <div className="flex flex-col gap-2 text-sm text-gray-600 mb-4">
-                <label className="flex items-center justify-start gap-1 whitespace-nowrap">
-                    <input
-                        type="checkbox"
-                        checked={seeNodes}
-                        onChange={(e) => setSeeNodes(e.target.checked)}
-                        className="color-red-500"
-                    />
-                    See Nodes
-                </label>
-                <label className="flex items-center justify-start gap-1 whitespace-nowrap">
-                    <input
-                        type="checkbox"
-                        checked={seePathPoints}
-                        onChange={(e) => setSeePathPoints(e.target.checked)}
-                        className="rounded border-gray-300"
-                    />
-                    See Path Points
-                </label>
-                <label className="flex items-center justify-start gap-1 whitespace-nowrap">
-                    <input
-                        type="checkbox"
-                        checked={!!seeGuidelines}
-                        onChange={(e) => setSeeGuidelines?.(e.target.checked)}
-                        className="rounded border-gray-300"
-                    />
-                    See Guidelines
-                </label>
-                <label className="flex items-center justify-start gap-1 whitespace-nowrap">
-                    <input
-                        type="checkbox"
-                        checked={showAdvanced}
-                        onChange={(e) => setShowAdvanced(e.target.checked)}
-                        className="rounded border-gray-300"
-                    />
-                    Advanced
-                </label>
+            <style>
+                {`
+                    .settings-zoom-slider {
+                        -webkit-appearance: none;
+                        appearance: none;
+                        width: 100%;
+                        height: 16px;
+                        border-radius: 999px;
+                        background:
+                            linear-gradient(
+                                to right,
+                                #beff00 0%,
+                                #beff00 var(--slider-progress, 50%),
+                                transparent var(--slider-progress, 50%),
+                                transparent 100%
+                            )
+                            center / 100% 6px no-repeat,
+                            linear-gradient(
+                                to right,
+                                rgba(190, 255, 0, 0.2) 0%,
+                                rgba(190, 255, 0, 0.2) 100%
+                            )
+                            center / 100% 2px no-repeat;
+                        outline: none;
+                    }
+                    .settings-zoom-slider::-webkit-slider-runnable-track {
+                        height: 16px;
+                        border-radius: 999px;
+                        background: transparent;
+                    }
+                    .settings-zoom-slider::-webkit-slider-thumb {
+                        -webkit-appearance: none;
+                        appearance: none;
+                        width: 16px;
+                        height: 16px;
+                        border-radius: 999px;
+                        border: none;
+                        background: #beff00;
+                        margin-top: -6px;
+                        transition: transform 120ms ease, box-shadow 120ms ease;
+                        box-shadow: 0 0 0 0 rgba(190, 255, 0, 0.45);
+                    }
+                    .settings-zoom-slider:active::-webkit-slider-thumb {
+                        transform: scale(1.12);
+                        box-shadow: 0 0 0 5px rgba(190, 255, 0, 0.35);
+                    }
+                    .settings-zoom-slider:focus-visible::-webkit-slider-thumb {
+                        box-shadow: 0 0 0 4px rgba(190, 255, 0, 0.3);
+                    }
+                    .settings-zoom-slider::-moz-range-track {
+                        height: 16px;
+                        border: none;
+                        border-radius: 999px;
+                        background: transparent;
+                    }
+                    .settings-zoom-slider::-moz-range-progress {
+                        height: 6px;
+                        border: none;
+                        border-radius: 999px;
+                        background: #beff00;
+                    }
+                    .settings-zoom-slider::-moz-range-thumb {
+                        width: 16px;
+                        height: 16px;
+                        border-radius: 999px;
+                        border: none;
+                        background: #beff00;
+                        transition: transform 120ms ease, box-shadow 120ms ease;
+                        box-shadow: 0 0 0 0 rgba(190, 255, 0, 0.45);
+                    }
+                    .settings-zoom-slider:active::-moz-range-thumb {
+                        transform: scale(1.12);
+                        box-shadow: 0 0 0 5px rgba(190, 255, 0, 0.35);
+                    }
+                    .settings-zoom-slider:focus-visible::-moz-range-thumb {
+                        box-shadow: 0 0 0 4px rgba(190, 255, 0, 0.3);
+                    }
+                `}
+            </style>
+            <div className="mb-4 text-white">
+                <h2 className="text-xl font-bold text-white mb-3 px-2">Settings</h2>
+                <h3 className="text-base font-semibold text-white mb-2 px-2">Tools</h3>
+                <div className="flex flex-col gap-2">
+                    {[
+                        {
+                            label: "See Nodes",
+                            checked: !!seeNodes,
+                            onChange: (checked) => setSeeNodes(checked),
+                        },
+                        {
+                            label: "See Guidelines",
+                            checked: !!seeGuidelines,
+                            onChange: (checked) => setSeeGuidelines?.(checked),
+                        },
+                        {
+                            label: "Advanced",
+                            checked: !!showAdvanced,
+                            onChange: (checked) => setShowAdvanced(checked),
+                        },
+                    ].map((tool) => (
+                        <label
+                            key={tool.label}
+                            className="mx-2 px-3 py-2 rounded-md flex items-center justify-between cursor-pointer"
+                            style={{ backgroundColor: "#5c199d" }}
+                        >
+                            <span className="text-white text-base font-medium">{tool.label}</span>
+                            <input
+                                type="checkbox"
+                                checked={tool.checked}
+                                onChange={(e) => tool.onChange(e.target.checked)}
+                                className="sr-only"
+                            />
+                            <span
+                                className="inline-flex items-center justify-center w-6 h-6 rounded-full border-[3px] border-[#BEff00]"
+                                aria-hidden="true"
+                            >
+                                <span
+                                    className={`w-3.5 h-3.5 rounded-full bg-[#BEff00] transition-opacity ${
+                                        tool.checked ? "opacity-100" : "opacity-0"
+                                    }`}
+                                />
+                            </span>
+                        </label>
+                    ))}
+                </div>
             </div>
             {typeof setTypeVisualizerViewZoom === "function" && typeVisualizerViewZoom != null && (
-                <div className="mb-4 pb-4 border-b border-gray-200 text-sm text-gray-700">
+                <div className="mb-4 pb-4 border-b border-gray-200 text-white">
                     <div className="flex items-center justify-between gap-2 mb-1">
-                        <span className="font-medium text-gray-800">Workspace zoom</span>
-                        <span className="tabular-nums text-gray-500 text-xs">
+                        <span className="text-base font-medium text-white">Workspace zoom</span>
+                        <span className="tabular-nums text-white text-sm">
                             {Math.round(typeVisualizerViewZoom * 100)}%
                         </span>
                     </div>
-                    <p className="text-xs text-gray-500 mb-2">
+                    <p className="text-sm text-white mb-2">
                         Left: zoom out (smaller type, more line visible). Right: zoom in.
                     </p>
                     <input
@@ -160,148 +248,222 @@ function SettingsPanelBody({
                         onChange={(e) =>
                             setTypeVisualizerViewZoom(Number.parseFloat(e.target.value))
                         }
-                        className="w-full accent-[#1fa961]"
+                        className="settings-zoom-slider"
+                        style={{
+                            "--slider-progress": `${((typeVisualizerViewZoom - TYPE_VISUALIZER_VIEW_ZOOM_MIN) / (TYPE_VISUALIZER_VIEW_ZOOM_MAX - TYPE_VISUALIZER_VIEW_ZOOM_MIN)) * 100}%`,
+                        }}
                         aria-label="Workspace zoom"
                     />
                 </div>
             )}
             {isMulti ? (
-                glyphPanels.map((panel, idx) => (
-                    <div
-                        key={`${panel.glyphKey}-${idx}`}
-                        className={idx ? "mt-6 pt-4 border-t border-gray-200" : ""}
-                    >
-                        <div className="flex justify-between items-center mb-2">
-                            <h3 className="text-sm font-medium text-gray-800">
-                                {panel.title ?? `Glyph ${panel.glyphKey}`}
-                            </h3>
-                            {getGroupedNodeNames(panel.glyphKey, panel.config).length > 0 && (
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        toggleGlyphSystemLinks(panel.glyphKey, panel.config)
-                                    }
-                                    className="px-2 py-0.5 text-xs border border-gray-300 rounded bg-white hover:bg-gray-50"
+                glyphPanels.map((panel) => {
+                    const dropdownId = `glyph-${panel.glyphKey}`;
+                    const isOpen = !!openGlyphDropdowns[dropdownId];
+                    return (
+                        <div key={dropdownId} className="mt-3">
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setOpenGlyphDropdowns((prev) => ({
+                                        ...prev,
+                                        [dropdownId]: !prev[dropdownId],
+                                    }))
+                                }
+                                className="mx-2 w-[calc(100%-1rem)] px-3 py-2 rounded-md flex items-center justify-between text-black"
+                                style={{
+                                    backgroundColor: "#ffffff",
+                                    appearance: "none",
+                                    WebkitAppearance: "none",
+                                    border: "1px solid #ffffff",
+                                }}
+                            >
+                                <span className="text-base font-medium">
+                                    {panel.title ?? `Glyph ${panel.glyphKey}`}
+                                </span>
+                                <span className="text-sm">{isOpen ? "▾" : "▸"}</span>
+                            </button>
+                            {isOpen && (
+                                <div
+                                    className="mx-2 mt-2 rounded-md px-3 py-3"
+                                    style={{ backgroundColor: "#5c199d" }}
                                 >
-                                    {areAllGlyphGroupNodesLinked(panel.glyphKey, panel.config)
-                                        ? "Unlink System"
-                                        : "Link System"}
-                                </button>
+                                    <SliderPanel
+                                        showLockButton={false}
+                                        names={panel.config.nodes.map((node) => node.name)}
+                                        glyphKey={panel.glyphKey}
+                                        nodeSize={panel.nodeSize}
+                                        setNodeSize={panel.setNodeSize}
+                                        nodeX={panel.nodeX}
+                                        setNodeX={panel.setNodeX}
+                                        nodeY={panel.nodeY}
+                                        setNodeY={panel.setNodeY}
+                                        {...sliderCommon}
+                                    />
+                                    {getGroupedNodeNames(panel.glyphKey, panel.config).length > 0 && (
+                                        <label
+                                            className="mt-5 px-3 py-2 rounded-md flex items-center justify-between cursor-pointer"
+                                            style={{ backgroundColor: "#5c199d" }}
+                                        >
+                                            <span className="text-white text-base font-medium">
+                                                {areAllGlyphGroupNodesLinked(
+                                                    panel.glyphKey,
+                                                    panel.config,
+                                                )
+                                                    ? "Unlink System"
+                                                    : "Link System"}
+                                            </span>
+                                            <input
+                                                type="checkbox"
+                                                checked={areAllGlyphGroupNodesLinked(
+                                                    panel.glyphKey,
+                                                    panel.config,
+                                                )}
+                                                onChange={() =>
+                                                    toggleGlyphSystemLinks(
+                                                        panel.glyphKey,
+                                                        panel.config,
+                                                    )
+                                                }
+                                                className="sr-only"
+                                            />
+                                            <span
+                                                className="inline-flex items-center justify-center w-6 h-6 rounded-full border-[3px] border-[#BEff00]"
+                                                aria-hidden="true"
+                                            >
+                                                <span
+                                                    className={`w-3.5 h-3.5 rounded-full bg-[#BEff00] transition-opacity ${
+                                                        areAllGlyphGroupNodesLinked(
+                                                            panel.glyphKey,
+                                                            panel.config,
+                                                        )
+                                                            ? "opacity-100"
+                                                            : "opacity-0"
+                                                    }`}
+                                                />
+                                            </span>
+                                        </label>
+                                    )}
+                                </div>
                             )}
                         </div>
-                        <SliderPanel
-                            showLockButton={false}
-                            names={panel.config.nodes.map((node) => node.name)}
-                            glyphKey={panel.glyphKey}
-                            nodeSize={panel.nodeSize}
-                            setNodeSize={panel.setNodeSize}
-                            nodeX={panel.nodeX}
-                            setNodeX={panel.setNodeX}
-                            nodeY={panel.nodeY}
-                            setNodeY={panel.setNodeY}
-                            {...sliderCommon}
-                        />
-                    </div>
-                ))
+                    );
+                })
             ) : isMultiEmptyLine ? (
                 <p className="text-sm text-gray-500">
                     Type a letter in the workspace to add glyph sliders. Global options above still
                     apply.
                 </p>
             ) : (
-                <div>
-                    <div className="flex justify-between items-center mb-2">
-                        <h3 className="text-sm font-medium text-gray-800">
-                            Glyph
-                        </h3>
-                        {getGroupedNodeNames(glyphKey, config).length > 0 && (
-                            <button
-                                type="button"
-                                onClick={() => toggleGlyphSystemLinks(glyphKey, config)}
-                                className="px-2 py-0.5 text-xs border border-gray-300 rounded bg-white hover:bg-gray-50"
-                            >
-                                {areAllGlyphGroupNodesLinked(glyphKey, config)
-                                    ? "Unlink System"
-                                    : "Link System"}
-                            </button>
-                        )}
-                    </div>
-                    <SliderPanel
-                        showLockButton={false}
-                        names={config.nodes.map((node) => node.name)}
-                        glyphKey={glyphKey}
-                        nodeSize={nodeSize}
-                        setNodeSize={setNodeSize}
-                        nodeX={nodeX}
-                        setNodeX={setNodeX}
-                        nodeY={nodeY}
-                        setNodeY={setNodeY}
-                        {...sliderCommon}
-                    />
-                </div>
-            )}
-            {(onExport || onResetGuidelines) && (
-                <div
-                    className="flex flex-wrap gap-2"
-                    style={{
-                        marginTop: "1rem",
-                        paddingTop: "1rem",
-                        borderTop: "1px solid #e0e0e0",
-                    }}
-                >
-                    {onExport && (
-                        <button
-                            type="button"
-                            onClick={onExport}
-                            className="px-3 py-1 text-xs rounded bg-purple-600 text-white hover:bg-purple-700"
+                <div className="mt-3">
+                    <button
+                        type="button"
+                        onClick={() =>
+                            setOpenGlyphDropdowns((prev) => ({
+                                ...prev,
+                                glyphSingle: !prev.glyphSingle,
+                            }))
+                        }
+                        className="mx-2 w-[calc(100%-1rem)] px-3 py-2 rounded-md flex items-center justify-between text-black"
+                        style={{
+                            backgroundColor: "#ffffff",
+                            appearance: "none",
+                            WebkitAppearance: "none",
+                            border: "1px solid #ffffff",
+                        }}
+                    >
+                        <span className="text-base font-medium">Glyph</span>
+                        <span className="text-sm">{openGlyphDropdowns.glyphSingle ? "▾" : "▸"}</span>
+                    </button>
+                    {openGlyphDropdowns.glyphSingle && (
+                        <div
+                            className="mx-2 mt-2 rounded-md px-3 py-3"
+                            style={{ backgroundColor: "#5c199d" }}
                         >
-                            Export
-                        </button>
-                    )}
-                    {onResetGuidelines && (
-                        <button
-                            type="button"
-                            onClick={onResetGuidelines}
-                            className="px-3 py-1 text-xs rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
-                        >
-                            Reset Guidelines
-                        </button>
+                            <SliderPanel
+                                showLockButton={false}
+                                names={config.nodes.map((node) => node.name)}
+                                glyphKey={glyphKey}
+                                nodeSize={nodeSize}
+                                setNodeSize={setNodeSize}
+                                nodeX={nodeX}
+                                setNodeX={setNodeX}
+                                nodeY={nodeY}
+                                setNodeY={setNodeY}
+                                {...sliderCommon}
+                            />
+                            {getGroupedNodeNames(glyphKey, config).length > 0 && (
+                                <label
+                                    className="mt-5 px-3 py-2 rounded-md flex items-center justify-between cursor-pointer"
+                                    style={{ backgroundColor: "#5c199d" }}
+                                >
+                                    <span className="text-white text-base font-medium">
+                                        {areAllGlyphGroupNodesLinked(glyphKey, config)
+                                            ? "Unlink System"
+                                            : "Link System"}
+                                    </span>
+                                    <input
+                                        type="checkbox"
+                                        checked={areAllGlyphGroupNodesLinked(glyphKey, config)}
+                                        onChange={() => toggleGlyphSystemLinks(glyphKey, config)}
+                                        className="sr-only"
+                                    />
+                                    <span
+                                        className="inline-flex items-center justify-center w-6 h-6 rounded-full border-[3px] border-[#BEff00]"
+                                        aria-hidden="true"
+                                    >
+                                        <span
+                                            className={`w-3.5 h-3.5 rounded-full bg-[#BEff00] transition-opacity ${
+                                                areAllGlyphGroupNodesLinked(glyphKey, config)
+                                                    ? "opacity-100"
+                                                    : "opacity-0"
+                                            }`}
+                                        />
+                                    </span>
+                                </label>
+                            )}
+                        </div>
                     )}
                 </div>
             )}
             <div
-                style={{ marginTop: "1rem", borderTop: "1px solid #e0e0e0", paddingTop: "1rem" }}
+                className="mt-4 pt-4 flex flex-col gap-2"
+                style={{ borderTop: "1px solid rgba(255, 255, 255, 0.2)" }}
             >
-                <label className="flex items-center justify-start gap-1 whitespace-nowrap">
-                    <input
-                        type="checkbox"
-                        checked={isBottomPanelVisible}
-                        onChange={(e) => setBottomPanelVisible(e.target.checked)}
-                        className="rounded border-gray-300"
-                    />
-                    Display
-                </label>
+                {onResetGuidelines && (
+                    <button
+                        type="button"
+                        onClick={onResetGuidelines}
+                        className="mx-2 px-3 py-2 rounded-md flex items-center justify-between"
+                        style={{ backgroundColor: "#5c199d" }}
+                    >
+                        <span className="text-white text-base font-medium">Reset Guidelines</span>
+                    </button>
+                )}
+                <button
+                    type="button"
+                    onClick={() => setBottomPanelVisible(!isBottomPanelVisible)}
+                    className="mx-2 px-3 py-2 rounded-md flex items-center justify-between cursor-pointer"
+                    style={{ backgroundColor: "#5c199d" }}
+                    aria-pressed={isBottomPanelVisible}
+                >
+                    <span className="text-white text-base font-medium">Display Mode</span>
+                    <span
+                        className="inline-flex items-center justify-center w-6 h-6 rounded-full border-[3px] border-[#BEff00]"
+                        aria-hidden="true"
+                    >
+                        <span
+                            className={`w-3.5 h-3.5 rounded-full bg-[#BEff00] transition-opacity ${
+                                isBottomPanelVisible ? "opacity-100" : "opacity-0"
+                            }`}
+                        />
+                    </span>
+                </button>
             </div>
         </>
     );
 }
 
-/**
- * Returns a {@link SidePanelTab} element. Call as a function from JSX so {@link SidePanelGroup}
- * sees `SidePanelTab` as the direct child (`getTabConfig` reads tab props from that element).
- * Hooks live only in {@link SettingsPanelBody}, which mounts as a normal child in the tree.
- */
 export default function SettingsPanel(props) {
-    return (
-        <SidePanelTab
-            title="Settings"
-            tabText=" "
-            tabColor="white"
-            tabHoverColor="white"
-            tabTextColor="black"
-            tabBorderColor="transparent"
-        >
-            <SettingsPanelBody {...props} />
-        </SidePanelTab>
-    );
+    return <SettingsPanelBody {...props} />;
 }

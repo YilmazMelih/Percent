@@ -2,7 +2,7 @@ import { Allotment } from "allotment";
 import { Link } from "react-router-dom";
 import "./Editor.css";
 import "allotment/dist/style.css";
-import SidePanelGroup, { SidePanelTab } from "./SidePanelGroup";
+import SidePanelGroup from "./SidePanelGroup";
 import SettingsPanel from "./SettingsPanel";
 import AllGlyphs from "./AllGlyphs";
 import BottomPanel from "./BottomPanel";
@@ -588,6 +588,7 @@ export default function Editor() {
           ? [{ instanceId: "selected-preview", stateKey: selectedGlyph }]
           : [];
     const workspaceCaret = typingMode ? caretIndex : preTypingCaret ? 1 : 0;
+    const effectiveSeePathPoints = seePathPoints || showAdvanced;
 
     const activeStateKeys = useMemo(() => {
         if (!typingMode) return selectedGlyph ? [selectedGlyph] : [];
@@ -851,7 +852,7 @@ export default function Editor() {
                                         caretFollowNonce={caretFollowNonce}
                                         onCaretPlacement={handleCaretPlacementFromSvg}
                                         seeNodes={seeNodes}
-                                        seePathPoints={seePathPoints}
+                                        seePathPoints={effectiveSeePathPoints}
                                         seeGuidelines={seeGuidelines}
                                         guideLines={guideLines}
                                         setGuideLines={setGuideLines}
@@ -877,32 +878,35 @@ export default function Editor() {
                                         setIsSettingsPanelOpen(index !== null)
                                     }
                                 >
-                                    {glyphPanels.length > 0 &&
-                                        SettingsPanel({
-                                            glyphPanels,
-                                            nodeGroupLinks,
-                                            setNodeGroupLinks,
-                                            seeNodes,
-                                            setSeeNodes,
-                                            seePathPoints,
-                                            setSeePathPoints,
-                                            seeGuidelines,
-                                            setSeeGuidelines,
-                                            showAdvanced,
-                                            setShowAdvanced,
-                                            isBottomPanelVisible,
-                                            setBottomPanelVisible,
-                                            typeVisualizerViewZoom: workspaceViewZoom,
-                                            setTypeVisualizerViewZoom: setWorkspaceViewZoom,
-                                            onResetGuidelines: () =>
-                                                setGuideLines(DEFAULT_GUIDELINES),
-                                            onExport: () =>
+                                    {glyphPanels.length > 0 && (
+                                        <SettingsPanel
+                                            glyphPanels={glyphPanels}
+                                            nodeGroupLinks={nodeGroupLinks}
+                                            setNodeGroupLinks={setNodeGroupLinks}
+                                            seeNodes={seeNodes}
+                                            setSeeNodes={setSeeNodes}
+                                            seePathPoints={effectiveSeePathPoints}
+                                            setSeePathPoints={setSeePathPoints}
+                                            seeGuidelines={seeGuidelines}
+                                            setSeeGuidelines={setSeeGuidelines}
+                                            showAdvanced={showAdvanced}
+                                            setShowAdvanced={setShowAdvanced}
+                                            isBottomPanelVisible={isBottomPanelVisible}
+                                            setBottomPanelVisible={setBottomPanelVisible}
+                                            typeVisualizerViewZoom={workspaceViewZoom}
+                                            setTypeVisualizerViewZoom={setWorkspaceViewZoom}
+                                            onResetGuidelines={() =>
+                                                setGuideLines(DEFAULT_GUIDELINES)
+                                            }
+                                            onExport={() =>
                                                 exportGlyphBasePaths(
                                                     glyphData,
                                                     Object.keys(initialConfigs),
                                                     guideLines,
-                                                ),
-                                        })}
+                                                )
+                                            }
+                                        />
+                                    )}
                                 </SidePanelGroup>
                             </div>
                         </Allotment.Pane>
