@@ -84,24 +84,6 @@ function Header() {
                                 <span className="start-text">Start</span>
                                 <div className="classroom-links">
                                     <Link
-                                        to="/classroom"
-                                        className={
-                                            location.pathname === "/classroom" && !isExportPanelOpen
-                                                ? "active"
-                                                : ""
-                                        }
-                                        onClick={closeExportPanel}
-                                    >
-                                        Classroom
-                                        {location.pathname === "/classroom" && !isExportPanelOpen && (
-                                            <img
-                                                src={arrowRight}
-                                                alt=""
-                                                className="classroom-active-arrow"
-                                            />
-                                        )}
-                                    </Link>
-                                    <Link
                                         to="/system"
                                         className={
                                             location.pathname === "/system" && !isExportPanelOpen
@@ -129,7 +111,11 @@ function Header() {
                                         onClick={closeExportPanel}
                                     >
                                         {location.pathname === "/editor" && !isExportPanelOpen && (
-                                            <img src={arrowLeft} alt="" className="editor-active-arrow" />
+                                            <img
+                                                src={arrowLeft}
+                                                alt=""
+                                                className="editor-active-arrow"
+                                            />
                                         )}
                                         Editor
                                         {location.pathname === "/editor" && !isExportPanelOpen && (

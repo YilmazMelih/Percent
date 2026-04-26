@@ -82,7 +82,7 @@ const Home = () => {
         });
 
         setTimeout(() => {
-            navigate("/classroom");
+            navigate("/system");
         }, 500);
     };
 
