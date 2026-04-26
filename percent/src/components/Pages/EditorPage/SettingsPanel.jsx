@@ -109,6 +109,7 @@ function SettingsPanelBody({
                         appearance: none;
                         width: 100%;
                         height: 16px;
+                        padding: 0;
                         border-radius: 999px;
                         background:
                             linear-gradient(
@@ -140,7 +141,7 @@ function SettingsPanelBody({
                         border-radius: 999px;
                         border: none;
                         background: #beff00;
-                        margin-top: -6px;
+                        margin-top: 0;
                         transition: transform 120ms ease, box-shadow 120ms ease;
                         box-shadow: 0 0 0 0 rgba(190, 255, 0, 0.45);
                     }

@@ -62,6 +62,7 @@
 
 .classroom-nav-container.expanded {
     max-height: 80vh;
+    transform: translateY(-25px);
 }
 
 .classroom-nav-main {
@@ -151,6 +152,10 @@
     border-radius: 10px;
     right: 50%;
     transform: translate(50%, -50%);
+}
+
+.classroom-nav-container.loaded.expanded {
+    transform: translate(50%, -25px);
 }
 
 .export-mode-backdrop {

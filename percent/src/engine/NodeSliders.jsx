@@ -178,6 +178,7 @@ export default function SliderPanel({
                         appearance: none;
                         width: 100%;
                         height: 16px;
+                        padding: 0;
                         border-radius: 999px;
                         background:
                             linear-gradient(
