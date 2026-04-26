@@ -8,10 +8,12 @@ import icon from "../../assets/images/icon.png";
 import downloadIcon from "../../assets/images/download.svg";
 import ExportPage from "../Pages/Export/Export";
 
+const HEADER_HOME_TO_APP_ANIM_FLAG = "percent:playHeaderHomeTransition";
+
 function Header() {
     const location = useLocation();
     const isHomePage = location.pathname === "/";
-    const [isBarLoaded, setIsBarLoaded] = useState(!isHomePage);
+    const [isBarLoaded, setIsBarLoaded] = useState(() => (isHomePage ? false : true));
     const [isExportPanelOpen, setExportPanelOpen] = useState(false);
     const [isExportPanelVisible, setExportPanelVisible] = useState(false);
     const exportPageRef = useRef(null);
@@ -19,14 +21,23 @@ function Header() {
     const exportOpenedAtRef = useRef(0);
 
     useEffect(() => {
-        // This logic handles the animation when navigating from the home page.
-        if (!isHomePage && !isBarLoaded) {
-            const timer = setTimeout(() => setIsBarLoaded(true), 10);
-            return () => clearTimeout(timer);
-        } else if (isHomePage) {
+        if (isHomePage) {
             setIsBarLoaded(false);
+            return undefined;
         }
-    }, [isHomePage, isBarLoaded]);
+        const shouldAnimateFromHome =
+            window.sessionStorage.getItem(HEADER_HOME_TO_APP_ANIM_FLAG) === "1";
+        window.sessionStorage.removeItem(HEADER_HOME_TO_APP_ANIM_FLAG);
+
+        if (!shouldAnimateFromHome) {
+            setIsBarLoaded(true);
+            return undefined;
+        }
+
+        setIsBarLoaded(false);
+        const timer = setTimeout(() => setIsBarLoaded(true), 10);
+        return () => clearTimeout(timer);
+    }, [isHomePage]);
 
     const closeExportPanel = () => {
         setExportPanelOpen(false);
@@ -54,7 +65,13 @@ function Header() {
             </div>
             <nav className="header-nav">
                 {isHomePage ? (
-                    <Link to="/classroom" className={`header-link home-start-button`}>
+                    <Link
+                        to="/system"
+                        className={`header-link home-start-button`}
+                        onClick={() =>
+                            window.sessionStorage.setItem(HEADER_HOME_TO_APP_ANIM_FLAG, "1")
+                        }
+                    >
                         Start
                         <img src={arrowLeft} alt="" className="start-arrow" />
                     </Link>

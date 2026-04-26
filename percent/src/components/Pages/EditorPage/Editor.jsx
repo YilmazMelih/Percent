@@ -8,6 +8,8 @@ import AllGlyphs from "./AllGlyphs";
 import BottomPanel from "./BottomPanel";
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import slidersIcon from "../../../assets/images/sliders-icon.svg";
+import lightbulbIcon from "../../../assets/images/Lightbulb.svg";
+import bookIcon from "../../../assets/images/Book.svg";
 import { ACapConfig } from "../../../engine/fonts/default/A_cap";
 import { aConfig } from "../../../engine/fonts/default/a";
 import { BCapConfig } from "../../../engine/fonts/default/B_cap";
@@ -951,6 +953,14 @@ export default function Editor() {
                                         />
                                     )}
                                 </SidePanelGroup>
+                                <div className="editor-aux-actions" aria-label="Editor quick actions">
+                                    <button type="button" className="editor-aux-action-button">
+                                        <img src={lightbulbIcon} alt="Lightbulb" />
+                                    </button>
+                                    <button type="button" className="editor-aux-action-button">
+                                        <img src={bookIcon} alt="Book" />
+                                    </button>
+                                </div>
                             </div>
                         </Allotment.Pane>
                         <Allotment.Pane

@@ -8,6 +8,8 @@ import arrowUp from "../../../assets/images/arrow-up.svg";
 import imgGroup55 from "../../../assets/images/Group 55.png";
 import UserGlyphWord from "./UserGlyphWord";
 
+const HEADER_HOME_TO_APP_ANIM_FLAG = "percent:playHeaderHomeTransition";
+
 // Image assets from Figma design
 const imgMdiInstagram = "http://localhost:3845/assets/194b08594430527d340a6a48be88245548f087e6.svg";
 const imgIcOutlineEmail =
@@ -76,6 +78,7 @@ const Home = () => {
 
     const handleScrollTopAndNavigate = (e) => {
         e.preventDefault();
+        window.sessionStorage.setItem(HEADER_HOME_TO_APP_ANIM_FLAG, "1");
         window.scrollTo({
             top: 0,
             behavior: "smooth",
@@ -144,7 +147,7 @@ const Home = () => {
                     <p className="footer-cta-subtitle">Start creating your own font with ease</p>
                 </div>
                 <Link
-                    to="/classroom"
+                    to="/system"
                     className="scroll-to-top-button"
                     onClick={handleScrollTopAndNavigate}
                     ref={letsGoButtonRef}
