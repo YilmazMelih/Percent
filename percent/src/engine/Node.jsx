@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 function clientToSvgPoint(e) {
     const svg = e.currentTarget.ownerSVGElement;
@@ -37,6 +38,12 @@ export default function Node({
     /** Per-glyph raw nodeX/nodeY arrays (without any layout xAdjust); used as drag baselines. */
     baselineNodeX,
     baselineNodeY,
+    /**
+     * Optional SVG element to portal the active-node percent badge into so it
+     * always renders on top of every glyph and node downstream. When omitted,
+     * the badge is rendered inline (legacy behavior).
+     */
+    topLayer,
 }) {
     const [isHovered, setIsHovered] = useState(false);
     const [isRingHovered, setIsRingHovered] = useState(false);
@@ -59,6 +66,85 @@ export default function Node({
 
     const isSelected = active === id;
     const supportsTranslate = typeof setNodeX === "function" && typeof setNodeY === "function";
+
+    /**
+     * Percent badge — when active, this is portaled to the SVG-tree top layer
+     * (if provided) so it renders above any glyph or node that comes after this
+     * one in document order. Coords are absolute SVG units, so the portal
+     * target must be an untransformed <g> in the same SVG.
+     */
+    const percentBadge = isEditingPercent ? (
+        <foreignObject x={Number(x) + ringR + 4} y={y - 12} width="52" height="24">
+            <input
+                ref={percentInputRef}
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                value={percentInput}
+                onChange={(e) => setPercentInput(e.target.value)}
+                onPointerDown={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }}
+                onBlur={() => commitPercentInput(percentInput)}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        e.preventDefault();
+                        commitPercentInput(percentInput);
+                    } else if (e.key === "Escape") {
+                        e.preventDefault();
+                        setIsEditingPercent(false);
+                    }
+                }}
+                style={{
+                    width: "48px",
+                    height: "22px",
+                    padding: "0 4px",
+                    border: "1px solid #000000",
+                    borderRadius: "4px",
+                    background: "#beff00",
+                    color: "#000000",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    outline: "none",
+                }}
+            />
+        </foreignObject>
+    ) : (
+        <foreignObject x={Number(x) + ringR + 4} y={y - 12} width="52" height="24">
+            <button
+                type="button"
+                className="cursor-text"
+                onPointerDown={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }}
+                onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setPercentInput(String(Math.round(nodeVals[id] * 100)));
+                    setIsEditingPercent(true);
+                }}
+                style={{
+                    width: "48px",
+                    height: "22px",
+                    padding: "0 4px",
+                    border: "1px solid #000000",
+                    borderRadius: "4px",
+                    background: "#beff00",
+                    color: "#000000",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    lineHeight: "20px",
+                    outline: "none",
+                }}
+            >
+                {Math.round(nodeVals[id] * 100)}%
+            </button>
+        </foreignObject>
+    );
 
     useEffect(() => {
         if (!isEditingPercent) return;
@@ -278,70 +364,7 @@ export default function Node({
                         transform={`rotate(80 ${x} ${y})`}
                         pointerEvents="none"
                     />
-                    {isEditingPercent ? (
-                        <foreignObject x={Number(x) + ringR + 4} y={y - 12} width="52" height="24">
-                            <input
-                                ref={percentInputRef}
-                                type="text"
-                                inputMode="numeric"
-                                pattern="[0-9]*"
-                                value={percentInput}
-                                onChange={(e) => setPercentInput(e.target.value)}
-                                onPointerDown={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                }}
-                                onBlur={() => commitPercentInput(percentInput)}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") {
-                                        e.preventDefault();
-                                        commitPercentInput(percentInput);
-                                    } else if (e.key === "Escape") {
-                                        e.preventDefault();
-                                        setIsEditingPercent(false);
-                                    }
-                                }}
-                                style={{
-                                    width: "48px",
-                                    height: "22px",
-                                    padding: "0 4px",
-                                    border: "1px solid #beff00",
-                                    borderRadius: "4px",
-                                    background: "rgba(0,0,0,0.7)",
-                                    color: "#beff00",
-                                    fontSize: "16px",
-                                    fontWeight: "bold",
-                                    textAlign: "center",
-                                    outline: "none",
-                                }}
-                            />
-                        </foreignObject>
-                    ) : (
-                        <text
-                            x={Number(x) + ringR + 20}
-                            y={y}
-                            fontSize="16"
-                            fill="#beff00"
-                            fontWeight="bold"
-                            stroke="black"
-                            strokeWidth="0"
-                            dominantBaseline="middle"
-                            textAnchor="middle"
-                            className="cursor-text"
-                            onPointerDown={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                            }}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                setPercentInput(String(Math.round(nodeVals[id] * 100)));
-                                setIsEditingPercent(true);
-                            }}
-                        >
-                            {Math.round(nodeVals[id] * 100)}%
-                        </text>
-                    )}
+                    {topLayer ? createPortal(percentBadge, topLayer) : percentBadge}
                 </>
             )}
 

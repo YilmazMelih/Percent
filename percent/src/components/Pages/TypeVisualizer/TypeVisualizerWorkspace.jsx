@@ -143,6 +143,12 @@ export default function TypeVisualizerWorkspace({
     const [manualPanActive, setManualPanActive] = useState(false);
     const svgRef = useRef(null);
     const [svgViewportAspect, setSvgViewportAspect] = useState(5 / 3);
+    /**
+     * DOM node of the SVG-tree top layer used to render active-node percent badges
+     * above every glyph and node downstream. Stored as state (via callback ref) so
+     * Node components re-render once the target exists and can safely portal.
+     */
+    const [topLayerEl, setTopLayerEl] = useState(null);
     const draggingGuideline = useRef(null);
     const dragOffset = useRef(0);
 
@@ -455,8 +461,7 @@ export default function TypeVisualizerWorkspace({
                 if (caretX < viewLeft + CARET_VIEW_MARGIN) {
                     nextVb = caretX - CARET_VIEW_MARGIN + VIEWBOX_LEFT_PAD;
                 } else if (caretX > viewRight - CARET_VIEW_MARGIN) {
-                    nextVb =
-                        caretX - visibleWorldWidth + CARET_VIEW_MARGIN + VIEWBOX_LEFT_PAD;
+                    nextVb = caretX - visibleWorldWidth + CARET_VIEW_MARGIN + VIEWBOX_LEFT_PAD;
                 }
                 let viewLeftAfter = nextVb - VIEWBOX_LEFT_PAD;
                 if (caretIndex === 0 && viewLeftAfter > guidelineLabelX) {
@@ -657,12 +662,8 @@ export default function TypeVisualizerWorkspace({
                             }
                             nodeX={slice.nodeX}
                             nodeY={slice.nodeY}
-                            setNodeX={
-                                setNodeXByKey ? setNodeXByKey(instance.stateKey) : undefined
-                            }
-                            setNodeY={
-                                setNodeYByKey ? setNodeYByKey(instance.stateKey) : undefined
-                            }
+                            setNodeX={setNodeXByKey ? setNodeXByKey(instance.stateKey) : undefined}
+                            setNodeY={setNodeYByKey ? setNodeYByKey(instance.stateKey) : undefined}
                             pointDeltas={slice.pointDeltas}
                             setPointDeltas={
                                 setPointDeltasByKey
@@ -674,6 +675,7 @@ export default function TypeVisualizerWorkspace({
                             xAdjust={xAdjust}
                             ringDragHooks={ringDragHooks}
                             guideLines={guideLines}
+                            topLayer={topLayerEl}
                         />
                     );
                 })}
@@ -688,6 +690,11 @@ export default function TypeVisualizerWorkspace({
                         className="animate-[blink_1s_infinite] cursor-default"
                     />
                 )}
+                {/*
+                 * Top layer for portaled node percent badges. Must be the last
+                 * child of the SVG so it stacks above every glyph and node.
+                 */}
+                <g ref={setTopLayerEl} data-typeviz-top-layer="true" />
             </svg>
         </div>
     );

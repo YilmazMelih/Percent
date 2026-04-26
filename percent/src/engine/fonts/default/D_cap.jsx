@@ -25,7 +25,7 @@ export const DCapConfig = {
         },
         {
             cmd: "C",
-            points: ["point8", "point9", "point10"],
+            points: ["point8", "point9", "point1"],
         },
         {
             cmd: "Z",
@@ -52,7 +52,7 @@ export const DCapConfig = {
         },
         {
             cmd: "C",
-            points: ["point19", "point20", "point21"],
+            points: ["point19", "point20", "point11"],
         },
         {
             cmd: "Z",

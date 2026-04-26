@@ -53,7 +53,7 @@ export const XCapConfig = {
         },
         {
             cmd: "L",
-            points: ["point13"],
+            points: ["point1"],
         },
         {
             cmd: "Z",

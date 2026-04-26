@@ -707,6 +707,7 @@ export default function Editor() {
             <button
                 className={`settings-toggle-button ${isSettingsPanelOpen ? "active" : ""}`}
                 onClick={() => setIsSettingsPanelOpen(!isSettingsPanelOpen)}
+                data-side-panel-toggle="true"
             >
                 <img src={slidersIcon} alt="Settings" />
             </button>
@@ -925,6 +926,7 @@ export default function Editor() {
                                     onActiveIndexChange={(index) =>
                                         setIsSettingsPanelOpen(index !== null)
                                     }
+                                    closeOnOutsideClick
                                 >
                                     {glyphPanels.length > 0 && (
                                         <SettingsPanel

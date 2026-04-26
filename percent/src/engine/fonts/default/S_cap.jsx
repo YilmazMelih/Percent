@@ -65,7 +65,7 @@ export const SCapConfig = {
         },
         {
             cmd: "C",
-            points: ["point37", "point38", "point39"],
+            points: ["point37", "point38", "point1"],
         },
         {
             cmd: "Z",

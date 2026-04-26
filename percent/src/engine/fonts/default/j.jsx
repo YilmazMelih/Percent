@@ -37,7 +37,7 @@ export const jConfig = {
         },
         {
             cmd: "L",
-            points: ["point16"],
+            points: ["point1"],
         },
         {
             cmd: "Z",

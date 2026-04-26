@@ -20,8 +20,24 @@ export function buildOpenTypeFont(glyphData, glyphKeys, guideLines, familyName =
         );
         const defaultLSB = 20;
         const defaultRSB = 20;
-        const xMin = Math.min(...Object.values(prePoints).map((pt) => pt.x));
-        const xMax = Math.max(...Object.values(prePoints).map((pt) => pt.x));
+        // Only points actually drawn by config.basePath drive metrics. Author-time
+        // helper points in config.points (unused by any segment) don't move with
+        // node translations and would pin advance width to stale coordinates.
+        const usedNames = new Set();
+        for (const seg of config.basePath || []) {
+            for (const name of seg?.points || []) {
+                if (name) usedNames.add(name);
+            }
+        }
+        const usedXs = Array.from(usedNames)
+            .map((name) => prePoints[name]?.x)
+            .filter((x) => Number.isFinite(x));
+        const fallbackXs = Object.values(prePoints)
+            .map((pt) => pt.x)
+            .filter((x) => Number.isFinite(x));
+        const xs = usedXs.length > 0 ? usedXs : fallbackXs;
+        const xMin = Math.min(...xs);
+        const xMax = Math.max(...xs);
         const points = Object.fromEntries(
             Object.entries(prePoints).map(([key, pt]) => [
                 key,

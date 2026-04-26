@@ -81,7 +81,7 @@ export const mConfig = {
         },
         {
             cmd: "C",
-            points: ["point35", "point36", "point36"],
+            points: ["point35", "point1", "point1"],
         },
         {
             cmd: "Z",

@@ -33,7 +33,7 @@ export const BCapConfig = {
         },
         {
             cmd: "C",
-            points: ["point12", "point13", "point14"],
+            points: ["point12", "point13", "point1"],
         },
         {
             cmd: "Z",
@@ -87,7 +87,7 @@ export const BCapConfig = {
         },
         {
             cmd: "L",
-            points: ["point33"],
+            points: ["point24"],
         },
         {
             cmd: "Z",

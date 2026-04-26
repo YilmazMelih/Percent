@@ -61,7 +61,7 @@ export const CCapConfig = {
         },
         {
             cmd: "L",
-            points: ["point36"],
+            points: ["point1"],
         },
         {
             cmd: "Z",

@@ -45,7 +45,7 @@ export const ZCapConfig = {
         },
         {
             cmd: "L",
-            points: ["point12"],
+            points: ["point1"],
         },
         {
             cmd: "Z",

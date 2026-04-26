@@ -110,6 +110,11 @@ export default function AdjustedGlyph({
     /** Optional: TypeVisualizer ring-drag lifecycle (commit-on-release isolation). */
     ringDragHooks,
     guideLines,
+    /**
+     * Optional SVG element to portal active-node percent badges into so they
+     * render on top of every glyph and node downstream. Pass-through to buildNodes.
+     */
+    topLayer,
 }) {
     const [isDragging, setIsDragging] = useState(false);
     const [active, setActive] = useState(null);
@@ -163,6 +168,7 @@ export default function AdjustedGlyph({
                     setNodeY,
                     nodeX,
                     nodeY,
+                    topLayer,
                 )}
             {seePathPoints &&
                 computedPoints &&

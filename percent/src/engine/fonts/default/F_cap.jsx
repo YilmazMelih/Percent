@@ -45,7 +45,7 @@ export const FCapConfig = {
         },
         {
             cmd: "L",
-            points: ["point11"],
+            points: ["point1"],
         },
         {
             cmd: "Z",

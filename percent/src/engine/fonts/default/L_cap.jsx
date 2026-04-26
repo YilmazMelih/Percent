@@ -29,7 +29,7 @@ export const LCapConfig = {
         },
         {
             cmd: "L",
-            points: ["point7"],
+            points: ["point1"],
         },
         {
             cmd: "Z",

@@ -37,7 +37,7 @@ export const QCapConfig = {
         },
         {
             cmd: "L",
-            points: ["point18"],
+            points: ["point1"],
         },
         {
             cmd: "Z",
@@ -60,7 +60,7 @@ export const QCapConfig = {
         },
         {
             cmd: "C",
-            points: ["point29", "point30", "point31"],
+            points: ["point29", "point30", "point19"],
         },
         {
             cmd: "Z",

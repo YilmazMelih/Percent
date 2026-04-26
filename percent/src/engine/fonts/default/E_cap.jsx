@@ -53,7 +53,7 @@ export const ECapConfig = {
         },
         {
             cmd: "L",
-            points: ["point13"],
+            points: ["point1"],
         },
         {
             cmd: "Z",
@@ -139,7 +139,7 @@ export const ECapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point6,
-                            {...ECapConfig.points.point6, y: 103.37 },
+                            { ...ECapConfig.points.point6, y: 103.37 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -150,7 +150,7 @@ export const ECapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point7,
-                            {...ECapConfig.points.point7, y: 103.37 },
+                            { ...ECapConfig.points.point7, y: 103.37 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -173,7 +173,7 @@ export const ECapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point8,
-                            {...ECapConfig.points.point8, y: 172.44 },
+                            { ...ECapConfig.points.point8, y: 172.44 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -184,7 +184,7 @@ export const ECapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point9,
-                            {...ECapConfig.points.point9, y: 172.44 },
+                            { ...ECapConfig.points.point9, y: 172.44 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -195,7 +195,7 @@ export const ECapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point10,
-                            {...ECapConfig.points.point10, y: 172.44 },
+                            { ...ECapConfig.points.point10, y: 172.44 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -206,7 +206,11 @@ export const ECapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point11,
-                            { ...ECapConfig.points.point11, x: ECapConfig.points.point11.x, y: 172.44 },
+                            {
+                                ...ECapConfig.points.point11,
+                                x: ECapConfig.points.point11.x,
+                                y: 172.44,
+                            },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -230,7 +234,7 @@ export const ECapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point12,
-                            {...ECapConfig.points.point12, y: 244.01 },
+                            { ...ECapConfig.points.point12, y: 244.01 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -241,7 +245,7 @@ export const ECapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point13,
-                            {...ECapConfig.points.point13, y: 244.01 },
+                            { ...ECapConfig.points.point13, y: 244.01 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -252,7 +256,7 @@ export const ECapConfig = {
                     formula: (base, val) => {
                         const out = makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point1,
-                            {...ECapConfig.points.point1, y: 244.01 },
+                            { ...ECapConfig.points.point1, y: 244.01 },
                             0,
                         )(base, val);
                         return { x: base.x, y: out.y };
@@ -275,7 +279,7 @@ export const ECapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point3,
-                            {...ECapConfig.points.point3, x: -50.33 },
+                            { ...ECapConfig.points.point3, x: -50.33 },
                             0,
                         )(base, val),
                 },
@@ -284,7 +288,7 @@ export const ECapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point4,
-                            {...ECapConfig.points.point4, x: -50.33 },
+                            { ...ECapConfig.points.point4, x: -50.33 },
                             0,
                         )(base, val),
                 },
@@ -293,7 +297,7 @@ export const ECapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point7,
-                            {...ECapConfig.points.point7, x: -50.33 },
+                            { ...ECapConfig.points.point7, x: -50.33 },
                             0,
                         )(base, val),
                 },
@@ -302,7 +306,7 @@ export const ECapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point8,
-                            {...ECapConfig.points.point8, x: -50.33 },
+                            { ...ECapConfig.points.point8, x: -50.33 },
                             0,
                         )(base, val),
                 },
@@ -320,7 +324,7 @@ export const ECapConfig = {
                     formula: (base, val) =>
                         makeCopyDeltaFromInterpolation(
                             ECapConfig.points.point12,
-                            {...ECapConfig.points.point12, x: -50.33 },
+                            { ...ECapConfig.points.point12, x: -50.33 },
                             0,
                         )(base, val),
                 },

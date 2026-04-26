@@ -49,7 +49,7 @@ export const RCapConfig = {
         },
         {
             cmd: "C",
-            points: ["point19", "point20", "point20"],
+            points: ["point19", "point1", "point1"],
         },
         {
             cmd: "Z",
@@ -76,7 +76,7 @@ export const RCapConfig = {
         },
         {
             cmd: "C",
-            points: ["point28", "point29", "point30"],
+            points: ["point28", "point29", "point21"],
         },
         {
             cmd: "Z",

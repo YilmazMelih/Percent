@@ -73,7 +73,7 @@ export const GCapConfig = {
         },
         {
             cmd: "L",
-            points: ["point35"],
+            points: ["point1"],
         },
         {
             cmd: "Z",

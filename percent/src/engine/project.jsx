@@ -486,6 +486,24 @@ export function computeGlyphPoints(config, nodeVals, nodeX, nodeY, guideLines, p
  * @param {number[]} [nodeY] - Optional per-node Y offsets indexed by `node.id`.
  * @returns {{ minX: number, maxX: number }} Min/max `x` over adjusted points; `(0, 0)` if nothing finite.
  */
+/**
+ * Set of point names referenced by `config.basePath`. The visible glyph shape is
+ * drawn from these points; any other names in `config.points` are author-time
+ * helpers (e.g. `n`'s `point1`/`point20`-`point22`) that never move and would
+ * otherwise pin the bounding box to their original locations.
+ */
+function collectBasePathPointNames(config) {
+    const names = new Set();
+    const segs = Array.isArray(config?.basePath) ? config.basePath : [];
+    for (const seg of segs) {
+        const pts = Array.isArray(seg?.points) ? seg.points : [];
+        for (const name of pts) {
+            if (name) names.add(name);
+        }
+    }
+    return names;
+}
+
 export function getAdjustedGlyphBoundsX(config, nodeSize, nodeX, nodeY, guideLines, pointDeltas) {
     const computedPoints = computeGlyphPoints(
         config,
@@ -495,9 +513,12 @@ export function getAdjustedGlyphBoundsX(config, nodeSize, nodeX, nodeY, guideLin
         guideLines,
         pointDeltas,
     );
-    const xs = Object.values(computedPoints)
-        .map((p) => p.x)
-        .filter((x) => Number.isFinite(x));
+    const usedNames = collectBasePathPointNames(config);
+    const xs = (
+        usedNames.size > 0
+            ? Array.from(usedNames).map((name) => computedPoints[name]?.x)
+            : Object.values(computedPoints).map((p) => p.x)
+    ).filter((x) => Number.isFinite(x));
     if (xs.length === 0) return { minX: 0, maxX: 0 };
     return { minX: Math.min(...xs), maxX: Math.max(...xs) };
 }
@@ -519,6 +540,7 @@ export function buildNodes(
     setNodeY,
     baselineNodeX,
     baselineNodeY,
+    topLayer,
 ) {
     const defaultGuideLines = {
         ascender: 55.5,
@@ -572,6 +594,7 @@ export function buildNodes(
                 setNodeY={setNodeY}
                 baselineNodeX={baselineNodeX ?? nodeX}
                 baselineNodeY={baselineNodeY ?? nodeY}
+                topLayer={topLayer}
             />
         );
     });

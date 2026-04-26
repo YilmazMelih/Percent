@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /** Below sticky header (Header.css z-index 800) so panel controls receive clicks. */
 const HEADER_OFFSET = "4.75rem";
@@ -14,10 +14,18 @@ export default function SidePanelGroup({
     minPanelWidth = 160,
     maxPanelWidth = PANEL_WIDTH_PX,
     resizable = false,
+    /**
+     * When true, a `mousedown` anywhere outside the panel closes it. Elements
+     * marked `data-side-panel-toggle="true"` (e.g. the gear button) and
+     * `data-side-panel-keep-open="true"` are exempted, so they retain their
+     * own click semantics without re-opening the panel on the next click.
+     */
+    closeOnOutsideClick = false,
 }) {
     const [internalPanelWidth, setInternalPanelWidth] = useState(PANEL_WIDTH_PX);
     const isRight = side === "right";
     const panelWidth = controlledPanelWidth ?? internalPanelWidth;
+    const containerRef = useRef(null);
 
     const containerClass = isRight
         ? "fixed right-0 z-[850] flex flex-row-reverse items-stretch"
@@ -25,6 +33,29 @@ export default function SidePanelGroup({
 
     const panelOpen = controlledActiveIndex !== null;
     const clampedPanelWidth = Math.min(Math.max(panelWidth, minPanelWidth), maxPanelWidth);
+
+    useEffect(() => {
+        if (!closeOnOutsideClick || !panelOpen) return undefined;
+        const handlePointerDown = (event) => {
+            const target = event.target;
+            if (!(target instanceof Node)) return;
+            // Click inside the panel itself: ignore.
+            if (containerRef.current && containerRef.current.contains(target)) return;
+            // Whitelisted elements (toggle button, popovers): ignore so their own
+            // click handlers run unchanged.
+            if (
+                target instanceof Element &&
+                target.closest(
+                    '[data-side-panel-toggle="true"], [data-side-panel-keep-open="true"]',
+                )
+            ) {
+                return;
+            }
+            onActiveIndexChange?.(null);
+        };
+        document.addEventListener("mousedown", handlePointerDown);
+        return () => document.removeEventListener("mousedown", handlePointerDown);
+    }, [closeOnOutsideClick, panelOpen, onActiveIndexChange]);
 
     const setPanelWidth = (next) => {
         const clamped = Math.min(Math.max(next, minPanelWidth), maxPanelWidth);
@@ -52,7 +83,11 @@ export default function SidePanelGroup({
     };
 
     return (
-        <div className={containerClass} style={{ top: HEADER_OFFSET, bottom: 0 }}>
+        <div
+            ref={containerRef}
+            className={containerClass}
+            style={{ top: HEADER_OFFSET, bottom: 0 }}
+        >
             <div
                 className={`relative shadow-lg overflow-hidden transition-[width] duration-200 ease-out border rounded-md ${
                     panelOpen ? "" : "w-0"

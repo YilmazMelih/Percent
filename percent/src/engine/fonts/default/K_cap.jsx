@@ -49,7 +49,7 @@ export const KCapConfig = {
         },
         {
             cmd: "L",
-            points: ["point12"],
+            points: ["point1"],
         },
         {
             cmd: "Z",

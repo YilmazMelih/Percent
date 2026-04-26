@@ -37,7 +37,7 @@ export const VCapConfig = {
         },
         {
             cmd: "L",
-            points: ["point9"],
+            points: ["point1"],
         },
         {
             cmd: "Z",
