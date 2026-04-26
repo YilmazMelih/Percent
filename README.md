@@ -1,5 +1,7 @@
-# Percent
-[type-percent.vercel.app](https://type-percent.vercel.app/)
+![image](/percent/public/PercentTitleLogo.png)
+
+# [Percent](https://type-percent.vercel.app/)
+
 
 A web-app aimed to make designing typefaces more approachable and streamlined while educating beginners on best practices
 
@@ -12,8 +14,7 @@ A web-app aimed to make designing typefaces more approachable and streamlined wh
 - **Language**: JavaScript
 - **Font Parser**: Opentype.js
 - **Styling**: CSS / Tailwind
-- **Backend**: (To be finalized)
-- **Database**: (To be finalized)
+- **Data storage**: LocalStorage
 - **Hosting**: Vercel
 
 ---
