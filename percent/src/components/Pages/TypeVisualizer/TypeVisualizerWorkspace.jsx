@@ -81,6 +81,7 @@ export function computeCaretWorldX(
             slice.nodeX,
             slice.nodeY,
             guideLines,
+            slice.pointDeltas,
         );
         const width = maxX - minX;
         if (normalizeGlyphX) {
@@ -114,6 +115,7 @@ export default function TypeVisualizerWorkspace({
     setNodeSizeByKey,
     setNodeXByKey = null,
     setNodeYByKey = null,
+    setPointDeltasByKey = null,
     wordSpaceWidth = TYPE_VISUALIZER_WORD_SPACE_WIDTH,
     viewZoom = TYPE_VISUALIZER_VIEW_ZOOM_DEFAULT,
     setViewZoom = null,
@@ -342,6 +344,7 @@ export default function TypeVisualizerWorkspace({
                 slice.nodeX,
                 slice.nodeY,
                 guideLines,
+                slice.pointDeltas,
             );
 
             const width = maxX - minX;
@@ -626,6 +629,7 @@ export default function TypeVisualizerWorkspace({
                         slice.nodeX,
                         slice.nodeY,
                         guideLines,
+                        slice.pointDeltas,
                     );
                     const width = maxX - minX;
                     const xAdjust = normalizeGlyphX ? cursor - minX : 0;
@@ -658,6 +662,12 @@ export default function TypeVisualizerWorkspace({
                             }
                             setNodeY={
                                 setNodeYByKey ? setNodeYByKey(instance.stateKey) : undefined
+                            }
+                            pointDeltas={slice.pointDeltas}
+                            setPointDeltas={
+                                setPointDeltasByKey
+                                    ? setPointDeltasByKey(instance.stateKey)
+                                    : undefined
                             }
                             seeNodes={seeNodes}
                             seePathPoints={seePathPoints}

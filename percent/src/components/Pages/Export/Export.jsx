@@ -68,6 +68,10 @@ const ExportPage = forwardRef((props, ref) => {
                             Array.isArray(storedGlyph.nodeY) && storedGlyph.nodeY.length === nodeCount
                                 ? storedGlyph.nodeY
                                 : new Array(nodeCount).fill(0),
+                        pointDeltas:
+                            storedGlyph.pointDeltas && typeof storedGlyph.pointDeltas === "object"
+                                ? storedGlyph.pointDeltas
+                                : {},
                     },
                 ];
             }),

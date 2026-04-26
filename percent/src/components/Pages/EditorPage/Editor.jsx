@@ -89,6 +89,8 @@ const initializeGlyphData = (configs) => {
             nodeSize: config.nodes.map((node) => node.default),
             nodeX: config.nodes.map(() => 0),
             nodeY: config.nodes.map(() => 0),
+            // Sparse map: { [pointName]: { x, y } }; only nonzero entries persist.
+            pointDeltas: {},
         };
     }
     return data;
@@ -255,6 +257,21 @@ const hydrateGlyphData = (configs) => {
             }
             if (Array.isArray(savedGlyph.nodeY) && savedGlyph.nodeY.length === nodeCount) {
                 baseData[key].nodeY = savedGlyph.nodeY;
+            }
+            if (savedGlyph.pointDeltas && typeof savedGlyph.pointDeltas === "object") {
+                const cleaned = {};
+                for (const name of Object.keys(savedGlyph.pointDeltas)) {
+                    const d = savedGlyph.pointDeltas[name];
+                    if (!d) continue;
+                    const dx = Number(d.x);
+                    const dy = Number(d.y);
+                    if (!Number.isFinite(dx) && !Number.isFinite(dy)) continue;
+                    const fx = Number.isFinite(dx) ? dx : 0;
+                    const fy = Number.isFinite(dy) ? dy : 0;
+                    if (fx === 0 && fy === 0) continue;
+                    cleaned[name] = { x: fx, y: fy };
+                }
+                baseData[key].pointDeltas = cleaned;
             }
         }
     } catch {
@@ -526,6 +543,34 @@ export default function Editor() {
         [],
     );
 
+    const setPointDeltasByKey = useCallback(
+        (stateKey) => (value) => {
+            setGlyphData((prevData) => {
+                const prevSlice = prevData[stateKey];
+                if (!prevSlice) return prevData;
+                const prevDeltas = prevSlice.pointDeltas || {};
+                const raw = typeof value === "function" ? value(prevDeltas) : value;
+                if (!raw || typeof raw !== "object") return prevData;
+                // Keep only nonzero entries, rounded to 3 decimals so the persisted
+                // JSON stays compact regardless of how often drag updates fire.
+                const cleaned = {};
+                for (const name of Object.keys(raw)) {
+                    const d = raw[name];
+                    if (!d) continue;
+                    const fx = Number.isFinite(d.x) ? Math.round(d.x * 1000) / 1000 : 0;
+                    const fy = Number.isFinite(d.y) ? Math.round(d.y * 1000) / 1000 : 0;
+                    if (fx === 0 && fy === 0) continue;
+                    cleaned[name] = { x: fx, y: fy };
+                }
+                return {
+                    ...prevData,
+                    [stateKey]: { ...prevSlice, pointDeltas: cleaned },
+                };
+            });
+        },
+        [],
+    );
+
     const handleNodeSizeChange = (value) => {
         setGlyphData((prevData) => {
             const oldNodeSize = prevData[selectedGlyph].nodeSize;
@@ -627,10 +672,12 @@ export default function Editor() {
                                 const next = typeof value === "function" ? value(s.nodeY) : value;
                                 return { ...prev, [stateKey]: { ...s, nodeY: next } };
                             }),
+                        pointDeltas: slice.pointDeltas,
+                        setPointDeltas: setPointDeltasByKey(stateKey),
                     };
                 })
                 .filter(Boolean),
-        [activeStateKeys, glyphData, setNodeSizeByKey],
+        [activeStateKeys, glyphData, setNodeSizeByKey, setPointDeltasByKey],
     );
 
     const handleCaretPlacementFromSvg = useCallback(
@@ -859,6 +906,7 @@ export default function Editor() {
                                         setNodeSizeByKey={setNodeSizeByKey}
                                         setNodeXByKey={setNodeXByKey}
                                         setNodeYByKey={setNodeYByKey}
+                                        setPointDeltasByKey={setPointDeltasByKey}
                                         viewZoom={workspaceViewZoom}
                                         setViewZoom={setWorkspaceViewZoom}
                                         showCaret={typingMode || preTypingCaret}

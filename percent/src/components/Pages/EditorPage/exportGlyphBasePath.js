@@ -9,8 +9,15 @@ export function buildOpenTypeFont(glyphData, glyphKeys, guideLines, familyName =
     });
     const openTypeGlyphs = glyphKeys.map((key) => {
         const savedGlyph = glyphData[key];
-        const { config, nodeSize, nodeX, nodeY } = savedGlyph;
-        const prePoints = computeGlyphPoints(config, nodeSize, nodeX, nodeY, guideLines);
+        const { config, nodeSize, nodeX, nodeY, pointDeltas } = savedGlyph;
+        const prePoints = computeGlyphPoints(
+            config,
+            nodeSize,
+            nodeX,
+            nodeY,
+            guideLines,
+            pointDeltas,
+        );
         const defaultLSB = 20;
         const defaultRSB = 20;
         const xMin = Math.min(...Object.values(prePoints).map((pt) => pt.x));

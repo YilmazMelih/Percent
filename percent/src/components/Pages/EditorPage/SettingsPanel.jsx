@@ -301,9 +301,25 @@ function SettingsPanelBody({
                                         {...sliderCommon}
                                     />
                                     {getGroupedNodeNames(panel.glyphKey, panel.config).length > 0 && (
-                                        <label
-                                            className="mt-5 px-3 py-2 rounded-md flex items-center justify-between cursor-pointer"
-                                            style={{ backgroundColor: "#5c199d" }}
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                toggleGlyphSystemLinks(
+                                                    panel.glyphKey,
+                                                    panel.config,
+                                                )
+                                            }
+                                            className="mt-5 w-full px-3 py-2 rounded-md flex items-center justify-between cursor-pointer"
+                                            style={{
+                                                backgroundColor: "#5c199d",
+                                                appearance: "none",
+                                                WebkitAppearance: "none",
+                                                border: "none",
+                                            }}
+                                            aria-pressed={areAllGlyphGroupNodesLinked(
+                                                panel.glyphKey,
+                                                panel.config,
+                                            )}
                                         >
                                             <span className="text-white text-base font-medium">
                                                 {areAllGlyphGroupNodesLinked(
@@ -313,20 +329,6 @@ function SettingsPanelBody({
                                                     ? "Unlink System"
                                                     : "Link System"}
                                             </span>
-                                            <input
-                                                type="checkbox"
-                                                checked={areAllGlyphGroupNodesLinked(
-                                                    panel.glyphKey,
-                                                    panel.config,
-                                                )}
-                                                onChange={() =>
-                                                    toggleGlyphSystemLinks(
-                                                        panel.glyphKey,
-                                                        panel.config,
-                                                    )
-                                                }
-                                                className="sr-only"
-                                            />
                                             <span
                                                 className="inline-flex items-center justify-center w-6 h-6 rounded-full border-[3px] border-[#BEff00]"
                                                 aria-hidden="true"
@@ -342,8 +344,26 @@ function SettingsPanelBody({
                                                     }`}
                                                 />
                                             </span>
-                                        </label>
+                                        </button>
                                     )}
+                                    {showAdvanced &&
+                                        typeof panel.setPointDeltas === "function" && (
+                                            <button
+                                                type="button"
+                                                onClick={() => panel.setPointDeltas({})}
+                                                className="mt-3 w-full px-3 py-2 rounded-md flex items-center justify-between cursor-pointer"
+                                                style={{
+                                                    backgroundColor: "#5c199d",
+                                                    appearance: "none",
+                                                    WebkitAppearance: "none",
+                                                    border: "none",
+                                                }}
+                                            >
+                                                <span className="text-white text-base font-medium">
+                                                    Reset points
+                                                </span>
+                                            </button>
+                                        )}
                                 </div>
                             )}
                         </div>
@@ -393,21 +413,23 @@ function SettingsPanelBody({
                                 {...sliderCommon}
                             />
                             {getGroupedNodeNames(glyphKey, config).length > 0 && (
-                                <label
-                                    className="mt-5 px-3 py-2 rounded-md flex items-center justify-between cursor-pointer"
-                                    style={{ backgroundColor: "#5c199d" }}
+                                <button
+                                    type="button"
+                                    onClick={() => toggleGlyphSystemLinks(glyphKey, config)}
+                                    className="mt-5 w-full px-3 py-2 rounded-md flex items-center justify-between cursor-pointer"
+                                    style={{
+                                        backgroundColor: "#5c199d",
+                                        appearance: "none",
+                                        WebkitAppearance: "none",
+                                        border: "none",
+                                    }}
+                                    aria-pressed={areAllGlyphGroupNodesLinked(glyphKey, config)}
                                 >
                                     <span className="text-white text-base font-medium">
                                         {areAllGlyphGroupNodesLinked(glyphKey, config)
                                             ? "Unlink System"
                                             : "Link System"}
                                     </span>
-                                    <input
-                                        type="checkbox"
-                                        checked={areAllGlyphGroupNodesLinked(glyphKey, config)}
-                                        onChange={() => toggleGlyphSystemLinks(glyphKey, config)}
-                                        className="sr-only"
-                                    />
                                     <span
                                         className="inline-flex items-center justify-center w-6 h-6 rounded-full border-[3px] border-[#BEff00]"
                                         aria-hidden="true"
@@ -420,7 +442,7 @@ function SettingsPanelBody({
                                             }`}
                                         />
                                     </span>
-                                </label>
+                                </button>
                             )}
                         </div>
                     )}

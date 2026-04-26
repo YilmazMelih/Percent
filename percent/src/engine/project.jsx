@@ -329,8 +329,15 @@ export function findPointOnPathInwardDirection(point, skeletonD, glyphD, samples
     };
 }
 
-export function buildPath(config, nodeVals, nodeX, nodeY, guideLines) {
-    const computedPoints = computeGlyphPoints(config, nodeVals, nodeX, nodeY, guideLines);
+export function buildPath(config, nodeVals, nodeX, nodeY, guideLines, pointDeltas) {
+    const computedPoints = computeGlyphPoints(
+        config,
+        nodeVals,
+        nodeX,
+        nodeY,
+        guideLines,
+        pointDeltas,
+    );
 
     return config.basePath
         .map((seg) => {
@@ -346,7 +353,50 @@ export function buildPath(config, nodeVals, nodeX, nodeY, guideLines) {
         .join(" ");
 }
 
-export function computeGlyphPoints(config, nodeVals, nodeX, nodeY, guideLines) {
+/**
+ * Walks {@link config.basePath} and returns each referenced named point exactly once,
+ * tagged as either an `endpoint` (M/L/H/V terminus, last point of Q/C) or a `control`
+ * (interior Q/C handle). When the same name appears in both roles, `endpoint` wins.
+ *
+ * Used by the editor to render draggable path-point handles whose translations can be
+ * persisted by name in {@link computeGlyphPoints}'s `pointDeltas` map.
+ */
+export function getNamedPathPoints(config) {
+    const map = new Map();
+    const setKind = (name, kind) => {
+        if (!name) return;
+        const existing = map.get(name);
+        if (!existing || (kind === "endpoint" && existing !== "endpoint")) {
+            map.set(name, kind);
+        }
+    };
+    const segs = Array.isArray(config?.basePath) ? config.basePath : [];
+    for (const seg of segs) {
+        const pts = Array.isArray(seg?.points) ? seg.points : [];
+        switch (seg?.cmd) {
+            case "M":
+            case "L":
+            case "H":
+            case "V":
+                setKind(pts[0], "endpoint");
+                break;
+            case "Q":
+                setKind(pts[0], "control");
+                setKind(pts[1], "endpoint");
+                break;
+            case "C":
+                setKind(pts[0], "control");
+                setKind(pts[1], "control");
+                setKind(pts[2], "endpoint");
+                break;
+            default:
+                break;
+        }
+    }
+    return Array.from(map.entries()).map(([name, kind]) => ({ name, kind }));
+}
+
+export function computeGlyphPoints(config, nodeVals, nodeX, nodeY, guideLines, pointDeltas) {
     const computedPoints = { ...config.points };
     const defaultGuideLines = {
         ascender: 55.5,
@@ -408,6 +458,21 @@ export function computeGlyphPoints(config, nodeVals, nodeX, nodeY, guideLines) {
         });
     });
 
+    // Per-named-point translations applied last so they layer on top of guideline
+    // attachments and node affects without disturbing the existing pipeline.
+    if (pointDeltas && typeof pointDeltas === "object") {
+        for (const name of Object.keys(pointDeltas)) {
+            const delta = pointDeltas[name];
+            if (!delta) continue;
+            const dx = Number.isFinite(delta.x) ? delta.x : 0;
+            const dy = Number.isFinite(delta.y) ? delta.y : 0;
+            if (dx === 0 && dy === 0) continue;
+            const cur = computedPoints[name];
+            if (!cur) continue;
+            computedPoints[name] = { ...cur, x: cur.x + dx, y: cur.y + dy };
+        }
+    }
+
     return computedPoints;
 }
 
@@ -421,8 +486,15 @@ export function computeGlyphPoints(config, nodeVals, nodeX, nodeY, guideLines) {
  * @param {number[]} [nodeY] - Optional per-node Y offsets indexed by `node.id`.
  * @returns {{ minX: number, maxX: number }} Min/max `x` over adjusted points; `(0, 0)` if nothing finite.
  */
-export function getAdjustedGlyphBoundsX(config, nodeSize, nodeX, nodeY, guideLines) {
-    const computedPoints = computeGlyphPoints(config, nodeSize, nodeX, nodeY, guideLines);
+export function getAdjustedGlyphBoundsX(config, nodeSize, nodeX, nodeY, guideLines, pointDeltas) {
+    const computedPoints = computeGlyphPoints(
+        config,
+        nodeSize,
+        nodeX,
+        nodeY,
+        guideLines,
+        pointDeltas,
+    );
     const xs = Object.values(computedPoints)
         .map((p) => p.x)
         .filter((x) => Number.isFinite(x));

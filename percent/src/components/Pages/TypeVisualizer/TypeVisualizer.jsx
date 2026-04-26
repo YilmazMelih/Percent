@@ -187,6 +187,9 @@ function hydrateGlyphStates() {
             if (Array.isArray(savedGlyph.nodeY) && savedGlyph.nodeY.length === nodeCount) {
                 base[stateKey].nodeY = savedGlyph.nodeY;
             }
+            if (savedGlyph.pointDeltas && typeof savedGlyph.pointDeltas === "object") {
+                base[stateKey].pointDeltas = savedGlyph.pointDeltas;
+            }
         }
     } catch {
         // ignore
@@ -212,6 +215,7 @@ function persistGlyphStatesSlice(glyphStates) {
                 nodeSize: slice.nodeSize,
                 nodeX: slice.nodeX,
                 nodeY: slice.nodeY,
+                ...(slice.pointDeltas ? { pointDeltas: slice.pointDeltas } : {}),
             };
         }
         window.localStorage.setItem(GLYPH_STATE_STORAGE_KEY, JSON.stringify(next));
