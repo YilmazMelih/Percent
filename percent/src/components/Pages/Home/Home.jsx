@@ -130,6 +130,22 @@ const Home = () => {
                     <img src={imgGroup55} alt="About Percent Visuals" />
                 </div>
             </section>
+
+            {/* Footer */}
+            <footer className="footer-section">
+                <div className="footer-call-to-action">
+                    <h3 className="footer-cta-title">Easy. Intuitive. Fast.</h3>
+                    <p className="footer-cta-subtitle">Start creating your own font with ease</p>
+                </div>
+                <Link
+                    to="/system"
+                    className="scroll-to-top-button"
+                    onClick={handleScrollTopAndNavigate}
+                    ref={letsGoButtonRef}
+                >
+                    <span>Let's go!</span>
+                </Link>
+            </footer>
         </div>
     );
 };
