@@ -42,12 +42,8 @@
 
 .classroom-nav-container {
     position: absolute;
-    top: 50%;
-    /* Anchor the collapsed bar's vertical center to the header's vertical
-       center. The collapsed max-height is 50px, so -25px centers the bar
-       vertically while still giving a fixed top anchor to grow down from
-       when the export panel expands. */
-    transform: translateY(-25px);
+    top: calc(50% - 25px);
+    transform: none;
     right: 2rem;
     display: flex;
     flex-direction: column;
@@ -59,7 +55,7 @@
     width: auto;
     white-space: nowrap;
     overflow: hidden;
-    transition: max-height 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     max-height: 50px; /* Increased max-height for collapsed state */
     z-index: 2;
 }
@@ -154,7 +150,7 @@
     width: 500px;
     border-radius: 10px;
     right: 50%;
-    transform: translate(50%, -25px); /* Adjusted for new height */
+    transform: translateX(50%);
 }
 
 .export-mode-backdrop {

@@ -8,14 +8,7 @@ import arrowUp from "../../../assets/images/arrow-up.svg";
 import imgGroup55 from "../../../assets/images/Group 55.png";
 import UserGlyphWord from "./UserGlyphWord";
 
-// Image assets from Figma design
-const imgMdiInstagram = "http://localhost:3845/assets/194b08594430527d340a6a48be88245548f087e6.svg";
-const imgIcOutlineEmail =
-    "http://localhost:3845/assets/89936f7c0c89fcb0a9b9821e83267e239ff4cff0.svg";
-const imgGroup12 = "http://localhost:3845/assets/046eed09da61fd3ba117d26b543b777567e312b5.svg";
-const imgGroup21 = "http://localhost:3845/assets/2b3876b01f008e994652268d1086cedf7fd2329e.svg";
-const imgGroup2 = "http://localhost:3845/assets/653b3d29830d4b9fd20833bbf2e884bd17132a32.svg";
-const imgVector = "http://localhost:3845/assets/2aaec60814be7a483d9c5e407e76c0cb31458592.svg";
+const HEADER_HOME_TO_APP_ANIM_FLAG = "percent:playHeaderHomeTransition";
 
 const Home = () => {
     const [heroRect, setHeroRect] = useState(null);
@@ -76,6 +69,7 @@ const Home = () => {
 
     const handleScrollTopAndNavigate = (e) => {
         e.preventDefault();
+        window.sessionStorage.setItem(HEADER_HOME_TO_APP_ANIM_FLAG, "1");
         window.scrollTo({
             top: 0,
             behavior: "smooth",
@@ -144,21 +138,13 @@ const Home = () => {
                     <p className="footer-cta-subtitle">Start creating your own font with ease</p>
                 </div>
                 <Link
-                    to="/classroom"
+                    to="/system"
                     className="scroll-to-top-button"
                     onClick={handleScrollTopAndNavigate}
                     ref={letsGoButtonRef}
                 >
                     <span>Let's go!</span>
                 </Link>
-                <div className="footer-divider" />
-                <div className="footer-bottom">
-                    <p className="footer-copyright">© 2026 Percent. All Rights Reserved.</p>
-                    <div className="footer-socials">
-                        <img alt="Instagram" src={imgMdiInstagram} />
-                        <img alt="Email" src={imgIcOutlineEmail} />
-                    </div>
-                </div>
             </footer>
         </div>
     );
