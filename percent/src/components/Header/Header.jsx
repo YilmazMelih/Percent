@@ -16,6 +16,7 @@ function Header() {
     const [isExportPanelVisible, setExportPanelVisible] = useState(false);
     const exportPageRef = useRef(null);
     const navContainerRef = useRef(null);
+    const exportOpenedAtRef = useRef(0);
 
     useEffect(() => {
         // This logic handles the animation when navigating from the home page.
@@ -29,12 +30,16 @@ function Header() {
 
     const closeExportPanel = () => {
         setExportPanelOpen(false);
+        exportOpenedAtRef.current = 0;
     };
 
     const handleExportButtonClick = () => {
         if (isExportPanelOpen) {
+            // Prevent accidental "click-through" export when opening the panel.
+            if (Date.now() - exportOpenedAtRef.current < 250) return;
             exportPageRef.current?.triggerExport();
         } else {
+            exportOpenedAtRef.current = Date.now();
             setExportPanelVisible(true);
             setExportPanelOpen(true);
         }

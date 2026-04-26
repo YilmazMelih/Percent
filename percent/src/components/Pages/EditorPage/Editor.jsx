@@ -100,61 +100,61 @@ const initializeGlyphData = (configs) => {
 // Baseline 267.76
 // Descender 332.24
 
-let testFullInnerHTML = `
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 332.45 348.26">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #39b54a;
-      }
-    </style>
-  </defs>
-  <path d="M228.87,255.55c-31.12,19.21-84.43,17.59-97.42-1.89-7.85-12.18-7.58-25.44-7.58-47.63l.54-38.43-20.84.54v-38.97l20.57.27-.27-34.37,62.78-15.97-.81,50.33,16.51-.54h14.88v39.24h-16.51l-14.88-.54.54,28.14c0,15.15-.54,25.98,14.61,25.44,7.85-.27,18.67-6.77,18.67-6.77l9.2,41.13Z"/>
-  <circle class="cls-1" cx="155" cy="202.84" r="31.1"/>
-  <circle class="cls-1" cx="190.47" cy="148.54" r="19.19"/>
-</svg>
-`;
-let testD = `
-M147.44,247.76l93.58-.19v20.87H80.83l.69-36.53,84.7-106.62h-84.7l.54-44.65h168.86v33.02l-103.48,134.11Z
-`;
-let testSVGStr = "";
-let testFromPoint = { x: 0, y: 0 };
+//HELPERS FOR CREATING GLYPH DATA FROM SVG:
 
-// Temporary test helper: derive test inputs directly from full SVG innerHTML.
-const extractTestInputsFromInnerHTML = (innerHTML) => {
-    const pathMatch = innerHTML.match(/<path\b[^>]*\bd="([^"]*)"/i);
-    const extractedD = pathMatch?.[1] ?? "";
+// let testFullInnerHTML = `
+// <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 332.45 348.26">
+//   <defs>
+//     <style>
+//       .cls-1 {
+//         fill: #39b54a;
+//       }
+//     </style>
+//   </defs>
+//   <path d="M228.87,255.55c-31.12,19.21-84.43,17.59-97.42-1.89-7.85-12.18-7.58-25.44-7.58-47.63l.54-38.43-20.84.54v-38.97l20.57.27-.27-34.37,62.78-15.97-.81,50.33,16.51-.54h14.88v39.24h-16.51l-14.88-.54.54,28.14c0,15.15-.54,25.98,14.61,25.44,7.85-.27,18.67-6.77,18.67-6.77l9.2,41.13Z"/>
+//   <circle class="cls-1" cx="155" cy="202.84" r="31.1"/>
+//   <circle class="cls-1" cx="190.47" cy="148.54" r="19.19"/>
+// </svg>
+// `;
+// let testD = `
+// M147.44,247.76l93.58-.19v20.87H80.83l.69-36.53,84.7-106.62h-84.7l.54-44.65h168.86v33.02l-103.48,134.11Z
+// `;
+// let testSVGStr = "";
+// let testFromPoint = { x: 0, y: 0 };
 
-    const circleMatches = innerHTML.match(/<circle\b[^>]*\/?>/gi) ?? [];
-    const extractedCircles = circleMatches.join("\n");
+// // Temporary test helper: derive test inputs directly from full SVG innerHTML.
+// const extractTestInputsFromInnerHTML = (innerHTML) => {
+//     const pathMatch = innerHTML.match(/<path\b[^>]*\bd="([^"]*)"/i);
+//     const extractedD = pathMatch?.[1] ?? "";
 
-    const mMatch = extractedD.match(
-        /M\s*([-+]?\d*\.?\d+(?:e[-+]?\d+)?)\s*,?\s*([-+]?\d*\.?\d+(?:e[-+]?\d+)?)/i,
-    );
-    const extractedFromPoint = mMatch
-        ? { x: Number(mMatch[1]), y: Number(mMatch[2]) }
-        : { x: 0, y: 0 };
+//     const circleMatches = innerHTML.match(/<circle\b[^>]*\/?>/gi) ?? [];
+//     const extractedCircles = circleMatches.join("\n");
 
-    return {
-        testD: extractedD,
-        testSVGStr: extractedCircles,
-        testFromPoint: extractedFromPoint,
-    };
-};
-({ testD, testSVGStr, testFromPoint } = extractTestInputsFromInnerHTML(testFullInnerHTML));
-const testP = convertPathToGlyphObject(testD);
-const testPoints = shiftPointsToAnchor(testP.points, "point10", null, 132.18);
-const testToPoint = testPoints.point1;
-const testNodes = generateNodesFromCircles(testFromPoint, testToPoint, testSVGStr);
-const testConfig = {
-    basePath: testP.basePath,
-    points: testPoints,
-    nodes: testNodes,
-};
+//     const mMatch = extractedD.match(
+//         /M\s*([-+]?\d*\.?\d+(?:e[-+]?\d+)?)\s*,?\s*([-+]?\d*\.?\d+(?:e[-+]?\d+)?)/i,
+//     );
+//     const extractedFromPoint = mMatch
+//         ? { x: Number(mMatch[1]), y: Number(mMatch[2]) }
+//         : { x: 0, y: 0 };
 
-// console.log(testConfig);
+//     return {
+//         testD: extractedD,
+//         testSVGStr: extractedCircles,
+//         testFromPoint: extractedFromPoint,
+//     };
+// };
+// ({ testD, testSVGStr, testFromPoint } = extractTestInputsFromInnerHTML(testFullInnerHTML));
+// const testP = convertPathToGlyphObject(testD);
+// const testPoints = shiftPointsToAnchor(testP.points, "point10", null, 132.18);
+// const testToPoint = testPoints.point1;
+// const testNodes = generateNodesFromCircles(testFromPoint, testToPoint, testSVGStr);
+// const testConfig = {
+//     basePath: testP.basePath,
+//     points: testPoints,
+//     nodes: testNodes,
+// };
 
-const initialConfigs = {
+export const initialConfigs = {
     A: ACapConfig,
     a: aConfig,
     B: BCapConfig,
@@ -897,13 +897,6 @@ export default function Editor() {
                                             setTypeVisualizerViewZoom={setWorkspaceViewZoom}
                                             onResetGuidelines={() =>
                                                 setGuideLines(DEFAULT_GUIDELINES)
-                                            }
-                                            onExport={() =>
-                                                exportGlyphBasePaths(
-                                                    glyphData,
-                                                    Object.keys(initialConfigs),
-                                                    guideLines,
-                                                )
                                             }
                                         />
                                     )}

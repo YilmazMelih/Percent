@@ -63,13 +63,17 @@ const PreviewToolbar = ({ mode, setMode, fontSize, setFontSize, text, setText })
       <div className="font-size-control">
         <label>Size</label>
         <input
-            type="range"
-            min="12"
-            max="120"
-            value={fontSize}
-            onChange={(e) => setFontSize(Number(e.target.value))}
-            disabled={mode === 'waterfall'}
-          />
+          type="range"
+          min="12"
+          max="120"
+          value={fontSize}
+          onChange={(e) => setFontSize(Number(e.target.value))}
+          disabled={mode === 'waterfall'}
+          className="export-size-slider"
+          style={{
+            "--slider-progress": `${((fontSize - 12) / (120 - 12)) * 100}%`,
+          }}
+        />
         <span>{fontSize}px</span>
       </div>
       <div className="mode-switcher">

@@ -87,7 +87,93 @@
   gap: 0.5rem;
 }
 
-.font-size-control input[type="range"]:disabled {
+.export-size-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  min-width: 9rem;
+  height: 16px;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      to right,
+      #7020bf 0%,
+      #7020bf var(--slider-progress, 50%),
+      transparent var(--slider-progress, 50%),
+      transparent 100%
+    )
+    center / 100% 6px no-repeat,
+    linear-gradient(
+      to right,
+      rgba(112, 32, 191, 0.2) 0%,
+      rgba(112, 32, 191, 0.2) 100%
+    )
+    center / 100% 2px no-repeat;
+  outline: none;
+}
+
+.export-size-slider::-webkit-slider-runnable-track {
+  height: 16px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.export-size-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: none;
+  background: #7020bf;
+  margin-top: -6px;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  box-shadow: 0 0 0 0 rgba(112, 32, 191, 0.45);
+}
+
+.export-size-slider:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+  box-shadow: 0 0 0 5px rgba(112, 32, 191, 0.35);
+}
+
+.export-size-slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(112, 32, 191, 0.3);
+}
+
+.export-size-slider::-moz-range-track {
+  height: 16px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.export-size-slider::-moz-range-progress {
+  height: 6px;
+  border: none;
+  border-radius: 999px;
+  background: #7020bf;
+}
+
+.export-size-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: none;
+  background: #7020bf;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  box-shadow: 0 0 0 0 rgba(112, 32, 191, 0.45);
+}
+
+.export-size-slider:active::-moz-range-thumb {
+  transform: scale(1.12);
+  box-shadow: 0 0 0 5px rgba(112, 32, 191, 0.35);
+}
+
+.export-size-slider:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 4px rgba(112, 32, 191, 0.3);
+}
+
+.export-size-slider:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

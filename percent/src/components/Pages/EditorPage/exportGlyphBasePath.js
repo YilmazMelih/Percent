@@ -1,7 +1,7 @@
 import { computeGlyphPoints } from "../../../engine/project";
 import opentype from "opentype.js";
 
-export function exportGlyphBasePaths(glyphData, glyphKeys, guideLines) {
+export function buildOpenTypeFont(glyphData, glyphKeys, guideLines, familyName = "Test Font") {
     const notdefGlyph = new opentype.Glyph({
         name: ".notdef",
         advanceWidth: 200, //to change?
@@ -66,24 +66,35 @@ export function exportGlyphBasePaths(glyphData, glyphKeys, guideLines) {
         });
         return GL;
     });
-    console.log(guideLines);
-    const font = new opentype.Font({
-        familyName: "Test Font",
+    return new opentype.Font({
+        familyName,
         styleName: "Regular",
         unitsPerEm: 250, //TBD
         ascender: guideLines.baseline - guideLines.ascender, //TBD
         descender: guideLines.baseline - guideLines.descender, //TBD
         glyphs: [notdefGlyph, ...openTypeGlyphs],
     });
+}
 
+export function buildFontArrayBuffer(glyphData, glyphKeys, guideLines, familyName = "Test Font") {
+    const font = buildOpenTypeFont(glyphData, glyphKeys, guideLines, familyName);
+    return font.toArrayBuffer();
+}
+
+export function exportGlyphBasePaths(glyphData, glyphKeys, guideLines, filename, format) {
+    const safeFilename = (filename || "out").trim() || "out";
+    const font = buildOpenTypeFont(glyphData, glyphKeys, guideLines, safeFilename);
     const buffer = font.toArrayBuffer();
 
-    const blob = new Blob([buffer], { type: "font/opentype" });
+    const normalizedFormat = (format || "otf").toLowerCase();
+    const extension = normalizedFormat === "ttf" ? "ttf" : "otf";
+    const mimeType = extension === "ttf" ? "font/ttf" : "font/opentype";
+    const blob = new Blob([buffer], { type: mimeType });
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = "out.otf";
+    a.download = `${safeFilename}.${extension}`;
     document.body.appendChild(a);
     a.click();
 
