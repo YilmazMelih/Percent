@@ -74,7 +74,7 @@ function Header() {
     };
 
     return (
-        <header className="header">
+        <header className={`header${isExportPanelOpen ? " export-overlay-active" : ""}`}>
             <div className="header-brand">
                 <Link
                      to="/"
