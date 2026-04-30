@@ -432,7 +432,7 @@ export const dConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             dConfig.points.point6,
-                            { ...dConfig.points.point6, x: 49.42, y: 267.67 },
+                            { ...dConfig.points.point6, x: 49.42 },
                             0,
                         )(base, val);
                     },
@@ -442,7 +442,7 @@ export const dConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             dConfig.points.point5,
-                            { ...dConfig.points.point5, x: 49.42, y: 79.08 },
+                            { ...dConfig.points.point5, x: 49.42 },
                             0,
                         )(base, val);
                     },

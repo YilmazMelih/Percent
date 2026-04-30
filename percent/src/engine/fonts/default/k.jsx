@@ -169,7 +169,7 @@ export const kConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             kConfig.points.point6,
-                            { ...kConfig.points.point6, x: -35.37, y: 79.41 },
+                            { ...kConfig.points.point6, x: -35.37 },
                             0,
                         )(base, val);
                     },
@@ -179,7 +179,7 @@ export const kConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             kConfig.points.point5,
-                            { ...kConfig.points.point5, x: -59.76, y: 79.68 },
+                            { ...kConfig.points.point5, x: -59.76 },
                             0,
                         )(base, val);
                     },

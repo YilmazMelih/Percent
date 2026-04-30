@@ -848,6 +848,7 @@ export default function Editor() {
                 >
                     <div
                         data-tutorial-id="editor-glyphs-panel"
+                        data-side-panel-keep-open="true"
                         style={{ width: "100%", height: "100%" }}
                     >
                         <AllGlyphs

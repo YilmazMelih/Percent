@@ -220,7 +220,7 @@ export const bConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             bConfig.points.point8,
-                            { ...bConfig.points.point8, x: -49.41, y: 267.73 },
+                            { ...bConfig.points.point8, x: -49.41 },
                             0,
                         )(base, val);
                     },
@@ -230,7 +230,7 @@ export const bConfig = {
                     formula: (base, val) => {
                         return makeCopyDeltaFromInterpolation(
                             bConfig.points.point9,
-                            { ...bConfig.points.point9, x: -49.41, y: 79.12 },
+                            { ...bConfig.points.point9, x: -49.41 },
                             0,
                         )(base, val);
                     },

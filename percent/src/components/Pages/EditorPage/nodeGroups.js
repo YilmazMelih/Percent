@@ -201,6 +201,44 @@ export const NODE_SIZE_GROUPS = [
             { glyph: "O", nodeName: "left" },
         ],
     },
+    {
+        id: "pqdb",
+        no: 0,
+        members: [
+            { glyph: "p", nodeName: "bowl" },
+            { glyph: "q", nodeName: "bowl" },
+            { glyph: "d", nodeName: "left" },
+            { glyph: "b", nodeName: "right" },
+        ],
+    },
+    {
+        id: "pqdb",
+        no: 1,
+        members: [
+            { glyph: "p", nodeName: "stem" },
+            { glyph: "q", nodeName: "stem" },
+            { glyph: "d", nodeName: "right" },
+            { glyph: "b", nodeName: "left" },
+        ],
+    },
+    {
+        id: "unh",
+        no: 0,
+        members: [
+            { glyph: "u", nodeName: "left" },
+            { glyph: "n", nodeName: "right" },
+            { glyph: "h", nodeName: "right" },
+        ],
+    },
+    {
+        id: "unh",
+        no: 1,
+        members: [
+            { glyph: "u", nodeName: "right" },
+            { glyph: "n", nodeName: "left" },
+            { glyph: "h", nodeName: "left" },
+        ],
+    },
 ];
 
 export function nodeGroupMemberKey(glyph, nodeName) {
