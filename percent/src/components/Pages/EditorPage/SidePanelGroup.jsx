@@ -21,6 +21,7 @@ export default function SidePanelGroup({
      * own click semantics without re-opening the panel on the next click.
      */
     closeOnOutsideClick = false,
+    panelDataAttrs,
 }) {
     const [internalPanelWidth, setInternalPanelWidth] = useState(PANEL_WIDTH_PX);
     const isRight = side === "right";
@@ -39,6 +40,10 @@ export default function SidePanelGroup({
         const handlePointerDown = (event) => {
             const target = event.target;
             if (!(target instanceof Node)) return;
+            // While a Joyride tour is running, the overlay covers the screen
+            // and any outside click would otherwise close the panel that the
+            // current step is highlighting.
+            if (document.body?.dataset?.tutorialActive === "true") return;
             // Click inside the panel itself: ignore.
             if (containerRef.current && containerRef.current.contains(target)) return;
             // Whitelisted elements (toggle button, popovers): ignore so their own
@@ -97,6 +102,7 @@ export default function SidePanelGroup({
                     border: "none",
                     backgroundColor: "#7020BF",
                 }}
+                {...(panelDataAttrs || {})}
             >
                 {panelOpen && (
                     <div className="px-6 pt-6 pb-6 overflow-auto h-full" style={{ width: "100%" }}>

@@ -55,7 +55,7 @@ export default function SystemDesign() {
             },
             {
                 target: '[data-tutorial-id="system-variant-picker"]',
-                placement: "top",
+                placement: "left",
                 title: "Linked Circles",
                 content:
                     "Groups can have multiple linked circles. Adjust each circle to see how the system responds!",

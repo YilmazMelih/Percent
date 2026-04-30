@@ -61,6 +61,25 @@ function Header() {
         exportOpenedAtRef.current = 0;
     };
 
+    // Allow other parts of the app (e.g. the editor tutorial) to imperatively
+    // open or close the export dropdown via a custom event so we don't have to
+    // lift the export state into a context.
+    useEffect(() => {
+        const handler = (event) => {
+            const open = event?.detail?.open === true;
+            if (open) {
+                exportOpenedAtRef.current = Date.now();
+                setExportPanelVisible(true);
+                setExportPanelOpen(true);
+            } else {
+                setExportPanelOpen(false);
+                exportOpenedAtRef.current = 0;
+            }
+        };
+        window.addEventListener("tutorial:set-export-open", handler);
+        return () => window.removeEventListener("tutorial:set-export-open", handler);
+    }, []);
+
     const handleExportButtonClick = () => {
         if (isExportPanelOpen) {
             // Prevent accidental "click-through" export when opening the panel.
@@ -108,6 +127,7 @@ function Header() {
                         )}
                         <div
                             ref={navContainerRef}
+                            data-tutorial-id="editor-export-panel"
                             className={`classroom-nav-container ${isBarLoaded ? "loaded" : ""} ${isExportPanelOpen ? "expanded" : ""}`}
                             onTransitionEnd={(event) => {
                                 if (

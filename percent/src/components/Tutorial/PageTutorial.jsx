@@ -35,6 +35,21 @@ const PageTutorial = forwardRef(function PageTutorial({ storageKey, steps }, ref
         return () => window.clearTimeout(timer);
     }, [storageKey]);
 
+    // Mark the body while a tour is active so other components (e.g. the
+    // settings panel's outside-click handler) can opt out of behavior that
+    // would interfere with Joyride.
+    useEffect(() => {
+        if (typeof document === "undefined") return undefined;
+        if (run) {
+            document.body.dataset.tutorialActive = "true";
+        } else {
+            delete document.body.dataset.tutorialActive;
+        }
+        return () => {
+            delete document.body.dataset.tutorialActive;
+        };
+    }, [run]);
+
     useImperativeHandle(
         ref,
         () => ({

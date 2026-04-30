@@ -288,25 +288,6 @@ export default function Editor() {
     const GLYPH_PANE_MIN_SIZE = 100;
     const GLYPH_PANE_MAX_SIZE = 350;
     const tutorialRef = useRef(null);
-    const editorTutorialSteps = useMemo(
-        () => [
-            {
-                target: "body",
-                placement: "center",
-                title: "Welcome to the Editor",
-                content: "This is a placeholder step for the editor tutorial.",
-            },
-            {
-                target: "body",
-                placement: "center",
-                title: "Resize a circle",
-                content:
-                    "Drag the ring around any node to grow or shrink that part of the glyph.",
-                video: "/tutorialVideos/Resizing Circles.mp4",
-            },
-        ],
-        [],
-    );
     const [glyphData, setGlyphData] = useState(() => hydrateGlyphData(initialConfigs));
     const [selectedGlyphRaw, setSelectedGlyphRaw] = useLocalStorageString(
         SELECTED_GLYPH_STORAGE_KEY,
@@ -725,6 +706,104 @@ export default function Editor() {
         closeGlyphPanel();
     }, [typingMode, setIsGlyphPanelOpen]);
 
+    const editorTutorialSteps = useMemo(() => {
+        // Helpers used by per-step `before` hooks. `setExportOpen` dispatches a
+        // window event consumed by `Header.jsx` because the export-panel state
+        // lives there; `setSettingsOpen` controls the right-side settings panel
+        // which is owned by this component.
+        const sleep = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
+        const setExportOpen = (open) => {
+            window.dispatchEvent(new CustomEvent("tutorial:set-export-open", { detail: { open } }));
+        };
+        const setSettingsOpen = (open) => {
+            setIsSettingsPanelOpen(open);
+        };
+        // Steps 2-5 just want both panels closed so the spotlit area looks
+        // clean. Closing is fire-and-forget because the targets (glyphs panel,
+        // workspace) are independent of the panels' open/close state.
+        // NOTE: Joyride v3 always `.then()`s the result of `step.before`, so
+        // every hook must return a thenable; declaring `async` is sufficient.
+        const closeBothPanels = async () => {
+            setSettingsOpen(false);
+            setExportOpen(false);
+        };
+
+        return [
+            {
+                target: "body",
+                placement: "center",
+                title: "Editor",
+                content: "This is the editor workplace! Select a letter to edit and fine-tune it!",
+                // No before hook on step 1: preserve whatever the user had open
+                // when the tour started.
+            },
+            {
+                target: '[data-tutorial-id="editor-glyphs-panel"]',
+                placement: "right",
+                spotlightPadding: 0,
+                title: "Glyphs Panel",
+                content: "Here you can select the individual glyph you want to edit.",
+                before: closeBothPanels,
+            },
+            {
+                target: '[data-tutorial-id="editor-workspace"]',
+                placement: "left",
+                spotlightPadding: 0,
+                title: "Guidelines",
+                content: "Drag the guides to scale letter structures across the whole font.",
+                video: "/tutorialVideos/Guidelines.mp4",
+                before: closeBothPanels,
+            },
+            {
+                target: '[data-tutorial-id="editor-workspace"]',
+                placement: "left",
+                spotlightPadding: 0,
+                title: "Move Circles",
+                content: "Double click and drag a circle to warp and further modify the glyph.",
+                video: "/tutorialVideos/Move Circles.mp4",
+                before: closeBothPanels,
+            },
+            {
+                target: '[data-tutorial-id="editor-workspace"]',
+                placement: "left",
+                spotlightPadding: 0,
+                title: "Type Words",
+                content: "Start typing in your workspace to edit multiple letters simultaneously.",
+                video: "/tutorialVideos/type in workspace.mp4",
+                before: closeBothPanels,
+            },
+            {
+                target: '[data-tutorial-id="editor-settings-panel"]',
+                placement: "left",
+                spotlightPadding: 0,
+                title: "Settings",
+                content:
+                    "Use the settings panel to use advanced features to further customize your glyph, or toggle visibility to better visualize your letter system.",
+                before: async () => {
+                    setExportOpen(false);
+                    setSettingsOpen(true);
+                    // The settings panel has a 200ms width transition; wait
+                    // for it so Joyride measures the panel at full width.
+                    await sleep(260);
+                },
+            },
+            {
+                target: '[data-tutorial-id="editor-export-panel"]',
+                placement: "left",
+                spotlightPadding: 0,
+                title: "Export",
+                content:
+                    "Preview and export your font. Adjust the settings, download, and use your font anywhere you want!",
+                before: async () => {
+                    setSettingsOpen(false);
+                    setExportOpen(true);
+                    // The export dropdown's max-height transition is ~700ms.
+                    await sleep(750);
+                },
+            },
+        ];
+    }, [setIsSettingsPanelOpen]);
+
     return (
         <div className="editor-container bg-gray-100">
             <button
@@ -764,20 +843,25 @@ export default function Editor() {
                     minSize={GLYPH_PANE_MIN_SIZE}
                     maxSize={GLYPH_PANE_MAX_SIZE}
                 >
-                    <AllGlyphs
-                        guideLines={guideLines}
-                        glyphData={glyphData}
-                        selectedGlyph={typingMode ? "" : selectedGlyph}
-                        onGlyphSelect={(next) => {
-                            setSelectedGlyph(next);
-                            setTypingMode(false);
-                            setPreTypingCaret(false);
-                            setLine([]);
-                            setCaretIndex(0);
-                            setCaretFollowNonce((n) => n + 1);
-                        }}
-                        availableGlyphs={Object.keys(initialConfigs)}
-                    />
+                    <div
+                        data-tutorial-id="editor-glyphs-panel"
+                        style={{ width: "100%", height: "100%" }}
+                    >
+                        <AllGlyphs
+                            guideLines={guideLines}
+                            glyphData={glyphData}
+                            selectedGlyph={typingMode ? "" : selectedGlyph}
+                            onGlyphSelect={(next) => {
+                                setSelectedGlyph(next);
+                                setTypingMode(false);
+                                setPreTypingCaret(false);
+                                setLine([]);
+                                setCaretIndex(0);
+                                setCaretFollowNonce((n) => n + 1);
+                            }}
+                            availableGlyphs={Object.keys(initialConfigs)}
+                        />
+                    </div>
                 </Allotment.Pane>
                 <Allotment.Pane>
                     <Allotment vertical={true}>
@@ -943,6 +1027,24 @@ export default function Editor() {
                                         guidelineLineOverhang={typingMode ? 800 : 0}
                                     />
                                 </div>
+                                {/* Invisible tutorial spotlight target. Sized
+                                    to roughly match the visible SVG so the
+                                    "Guidelines / Move Circles / Type Words"
+                                    steps don't dim-frame the entire pane and
+                                    push the tooltip card off-screen. */}
+                                <div
+                                    data-tutorial-id="editor-workspace"
+                                    aria-hidden="true"
+                                    style={{
+                                        position: "absolute",
+                                        top: "50%",
+                                        left: "50%",
+                                        transform: "translate(-50%, -50%)",
+                                        width: "min(78%, 960px)",
+                                        height: "min(85%, 460px)",
+                                        pointerEvents: "none",
+                                    }}
+                                />
                                 <SidePanelGroup
                                     side="right"
                                     activeIndex={isSettingsPanelOpen ? 0 : null}
@@ -950,6 +1052,9 @@ export default function Editor() {
                                         setIsSettingsPanelOpen(index !== null)
                                     }
                                     closeOnOutsideClick
+                                    panelDataAttrs={{
+                                        "data-tutorial-id": "editor-settings-panel",
+                                    }}
                                 >
                                     {glyphPanels.length > 0 && (
                                         <SettingsPanel
@@ -974,7 +1079,10 @@ export default function Editor() {
                                         />
                                     )}
                                 </SidePanelGroup>
-                                <div className="editor-aux-actions" aria-label="Editor quick actions">
+                                <div
+                                    className="editor-aux-actions"
+                                    aria-label="Editor quick actions"
+                                >
                                     <button
                                         type="button"
                                         className="editor-aux-action-button"
