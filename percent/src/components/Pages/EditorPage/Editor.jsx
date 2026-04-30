@@ -10,6 +10,7 @@ import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import slidersIcon from "../../../assets/images/sliders-icon.svg";
 import lightbulbIcon from "../../../assets/images/Lightbulb.svg";
 import bookIcon from "../../../assets/images/Book.svg";
+import PageTutorial from "../../Tutorial/PageTutorial";
 import { ACapConfig } from "../../../engine/fonts/default/A_cap";
 import { aConfig } from "../../../engine/fonts/default/a";
 import { BCapConfig } from "../../../engine/fonts/default/B_cap";
@@ -286,6 +287,26 @@ const hydrateGlyphData = (configs) => {
 export default function Editor() {
     const GLYPH_PANE_MIN_SIZE = 100;
     const GLYPH_PANE_MAX_SIZE = 350;
+    const tutorialRef = useRef(null);
+    const editorTutorialSteps = useMemo(
+        () => [
+            {
+                target: "body",
+                placement: "center",
+                title: "Welcome to the Editor",
+                content: "This is a placeholder step for the editor tutorial.",
+            },
+            {
+                target: "body",
+                placement: "center",
+                title: "Resize a circle",
+                content:
+                    "Drag the ring around any node to grow or shrink that part of the glyph.",
+                video: "/tutorialVideos/Resizing Circles.mp4",
+            },
+        ],
+        [],
+    );
     const [glyphData, setGlyphData] = useState(() => hydrateGlyphData(initialConfigs));
     const [selectedGlyphRaw, setSelectedGlyphRaw] = useLocalStorageString(
         SELECTED_GLYPH_STORAGE_KEY,
@@ -954,7 +975,12 @@ export default function Editor() {
                                     )}
                                 </SidePanelGroup>
                                 <div className="editor-aux-actions" aria-label="Editor quick actions">
-                                    <button type="button" className="editor-aux-action-button">
+                                    <button
+                                        type="button"
+                                        className="editor-aux-action-button"
+                                        onClick={() => tutorialRef.current?.restart()}
+                                        aria-label="Replay editor tutorial"
+                                    >
                                         <img src={lightbulbIcon} alt="Lightbulb" />
                                     </button>
                                     <button type="button" className="editor-aux-action-button">
@@ -973,6 +999,11 @@ export default function Editor() {
                     </Allotment>
                 </Allotment.Pane>
             </Allotment>
+            <PageTutorial
+                ref={tutorialRef}
+                storageKey="tutorial:editor:seen:v1"
+                steps={editorTutorialSteps}
+            />
         </div>
     );
 }
