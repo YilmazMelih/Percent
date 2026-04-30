@@ -6,6 +6,7 @@ import SystemWorkspace from "./SystemWorkspace";
 import lightbulbIcon from "../../../assets/images/Lightbulb.svg";
 import bookIcon from "../../../assets/images/Book.svg";
 import PageTutorial from "../../Tutorial/PageTutorial";
+import TypefaceAnatomyOverlay from "../../TypefaceAnatomyOverlay";
 
 export default function SystemDesign() {
     const modeIds = useMemo(() => {
@@ -22,6 +23,8 @@ export default function SystemDesign() {
     const [activeMode, setActiveMode] = useState(modeIds[0] ?? "");
     const [selectedVariant, setSelectedVariant] = useState(0);
     const tutorialRef = useRef(null);
+    const bookButtonRef = useRef(null);
+    const [isAnatomyOverlayOpen, setIsAnatomyOverlayOpen] = useState(false);
 
     // Reset variant selection whenever the active mode changes
     useEffect(() => {
@@ -92,7 +95,13 @@ export default function SystemDesign() {
                 >
                     <img src={lightbulbIcon} alt="Lightbulb" />
                 </button>
-                <button type="button" className="system-aux-action-button">
+                <button
+                    type="button"
+                    className="system-aux-action-button"
+                    ref={bookButtonRef}
+                    onClick={() => setIsAnatomyOverlayOpen(true)}
+                    aria-label="Open typeface anatomy reference"
+                >
                     <img src={bookIcon} alt="Book" />
                 </button>
             </div>
@@ -107,6 +116,11 @@ export default function SystemDesign() {
                 ref={tutorialRef}
                 storageKey="tutorial:system:seen:v1"
                 steps={tutorialSteps}
+            />
+            <TypefaceAnatomyOverlay
+                open={isAnatomyOverlayOpen}
+                anchorRef={bookButtonRef}
+                onClose={() => setIsAnatomyOverlayOpen(false)}
             />
         </div>
     );

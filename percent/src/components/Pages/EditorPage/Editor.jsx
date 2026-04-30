@@ -11,6 +11,7 @@ import slidersIcon from "../../../assets/images/sliders-icon.svg";
 import lightbulbIcon from "../../../assets/images/Lightbulb.svg";
 import bookIcon from "../../../assets/images/Book.svg";
 import PageTutorial from "../../Tutorial/PageTutorial";
+import TypefaceAnatomyOverlay from "../../TypefaceAnatomyOverlay";
 import { ACapConfig } from "../../../engine/fonts/default/A_cap";
 import { aConfig } from "../../../engine/fonts/default/a";
 import { BCapConfig } from "../../../engine/fonts/default/B_cap";
@@ -288,6 +289,8 @@ export default function Editor() {
     const GLYPH_PANE_MIN_SIZE = 100;
     const GLYPH_PANE_MAX_SIZE = 350;
     const tutorialRef = useRef(null);
+    const bookButtonRef = useRef(null);
+    const [isAnatomyOverlayOpen, setIsAnatomyOverlayOpen] = useState(false);
     const [glyphData, setGlyphData] = useState(() => hydrateGlyphData(initialConfigs));
     const [selectedGlyphRaw, setSelectedGlyphRaw] = useLocalStorageString(
         SELECTED_GLYPH_STORAGE_KEY,
@@ -1091,7 +1094,13 @@ export default function Editor() {
                                     >
                                         <img src={lightbulbIcon} alt="Lightbulb" />
                                     </button>
-                                    <button type="button" className="editor-aux-action-button">
+                                    <button
+                                        type="button"
+                                        className="editor-aux-action-button"
+                                        ref={bookButtonRef}
+                                        onClick={() => setIsAnatomyOverlayOpen(true)}
+                                        aria-label="Open typeface anatomy reference"
+                                    >
                                         <img src={bookIcon} alt="Book" />
                                     </button>
                                 </div>
@@ -1111,6 +1120,11 @@ export default function Editor() {
                 ref={tutorialRef}
                 storageKey="tutorial:editor:seen:v1"
                 steps={editorTutorialSteps}
+            />
+            <TypefaceAnatomyOverlay
+                open={isAnatomyOverlayOpen}
+                anchorRef={bookButtonRef}
+                onClose={() => setIsAnatomyOverlayOpen(false)}
             />
         </div>
     );
