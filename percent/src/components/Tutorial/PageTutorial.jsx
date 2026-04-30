@@ -86,6 +86,11 @@ const PageTutorial = forwardRef(function PageTutorial({ storageKey, steps }, ref
                 dismissKeyAction: false,
                 overlayClickAction: false,
                 skipScroll: true,
+                // Stack Joyride's overlay + tooltip above every UI layer in the
+                // app (header, bottom bar, side panels, export panel, etc.) so
+                // the dim actually blocks pointer events on darkened content
+                // and the card renders on top of everything.
+                zIndex: 5000,
             }}
         />
     );

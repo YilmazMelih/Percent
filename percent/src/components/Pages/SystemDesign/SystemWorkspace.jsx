@@ -465,6 +465,60 @@ export default function SystemWorkspace({ activeMode, selectedVariant = 0, initi
                         setGlobalIsDragging={setGlobalIsDragging}
                     />
                 ))}
+
+                {/*
+                 * Invisible anchor around the leftmost visible node, used as a
+                 * stable target for the system tutorial. Spotlight padding on
+                 * the step gives extra margin around the highlighted area.
+                 */}
+                {(() => {
+                    const left = glyphLayout[0];
+                    if (!left) return null;
+                    const visibleName = visibleNodeNames.get(left.key) ?? null;
+                    const candidateNodes = visibleName
+                        ? left.config.nodes.filter((n) => n.name === visibleName)
+                        : left.config.nodes;
+                    if (!candidateNodes?.length) return null;
+                    const leftmost = candidateNodes.reduce(
+                        (min, n) => (n.pos.x < min.pos.x ? n : min),
+                        candidateNodes[0],
+                    );
+                    const tx = left.nodeX?.[leftmost.id] ?? 0;
+                    const ty = left.nodeY?.[leftmost.id] ?? 0;
+                    const baseGuides = {
+                        ascender: 55.5,
+                        cap_height: 80.5,
+                        x_height: 131.38,
+                        baseline: 267.76,
+                        descender: 332.24,
+                    };
+                    let cy = leftmost.pos.y + ty;
+                    if (leftmost.pos.attach) {
+                        const ratio = leftmost.pos.ratio ?? 1;
+                        const map = {
+                            asc: "ascender",
+                            cap: "cap_height",
+                            xh: "x_height",
+                            base: "baseline",
+                            desc: "descender",
+                        };
+                        const key = map[leftmost.pos.attach];
+                        if (key) cy += (guideLines[key] - baseGuides[key]) * ratio;
+                    }
+                    const cx = leftmost.pos.x + tx + left.xAdjust;
+                    const r = (leftmost.r ?? 30) + 8;
+                    return (
+                        <rect
+                            data-tutorial-id="system-leftmost-node"
+                            x={cx - r}
+                            y={cy - r}
+                            width={r * 2}
+                            height={r * 2}
+                            fill="transparent"
+                            pointerEvents="none"
+                        />
+                    );
+                })()}
             </svg>
         </div>
     );

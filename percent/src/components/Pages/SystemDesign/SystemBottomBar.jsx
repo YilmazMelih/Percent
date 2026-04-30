@@ -17,7 +17,11 @@ function GroupVariantPicker({ activeMode, selectedVariant, onVariantChange }) {
     if (variants.length <= 1) return null;
 
     return (
-        <div className="group-variant-picker" aria-label="Variant selector">
+        <div
+            className="group-variant-picker"
+            data-tutorial-id="system-variant-picker"
+            aria-label="Variant selector"
+        >
             {variants.map((v) => {
                 const no = v.no ?? 0;
                 const isSelected = no === selectedVariant;
@@ -61,7 +65,7 @@ export default function SystemBottomBar({
                 onVariantChange={onVariantChange}
             />
             <nav className="system-bottom-bar-nav">
-                <div className="system-bottom-bar-links">
+                <div className="system-bottom-bar-links" data-tutorial-id="system-mode-links">
                     {groupIds.map((id) => (
                         <button
                             key={id}
