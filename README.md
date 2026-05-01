@@ -7,6 +7,25 @@ A web-app aimed to make designing typefaces more approachable and streamlined wh
 
 ---
 
+## ✨ Features
+
+- **Node-based glyph editing** with live control over circle size and position
+- **System Design mode** for editing linked letter groups together
+- **Editor mode** for single-glyph refinement and direct typing previews
+- **Built-in tutorials** (page-specific, replayable) to guide first-time users
+- **Font export pipeline** with preview tools and downloadable outputs
+- **Persistent workspace state** via LocalStorage so progress is retained
+
+---
+
+## ⚙️ How It Works
+
+Percent represents each glyph as a configurable base path plus adjustable control nodes.
+As nodes are resized or moved, the app recomputes glyph geometry in real time and renders updated outlines immediately in the workspace.
+In System mode, linked nodes across grouped glyphs update together for consistent type systems; in Editor mode, you can focus on precise single-letter edits and test results by typing directly in the canvas.
+
+---
+
 ## 🚀 Tech Stack
 
 - **Framework**: React
