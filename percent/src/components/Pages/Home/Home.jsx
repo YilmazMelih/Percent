@@ -9,12 +9,29 @@ import imgGroup55 from "../../../assets/images/Group 55.png";
 import UserGlyphWord from "./UserGlyphWord";
 
 const HEADER_HOME_TO_APP_ANIM_FLAG = "percent:playHeaderHomeTransition";
+const isSafariBrowser = () => {
+    if (typeof window === "undefined") return false;
+    const ua = window.navigator.userAgent;
+    const isSafari = /Safari/i.test(ua);
+    const isOtherWebkitBrowser = /Chrome|CriOS|Chromium|Edg|OPR|FxiOS|Firefox|Android/i.test(ua);
+    return isSafari && !isOtherWebkitBrowser;
+};
+const isMobileDevice = () => {
+    if (typeof window === "undefined") return false;
+    const ua = window.navigator.userAgent;
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+};
 
 const Home = () => {
     const [heroRect, setHeroRect] = useState(null);
     const [showScrollButton, setShowScrollButton] = useState(false);
+    const [shouldShowInteractiveBackground, setShouldShowInteractiveBackground] = useState(true);
     const navigate = useNavigate();
     const letsGoButtonRef = useRef(null);
+
+    useEffect(() => {
+        setShouldShowInteractiveBackground(!isSafariBrowser() && !isMobileDevice());
+    }, []);
 
     useEffect(() => {
         const heroElement = document.getElementById("hero-title");
@@ -82,7 +99,7 @@ const Home = () => {
 
     return (
         <div className="home-container">
-            <InteractiveBackground heroRect={heroRect} />
+            {shouldShowInteractiveBackground && <InteractiveBackground heroRect={heroRect} />}
 
             {/* Hero Section */}
             <section className="hero-section">
